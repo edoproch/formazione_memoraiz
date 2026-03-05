@@ -119,6 +119,6 @@ In pratica:
 <p align="center">
   <img src="images/stars/lampadina.png" width="64" alt="Stellina lampadina">
   <br><br>
-  <strong>Fatto con cura da <a href="https://www.linkedin.com/in/edoardo-procino-b7a236261/">Edoardo Procino</a></strong><br>
+  <strong>Realizzato da <a href="https://www.linkedin.com/in/edoardo-procino-b7a236261/">Edoardo Procino</a></strong><br>
   <em>Perche' capire l'AI non dovrebbe richiedere una laurea in informatica.</em>
 </p>
