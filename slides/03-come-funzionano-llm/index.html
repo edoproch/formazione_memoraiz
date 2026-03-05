@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 3 — Come funzionano gli LLM | Formazione AI MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+            --slide-bg-mint: linear-gradient(160deg, #d0ece4 0%, #e2f2ec 40%, #eae8f2 100%);
+            --slide-bg-lavender: linear-gradient(160deg, #dcd8ec 0%, #e8e5f2 40%, #eae8f2 100%);
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding: var(--slide-padding);
+        }
+        .slide-content {
+            max-width: 1200px; width: 90%;
+            display: flex; flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .slide-content.centered { margin: 0 auto; text-align: center; align-items: center; }
+
+        /* Logo, mascot, labels, numbers, bullets, highlight, footnote — shared */
+        .logo { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); height: clamp(24px, 3vw, 40px); z-index: 10; opacity: 0.85; }
+        .mascot { position: absolute; z-index: 5; pointer-events: none; }
+        .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
+        .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .section-header { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem); margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem); }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
+        .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
+        .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
+        .bullet-list li strong { font-weight: 700; }
+        .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
+        .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
+
+        /* Sub-heading */
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
+        .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+        .nav-dot:hover { border-color: var(--accent-gold); }
+        .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
+
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+
+        /* Step reveal */
+        .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .step.visible { opacity: 1; transform: translateY(0); }
+
+        .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
+        .mascot-inline { height: clamp(45px, 7vw, 70px); opacity: 0.75; align-self: flex-end; margin-top: auto; }
+
+        /* ===========================================
+           TOKENIZATION ANIMATION (Slide 3.1)
+           =========================================== */
+        .token-sentence { font-family: var(--font-body); font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 600; color: var(--text-primary); padding: clamp(0.5rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; text-align: center; transition: all 0.5s var(--ease-out-expo); }
+
+        .token-pieces { display: flex; flex-wrap: wrap; gap: clamp(3px, 0.4vw, 6px); justify-content: center; padding: clamp(0.4rem, 0.8vw, 0.6rem); }
+        .tok { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: clamp(3px, 0.5vw, 6px) clamp(6px, 0.8vw, 12px); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.2rem); font-weight: 700; color: var(--text-primary); transition: all 0.4s var(--ease-out-expo); transform: scale(0.8); opacity: 0; }
+        .tok.show { transform: scale(1); opacity: 1; }
+        .tok .tok-id { font-size: clamp(0.5rem, 0.7vw, 0.65rem); font-weight: 500; color: var(--text-secondary); opacity: 0; transition: opacity 0.3s; }
+        .tok .tok-id.show { opacity: 0.7; }
+
+        /* Token colors from MemorAIz palette */
+        .tok-0 { background: rgba(245, 166, 35, 0.2); }
+        .tok-1 { background: rgba(26, 26, 78, 0.1); }
+        .tok-2 { background: rgba(208, 236, 228, 0.6); }
+        .tok-3 { background: rgba(220, 216, 236, 0.6); }
+        .tok-4 { background: rgba(240, 221, 208, 0.5); }
+        .tok-5 { background: rgba(245, 166, 35, 0.15); }
+        .tok-6 { background: rgba(26, 26, 78, 0.08); }
+
+        /* Data boxes for tokenization */
+        .data-row { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.8vw, 0.6rem); }
+        .data-chip { flex: 1; min-width: min(200px, 100%); background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; text-align: center; }
+
+        /* Strawberry box */
+        .curiosity-box { background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.65rem, 1vw, 0.85rem); font-weight: 500; line-height: 1.4; }
+
+        /* ===========================================
+           NEXT-TOKEN PREDICTION (Slide 3.2)
+           =========================================== */
+        .ntp-container { display: flex; flex-direction: column; gap: clamp(0.6rem, 1.2vw, 1rem); }
+        .ntp-sentence { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px; font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 600; padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; min-height: 2.5em; }
+        .ntp-word { transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo); }
+        .ntp-word.pending { opacity: 0; transform: translateX(-8px); }
+        .ntp-word.revealed { opacity: 1; transform: translateX(0); }
+        .ntp-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--accent-gold); margin-left: 2px; vertical-align: text-bottom; animation: blink-cursor 0.8s steps(2) infinite; }
+        @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .ntp-distribution { display: flex; align-items: flex-end; justify-content: center; gap: clamp(6px, 1vw, 14px); height: clamp(80px, 14vh, 140px); padding: 0 clamp(0.5rem, 1vw, 1rem); }
+        .ntp-bar-wrapper { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; max-width: 90px; height: 100%; }
+        .ntp-bar { width: 100%; border-radius: 4px 4px 0 0; background: rgba(26, 26, 78, 0.15); transition: height 0.5s var(--ease-out-expo), background 0.5s; min-height: 4px; }
+        .ntp-bar.selected { background: var(--accent-gold); }
+        .ntp-bar-label { font-family: var(--font-body); font-size: clamp(0.55rem, 0.85vw, 0.75rem); font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
+        .ntp-bar-pct { font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.6rem); font-weight: 500; color: var(--text-secondary); }
+
+        /* ===========================================
+           TEMPERATURE / SAMPLING (Slide 3.3)
+           =========================================== */
+        .temp-container { display: flex; flex-direction: column; gap: clamp(0.5rem, 1vw, 0.8rem); align-items: center; }
+        .temp-distribution { display: flex; align-items: flex-end; justify-content: center; gap: clamp(4px, 0.7vw, 10px); height: clamp(80px, 15vh, 150px); width: 100%; max-width: 600px; }
+        .temp-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; height: 100%; }
+        .temp-bar { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.35s var(--ease-out-expo), background 0.35s; min-height: 2px; }
+        .temp-bar-name { font-family: var(--font-body); font-size: clamp(0.5rem, 0.75vw, 0.65rem); font-weight: 600; color: var(--text-primary); text-align: center; }
+        .temp-bar-pct { font-family: var(--font-body); font-size: clamp(0.45rem, 0.65vw, 0.55rem); color: var(--text-secondary); }
+
+        .temp-slider-row { display: flex; align-items: center; gap: clamp(0.4rem, 0.8vw, 0.6rem); width: 100%; max-width: 500px; }
+        .temp-slider-label { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.8rem); font-weight: 700; white-space: nowrap; }
+        .temp-slider-label.cold { color: #3b82f6; }
+        .temp-slider-label.hot { color: #f59e0b; }
+        .temp-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #f59e0b 100%); outline: none; cursor: pointer; }
+        .temp-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: white; border: 3px solid var(--text-primary); cursor: grab; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+        .temp-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: white; border: 3px solid var(--text-primary); cursor: grab; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+        .temp-slider:disabled { opacity: 0.5; cursor: not-allowed; }
+        .temp-slider:disabled::-webkit-slider-thumb { cursor: not-allowed; }
+
+        .temp-value { font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 800; color: var(--text-primary); text-align: center; }
+        .temp-description { font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 600; text-align: center; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.6rem, 1vw, 0.8rem); border-radius: 20px; transition: all 0.4s; }
+        .temp-boxes { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.6vw, 0.5rem); width: 100%; }
+        .temp-boxes .highlight-box { flex: 1; min-width: min(250px, 100%); }
+
+        /* ===========================================
+           TRAINING PHASES (Slides 3.4–3.6)
+           =========================================== */
+        .phase-layout { display: flex; align-items: center; gap: clamp(0.8rem, 2vw, 1.5rem); min-height: clamp(120px, 22vh, 200px); }
+        .phase-col { display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem); flex: 1; }
+        .phase-col.sources { max-width: 28%; }
+        .phase-col.model { max-width: 22%; display: flex; align-items: center; justify-content: center; }
+        .phase-col.output { max-width: 28%; }
+
+        .phase-icon-row { display: flex; align-items: center; gap: clamp(0.2rem, 0.4vw, 0.3rem); font-family: var(--font-body); font-size: clamp(0.65rem, 1vw, 0.85rem); font-weight: 600; color: var(--text-primary); }
+        .phase-icon-row .emoji { font-size: clamp(0.9rem, 1.5vw, 1.3rem); }
+
+        .phase-arrow { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: clamp(30px, 4vw, 50px); }
+        .phase-arrow-line { width: 100%; height: 2px; background: var(--accent-gold); position: relative; opacity: 0; transition: opacity 0.5s var(--ease-out-expo); }
+        .phase-arrow-line.visible { opacity: 1; }
+        .phase-arrow-line::after { content: ''; position: absolute; right: -2px; top: -4px; width: 0; height: 0; border-left: 8px solid var(--accent-gold); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+
+        /* Model circle */
+        .model-sphere { width: clamp(70px, 12vw, 120px); height: clamp(70px, 12vw, 120px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: clamp(1.5rem, 3vw, 2.5rem); transition: all 0.6s var(--ease-out-expo); position: relative; }
+        .model-sphere.chaotic {
+            background: conic-gradient(from 0deg, #d0ece4, #f0ddd0, #dcd8ec, #e2e0ec, #f5a623, #d0ece4);
+            opacity: 0.35; border: 2px dashed var(--text-secondary);
+        }
+        .model-sphere.chaotic.filled { opacity: 1; }
+        .model-sphere.ordered {
+            background: linear-gradient(135deg, #d0ece4 0%, #eae8f2 50%, #dcd8ec 100%);
+            border: 2px solid var(--text-primary); opacity: 1;
+        }
+        .model-sphere.refined {
+            background: linear-gradient(135deg, #e2f2ec 0%, #eae8f2 40%, #e8e5f2 100%);
+            border: 3px solid var(--accent-gold); box-shadow: 0 0 20px rgba(245, 166, 35, 0.3); opacity: 1;
+        }
+
+        .phase-output-bubble { background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem); font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.75rem); font-weight: 500; color: var(--text-secondary); line-height: 1.4; }
+        .phase-output-bubble.chaotic { font-style: italic; opacity: 0.7; }
+        .phase-output-bubble.structured { border-left: 2px solid var(--accent-gold); }
+        .phase-output-bubble.safe { border-left: 2px solid #4ade80; }
+
+        .phase-number { font-family: var(--font-body); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; color: var(--accent-gold); opacity: 0.3; line-height: 1; }
+
+        /* Schema riassuntivo (3.7) */
+        .schema-flow { display: flex; align-items: stretch; gap: 0; width: 100%; }
+        .schema-block { flex: 1; background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.4rem, 0.8vw, 0.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(0.15rem, 0.3vw, 0.25rem); }
+        .schema-block .sb-icon { font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
+        .schema-block .sb-title { font-family: var(--font-display); font-size: clamp(0.7rem, 1.2vw, 1rem); text-transform: uppercase; color: var(--text-primary); }
+        .schema-block .sb-desc { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.78rem); font-weight: 600; color: var(--text-primary); }
+        .schema-block .sb-meta { font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); font-weight: 500; }
+        .schema-arrow { display: flex; align-items: center; justify-content: center; width: clamp(24px, 3vw, 40px); flex-shrink: 0; font-size: clamp(1rem, 1.8vw, 1.4rem); color: var(--accent-gold); font-weight: 700; }
+
+        .schema-formula { display: flex; flex-wrap: wrap; gap: clamp(0.2rem, 0.5vw, 0.4rem); align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; color: var(--text-primary); }
+        .schema-formula .sf-item { padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.8vw, 0.6rem); background: var(--highlight-bg); border-radius: 6px; }
+        .schema-formula .sf-eq { color: var(--accent-gold); font-weight: 800; }
+
+        /* Two-column layout (3.7b) */
+        .two-col { display: flex; gap: clamp(0.8rem, 2vw, 1.5rem); }
+        .two-col .col { flex: 1; display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem); }
+        .col-title { font-family: var(--font-display); font-size: clamp(0.85rem, 1.4vw, 1.15rem); text-transform: uppercase; color: var(--text-primary); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem); }
+        .col-subtitle { font-family: var(--font-body); font-size: clamp(0.65rem, 0.95vw, 0.8rem); color: var(--text-secondary); font-weight: 600; font-style: italic; margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .mini-bullet { font-family: var(--font-body); font-size: clamp(0.7rem, 1.05vw, 0.9rem); font-weight: 500; color: var(--text-primary); line-height: 1.45; padding-left: 1.2em; position: relative; }
+        .mini-bullet::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.6em; top: 0.4em; }
+        .analogy-small { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.78rem); font-weight: 500; color: var(--text-secondary); font-style: italic; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.7vw, 0.5rem); background: rgba(245, 166, 35, 0.06); border-radius: 6px; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .phase-layout { flex-direction: column; min-height: auto; }
+            .phase-col.sources, .phase-col.model, .phase-col.output { max-width: 100%; }
+            .phase-arrow { transform: rotate(90deg); }
+            .schema-flow { flex-direction: column; }
+            .schema-arrow { transform: rotate(90deg); }
+            .two-col { flex-direction: column; }
+        }
+
+        /* ===========================================
+           ATTENTION MECHANISM (Slide 3.8)
+           =========================================== */
+        .attn-container { position: relative; width: 100%; }
+        .attn-sentence { font-family: var(--font-body); font-size: clamp(0.8rem, 1.4vw, 1.15rem); font-weight: 600; color: var(--text-primary); line-height: 2.2; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); background: var(--highlight-bg); border-radius: 10px; position: relative; display: flex; flex-wrap: wrap; gap: 0; }
+        .attn-word { display: inline-block; padding: 0 2px; transition: background 0.4s, color 0.4s; border-radius: 4px; position: relative; white-space: nowrap; }
+        .attn-word.highlight-strong { background: rgba(245, 166, 35, 0.25); }
+        .attn-word.highlight-medium { background: rgba(245, 166, 35, 0.15); }
+        .attn-word.highlight-weak { background: rgba(26, 26, 78, 0.06); }
+        .attn-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+        .attn-line { stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 0.6s var(--ease-out-expo); fill: none; stroke-linecap: round; }
+        .attn-line.drawn { stroke-dashoffset: 0; }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root { --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem); --title-size: clamp(1.5rem, 4.5vw, 3rem); --h2-size: clamp(1.2rem, 3vw, 2.2rem); }
+        }
+        @media (max-height: 600px) {
+            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+            .nav-dots, .keyboard-hint { display: none; }
+            .mascot { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+            .starburst, .sparkle { display: none; }
+        }
+        @media (max-width: 768px) {
+            .data-row { flex-direction: column; }
+        }
+        @media (max-width: 600px) {
+            :root { --title-size: clamp(1.5rem, 7vw, 2.5rem); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV DOTS -->
+    <nav class="nav-dots" aria-label="Navigazione slide">
+        <button class="nav-dot active" data-slide="0"></button>
+        <button class="nav-dot" data-slide="1"></button>
+        <button class="nav-dot" data-slide="2"></button>
+        <button class="nav-dot" data-slide="3"></button>
+        <button class="nav-dot" data-slide="4"></button>
+        <button class="nav-dot" data-slide="5"></button>
+        <button class="nav-dot" data-slide="6"></button>
+        <button class="nav-dot" data-slide="7"></button>
+        <button class="nav-dot" data-slide="8"></button>
+        <button class="nav-dot" data-slide="9"></button>
+        <button class="nav-dot" data-slide="10"></button>
+    </nav>
+    <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
+
+    <!-- ===========================================
+         SLIDE 3.0 — TITOLO SEZIONE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 18%; right: 10%;"></div>
+        <div class="starburst" style="bottom: 12%; left: 4%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="0" data-step="0">★ BLOCCO 3</div>
+            <h1 class="step" data-slide="0" data-step="0" style="font-size: var(--title-size);">Come funzionano gli LLM</h1>
+            <p class="sub-heading step" data-slide="0" data-step="0">Dal testo al token, dalla probabilità alla risposta</p>
+            <p class="sub-note step" data-slide="0" data-step="0">~55 minuti — il cuore tecnico della formazione</p>
+        </div>
+        <img src="../../images/stars/conoscenza.png" alt="" class="mascot bottom-right">
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.1 — TOKENIZZAZIONE ★★☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="1" data-step="0">★ COME LEGGONO</div>
+            <div class="section-header step" data-slide="1" data-step="0">
+                <div class="section-number">①</div>
+                <h2>Gli LLM non leggono parole</h2>
+            </div>
+            <p class="sub-heading step" data-slide="1" data-step="0">Leggono token — frammenti di testo</p>
+
+            <!-- Step 1: Frase come testo normale -->
+            <div class="step" data-slide="1" data-step="1" id="token-step1">
+                <div class="token-sentence" id="token-original">MemorAIz è fantastica!</div>
+            </div>
+
+            <!-- Step 2: Token spezzati e colorati -->
+            <div class="step" data-slide="1" data-step="2" id="token-step2">
+                <div class="token-pieces" id="token-pieces">
+                    <span class="tok tok-0" data-idx="0">Memor<span class="tok-id">15243</span></span>
+                    <span class="tok tok-1" data-idx="1">AI<span class="tok-id">5765</span></span>
+                    <span class="tok tok-2" data-idx="2">z<span class="tok-id">89</span></span>
+                    <span class="tok tok-3" data-idx="3">&nbsp;è<span class="tok-id">1208</span></span>
+                    <span class="tok tok-4" data-idx="4">&nbsp;fantast<span class="tok-id">73920</span></span>
+                    <span class="tok tok-5" data-idx="5">ica<span class="tok-id">1642</span></span>
+                    <span class="tok tok-6" data-idx="6">!<span class="tok-id">0</span></span>
+                </div>
+            </div>
+
+            <!-- Step 3: Data boxes -->
+            <div class="step" data-slide="1" data-step="3">
+                <div class="data-row">
+                    <div class="data-chip">Vocabolario: ~100K-262K token possibili¹</div>
+                    <div class="data-chip">Contesto Claude: 200K token (fino a 1M)²</div>
+                    <div class="data-chip">Italiano ≈ 1.5x più token dell'inglese³</div>
+                </div>
+            </div>
+
+            <!-- Step 4: Strawberry box -->
+            <div class="step" data-slide="1" data-step="4">
+                <div class="curiosity-box">
+                    🍓 <strong>Lo "Strawberry Problem"</strong>: quante "r" in "strawberry"? Gli LLM sbagliano perché non vedono lettere singole — solo token. Il modello o1 di OpenAI fu chiamato internamente "Strawberry" proprio per aver risolto questo problema con il ragionamento⁴.
+                </div>
+            </div>
+        </div>
+        <div class="footnote">¹ OpenAI / Google, 2025 &nbsp; ² Anthropic, 2025-2026 &nbsp; ³ Ferrara et al., arXiv, 2025 &nbsp; ⁴ Reuters / SecWest, 2024</div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 3.2 — NEXT-TOKEN PREDICTION ★★★
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 12%; left: 8%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="2" data-step="0">★ IL CUORE</div>
+            <h2 class="step" data-slide="2" data-step="0">Predire il prossimo token</h2>
+            <p class="sub-heading step" data-slide="2" data-step="0">Il meccanismo fondamentale di ogni LLM</p>
+
+            <div class="ntp-container step" data-slide="2" data-step="1" id="ntp-area">
+                <!-- Distribution bars -->
+                <div class="ntp-distribution" id="ntp-dist" style="opacity:0; transition: opacity 0.5s;">
+                    <div class="ntp-bar-wrapper"><div class="ntp-bar" id="ntp-b0" style="height:4px;"></div><div class="ntp-bar-pct" id="ntp-p0"></div><div class="ntp-bar-label" id="ntp-l0"></div></div>
+                    <div class="ntp-bar-wrapper"><div class="ntp-bar" id="ntp-b1" style="height:4px;"></div><div class="ntp-bar-pct" id="ntp-p1"></div><div class="ntp-bar-label" id="ntp-l1"></div></div>
+                    <div class="ntp-bar-wrapper"><div class="ntp-bar" id="ntp-b2" style="height:4px;"></div><div class="ntp-bar-pct" id="ntp-p2"></div><div class="ntp-bar-label" id="ntp-l2"></div></div>
+                    <div class="ntp-bar-wrapper"><div class="ntp-bar" id="ntp-b3" style="height:4px;"></div><div class="ntp-bar-pct" id="ntp-p3"></div><div class="ntp-bar-label" id="ntp-l3"></div></div>
+                    <div class="ntp-bar-wrapper"><div class="ntp-bar" id="ntp-b4" style="height:4px;"></div><div class="ntp-bar-pct" id="ntp-p4"></div><div class="ntp-bar-label" id="ntp-l4"></div></div>
+                </div>
+                <!-- Sentence -->
+                <div class="ntp-sentence" id="ntp-sentence">
+                    <span class="ntp-word revealed">Il</span>
+                    <span class="ntp-word revealed">&nbsp;gatto</span>
+                    <span class="ntp-word revealed">&nbsp;si è</span>
+                    <span class="ntp-word revealed">&nbsp;seduto</span>
+                    <span class="ntp-word pending" id="ntp-w4">&nbsp;sul</span>
+                    <span class="ntp-word pending" id="ntp-w5">&nbsp;tappeto</span>
+                    <span class="ntp-word pending" id="ntp-w6">.</span>
+                    <span class="ntp-cursor" id="ntp-cursor"></span>
+                </div>
+            </div>
+
+            <!-- Step 6: Insight box -->
+            <div class="step" data-slide="2" data-step="6" style="display:flex; align-items:center; gap: clamp(0.5rem, 1vw, 0.8rem);">
+                <div class="highlight-box" style="flex:1;">💡 Tutto ciò che un LLM produce — saggi, codice, poesie — emerge da questo meccanismo ripetuto migliaia di volte¹</div>
+                <img src="../../images/stars/lampadina.png" alt="" class="mascot-inline" style="height: clamp(40px, 6vw, 60px);">
+            </div>
+        </div>
+        <div class="footnote">¹ IBM, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.3 — TEMPERATURA / SAMPLING ★★★
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="3" data-step="0">★ CONTROLLO</div>
+            <h2 class="step" data-slide="3" data-step="0">Temperatura — il termostato della creatività</h2>
+            <p class="sub-heading step" data-slide="3" data-step="0">Come il modello sceglie tra i token possibili</p>
+
+            <div class="temp-container step" data-slide="3" data-step="1" id="temp-area">
+                <!-- Distribution -->
+                <div class="temp-distribution" id="temp-dist">
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb0" style="height:2px;"></div><div class="temp-bar-pct" id="tp0"></div><div class="temp-bar-name">tappeto</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb1" style="height:2px;"></div><div class="temp-bar-pct" id="tp1"></div><div class="temp-bar-name">divano</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb2" style="height:2px;"></div><div class="temp-bar-pct" id="tp2"></div><div class="temp-bar-name">pavimento</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb3" style="height:2px;"></div><div class="temp-bar-pct" id="tp3"></div><div class="temp-bar-name">letto</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb4" style="height:2px;"></div><div class="temp-bar-pct" id="tp4"></div><div class="temp-bar-name">tavolo</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb5" style="height:2px;"></div><div class="temp-bar-pct" id="tp5"></div><div class="temp-bar-name">cuscino</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb6" style="height:2px;"></div><div class="temp-bar-pct" id="tp6"></div><div class="temp-bar-name">balcone</div></div>
+                    <div class="temp-bar-col"><div class="temp-bar" id="tb7" style="height:2px;"></div><div class="temp-bar-pct" id="tp7"></div><div class="temp-bar-name">frigorifero</div></div>
+                </div>
+
+                <!-- Value + description -->
+                <div class="temp-value" id="temp-val">T = 0.0</div>
+                <div class="temp-description" id="temp-desc" style="background: rgba(59,130,246,0.12); color: #3b82f6;">Preciso, prevedibile, ripetitivo</div>
+
+                <!-- Slider -->
+                <div class="temp-slider-row">
+                    <span class="temp-slider-label cold">T 0</span>
+                    <input type="range" class="temp-slider" id="temp-slider" min="0" max="200" value="0" disabled>
+                    <span class="temp-slider-label hot">T 2</span>
+                </div>
+            </div>
+
+            <!-- Step 4: Boxes -->
+            <div class="step" data-slide="3" data-step="4">
+                <div class="temp-boxes">
+                    <div class="highlight-box">🍳 <strong>Analogia</strong> — Come un cuoco: temperatura bassa = segue la ricetta alla lettera · temperatura alta = improvvisa con ingredienti inaspettati</div>
+                    <div class="highlight-box">🎯 <strong>In pratica</strong> — Analisi dati, codice → T bassa (0–0.3) · Brainstorming, copy → T alta (0.7–1.0)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.4 — PRE-TRAINING (Fase 1) ★★☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 15%; right: 12%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="4" data-step="0">★ LE 3 FASI</div>
+            <div class="section-header step" data-slide="4" data-step="0">
+                <div class="phase-number">①</div>
+                <div>
+                    <h2>Pre-Training — leggere tutta Internet</h2>
+                    <p class="sub-heading">Il modello sa tutto, ma completa solo il testo</p>
+                </div>
+            </div>
+
+            <!-- Phase layout: sources → model → output -->
+            <div class="phase-layout">
+                <div class="phase-col sources step" data-slide="4" data-step="1">
+                    <div class="phase-icon-row"><span class="emoji">📚</span> Libri</div>
+                    <div class="phase-icon-row"><span class="emoji">🌐</span> Pagine web</div>
+                    <div class="phase-icon-row"><span class="emoji">💻</span> Codice sorgente</div>
+                    <div class="phase-icon-row"><span class="emoji">📰</span> Articoli</div>
+                    <div class="phase-icon-row"><span class="emoji">📖</span> Wikipedia</div>
+                </div>
+
+                <div class="phase-arrow step" data-slide="4" data-step="2">
+                    <div class="phase-arrow-line" id="arrow-pt"></div>
+                </div>
+                <div class="phase-col model step" data-slide="4" data-step="2">
+                    <div class="model-sphere chaotic" id="sphere-pt">🧠</div>
+                </div>
+                <div class="phase-arrow step" data-slide="4" data-step="3">
+                    <div class="phase-arrow-line" id="arrow-pt-out"></div>
+                </div>
+
+                <div class="phase-col output step" data-slide="4" data-step="3">
+                    <div class="phase-output-bubble chaotic">"La capitale della Francia è Parigi. Il gatto si sedette sul tappeto e poi continuò a parlare di fisica quantistica senza che nessuno glielo avesse chiesto..."</div>
+                </div>
+            </div>
+
+            <!-- Data chips -->
+            <div class="step" data-slide="4" data-step="3">
+                <div class="data-row">
+                    <div class="data-chip">Trilioni di token (Llama 4 Scout: 40T)¹</div>
+                    <div class="data-chip">Costo: $200–500M+ per i modelli frontier²</div>
+                    <div class="data-chip">Task: predire il prossimo token (self-supervised)</div>
+                </div>
+            </div>
+
+            <!-- Analogy -->
+            <div class="step" data-slide="4" data-step="4">
+                <div class="highlight-box">📚 <strong>Analogia</strong> — Come leggere l'intera biblioteca di Babele. Sai tantissimo, ma nessuno ti ha detto come essere utile — se ti fanno una domanda, continui il testo invece di rispondere.</div>
+            </div>
+        </div>
+        <img src="../../images/stars/globo.png" alt="" class="mascot bottom-right" style="height: clamp(50px, 8vw, 85px); opacity: 0.7;">
+        <div class="footnote">¹ Meta AI Blog, 2025 &nbsp; ² Epoch AI / industry estimates, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.5 — SFT (Fase 2) ★★☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="5" data-step="0">★ LE 3 FASI</div>
+            <div class="section-header step" data-slide="5" data-step="0">
+                <div class="phase-number">②</div>
+                <div>
+                    <h2>Supervised Fine-Tuning — diventare un assistente</h2>
+                    <p class="sub-heading">Il modello impara a rispondere a domande: viene allenato per essere una chat</p>
+                </div>
+            </div>
+
+            <div class="phase-layout">
+                <div class="phase-col sources step" data-slide="5" data-step="1">
+                    <div class="phase-icon-row"><span class="emoji">📋</span> Domanda → Risposta</div>
+                    <div class="phase-icon-row"><span class="emoji">✅</span> Curate da annotatori</div>
+                    <div class="phase-icon-row"><span class="emoji">💬</span> Formato conversazione</div>
+                    <div class="phase-icon-row"><span class="emoji">🚫</span> Dire "non lo so"</div>
+                </div>
+
+                <div class="phase-arrow step" data-slide="5" data-step="2">
+                    <div class="phase-arrow-line" id="arrow-sft"></div>
+                </div>
+                <div class="phase-col model step" data-slide="5" data-step="2">
+                    <div class="model-sphere ordered" id="sphere-sft">🧠</div>
+                </div>
+                <div class="phase-arrow step" data-slide="5" data-step="3">
+                    <div class="phase-arrow-line" id="arrow-sft-out"></div>
+                </div>
+
+                <div class="phase-col output step" data-slide="5" data-step="3">
+                    <div class="phase-output-bubble structured">
+                        <strong>Utente:</strong> Qual è la capitale della Francia?<br>
+                        <strong>Assistente:</strong> La capitale della Francia è Parigi.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-slide="5" data-step="3">
+                <ul class="bullet-list">
+                    <li><strong>Formato assistente</strong> — Il modello impara a seguire istruzioni, strutturare risposte, e rifiutare richieste inappropriate¹</li>
+                    <li><strong>Dati</strong> — Migliaia di conversazioni di alta qualità scritte da annotatori umani²</li>
+                </ul>
+            </div>
+
+            <div class="step" data-slide="5" data-step="4">
+                <div class="highlight-box">🎓 <strong>Analogia</strong> — Dopo aver letto tutta la biblioteca, un tutor ti insegna come usare quella conoscenza per rispondere agli studenti, invece di continuare a recitare libri a caso.</div>
+            </div>
+        </div>
+        <div class="footnote">¹ Anthropic / OpenAI, 2023–2025 &nbsp; ² InstructGPT, Ouyang et al., 2022</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.6 — RL / ALLINEAMENTO (Fase 3) ★★☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="6" data-step="0">★ LE 3 FASI</div>
+            <div class="section-header step" data-slide="6" data-step="0">
+                <div class="phase-number">③</div>
+                <div>
+                    <h2>Reinforcement Learning — allineare e specializzare</h2>
+                    <p class="sub-heading">Il modello viene allineato (RLHF) e specializzato (RLVR)</p>
+                </div>
+            </div>
+
+            <div class="phase-layout">
+                <div class="phase-col sources step" data-slide="6" data-step="1">
+                    <div class="phase-icon-row"><span class="emoji">👍</span> Valutatori confrontano risposte</div>
+                    <div class="phase-icon-row"><span class="emoji">🛡️</span> Sicurezza, utilità, onestà</div>
+                    <div class="phase-icon-row"><span class="emoji">✔️</span> Reward verificabili (math, code)</div>
+                </div>
+
+                <div class="phase-arrow step" data-slide="6" data-step="2">
+                    <div class="phase-arrow-line" id="arrow-rl"></div>
+                </div>
+                <div class="phase-col model step" data-slide="6" data-step="2">
+                    <div class="model-sphere refined" id="sphere-rl">🧠</div>
+                </div>
+                <div class="phase-arrow step" data-slide="6" data-step="2">
+                    <div class="phase-arrow-line" id="arrow-rl-out"></div>
+                </div>
+
+                <div class="phase-col output step" data-slide="6" data-step="2">
+                    <div class="phase-output-bubble safe">Risposte sicure, utili, con il tono giusto. Ragionamento verificato su problemi complessi.</div>
+                </div>
+            </div>
+
+            <div class="step" data-slide="6" data-step="3">
+                <ul class="bullet-list">
+                    <li><strong>RLHF</strong> — Preferenze umane soggettive: "questa risposta è migliore"¹. Il modello impara tono, sicurezza, utilità²</li>
+                    <li><strong>RLVR</strong> — Reward verificabili oggettivi: la risposta a un problema è giusta o sbagliata³. Usato per i reasoning model (o1, R1)</li>
+                    <li><strong>⚠️ L'RL cambia il comportamento, non aggiunge fatti.</strong> Non è una nuova enciclopedia.</li>
+                </ul>
+            </div>
+
+            <div class="step" data-slide="6" data-step="4">
+                <div class="data-row">
+                    <div class="curiosity-box" style="flex:1;">🔤 <strong>Varianti</strong>: RLHF (umani)¹ · RLAIF/Constitutional AI (AI come valutatore)² · DPO (ottimizzazione diretta)⁴ · GRPO (DeepSeek)⁵</div>
+                    <div class="curiosity-box" style="flex:1;">📌 <strong>"Effetto Nigeria"</strong>: ChatGPT usa "Delve" 10-100x più del normale. Perché? Molti annotatori RLHF erano nigeriani, dove "Delve" è comune nell'inglese formale. Il bias degli annotatori diventa bias del modello⁶.</div>
+                </div>
+            </div>
+        </div>
+        <div class="footnote">¹ InstructGPT, 2022 &nbsp; ² Anthropic CAI, 2022 &nbsp; ³ DeepSeek R1 / OpenAI o1, 2024–2025 &nbsp; ⁴ Rafailov et al., 2023 &nbsp; ⁵ DeepSeek GRPO, 2024 &nbsp; ⁶ arxiv 2412.11385, 2024</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.7 — SCHEMA RIASSUNTIVO 3 FASI ★★☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="starburst" style="bottom: 8%; right: 4%; opacity: 0.06;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="7" data-step="0">★ SCHEMA</div>
+            <h2 class="step" data-slide="7" data-step="0">Le tre fasi in sintesi</h2>
+
+            <div class="schema-flow" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">
+                <!-- Block 1: Pre-Training -->
+                <div class="schema-block step" data-slide="7" data-step="1">
+                    <div class="sb-icon">📚</div>
+                    <div class="sb-title">Pre-Training</div>
+                    <div class="sb-desc">Conoscenza grezza — completa solo il testo</div>
+                    <div class="sb-meta">Trilioni di token · $200-500M</div>
+                </div>
+
+                <div class="schema-arrow step" data-slide="7" data-step="2">→</div>
+
+                <!-- Block 2: SFT -->
+                <div class="schema-block step" data-slide="7" data-step="2">
+                    <div class="sb-icon">💬</div>
+                    <div class="sb-title">SFT</div>
+                    <div class="sb-desc">Formato chat — impara a rispondere</div>
+                    <div class="sb-meta">Migliaia di conversazioni curate</div>
+                </div>
+
+                <div class="schema-arrow step" data-slide="7" data-step="3">→</div>
+
+                <!-- Block 3: RL -->
+                <div class="schema-block step" data-slide="7" data-step="3">
+                    <div class="sb-icon">🎯</div>
+                    <div class="sb-title">RL</div>
+                    <div class="sb-desc">Allineamento + specializzazione</div>
+                    <div class="sb-meta">RLHF (preferenze) · RLVR (verificabili)</div>
+                </div>
+            </div>
+
+            <!-- Formula visiva -->
+            <div class="step" data-slide="7" data-step="4" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">
+                <div class="schema-formula">
+                    <span class="sf-item">Pre-training <span class="sf-eq">=</span> conoscenza grezza</span>
+                    <span class="sf-eq">|</span>
+                    <span class="sf-item">SFT <span class="sf-eq">=</span> formato chat</span>
+                    <span class="sf-eq">|</span>
+                    <span class="sf-item">RL <span class="sf-eq">=</span> allineamento e specializzazione</span>
+                </div>
+            </div>
+
+            <div class="step" data-slide="7" data-step="4">
+                <div class="highlight-box" style="margin-top: clamp(0.3rem, 0.8vw, 0.5rem);">💡 <strong>Punto chiave</strong> — La conoscenza viene dalla fase 1, il comportamento dalle fasi 2 e 3. Un modello può "sapere" qualcosa ma comportarsi male — le due cose sono addestrate separatamente.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.7b — DISTILLAZIONE E QUANTIZZAZIONE ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="8" data-step="0">★ OTTIMIZZAZIONE</div>
+            <h2 class="step" data-slide="8" data-step="0">Rendere i modelli più piccoli e veloci</h2>
+            <p class="sub-heading step" data-slide="8" data-step="0">Distillazione e quantizzazione — perché esistono modelli economici</p>
+
+            <div class="two-col">
+                <!-- Colonna sinistra: Distillazione -->
+                <div class="col step" data-slide="8" data-step="1">
+                    <div class="col-title">🎓 Distillazione (Teacher → Student)</div>
+                    <div class="col-subtitle">Un modello grande insegna a uno piccolo</div>
+                    <div class="mini-bullet">Il <strong>teacher</strong> (modello grande) genera migliaia di esempi di alta qualità¹</div>
+                    <div class="mini-bullet">Lo <strong>student</strong> (modello piccolo) impara a replicare i pattern più importanti</div>
+                    <div class="mini-bullet"><strong>Esempio</strong>: DeepSeek R1 (671B) → R1-Distill-Qwen-7B: un modello 100x più piccolo che batte GPT-4o su benchmark matematici²</div>
+                    <div class="analogy-small">Come un mentore esperto che forma un apprendista — l'apprendista non sa tutto, ma impara le cose più importanti.</div>
+                </div>
+
+                <!-- Colonna destra: Quantizzazione -->
+                <div class="col step" data-slide="8" data-step="2">
+                    <div class="col-title">📦 Quantizzazione</div>
+                    <div class="col-subtitle">Comprimere i numeri del modello</div>
+                    <div class="mini-bullet">Da 32 bit a 4 bit per numero → modello <strong>~8x più piccolo</strong>³</div>
+                    <div class="mini-bullet">Modelli da 70B parametri possono girare su una singola GPU consumer</div>
+                    <div class="mini-bullet"><strong>Strumenti</strong>: llama.cpp, Ollama — AI locale sul vostro Mac</div>
+                    <div class="mini-bullet">Un po' meno preciso, ma utilizzabile per la maggior parte dei task</div>
+                    <div class="analogy-small">Come comprimere un JPEG — il file è 8x più piccolo, perdete un po' di dettaglio ma è ancora utilizzabile.</div>
+                </div>
+            </div>
+
+            <!-- Insight box -->
+            <div class="step" data-slide="8" data-step="3">
+                <div class="highlight-box">💡 <strong>Ecco perché esistono modelli "mini" economici e modelli "pro" costosi</strong> — Distillazione + quantizzazione rendono l'AI accessibile a tutti. GPT-4o mini, Claude Haiku, Llama 3.1 8B sono tutti figli di queste tecniche.</div>
+            </div>
+        </div>
+        <div class="footnote">¹ DataCamp, 2024 &nbsp; ² DeepSeek R1, 2025 (MATH-500: 92.8% vs GPT-4o 88.8%) &nbsp; ³ BentoML / industry standard, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.8 — MECCANISMO DI ATTENZIONE ★★★
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 10%; left: 6%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="9" data-step="0">★ ATTENZIONE</div>
+            <h2 class="step" data-slide="9" data-step="0">Come il modello "guarda" il contesto</h2>
+            <p class="sub-heading step" data-slide="9" data-step="0">Il meccanismo di Attenzione — l'innovazione chiave dei Transformer¹</p>
+
+            <!-- Attention visualization -->
+            <div class="step" data-slide="9" data-step="1">
+                <div class="attn-container" id="attn-container">
+                    <div class="attn-sentence" id="attn-sentence">
+                        <span class="attn-word" data-attn="0">Il</span>
+                        <span class="attn-word" data-attn="strong" data-idx="1">gatto</span>
+                        <span class="attn-word" data-attn="0">che</span>
+                        <span class="attn-word" data-attn="weak" data-idx="3">avevo</span>
+                        <span class="attn-word" data-attn="weak" data-idx="4">adottato</span>
+                        <span class="attn-word" data-attn="0">dal</span>
+                        <span class="attn-word" data-attn="weak" data-idx="6">rifugio</span>
+                        <span class="attn-word" data-attn="0">l'</span>
+                        <span class="attn-word" data-attn="weak" data-idx="8">anno</span>
+                        <span class="attn-word" data-attn="0">scorso</span>
+                        <span class="attn-word" data-attn="0">si è</span>
+                        <span class="attn-word" data-attn="0">finalmente</span>
+                        <span class="attn-word" data-attn="strong" data-idx="12">seduto</span>
+                        <span class="attn-word" data-attn="0">sul</span>
+                        <span class="attn-word" data-attn="0">mio</span>
+                        <span class="attn-word" data-attn="medium" data-idx="15">tappeto</span>
+                        <span class="attn-word" data-attn="0">nuovo</span>
+                        <span class="ntp-cursor" id="attn-cursor"></span>
+                    </div>
+                    <svg class="attn-svg" id="attn-svg"></svg>
+                </div>
+            </div>
+
+            <!-- Step 2: attention lines drawn (controlled by JS) -->
+            <div class="step" data-slide="9" data-step="2" id="attn-legend">
+                <div class="data-row" style="margin-top: clamp(0.3rem, 0.6vw, 0.4rem);">
+                    <div class="data-chip" style="border-left: 3px solid var(--accent-gold);">
+                        <strong style="color: var(--accent-gold);">Alta attenzione</strong> — "gatto" (soggetto), "seduto" (verbo)
+                    </div>
+                    <div class="data-chip" style="border-left: 3px solid rgba(245,166,35,0.5);">
+                        <strong>Media</strong> — "tappeto" (oggetto)
+                    </div>
+                    <div class="data-chip" style="border-left: 3px solid rgba(26,26,78,0.2);">
+                        <strong>Bassa</strong> — "rifugio", "anno"...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: analogy -->
+            <div class="step" data-slide="9" data-step="3">
+                <div class="highlight-box">👁️ <strong>Analogia</strong> — Come leggere una frase ambigua in un libro: i tuoi occhi tornano indietro a cercare indizi. L'attenzione fa questo su tutto il contesto, simultaneamente, per ogni singolo token generato.</div>
+            </div>
+        </div>
+        <div class="footnote">¹ Vaswani et al., "Attention Is All You Need", 2017</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.9 — IMPLICAZIONI PRATICHE ATTENZIONE ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="10" data-step="0">★ IMPLICAZIONI</div>
+            <h2 class="step" data-slide="10" data-step="0">Tutto il contesto influenza la risposta</h2>
+            <p class="sub-heading step" data-slide="10" data-step="0">Conseguenze pratiche per il vostro lavoro quotidiano</p>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="10" data-step="1"><strong>System prompt</strong> — Influenza ogni singola risposta. È come il brief per un freelancer: più è chiaro, migliore è il risultato.</li>
+                <li class="step" data-slide="10" data-step="2"><strong>Ordine</strong> — L'ordine in cui presentate le informazioni conta. Info all'inizio e alla fine pesano di più¹.</li>
+                <li class="step" data-slide="10" data-step="3"><strong>Risposte precedenti</strong> — Se il modello "sbaglia" e non lo correggete, continuerà su quella strada. Ogni risposta diventa contesto per la successiva.</li>
+                <li class="step" data-slide="10" data-step="4"><strong>Rumore nel contesto</strong> — Informazioni irrilevanti o contraddittorie degradano la qualità. Meno è meglio, se è rilevante.</li>
+            </ul>
+
+            <div class="step" data-slide="10" data-step="5">
+                <div class="highlight-box" style="margin-top: clamp(0.3rem, 0.8vw, 0.5rem);">🎯 <strong>Regola d'oro</strong> — Il modello non ha "intenzioni": segue segnali nel contesto. Ordine, salienza, esempi e vincoli cambiano la traiettoria della risposta.</div>
+            </div>
+        </div>
+        <div class="footnote">¹ Liu et al., "Lost in the Middle", 2024</div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.currentSteps = new Array(this.totalSlides).fill(0);
+                this.maxSteps = this._computeMaxSteps();
+                this._hintVisible = true;
+
+                /* === Special slide indices === */
+                this.tokenSlideIndex = 1;   // slide 3.1
+                this.ntpSlideIndex = 2;     // slide 3.2
+                this.tempSlideIndex = 3;    // slide 3.3
+                this.ptSlideIndex = 4;      // slide 3.4 Pre-Training
+                this.sftSlideIndex = 5;     // slide 3.5 SFT
+                this.rlSlideIndex = 6;      // slide 3.6 RL
+                this.attnSlideIndex = 9;    // slide 3.8 Attention
+
+                /* === NTP state === */
+                this._ntpPhase = 0; // 0=initial, 1=dist1 shown, 2=word1 chosen+dist2, 3=complete
+
+                /* === Temperature state === */
+                this._tempLogits = [3.5, 2.9, 2.2, 1.6, 1.1, 0.6, 0.2, -0.3];
+                this._tempTokens = ['tappeto','divano','pavimento','letto','tavolo','cuscino','balcone','frigorifero'];
+                this._tempInteractive = false;
+
+                this._bindEvents();
+                this._initSlide(0);
+                this._initTempSlider();
+
+                // Redraw attention lines on resize
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        if (this.currentSlide === this.attnSlideIndex && this.currentSteps[this.attnSlideIndex] >= 2) {
+                            this._updateAttention(this.currentSteps[this.attnSlideIndex]);
+                        }
+                    }, 200);
+                });
+            }
+
+            _computeMaxSteps() {
+                const m = [];
+                this.slides.forEach((slide) => {
+                    const steps = slide.querySelectorAll('.step');
+                    let max = 0;
+                    steps.forEach(el => { const s = parseInt(el.dataset.step, 10); if (s > max) max = s; });
+                    m.push(max);
+                });
+                return m;
+            }
+
+            _revealUpToStep(si, stepNum) {
+                const slide = this.slides[si];
+                slide.querySelectorAll('.step').forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    el.classList.toggle('visible', s <= stepNum);
+                });
+
+                if (si === this.tokenSlideIndex) this._updateTokenization(stepNum);
+                if (si === this.ntpSlideIndex) this._updateNTP(stepNum);
+                if (si === this.tempSlideIndex) this._updateTemp(stepNum);
+                if (si === this.ptSlideIndex) this._updatePhaseArrows(stepNum, 'pt');
+                if (si === this.sftSlideIndex) this._updatePhaseArrows(stepNum, 'sft');
+                if (si === this.rlSlideIndex) this._updatePhaseArrows(stepNum, 'rl');
+                if (si === this.attnSlideIndex) this._updateAttention(stepNum);
+            }
+
+            /* ===========================================
+               TOKENIZATION ANIMATION (slide 3.1)
+               =========================================== */
+            _updateTokenization(step) {
+                const tokens = document.querySelectorAll('.tok');
+                const original = document.getElementById('token-original');
+                if (step >= 2) {
+                    if (original) original.style.display = 'none';
+                    tokens.forEach((tok, i) => { setTimeout(() => tok.classList.add('show'), i * 100); });
+                } else {
+                    if (original) original.style.display = '';
+                    tokens.forEach(tok => tok.classList.remove('show'));
+                }
+                const ids = document.querySelectorAll('.tok-id');
+                if (step >= 2) {
+                    ids.forEach((id, i) => { setTimeout(() => id.classList.add('show'), 500 + i * 80); });
+                } else {
+                    ids.forEach(id => id.classList.remove('show'));
+                }
+            }
+
+            /* ===========================================
+               TRAINING PHASE ARROWS (slides 3.4–3.6)
+               =========================================== */
+            _updatePhaseArrows(step, prefix) {
+                const arrow1 = document.getElementById('arrow-' + prefix);
+                const arrow2 = document.getElementById('arrow-' + prefix + '-out');
+                const sphere = document.getElementById('sphere-' + prefix);
+
+                if (arrow1) arrow1.classList.toggle('visible', step >= 2);
+                if (arrow2) arrow2.classList.toggle('visible', step >= (prefix === 'rl' ? 2 : 3));
+
+                // Pre-training sphere fill animation
+                if (prefix === 'pt' && sphere) {
+                    sphere.classList.toggle('filled', step >= 2);
+                }
+            }
+
+            /* ===========================================
+               ATTENTION MECHANISM (slide 3.8) ★★★
+               Step 0: heading
+               Step 1: sentence appears with cursor
+               Step 2: attention lines drawn + words highlight + legend
+               Step 3: analogy box
+               =========================================== */
+            _updateAttention(step) {
+                const container = document.getElementById('attn-container');
+                const svg = document.getElementById('attn-svg');
+                const sentence = document.getElementById('attn-sentence');
+                if (!container || !svg || !sentence) return;
+
+                const words = sentence.querySelectorAll('.attn-word[data-idx]');
+
+                if (step < 2) {
+                    // Remove lines and highlights
+                    svg.innerHTML = '';
+                    words.forEach(w => {
+                        w.classList.remove('highlight-strong', 'highlight-medium', 'highlight-weak');
+                    });
+                    return;
+                }
+
+                // Step 2+: draw attention lines
+                // Find cursor position (last element)
+                const cursor = document.getElementById('attn-cursor');
+                if (!cursor) return;
+
+                const containerRect = container.getBoundingClientRect();
+                const cursorRect = cursor.getBoundingClientRect();
+                const cx = cursorRect.left + cursorRect.width / 2 - containerRect.left;
+                const cy = cursorRect.top + cursorRect.height / 2 - containerRect.top;
+
+                // Build SVG lines
+                let svgContent = '';
+                const lineConfigs = {
+                    'strong': { stroke: 'rgba(245,166,35,0.9)', width: 3, highlightClass: 'highlight-strong' },
+                    'medium': { stroke: 'rgba(245,166,35,0.5)', width: 2, highlightClass: 'highlight-medium' },
+                    'weak':   { stroke: 'rgba(26,26,78,0.2)', width: 1, highlightClass: 'highlight-weak' }
+                };
+
+                words.forEach((w, i) => {
+                    const attn = w.dataset.attn;
+                    if (!attn || attn === '0') return;
+                    const config = lineConfigs[attn];
+                    if (!config) return;
+
+                    const wRect = w.getBoundingClientRect();
+                    const wx = wRect.left + wRect.width / 2 - containerRect.left;
+                    const wy = wRect.top + wRect.height / 2 - containerRect.top;
+
+                    // Curved line (quadratic bezier)
+                    const midY = Math.min(wy, cy) - 15 - i * 3;
+                    const midX = (wx + cx) / 2;
+
+                    svgContent += `<path class="attn-line" d="M${cx},${cy} Q${midX},${midY} ${wx},${wy}" stroke="${config.stroke}" stroke-width="${config.width}" style="transition-delay: ${i * 80}ms;" />`;
+                    w.classList.add(config.highlightClass);
+                });
+
+                svg.innerHTML = svgContent;
+
+                // Trigger draw animation after a frame
+                requestAnimationFrame(() => {
+                    svg.querySelectorAll('.attn-line').forEach(line => {
+                        const len = line.getTotalLength();
+                        line.style.strokeDasharray = len;
+                        line.style.strokeDashoffset = len;
+                        requestAnimationFrame(() => line.classList.add('drawn'));
+                    });
+                });
+            }
+
+            /* ===========================================
+               NEXT-TOKEN PREDICTION (slide 3.2) ★★★
+               Step 0: title only (reset)
+               Step 1: sentence "Il gatto si è seduto ___" + cursor
+               Step 2: distribution 1 appears (sul 40%, per 18%, …)
+               Step 3: "sul" chosen → revealed, dist fades
+               Step 4: distribution 2 appears (tappeto 32%, divano 24%, …)
+               Step 5: "tappeto" chosen → revealed, dist3 → "." chosen → complete
+               Step 6: insight box
+               =========================================== */
+            _updateNTP(step) {
+                const dist = document.getElementById('ntp-dist');
+                const cursor = document.getElementById('ntp-cursor');
+                const w4 = document.getElementById('ntp-w4');
+                const w5 = document.getElementById('ntp-w5');
+                const w6 = document.getElementById('ntp-w6');
+
+                // Three distribution datasets — one per prediction cycle
+                const dist1 = [{t:'sul',p:40},{t:'per',p:18},{t:'e',p:15},{t:'sulla',p:12},{t:'…',p:15}];
+                const dist2 = [{t:'tappeto',p:32},{t:'divano',p:24},{t:'pavimento',p:15},{t:'letto',p:12},{t:'…',p:17}];
+                const dist3 = [{t:'.',p:45},{t:',',p:20},{t:'e',p:18},{t:'rosso',p:9},{t:'…',p:8}];
+
+                // Helper to hide all pending words
+                const hideWord = (el) => { if (el) { el.classList.remove('revealed'); el.classList.add('pending'); } };
+                const showWord = (el) => { if (el) { el.classList.remove('pending'); el.classList.add('revealed'); } };
+
+                // Clear any pending NTP timeouts from previous steps
+                if (this._ntpTimeouts) { this._ntpTimeouts.forEach(t => clearTimeout(t)); }
+                this._ntpTimeouts = [];
+
+                if (step < 1) {
+                    // Reset everything
+                    dist.style.opacity = '0';
+                    this._setNTPBars(dist1, false);
+                    hideWord(w4); hideWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+                    return;
+                }
+
+                if (step === 1) {
+                    // Show sentence with cursor, no distribution yet
+                    dist.style.opacity = '0';
+                    this._setNTPBars(dist1, false);
+                    hideWord(w4); hideWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+                }
+
+                if (step === 2) {
+                    // Distribution 1 appears — "sul" is the top candidate
+                    dist.style.opacity = '1';
+                    this._setNTPBars(dist1, false);
+                    hideWord(w4); hideWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+                }
+
+                if (step === 3) {
+                    // "sul" selected (gold) → word revealed → dist fades
+                    dist.style.opacity = '1';
+                    this._setNTPBars(dist1, true);
+                    showWord(w4); hideWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+                    // Fade out dist after a moment to signal "cycle done"
+                    this._ntpTimeouts.push(setTimeout(() => {
+                        dist.style.opacity = '0';
+                    }, 600));
+                }
+
+                if (step === 4) {
+                    // Distribution 2 appears — "tappeto" is top candidate
+                    showWord(w4); hideWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+                    dist.style.opacity = '1';
+                    this._setNTPBars(dist2, false);
+                }
+
+                if (step === 5) {
+                    // "tappeto" selected → revealed, then dist3 → "." selected → sentence complete
+                    showWord(w4);
+                    dist.style.opacity = '1';
+                    this._setNTPBars(dist2, true);
+                    showWord(w5); hideWord(w6);
+                    if (cursor) cursor.style.display = '';
+
+                    // After brief delay, swap to dist3
+                    this._ntpTimeouts.push(setTimeout(() => {
+                        this._setNTPBars(dist3, false);
+                        // After another delay, select "." and complete
+                        this._ntpTimeouts.push(setTimeout(() => {
+                            this._setNTPBars(dist3, true);
+                            showWord(w6);
+                            if (cursor) cursor.style.display = 'none';
+                        }, 500));
+                    }, 700));
+                }
+
+                if (step >= 6) {
+                    // Ensure sentence is fully complete (for insight box step + going back)
+                    dist.style.opacity = '1';
+                    this._setNTPBars(dist3, true);
+                    showWord(w4); showWord(w5); showWord(w6);
+                    if (cursor) cursor.style.display = 'none';
+                }
+            }
+
+            _setNTPBars(data, highlight) {
+                const maxH = 100; // max bar height in px (relative to container)
+                const maxP = Math.max(...data.map(d => d.p));
+                data.forEach((d, i) => {
+                    const bar = document.getElementById('ntp-b' + i);
+                    const lbl = document.getElementById('ntp-l' + i);
+                    const pct = document.getElementById('ntp-p' + i);
+                    if (!bar) return;
+                    const h = Math.max(4, (d.p / maxP) * maxH);
+                    bar.style.height = h + '%';
+                    bar.classList.toggle('selected', highlight && i === 0);
+                    if (lbl) lbl.textContent = d.t;
+                    if (pct) pct.textContent = d.p + '%';
+                });
+            }
+
+            /* ===========================================
+               TEMPERATURE / SAMPLING (slide 3.3) ★★★
+               Step 1: slider at T=0, distribution sharp
+               Step 2: animate to T=0.7
+               Step 3: animate to T=1.5, slider becomes interactive
+               Step 4: analogy + practical boxes
+               =========================================== */
+            _initTempSlider() {
+                const slider = document.getElementById('temp-slider');
+                if (!slider) return;
+                slider.addEventListener('input', () => {
+                    if (!this._tempInteractive) return;
+                    const t = parseFloat(slider.value) / 100;
+                    this._renderTempDist(t);
+                });
+                // Prevent click-to-advance when interacting with slider
+                slider.addEventListener('click', (e) => e.stopPropagation());
+                slider.addEventListener('mousedown', (e) => e.stopPropagation());
+                slider.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+            }
+
+            _updateTemp(step) {
+                const slider = document.getElementById('temp-slider');
+
+                if (step < 1) {
+                    this._tempInteractive = false;
+                    if (slider) { slider.value = 0; slider.disabled = true; }
+                    this._renderTempDist(0.01); // near-zero
+                    return;
+                }
+
+                if (step === 1) {
+                    this._tempInteractive = false;
+                    if (slider) { slider.disabled = true; }
+                    this._animateSliderTo(0, 300);
+                    this._renderTempDist(0.01);
+                }
+
+                if (step === 2) {
+                    this._tempInteractive = false;
+                    if (slider) { slider.disabled = true; }
+                    this._animateSliderTo(70, 600);
+                    setTimeout(() => this._renderTempDist(0.7), 50);
+                }
+
+                if (step >= 3) {
+                    this._tempInteractive = true;
+                    if (slider) { slider.disabled = false; }
+                    if (step === 3) {
+                        this._animateSliderTo(150, 600);
+                        setTimeout(() => this._renderTempDist(1.5), 50);
+                    }
+                }
+            }
+
+            _animateSliderTo(targetVal, duration) {
+                const slider = document.getElementById('temp-slider');
+                if (!slider) return;
+                const start = parseInt(slider.value);
+                const diff = targetVal - start;
+                const startTime = performance.now();
+                const animate = (now) => {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                    const current = Math.round(start + diff * eased);
+                    slider.value = current;
+                    this._renderTempDist(current / 100);
+                    if (progress < 1) requestAnimationFrame(animate);
+                };
+                requestAnimationFrame(animate);
+            }
+
+            _softmax(logits, temperature) {
+                const t = Math.max(temperature, 0.01);
+                const scaled = logits.map(l => l / t);
+                const maxS = Math.max(...scaled);
+                const exps = scaled.map(s => Math.exp(s - maxS));
+                const sum = exps.reduce((a, b) => a + b, 0);
+                return exps.map(e => e / sum);
+            }
+
+            _renderTempDist(temperature) {
+                const probs = this._softmax(this._tempLogits, temperature);
+                const maxH = 100;
+                const maxProb = Math.max(...probs);
+
+                // Color interpolation: blue (cold) → purple (mid) → orange (hot)
+                const t01 = Math.min(temperature / 2, 1);
+                const r = Math.round(59 + (245 - 59) * t01);
+                const g = Math.round(130 + (158 - 130) * t01 * (1 - t01) * 4 + (35 - 130) * t01 * t01);
+                const gClamped = Math.max(35, Math.min(180, g));
+                const b = Math.round(246 + (35 - 246) * t01);
+                const barColor = `rgb(${r}, ${gClamped}, ${b})`;
+
+                probs.forEach((p, i) => {
+                    const bar = document.getElementById('tb' + i);
+                    const pctEl = document.getElementById('tp' + i);
+                    if (!bar) return;
+                    // Blend relative + absolute: the tallest bar scales with maxProb
+                    // so at low T it fills the container, at high T everything shrinks
+                    const relH = (p / maxProb);          // 0..1, tallest = 1
+                    const absScale = Math.sqrt(maxProb);  // √prob dampens the shrink
+                    const h = Math.max(2, relH * absScale * maxH);
+                    bar.style.height = h + '%';
+                    bar.style.background = barColor;
+                    if (pctEl) pctEl.textContent = Math.round(p * 100) + '%';
+                });
+
+                // Update value label
+                const valEl = document.getElementById('temp-val');
+                if (valEl) valEl.textContent = 'T = ' + temperature.toFixed(1);
+
+                // Update description
+                const descEl = document.getElementById('temp-desc');
+                if (descEl) {
+                    if (temperature < 0.3) {
+                        descEl.textContent = 'Preciso, prevedibile, ripetitivo';
+                        descEl.style.background = 'rgba(59,130,246,0.12)';
+                        descEl.style.color = '#3b82f6';
+                    } else if (temperature < 0.8) {
+                        descEl.textContent = 'Bilanciato, naturale, affidabile';
+                        descEl.style.background = 'rgba(139,92,246,0.12)';
+                        descEl.style.color = '#7c3aed';
+                    } else {
+                        descEl.textContent = 'Creativo, vario, più rischioso';
+                        descEl.style.background = 'rgba(245,158,35,0.12)';
+                        descEl.style.color = '#d97706';
+                    }
+                }
+            }
+
+            /* ===========================================
+               NAVIGATION
+               =========================================== */
+            _initSlide(index) {
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+            }
+
+            advance() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                const ms = this.maxSteps[this.currentSlide];
+                if (cs < ms) {
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                if (cs > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else if (this.currentSlide > 0) {
+                    const prev = this.currentSlide - 1;
+                    this.currentSteps[prev] = this.maxSteps[prev];
+                    this._revealUpToStep(prev, this.currentSteps[prev]);
+                    this._scrollToSlide(prev);
+                    this.currentSlide = prev;
+                    this._updateNavDots();
+                } else if (window.parent !== window) {
+                    window.parent.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                // Disable temp interactivity when leaving temp slide
+                if (this.currentSlide === this.tempSlideIndex && index !== this.tempSlideIndex) {
+                    this._tempInteractive = false;
+                }
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(i) { this.slides[i].scrollIntoView({ behavior: 'smooth' }); }
+            _updateNavDots() { this.navDots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide)); }
+            _hideHint() { if (this._hintVisible && this.keyboardHint) { this.keyboardHint.style.opacity = '0'; this._hintVisible = false; } }
+
+            _bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight': case 'ArrowDown': case ' ': case 'Enter': case 'PageDown':
+                            e.preventDefault(); this.advance(); break;
+                        case 'ArrowLeft': case 'ArrowUp': case 'Backspace': case 'PageUp':
+                            e.preventDefault(); this.goBack(); break;
+                    }
+                });
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-dots') && !e.target.closest('.temp-slider-row')) this.advance();
+                });
+                this.navDots.forEach(d => d.addEventListener('click', (e) => { e.stopPropagation(); this.goToSlide(parseInt(d.dataset.slide, 10)); }));
+                let ty = 0;
+                document.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    if (e.target.closest('.temp-slider-row')) return;
+                    const d = ty - e.changedTouches[0].clientY;
+                    if (Math.abs(d) > 50) d > 0 ? this.advance() : this.goBack();
+                }, { passive: true });
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1 && idx !== this.currentSlide) {
+                                this.currentSlide = idx;
+                                if (this.currentSteps[idx] === 0) this._revealUpToStep(idx, 0);
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { window._pres = new SlidePresentation(); });
+
+        if (window.parent !== window) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'escape' }, '*'); }
+                else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'fullscreen' }, '*'); }
+            }, true);
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres, last = p.totalSlides - 1;
+                    p.currentSlide = last; p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]); p._scrollToSlide(last); p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formazione AI — MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --bg-default: #eae8f2;
+            --bg-sidebar: #1a1a4e;
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            display: flex;
+            background: var(--bg-default);
+        }
+
+        /* =========================================
+           SIDEBAR — Block Navigation
+           ========================================= */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: var(--bg-sidebar);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+            min-width: 0;
+            width: 0;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            width: 140px;
+            margin-bottom: 0.5rem;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar-title {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold);
+            margin-top: 0.5rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 0;
+        }
+
+        .block-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .block-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .block-item.active {
+            background: rgba(245, 166, 35, 0.12);
+            border-left-color: var(--accent-gold);
+        }
+
+        .block-item.disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .block-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            transition: all 0.25s ease;
+        }
+
+        .block-item.active .block-number {
+            background: var(--accent-gold);
+            color: var(--text-primary);
+        }
+
+        .block-item.completed .block-number {
+            background: rgba(100, 200, 130, 0.3);
+            color: #7ddf9b;
+        }
+
+        .block-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .block-name {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.85rem;
+            line-height: 1.2;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .block-item.active .block-name {
+            color: #ffffff;
+        }
+
+        .block-meta {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+
+        .block-status {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .block-status.ready {
+            background: rgba(100, 200, 130, 0.15);
+            color: #7ddf9b;
+        }
+
+        .block-status.wip {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* Progress bar in sidebar */
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .progress-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .progress-bar {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.1);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            margin-top: 0.3rem;
+        }
+
+        /* =========================================
+           MAIN AREA
+           ========================================= */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top bar */
+        .topbar {
+            height: 48px;
+            min-height: 48px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            padding: 0 1.25rem;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(26, 26, 78, 0.08);
+            z-index: 50;
+        }
+
+        .toggle-sidebar {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--text-primary);
+            transition: background 0.2s;
+        }
+
+        .toggle-sidebar:hover {
+            background: rgba(26, 26, 78, 0.06);
+        }
+
+        .topbar-block-name {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+        }
+
+        .topbar-separator {
+            width: 1px;
+            height: 20px;
+            background: rgba(26, 26, 78, 0.12);
+        }
+
+        .topbar-slide-count {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .topbar-spacer { flex: 1; }
+
+        .nav-btn {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(26, 26, 78, 0.15);
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            border-color: var(--accent-gold);
+            background: rgba(245, 166, 35, 0.08);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .fullscreen-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--text-primary);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+            margin-left: 0.25rem;
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--accent-gold);
+            color: var(--text-primary);
+        }
+
+        /* Iframe container */
+        .slide-frame-container {
+            flex: 1;
+            position: relative;
+            background: var(--bg-default);
+        }
+
+        .slide-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-default);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 0.4s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(26, 26, 78, 0.1);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           LANDING / HUB VIEW
+           ========================================= */
+        .hub-view {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3rem;
+            display: none;
+        }
+
+        .hub-view.visible {
+            display: block;
+        }
+
+        .hub-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hub-logo {
+            width: 200px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hub-title {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--text-primary);
+            line-height: 1.05;
+        }
+
+        .hub-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hub-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hub-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(26, 26, 78, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .hub-card.disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .hub-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .hub-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .hub-card-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            background: var(--accent-gold);
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        .hub-card.disabled .hub-card-number {
+            background: rgba(26, 26, 78, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .hub-card-title {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            color: var(--text-primary);
+            line-height: 1.15;
+        }
+
+        .hub-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .hub-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(26, 26, 78, 0.06);
+        }
+
+        .hub-card-slides {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .hub-card-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hub-card-badge.ready {
+            background: rgba(100, 200, 130, 0.15);
+            color: #2d8a4e;
+        }
+
+        .hub-card-badge.wip {
+            background: rgba(26, 26, 78, 0.06);
+            color: var(--text-secondary);
+        }
+
+        .hub-card-gradient {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 0 16px 0 80px;
+            opacity: 0.15;
+        }
+
+        /* Start all button */
+        .hub-start-all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2.5rem auto 0;
+        }
+
+        .start-all-btn {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            padding: 1rem 2.5rem;
+            background: var(--text-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .start-all-btn:hover {
+            background: var(--accent-gold);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(245, 166, 35, 0.3);
+        }
+
+        /* =========================================
+           FULLSCREEN MODE
+           ========================================= */
+        body.fullscreen .sidebar,
+        body.fullscreen .topbar {
+            display: none !important;
+        }
+
+        body.fullscreen .main {
+            width: 100vw;
+        }
+
+        body.fullscreen .slide-frame-container {
+            height: 100vh;
+        }
+
+        /* =========================================
+           KEYBOARD HINT (bottom)
+           ========================================= */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 26, 78, 0.85);
+            color: rgba(255,255,255,0.8);
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 200;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .keyboard-hint kbd {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin: 0 2px;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         SIDEBAR
+         ========================================== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../images/logo.svg" alt="MemorAIz" class="sidebar-logo">
+            <div class="sidebar-title">Formazione AI Interna</div>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+            <!-- Populated by JS -->
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="progress-label">Avanzamento deck</div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="progress-text" id="progressText">9 di 9 blocchi pronti</div>
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+    <div class="main">
+        <!-- Top bar -->
+        <div class="topbar" id="topbar">
+            <button class="toggle-sidebar" id="toggleSidebar" title="Menu blocchi">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <span class="topbar-block-name" id="topbarTitle">Panoramica</span>
+            <span class="topbar-separator"></span>
+            <span class="topbar-slide-count" id="topbarSlides"></span>
+            <span class="topbar-spacer"></span>
+
+            <button class="fullscreen-btn" id="fullscreenBtn" title="Modalita presentazione (F)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Hub / Landing view -->
+        <div class="hub-view visible" id="hubView">
+            <div class="hub-hero">
+                <img src="../images/logo.svg" alt="MemorAIz" class="hub-logo">
+                <h1 class="hub-title">Formazione AI Interna</h1>
+                <p class="hub-subtitle">~3-4 ore &middot; 40 slide &middot; Per il team UX/UI e Comunicazione</p>
+            </div>
+            <div class="hub-grid" id="hubGrid">
+                <!-- Populated by JS -->
+            </div>
+            <div class="hub-start-all">
+                <button class="start-all-btn" id="startAllBtn">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 2l12 7-12 7V2z" fill="currentColor"/></svg>
+                    Avvia presentazione
+                </button>
+            </div>
+        </div>
+
+        <!-- Slide iframe container -->
+        <div class="slide-frame-container" id="frameContainer" style="display:none;">
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Caricamento slides...</div>
+            </div>
+            <iframe class="slide-frame" id="slideFrame" title="Slides"></iframe>
+        </div>
+    </div>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint" id="keyboardHint">
+        <kbd>Esc</kbd> panoramica &nbsp;&middot;&nbsp; <kbd>F</kbd> fullscreen &nbsp;&middot;&nbsp; <kbd>&rarr;</kbd> <kbd>Space</kbd> avanza &nbsp;&middot;&nbsp; <kbd>&larr;</kbd> indietro
+    </div>
+
+    <script>
+        /* =============================================
+           BLOCK DATA
+           ============================================= */
+        const BLOCKS = [
+            {
+                id: 0, slug: '00-setup',
+                title: 'Setup & Aspettative',
+                desc: 'Obiettivi della formazione, calibrazione aspettative, sondaggio iniziale.',
+                slides: 3, duration: '~15 min', ready: true,
+                gradient: 'linear-gradient(135deg, #f0ddd0, #eae8f2)'
+            },
+            {
+                id: 1, slug: '01-storia-mappa',
+                title: 'Storia & Mappa AI',
+                desc: 'Timeline dal Perceptron a GPT-4, mappa concettuale AI > ML > DL > LLM.',
+                slides: 5, duration: '~25 min', ready: true,
+                gradient: 'linear-gradient(135deg, #d0dff5, #eae8f2)'
+            },
+            {
+                id: 2, slug: '02-fondamenti-ml',
+                title: 'Fondamenti ML',
+                desc: 'Reti neurali, pesi, backpropagation, funzioni di attivazione.',
+                slides: 10, duration: '~30 min', ready: true,
+                gradient: 'linear-gradient(135deg, #d0f0dd, #eae8f2)'
+            },
+            {
+                id: 3, slug: '03-come-funzionano-llm',
+                title: 'Come funzionano gli LLM',
+                desc: 'Token, predizione next-token, temperatura, pre-training, SFT, RLHF.',
+                slides: 11, duration: '~40 min', ready: true,
+                gradient: 'linear-gradient(135deg, #e8d0f0, #eae8f2)'
+            },
+            {
+                id: 4, slug: '04-context-engineering',
+                title: 'Context Engineering',
+                desc: 'Context window, prompt design, system prompt, few-shot, chain-of-thought.',
+                slides: 9, duration: '~35 min', ready: true,
+                gradient: 'linear-gradient(135deg, #f0e8d0, #eae8f2)'
+            },
+            {
+                id: 5, slug: '05-embeddings-rag',
+                title: 'Embeddings & RAG',
+                desc: 'Spazi vettoriali, similarita semantica, pipeline RAG completa.',
+                slides: '13', duration: '~35 min', ready: true,
+                gradient: 'linear-gradient(135deg, #d0e8f5, #eae8f2)'
+            },
+            {
+                id: 6, slug: '06-reasoning-models',
+                title: 'Reasoning Models',
+                desc: 'Chain-of-thought, o1/o3, thinking budget, quando usarli.',
+                slides: 10, duration: '~30 min', ready: true,
+                gradient: 'linear-gradient(135deg, #f5d0d0, #eae8f2)'
+            },
+            {
+                id: 7, slug: '07-agenti',
+                title: 'Agenti AI',
+                desc: 'Loop agente, tool calling, MCP, orchestrazione multi-agente.',
+                slides: 15, duration: '~45 min', ready: true,
+                gradient: 'linear-gradient(135deg, #d0f5e0, #eae8f2)'
+            },
+            {
+                id: 8, slug: '08-checklist',
+                title: 'Checklist & Chiusura',
+                desc: 'Albero decisionale, regole d\'oro, template, bibliografia.',
+                slides: 10, duration: '~15 min', ready: true,
+                gradient: 'linear-gradient(135deg, #f5eed0, #eae8f2)'
+            }
+        ];
+
+        /* =============================================
+           STATE
+           ============================================= */
+        let currentBlockIndex = -1; // -1 = hub view
+        let isFullscreen = false;
+        let sidebarCollapsed = false;
+
+        const sidebar = document.getElementById('sidebar');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const hubView = document.getElementById('hubView');
+        const hubGrid = document.getElementById('hubGrid');
+        const frameContainer = document.getElementById('frameContainer');
+        const slideFrame = document.getElementById('slideFrame');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const topbarTitle = document.getElementById('topbarTitle');
+        const topbarSlides = document.getElementById('topbarSlides');
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const startAllBtn = document.getElementById('startAllBtn');
+        const keyboardHint = document.getElementById('keyboardHint');
+
+        /* =============================================
+           RENDER SIDEBAR
+           ============================================= */
+        function renderSidebar() {
+            sidebarNav.innerHTML = BLOCKS.map((b, i) => `
+                <div class="block-item ${i === currentBlockIndex ? 'active' : ''} ${!b.ready ? 'disabled' : ''}"
+                     data-index="${i}" onclick="navigateToBlock(${i})">
+                    <div class="block-number">${b.id}</div>
+                    <div class="block-info">
+                        <div class="block-name">${b.title}</div>
+                        <div class="block-meta">${b.duration} &middot; ${b.slides} slide</div>
+                    </div>
+                    <span class="block-status ${b.ready ? 'ready' : 'wip'}">${b.ready ? 'Pronto' : 'WIP'}</span>
+                </div>
+            `).join('');
+        }
+
+        /* =============================================
+           RENDER HUB GRID
+           ============================================= */
+        function renderHub() {
+            hubGrid.innerHTML = BLOCKS.map((b, i) => `
+                <div class="hub-card ${!b.ready ? 'disabled' : ''}" onclick="navigateToBlock(${i})">
+                    <div class="hub-card-gradient" style="background: ${b.gradient}"></div>
+                    <div class="hub-card-header">
+                        <div class="hub-card-number">${b.id}</div>
+                        <div class="hub-card-title">${b.title}</div>
+                    </div>
+                    <div class="hub-card-desc">${b.desc}</div>
+                    <div class="hub-card-footer">
+                        <span class="hub-card-slides">${b.slides} slide &middot; ${b.duration}</span>
+                        <span class="hub-card-badge ${b.ready ? 'ready' : 'wip'}">${b.ready ? 'Pronto' : 'In arrivo'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* =============================================
+           NAVIGATION — BLOCK LEVEL
+           ============================================= */
+        function navigateToBlock(index, goToEnd) {
+            const block = BLOCKS[index];
+            if (!block || !block.ready) return;
+
+            currentBlockIndex = index;
+
+            // Show frame, hide hub
+            hubView.classList.remove('visible');
+            frameContainer.style.display = 'flex';
+            loadingOverlay.classList.remove('hidden');
+
+            // Load the block
+            slideFrame.src = `./${block.slug}/index.html`;
+            slideFrame.onload = () => {
+                loadingOverlay.classList.add('hidden');
+                // If navigating backward, tell the block to jump to its last slide
+                if (goToEnd) {
+                    setTimeout(() => {
+                        slideFrame.contentWindow.postMessage({ type: 'go-to-end' }, '*');
+                    }, 120);
+                }
+                // Focus the iframe so its internal click/touch/keyboard work
+                slideFrame.focus();
+            };
+
+            // Update topbar
+            topbarTitle.textContent = `Blocco ${block.id} — ${block.title}`;
+            topbarSlides.textContent = `${block.slides} slide`;
+            renderSidebar();
+        }
+
+        function navigateToHub() {
+            currentBlockIndex = -1;
+            hubView.classList.add('visible');
+            frameContainer.style.display = 'none';
+            slideFrame.src = '';
+            topbarTitle.textContent = 'Panoramica';
+            topbarSlides.textContent = '';
+            renderSidebar();
+        }
+
+        function goToNextReadyBlock() {
+            for (let i = currentBlockIndex + 1; i < BLOCKS.length; i++) {
+                if (BLOCKS[i].ready) {
+                    navigateToBlock(i, false);
+                    return;
+                }
+            }
+            // No more blocks — stay on last slide (do nothing)
+        }
+
+        function goToPrevReadyBlock() {
+            for (let i = currentBlockIndex - 1; i >= 0; i--) {
+                if (BLOCKS[i].ready) {
+                    navigateToBlock(i, true); // go to END of previous block
+                    return;
+                }
+            }
+            // No previous block — stay (do nothing)
+        }
+
+        /* =============================================
+           CROSS-BLOCK MESSAGES FROM IFRAME
+           ============================================= */
+        window.addEventListener('message', (e) => {
+            if (!e.data || !e.data.type) return;
+            switch (e.data.type) {
+                case 'next-block':
+                    goToNextReadyBlock();
+                    break;
+                case 'prev-block':
+                    goToPrevReadyBlock();
+                    break;
+                case 'escape':
+                    if (isFullscreen) toggleFullscreen();
+                    else navigateToHub();
+                    break;
+                case 'fullscreen':
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        /* =============================================
+           KEYBOARD — Master level
+           Handles Escape/F when the master document has
+           focus (not the iframe). Navigation keys are
+           handled entirely by the iframe internally.
+           ============================================= */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                if (isFullscreen) toggleFullscreen();
+                else if (currentBlockIndex >= 0) navigateToHub();
+                return;
+            }
+            if ((e.key === 'f' || e.key === 'F') && currentBlockIndex >= 0) {
+                e.preventDefault();
+                toggleFullscreen();
+                return;
+            }
+            // Wireless presenter support: PageDown/PageUp → forward to iframe
+            if (e.key === 'PageDown' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentBlockIndex >= 0) {
+                    slideFrame.contentWindow?.postMessage({
+                        type: e.key === 'PageDown' ? 'presenter-advance' : 'presenter-goback'
+                    }, '*');
+                    slideFrame.focus();
+                }
+                return;
+            }
+            // If master has focus (not iframe), re-focus iframe so keys work
+            if (currentBlockIndex >= 0 && document.activeElement !== slideFrame) {
+                slideFrame.focus();
+            }
+        });
+
+        /* =============================================
+           FULLSCREEN
+           ============================================= */
+        function toggleFullscreen() {
+            isFullscreen = !isFullscreen;
+            document.body.classList.toggle('fullscreen', isFullscreen);
+
+            if (isFullscreen && document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else if (!isFullscreen && document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                isFullscreen = false;
+                document.body.classList.remove('fullscreen');
+            }
+        });
+
+        /* =============================================
+           SIDEBAR TOGGLE
+           ============================================= */
+        function toggleSidebarFn() {
+            sidebarCollapsed = !sidebarCollapsed;
+            sidebar.classList.toggle('collapsed', sidebarCollapsed);
+        }
+
+        /* =============================================
+           EVENT LISTENERS
+           ============================================= */
+        toggleSidebarBtn.addEventListener('click', toggleSidebarFn);
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        startAllBtn.addEventListener('click', () => navigateToBlock(0));
+
+        // Hide keyboard hint after a few seconds
+        setTimeout(() => { keyboardHint.style.opacity = '0'; }, 6000);
+
+        /* =============================================
+           INIT
+           ============================================= */
+        renderSidebar();
+        renderHub();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 5 — Embeddings & RAG | Formazione AI MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-blue: linear-gradient(160deg, #d0dff5 0%, #e4edf8 40%, #eae8f2 100%);
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding: var(--slide-padding);
+        }
+        .slide-content {
+            max-width: 1200px; width: 90%;
+            display: flex; flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .slide-content.centered { margin: 0 auto; text-align: center; align-items: center; }
+
+        /* ===========================================
+           SHARED ELEMENTS
+           =========================================== */
+        .logo { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); height: clamp(24px, 3vw, 40px); z-index: 10; opacity: 0.85; }
+        .mascot { position: absolute; z-index: 5; pointer-events: none; }
+        .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
+        .mascot.small { height: clamp(40px, 6vw, 60px); }
+        .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
+        .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
+        .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
+        .bullet-list li strong { font-weight: 700; }
+        .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
+        .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
+
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
+        .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+        .nav-dot:hover { border-color: var(--accent-gold); }
+        .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+
+        /* Step reveal */
+        .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .step.visible { opacity: 1; transform: translateY(0); }
+
+        .slide h1 { font-size: var(--title-size); color: var(--text-primary); }
+        .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
+
+        /* ===========================================
+           SLIDE 5.1 — EMBEDDING SCATTER PLOT
+           =========================================== */
+        .emb-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.5vw, 2rem); align-items: start; }
+
+        .scatter-area {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            max-height: min(38vh, 300px);
+            border: 1px solid rgba(26, 26, 78, 0.12);
+            border-radius: 12px;
+            background:
+                linear-gradient(rgba(26, 26, 78, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26, 26, 78, 0.03) 1px, transparent 1px),
+                rgba(255, 255, 255, 0.25);
+            background-size: 20% 20%;
+            overflow: hidden;
+        }
+
+        .scatter-dot {
+            position: absolute;
+            width: clamp(10px, 1.5vw, 16px);
+            height: clamp(10px, 1.5vw, 16px);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+        .scatter-dot.show { transform: translate(-50%, -50%) scale(1); }
+        .scatter-dot.animal { background: var(--accent-gold); }
+        .scatter-dot.vehicle { background: #7B8EBF; }
+
+        .scatter-label {
+            position: absolute;
+            transform: translate(-50%, 0);
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.2s;
+        }
+        .scatter-label.show { opacity: 1; }
+
+        .cluster-label {
+            position: absolute;
+            font-family: var(--font-body);
+            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.3s;
+            padding: clamp(2px, 0.3vw, 4px) clamp(4px, 0.6vw, 8px);
+            border-radius: 4px;
+        }
+        .cluster-label.show { opacity: 0.7; }
+        .cluster-label.animal { color: var(--accent-gold); background: rgba(245, 166, 35, 0.08); }
+        .cluster-label.vehicle { color: #7B8EBF; background: rgba(123, 142, 191, 0.08); }
+
+        .analogy-row { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem); }
+        .analogy-row .mascot { position: static; height: clamp(40px, 6vw, 60px); opacity: 0.85; flex-shrink: 0; }
+
+        /* ===========================================
+           SLIDE 5.2 — DAGLI LLM AGLI EMBEDDING
+           =========================================== */
+        .llm-emb-flow {
+            display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            align-items: center; margin: clamp(0.3rem, 0.8vw, 0.6rem) auto 0;
+            max-width: 600px; width: 100%;
+        }
+        .llm-emb-block {
+            display: flex; align-items: center; gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            width: 100%; padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
+            border-radius: 10px; border: 1px solid rgba(26, 26, 78, 0.1);
+            background: rgba(26, 26, 78, 0.03);
+        }
+        .llm-emb-block.active-block {
+            border-color: rgba(245, 166, 35, 0.3);
+            background: rgba(245, 166, 35, 0.04);
+        }
+        .llm-emb-num {
+            width: clamp(28px, 3.5vw, 38px); height: clamp(28px, 3.5vw, 38px);
+            border-radius: 50%; border: 2px solid var(--text-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+            font-weight: 700; color: var(--text-primary); flex-shrink: 0;
+        }
+        .llm-emb-block.active-block .llm-emb-num {
+            border-color: var(--accent-gold); color: var(--accent-gold);
+        }
+        .llm-emb-text { display: flex; flex-direction: column; gap: 2px; }
+        .llm-emb-title {
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            font-weight: 700; color: var(--text-primary);
+        }
+        .llm-emb-desc {
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 500; color: var(--text-secondary); line-height: 1.35;
+        }
+        .llm-emb-arrow {
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--accent-gold); font-weight: 700;
+        }
+        .llm-emb-insight {
+            background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
+            border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 500; color: var(--text-primary); line-height: 1.4;
+            max-width: 600px; width: 100%; margin: 0 auto;
+        }
+
+        /* ===========================================
+           SLIDE 5.3 — VECTOR ARITHMETIC (★★★) [ex 5.2]
+           =========================================== */
+        .vec-canvas {
+            position: relative;
+            width: 100%;
+            max-height: min(50vh, 400px);
+            aspect-ratio: 16 / 9;
+            margin: 0 auto;
+        }
+        .vec-canvas svg { width: 100%; height: 100%; }
+        .vec-canvas .grid-line { stroke: rgba(26, 26, 78, 0.06); stroke-width: 1; }
+        .vec-point {
+            transition: opacity 0.4s var(--ease-out-expo), r 0.3s var(--ease-out-expo);
+        }
+        .vec-label {
+            font-family: var(--font-body); font-weight: 700;
+            fill: var(--text-primary); opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .vec-label.show { opacity: 1; }
+        .vec-arrow {
+            fill: none; stroke-width: 2.5; stroke-linecap: round;
+            marker-end: url(#arrowhead);
+            stroke-dasharray: 300; stroke-dashoffset: 300;
+            opacity: 0;
+            transition: stroke-dashoffset 0.6s var(--ease-out-expo), opacity 0.3s ease;
+        }
+        .vec-arrow.draw { stroke-dashoffset: 0; opacity: 1; }
+        .vec-arrow.dashed { stroke-dasharray: 6 4; stroke-dashoffset: 0; opacity: 0; transition: opacity 0.4s ease; }
+        .vec-arrow.dashed.show { opacity: 0.7; }
+        .vec-arrow-label {
+            font-family: var(--font-body); font-size: 11px; font-weight: 600;
+            fill: var(--text-secondary); opacity: 0; transition: opacity 0.4s ease;
+        }
+        .vec-arrow-label.show { opacity: 1; }
+        .vec-moving-dot {
+            transition: cx 0.8s var(--ease-out-expo), cy 0.8s var(--ease-out-expo), opacity 0.3s ease;
+        }
+        .vec-moving-dot.visible { opacity: 1; }
+        .vec-intermediate-label {
+            font-family: var(--font-body); font-weight: 600;
+            fill: var(--text-secondary); opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .vec-intermediate-label.show { opacity: 1; }
+        .vec-formula {
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            font-weight: 700; color: var(--text-primary); text-align: center;
+            opacity: 0; transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+        }
+        .vec-formula.show { opacity: 1; transform: translateY(0); }
+        .vec-formula .gold { color: var(--accent-gold); }
+
+        .caveat-box {
+            background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
+            border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 500; color: var(--text-secondary); line-height: 1.4;
+        }
+
+        /* ===========================================
+           SLIDE 5.4 — TIPI DI EMBEDDING (ex 5.3)
+           =========================================== */
+        .evo-timeline { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(0.5rem, 1.2vw, 1rem); }
+        .evo-block {
+            display: flex; flex-direction: column; gap: clamp(0.2rem, 0.4vw, 0.3rem);
+            padding: clamp(0.5rem, 1vw, 0.8rem); border-radius: 12px;
+            border: 1px solid rgba(26, 26, 78, 0.08);
+            background: rgba(26, 26, 78, 0.03);
+        }
+        .evo-block.highlight {
+            border-color: rgba(245, 166, 35, 0.3);
+            background: rgba(245, 166, 35, 0.04);
+        }
+        .evo-block h3 { font-size: var(--h3-size); }
+        .evo-block .evo-era {
+            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 700; color: var(--accent-gold); letter-spacing: 0.05em;
+        }
+        .evo-block .evo-icon {
+            font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem);
+        }
+        .evo-block p {
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 500; line-height: 1.4; color: var(--text-secondary);
+        }
+        .evo-block.highlight p { color: var(--text-primary); }
+        .evo-block .evo-example {
+            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-weight: 500; font-style: italic; color: var(--text-secondary); line-height: 1.3;
+        }
+        .evo-arrow-row {
+            display: flex; align-items: center; justify-content: center; gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600; color: var(--text-secondary);
+        }
+        .evo-arrow-row .arrow { color: var(--accent-gold); font-size: 1.3em; }
+
+        /* ===========================================
+           SLIDE 5.5 — VISUALIZZAZIONE (ex 5.4)
+           =========================================== */
+        .viz-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1rem, 2.5vw, 2rem); align-items: start; }
+        .viz-mockup {
+            position: relative; width: 100%; aspect-ratio: 16 / 10;
+            max-height: min(35vh, 280px);
+            border-radius: 12px; overflow: hidden;
+            background: #1a1a2e;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .viz-mockup-inner {
+            width: 85%; height: 80%;
+            position: relative;
+        }
+        .viz-dot-3d {
+            position: absolute; width: clamp(4px, 0.7vw, 8px); height: clamp(4px, 0.7vw, 8px);
+            border-radius: 50%; opacity: 0.7;
+        }
+        .viz-dot-3d.c1 { background: #f5a623; }
+        .viz-dot-3d.c2 { background: #7B8EBF; }
+        .viz-dot-3d.c3 { background: #7ecf8e; }
+        .viz-dot-3d.c4 { background: #e07b7b; }
+        .viz-mockup-label {
+            position: absolute; bottom: 6px; left: 0; right: 0; text-align: center;
+            font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            color: rgba(255,255,255,0.5); font-weight: 500;
+        }
+        .viz-bullets { display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vw, 0.6rem); }
+        .note-box {
+            background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.15);
+            border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 500; line-height: 1.4; color: var(--text-primary);
+        }
+        .note-box.warning { border-color: rgba(231, 76, 60, 0.2); background: rgba(231, 76, 60, 0.04); }
+        .demo-link {
+            display: inline-block; background: var(--highlight-bg); border-radius: 6px;
+            padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.8vw, 0.6rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600; color: var(--text-primary);
+        }
+
+        /* ===========================================
+           SLIDE 5.6 — IL PROBLEMA CHE RAG RISOLVE
+           =========================================== */
+        .limit-cards {
+            display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .limit-card {
+            display: flex; align-items: flex-start; gap: clamp(0.5rem, 1vw, 0.8rem);
+            padding: clamp(0.5rem, 1vw, 0.8rem); border-radius: 12px;
+            border: 1px solid rgba(245, 166, 35, 0.2);
+            background: rgba(245, 166, 35, 0.03);
+        }
+        .limit-card-num {
+            font-family: var(--font-display); font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--accent-gold); flex-shrink: 0; line-height: 1.2;
+        }
+        .limit-card-body h3 {
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem);
+            text-transform: none; letter-spacing: 0;
+        }
+        .limit-card-body p {
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 500; line-height: 1.4; color: var(--text-secondary);
+        }
+        .bridge-box {
+            background: rgba(245, 166, 35, 0.06); border: 2px solid rgba(245, 166, 35, 0.25);
+            border-radius: 10px; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            font-family: var(--font-body); font-size: var(--body-size);
+            font-weight: 700; color: var(--text-primary); text-align: center;
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .bridge-box .arrow-rag { color: var(--accent-gold); font-weight: 800; }
+
+        /* ===========================================
+           SLIDE 5.7 — RAG: IL CONCETTO
+           =========================================== */
+        .rag-flow {
+            display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: stretch; gap: 0;
+            margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+        }
+        .rag-block {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding: clamp(0.5rem, 1vw, 0.8rem); border-radius: 12px;
+            border: 2px solid rgba(26, 26, 78, 0.1);
+            background: rgba(26, 26, 78, 0.03);
+            gap: clamp(0.15rem, 0.3vw, 0.25rem);
+        }
+        .rag-block.active-block {
+            border-color: rgba(245, 166, 35, 0.35);
+            background: rgba(245, 166, 35, 0.04);
+        }
+        .rag-letter {
+            font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--accent-gold); line-height: 1;
+        }
+        .rag-block h3 {
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            font-weight: 800; color: var(--text-primary);
+            text-transform: none; letter-spacing: 0;
+        }
+        .rag-block p {
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.88rem);
+            font-weight: 500; line-height: 1.4; color: var(--text-secondary);
+        }
+        .rag-arrow {
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(1.2rem, 2vw, 1.6rem); color: var(--accent-gold);
+            font-weight: 800; padding: 0 clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .analogy-box {
+            background: rgba(245, 166, 35, 0.06); border: 2px solid rgba(245, 166, 35, 0.2);
+            border-radius: 10px; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 1rem);
+            font-weight: 600; line-height: 1.5; color: var(--text-primary);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+            position: relative;
+        }
+        .analogy-box .analogy-emoji {
+            font-size: clamp(1rem, 1.6vw, 1.3rem); margin-right: 0.3em;
+        }
+        @media (max-width: 600px) {
+            .rag-flow { grid-template-columns: 1fr; gap: clamp(0.3rem, 0.5vw, 0.4rem); }
+            .rag-arrow { transform: rotate(90deg); padding: clamp(0.1rem, 0.3vw, 0.2rem) 0; }
+        }
+
+        /* ===========================================
+           SLIDE 5.8 — PIPELINE RAG (6 PASSI)
+           =========================================== */
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.4rem, 0.8vw, 0.7rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .pipe-block {
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center; padding: clamp(0.4rem, 0.7vw, 0.6rem);
+            border-radius: 10px; border: 1px solid rgba(26, 26, 78, 0.1);
+            background: rgba(26, 26, 78, 0.03);
+        }
+        .pipe-num {
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 800; color: var(--accent-gold); margin-bottom: 2px;
+        }
+        .pipe-icon { font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: clamp(2px, 0.3vw, 4px); }
+        .pipe-block h3 {
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: 2px;
+        }
+        .pipe-block p {
+            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 500; color: var(--text-secondary); line-height: 1.35;
+        }
+        .pipe-arrow-row {
+            display: flex; align-items: center; justify-content: space-around;
+            margin: clamp(0.1rem, 0.2vw, 0.15rem) 0;
+        }
+        .pipe-arrow-row .arrow-icon {
+            font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--accent-gold); font-weight: 700;
+        }
+        .pipe-warning {
+            background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
+            border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-weight: 600; color: var(--text-primary); line-height: 1.35;
+            margin-top: clamp(0.2rem, 0.4vw, 0.3rem);
+        }
+
+        /* ===========================================
+           SLIDE 5.9 — LOST IN THE MIDDLE
+           =========================================== */
+        .litm-container {
+            display: flex; flex-direction: column; align-items: center;
+            gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .context-bar-wrap { width: 100%; max-width: 700px; position: relative; }
+        .context-bar {
+            display: flex; width: 100%; height: clamp(50px, 8vh, 70px);
+            border-radius: 8px; overflow: hidden;
+            border: 1px solid rgba(26, 26, 78, 0.1);
+        }
+        .ctx-segment {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-weight: 700; color: var(--text-primary);
+            transition: opacity 0.6s var(--ease-out-expo), background 0.6s var(--ease-out-expo);
+            background: rgba(245, 166, 35, 0.15);
+            border-right: 1px solid rgba(26, 26, 78, 0.06);
+        }
+        .ctx-segment:last-child { border-right: none; }
+        .context-bar.faded .ctx-segment { opacity: 0.25; background: rgba(26, 26, 78, 0.04); }
+        .context-bar.faded .ctx-segment.bright {
+            opacity: 1; background: rgba(245, 166, 35, 0.25);
+            box-shadow: inset 0 0 12px rgba(245, 166, 35, 0.15);
+        }
+        .attn-labels {
+            display: flex; justify-content: space-between; width: 100%;
+            margin-top: clamp(2px, 0.3vw, 4px);
+        }
+        .attn-label {
+            font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-weight: 700;
+        }
+        .attn-label.high { color: var(--accent-gold); }
+        .attn-label.low { color: var(--text-secondary); opacity: 0.6; }
+        .u-curve-wrap {
+            width: 100%; max-width: 700px; height: clamp(40px, 6vh, 55px);
+            margin-top: clamp(-0.2rem, -0.3vw, -0.1rem);
+        }
+        .u-curve-wrap svg { width: 100%; height: 100%; }
+        .u-curve-path {
+            stroke: var(--accent-gold); stroke-width: 2.5; fill: none;
+            stroke-dasharray: 600; stroke-dashoffset: 600;
+            transition: stroke-dashoffset 0.8s var(--ease-out-expo);
+        }
+        .u-curve-path.drawn { stroke-dashoffset: 0; }
+        .litm-rule {
+            background: rgba(26, 26, 78, 0.04); border: 1px solid rgba(26, 26, 78, 0.1);
+            border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600; color: var(--text-primary); line-height: 1.35;
+            max-width: 700px; width: 100%; text-align: center;
+        }
+        .litm-data {
+            display: flex; flex-direction: column; gap: clamp(0.2rem, 0.4vw, 0.3rem);
+            max-width: 700px; width: 100%;
+        }
+
+        /* ===========================================
+           SLIDE 5.10 — INNOVAZIONI RAG
+           =========================================== */
+        .innov-cards {
+            display: flex; flex-direction: column;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            margin-top: clamp(0.3rem, 0.5vw, 0.4rem);
+        }
+        .innov-card {
+            display: flex; align-items: flex-start; gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            padding: clamp(0.4rem, 0.7vw, 0.55rem) clamp(0.5rem, 1vw, 0.8rem);
+            border-radius: 10px; border: 1px solid rgba(245, 166, 35, 0.2);
+            background: rgba(245, 166, 35, 0.03);
+        }
+        .innov-year {
+            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 800; color: var(--accent-gold); white-space: nowrap;
+            padding-top: 2px; min-width: clamp(35px, 4vw, 50px);
+        }
+        .innov-body h3 {
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 0.95rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: 2px;
+        }
+        .innov-body p {
+            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-weight: 500; color: var(--text-secondary); line-height: 1.4;
+        }
+        .innov-stat { font-weight: 800; color: var(--accent-gold); }
+
+        /* ===========================================
+           SLIDE 5.11 — UX PATTERNS
+           =========================================== */
+        .ux-patterns {
+            display: flex; flex-direction: column;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            margin-top: clamp(0.3rem, 0.5vw, 0.4rem);
+        }
+        .ux-pattern {
+            display: flex; align-items: flex-start; gap: clamp(0.4rem, 0.7vw, 0.5rem);
+            padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            border-radius: 8px; background: rgba(26, 26, 78, 0.03);
+            border: 1px solid rgba(26, 26, 78, 0.08);
+        }
+        .ux-emoji { font-size: clamp(1.1rem, 1.6vw, 1.4rem); flex-shrink: 0; line-height: 1.3; }
+        .ux-pattern h3 {
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: 1px;
+        }
+        .ux-pattern p {
+            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 500; color: var(--text-secondary); line-height: 1.35;
+        }
+        .ux-rule {
+            background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
+            border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600; color: var(--text-primary); line-height: 1.35;
+            margin-top: clamp(0.15rem, 0.3vw, 0.2rem);
+        }
+
+        /* ===========================================
+           SLIDE 5.12 — RIEPILOGO
+           =========================================== */
+        .takeaway-list {
+            display: flex; flex-direction: column;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            margin-top: clamp(0.3rem, 0.5vw, 0.4rem);
+        }
+        .takeaway-item {
+            display: flex; align-items: flex-start; gap: clamp(0.4rem, 0.7vw, 0.5rem);
+            padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
+        }
+        .takeaway-num {
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-weight: 800; color: var(--accent-gold); flex-shrink: 0;
+            width: clamp(20px, 2.5vw, 28px);
+        }
+        .takeaway-item h3 {
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-weight: 800; color: var(--text-primary);
+        }
+        .takeaway-item h3 span {
+            font-weight: 500; color: var(--text-secondary);
+            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root { --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem); --title-size: clamp(1.8rem, 5vw, 3.5rem); }
+            .scatter-area { max-height: min(30vh, 240px); }
+        }
+        @media (max-height: 600px) {
+            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem); --title-size: clamp(1.5rem, 4.5vw, 2.5rem); --body-size: clamp(0.75rem, 1.3vw, 1rem); }
+            .nav-dots, .keyboard-hint, .starburst, .sparkle { display: none; }
+            .mascot.bottom-right { height: clamp(40px, 7vw, 70px); }
+        }
+        @media (max-height: 500px) {
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 1.5rem); --title-size: clamp(1.2rem, 4vw, 2rem); --body-size: clamp(0.65rem, 1.1vw, 0.85rem); }
+        }
+        @media (max-width: 600px) {
+            .emb-layout { grid-template-columns: 1fr; }
+            .scatter-area { max-height: min(25vh, 200px); }
+            .evo-timeline { grid-template-columns: 1fr; }
+            .viz-layout { grid-template-columns: 1fr; }
+            .pipeline-grid { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAV DOTS ===== -->
+    <nav class="nav-dots" aria-label="Navigazione slide">
+        <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
+        <button class="nav-dot" data-slide="4" aria-label="Slide 5"></button>
+        <button class="nav-dot" data-slide="5" aria-label="Slide 6"></button>
+        <button class="nav-dot" data-slide="6" aria-label="Slide 7"></button>
+        <button class="nav-dot" data-slide="7" aria-label="Slide 8"></button>
+        <button class="nav-dot" data-slide="8" aria-label="Slide 9"></button>
+        <button class="nav-dot" data-slide="9" aria-label="Slide 10"></button>
+        <button class="nav-dot" data-slide="10" aria-label="Slide 11"></button>
+        <button class="nav-dot" data-slide="11" aria-label="Slide 12"></button>
+        <button class="nav-dot" data-slide="12" aria-label="Slide 13"></button>
+    </nav>
+    <div class="keyboard-hint">← → oppure click per navigare</div>
+
+    <!-- ================================================
+         SLIDE 5.0 — TITOLO DI SEZIONE
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="0">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="starburst" style="bottom: 15%; right: 8%;"></div>
+        <div class="sparkle" style="top: 20%; right: 25%;"></div>
+
+        <div class="slide-content centered">
+            <div class="section-label">★ BLOCCO 5</div>
+            <h1>Embeddings & RAG</h1>
+            <p class="sub-heading">Come dare memoria ai modelli</p>
+            <p class="sub-note">~35 minuti — dalla rappresentazione del significato alla ricerca intelligente</p>
+        </div>
+
+        <img src="../../images/stars/astronauta.png" alt="" class="mascot bottom-right" style="height: clamp(70px, 12vw, 120px);">
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.1 — COSA SONO GLI EMBEDDINGS
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="3">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ RAPPRESENTAZIONE</div>
+            <h2 class="step" data-step="0">Trasformare parole in numeri</h2>
+            <p class="sub-heading step" data-step="0">Gli embedding: una mappa del significato</p>
+
+            <div class="emb-layout" style="margin-top: clamp(0.3rem, 0.8vw, 0.6rem);">
+                <!-- Left column: concept bullets -->
+                <div class="step" data-step="1">
+                    <ul class="bullet-list">
+                        <li>Un embedding è una <strong>lista di numeri</strong> (un vettore) che rappresenta il significato di un testo¹</li>
+                        <li>Centinaia o migliaia di dimensioni (es. <strong>1536</strong> per OpenAI, <strong>3072</strong> per Google Gemini)²</li>
+                        <li>Ogni dimensione cattura un <strong>aspetto del significato</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Right column: scatter plot -->
+                <div class="scatter-area step" data-step="2" id="scatter-plot">
+                    <!-- Cluster "Animali" — top-left area -->
+                    <div class="scatter-dot animal" style="top: 28%; left: 25%;" id="dot-gatto"></div>
+                    <div class="scatter-label" style="top: 36%; left: 25%;" id="lbl-gatto">gatto</div>
+                    <div class="scatter-dot animal" style="top: 22%; left: 35%;" id="dot-cane"></div>
+                    <div class="scatter-label" style="top: 14%; left: 35%;" id="lbl-cane">cane</div>
+                    <div class="scatter-dot animal" style="top: 32%; left: 38%;" id="dot-leone"></div>
+                    <div class="scatter-label" style="top: 40%; left: 38%;" id="lbl-leone">leone</div>
+                    <div class="cluster-label animal" style="top: 10%; left: 15%;" id="cl-animali">Animali</div>
+
+                    <!-- Cluster "Veicoli" — bottom-right area -->
+                    <div class="scatter-dot vehicle" style="top: 68%; left: 65%;" id="dot-auto"></div>
+                    <div class="scatter-label" style="top: 76%; left: 65%;" id="lbl-auto">auto</div>
+                    <div class="scatter-dot vehicle" style="top: 62%; left: 78%;" id="dot-treno"></div>
+                    <div class="scatter-label" style="top: 54%; left: 78%;" id="lbl-treno">treno</div>
+                    <div class="scatter-dot vehicle" style="top: 72%; left: 80%;" id="dot-aereo"></div>
+                    <div class="scatter-label" style="top: 80%; left: 80%;" id="lbl-aereo">aereo</div>
+                    <div class="cluster-label vehicle" style="top: 52%; left: 58%;" id="cl-veicoli">Veicoli</div>
+                </div>
+            </div>
+
+            <!-- Analogy box with lampadina -->
+            <div class="analogy-row step" data-step="3">
+                <div class="highlight-box" style="flex: 1;">
+                    Come una mappa dove le parole formano <strong>quartieri</strong>: nel quartiere "animali" trovate gatto e cane vicini, lontani dal quartiere "veicoli".
+                </div>
+                <img src="../../images/stars/lampadina.png" alt="" class="mascot small">
+            </div>
+        </div>
+
+        <div class="footnote">¹ Google, 2025 &nbsp;&nbsp; ² OpenAI / Google, 2025</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.2 — DAGLI LLM AGLI EMBEDDING
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="5">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 18%; right: 20%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ CONNESSIONE</div>
+            <h2 class="step" data-step="0">Dagli LLM agli embedding</h2>
+            <p class="sub-heading step" data-step="0">Gli embedding non sono separati dai modelli — ne sono il cuore</p>
+
+            <div class="llm-emb-flow">
+                <!-- Block 1: Token -->
+                <div class="llm-emb-block step" data-step="1">
+                    <div class="llm-emb-num">1</div>
+                    <div class="llm-emb-text">
+                        <div class="llm-emb-title">Token</div>
+                        <div class="llm-emb-desc">La parola viene spezzata in token (come visto nel Blocco 3)</div>
+                    </div>
+                </div>
+                <div class="llm-emb-arrow step" data-step="2">↓</div>
+                <!-- Block 2: Embedding iniziale -->
+                <div class="llm-emb-block step" data-step="2">
+                    <div class="llm-emb-num">2</div>
+                    <div class="llm-emb-text">
+                        <div class="llm-emb-title">Embedding iniziale</div>
+                        <div class="llm-emb-desc">Ogni token diventa un vettore grezzo — una posizione iniziale nello spazio¹</div>
+                    </div>
+                </div>
+                <div class="llm-emb-arrow step" data-step="3">↓</div>
+                <!-- Block 3: Transformer layers -->
+                <div class="llm-emb-block active-block step" data-step="3">
+                    <div class="llm-emb-num">3</div>
+                    <div class="llm-emb-text">
+                        <div class="llm-emb-title">Layer Transformer (×N)</div>
+                        <div class="llm-emb-desc">Ad ogni layer, l'attenzione aggiorna il vettore guardando il contesto. Il vettore si <strong>muove nello spazio</strong>, avvicinandosi al significato contestuale²</div>
+                    </div>
+                </div>
+                <div class="llm-emb-arrow step" data-step="4">↓</div>
+                <!-- Block 4: Embedding finale -->
+                <div class="llm-emb-block active-block step" data-step="4">
+                    <div class="llm-emb-num">4</div>
+                    <div class="llm-emb-text">
+                        <div class="llm-emb-title">Embedding finale</div>
+                        <div class="llm-emb-desc">L'output dell'ultimo layer è un embedding <strong>raffinato</strong>, ricco di contesto</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight box -->
+            <div class="llm-emb-insight step" data-step="5">
+                💡 Un modello di embedding dedicato è un Transformer addestrato apposta per produrre vettori ottimali per la <strong>ricerca semantica</strong> — è un "cugino specializzato" degli LLM.
+            </div>
+        </div>
+
+        <div class="footnote">¹ Dremio, 2025 &nbsp;&nbsp; ² Stack Overflow Blog, 2023</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.3 — ARITMETICA VETTORIALE (★★★) [ex 5.2, RIDISEGNATA]
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="8">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ GEOMETRIA</div>
+            <h2 class="step" data-step="0">Le direzioni catturano relazioni</h2>
+            <p class="sub-heading step" data-step="0">L'aritmetica del significato</p>
+
+            <!-- SVG vector space — EXAMPLE 1 -->
+            <div class="vec-canvas step" data-step="1" id="vec-space">
+                <svg viewBox="0 0 700 370" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#f5a623" />
+                        </marker>
+                        <marker id="arrowhead-ghost" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#f5a623" opacity="0.5" />
+                        </marker>
+                        <marker id="arrowhead-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#7B8EBF" />
+                        </marker>
+                        <marker id="arrowhead-blue-ghost" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#7B8EBF" opacity="0.5" />
+                        </marker>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    <line x1="50" y1="87" x2="650" y2="87" class="grid-line"/>
+                    <line x1="50" y1="175" x2="650" y2="175" class="grid-line"/>
+                    <line x1="50" y1="262" x2="650" y2="262" class="grid-line"/>
+                    <line x1="175" y1="30" x2="175" y2="340" class="grid-line"/>
+                    <line x1="350" y1="30" x2="350" y2="340" class="grid-line"/>
+                    <line x1="525" y1="30" x2="525" y2="340" class="grid-line"/>
+
+                    <!-- AXIS LABELS (Step 1) -->
+                    <g id="vec-axes">
+                        <!-- X axis label -->
+                        <text x="350" y="362" text-anchor="middle" font-family="Darker Grotesque, sans-serif" font-size="11" fill="#555566" opacity="0.6">← meno regale · · · più regale →</text>
+                        <!-- Y axis label -->
+                        <text x="38" y="175" text-anchor="middle" font-family="Darker Grotesque, sans-serif" font-size="11" fill="#555566" opacity="0.6" transform="rotate(-90, 38, 175)">♂ · · · ♀</text>
+                    </g>
+
+                    <!-- EXAMPLE 1: re/uomo/donna/regina (inclined parallelogram) -->
+                    <g id="vec-ex1">
+                        <!-- Points -->
+                        <circle id="pt-uomo" cx="140" cy="250" r="0" fill="#7B8EBF" opacity="0"/>
+                        <circle id="pt-donna" cx="220" cy="90" r="0" fill="#e07b7b" opacity="0"/>
+                        <circle id="pt-re" cx="440" cy="290" r="0" fill="#f5a623" opacity="0"/>
+                        <circle id="pt-regina" cx="520" cy="130" r="0" fill="#f5a623" opacity="0"/>
+                        <!-- Labels -->
+                        <text id="lb-uomo" x="140" y="278" text-anchor="middle" class="vec-label" font-size="14">uomo</text>
+                        <text id="lb-donna" x="220" y="78" text-anchor="middle" class="vec-label" font-size="14">donna</text>
+                        <text id="lb-re" x="440" y="318" text-anchor="middle" class="vec-label" font-size="14">re</text>
+                        <text id="lb-regina" x="520" y="118" text-anchor="middle" class="vec-label" font-size="14">regina</text>
+
+                        <!-- Arrow: uomo → donna ("la relazione di genere") -->
+                        <line id="arr-gender" x1="144" y1="238" x2="216" y2="102" class="vec-arrow" stroke="#f5a623" marker-end="url(#arrowhead)"/>
+                        <text id="lb-gender" x="145" y="165" class="vec-arrow-label" font-size="11" text-anchor="middle">questa freccia = relazione di genere</text>
+
+                        <!-- Ghost arrow: re → regina (same vector applied) -->
+                        <line id="arr-ghost" x1="444" y1="278" x2="516" y2="142" class="vec-arrow dashed" stroke="#f5a623" marker-end="url(#arrowhead-ghost)"/>
+
+                        <!-- Parallelogram lines -->
+                        <line id="para-top" x1="220" y1="90" x2="520" y2="130" class="vec-arrow dashed" stroke="rgba(26,26,78,0.2)"/>
+                        <line id="para-bottom" x1="140" y1="250" x2="440" y2="290" class="vec-arrow dashed" stroke="rgba(26,26,78,0.2)"/>
+
+                        <!-- Moving dot for example 1 -->
+                        <circle id="moving-dot-1" cx="440" cy="290" r="10" fill="#f5a623" opacity="0" stroke="#1a1a4e" stroke-width="1.5" class="vec-moving-dot"/>
+
+                        <!-- Intermediate label -->
+                        <text id="lb-intermediate-1" x="300" y="32" text-anchor="middle" class="vec-intermediate-label" font-size="11">re − uomo</text>
+
+                        <!-- Explanation box inside SVG -->
+                        <foreignObject id="vec-explain" x="530" y="160" width="160" height="80" opacity="0">
+                            <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Darker Grotesque, sans-serif; font-size: 11px; color: #555566; line-height: 1.35; font-weight: 500; background: rgba(255,255,255,0.6); border-radius: 6px; padding: 6px 8px; border: 1px solid rgba(26,26,78,0.08);">
+                                La stessa freccia, applicata a un altro punto, produce lo <strong style="color: #1a1a4e;">stesso cambiamento semantico</strong>
+                            </div>
+                        </foreignObject>
+                    </g>
+
+                    <!-- EXAMPLE 2: Parigi/Francia/Italia/Roma (inclined parallelogram) -->
+                    <g id="vec-ex2" opacity="0">
+                        <!-- Axis labels for example 2 -->
+                        <text id="ax2-x" x="350" y="362" text-anchor="middle" font-family="Darker Grotesque, sans-serif" font-size="11" fill="#555566" opacity="0.6">← nazione · · · città →</text>
+                        <text id="ax2-y" x="38" y="175" text-anchor="middle" font-family="Darker Grotesque, sans-serif" font-size="11" fill="#555566" opacity="0.6" transform="rotate(-90, 38, 175)">Francia · · · Italia</text>
+
+                        <!-- Points -->
+                        <circle id="pt-francia" cx="140" cy="260" r="0" fill="#7B8EBF"/>
+                        <circle id="pt-italia" cx="210" cy="90" r="0" fill="#e07b7b"/>
+                        <circle id="pt-parigi" cx="450" cy="290" r="0" fill="#f5a623"/>
+                        <circle id="pt-roma" cx="520" cy="120" r="0" fill="#f5a623"/>
+                        <text id="lb-francia" x="140" y="288" text-anchor="middle" class="vec-label" font-size="14">Francia</text>
+                        <text id="lb-italia" x="210" y="78" text-anchor="middle" class="vec-label" font-size="14">Italia</text>
+                        <text id="lb-parigi" x="450" y="318" text-anchor="middle" class="vec-label" font-size="14">Parigi</text>
+                        <text id="lb-roma" x="520" y="108" text-anchor="middle" class="vec-label" font-size="14">Roma</text>
+
+                        <!-- Arrow: Francia → Italia -->
+                        <line id="arr-country" x1="144" y1="248" x2="206" y2="102" class="vec-arrow" stroke="#7B8EBF" marker-end="url(#arrowhead-blue)"/>
+                        <text id="lb-country" x="140" y="170" class="vec-arrow-label" font-size="11" text-anchor="middle">relazione "capitale-di"</text>
+
+                        <!-- Ghost arrow: Parigi → Roma -->
+                        <line id="arr-ghost2" x1="454" y1="278" x2="516" y2="132" class="vec-arrow dashed" stroke="#7B8EBF" marker-end="url(#arrowhead-blue-ghost)"/>
+
+                        <!-- Parallelogram -->
+                        <line id="para2-top" x1="210" y1="90" x2="520" y2="120" class="vec-arrow dashed" stroke="rgba(26,26,78,0.2)"/>
+                        <line id="para2-bottom" x1="140" y1="260" x2="450" y2="290" class="vec-arrow dashed" stroke="rgba(26,26,78,0.2)"/>
+
+                        <!-- Moving dot for example 2 -->
+                        <circle id="moving-dot-2" cx="450" cy="290" r="10" fill="#7B8EBF" opacity="0" stroke="#1a1a4e" stroke-width="1.5" class="vec-moving-dot"/>
+
+                        <!-- Intermediate label -->
+                        <text id="lb-intermediate-2" x="310" y="22" text-anchor="middle" class="vec-intermediate-label" font-size="11">Parigi − Francia</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Formula display -->
+            <div id="vec-formula1" class="vec-formula">
+                <span class="gold">re</span> − uomo + donna ≈ <span class="gold">regina</span>
+            </div>
+            <div id="vec-formula2" class="vec-formula">
+                <span class="gold">Parigi</span> − Francia + Italia ≈ <span class="gold">Roma</span>
+            </div>
+
+            <!-- Caveat box -->
+            <div class="caveat-box step" data-step="8">
+                ⚠️ Questa illustrazione viene dagli embedding statici (word2vec, 2013). Il principio è reale — le direzioni nello spazio catturano relazioni semantiche — ma non è una formula esatta.¹
+            </div>
+        </div>
+
+        <div class="footnote">¹ Mikolov et al., 2013 / critiche successive</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.4 — TIPI DI EMBEDDING
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="4">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ TIPOLOGIE</div>
+            <h2 class="step" data-step="0">Non tutti gli embedding sono uguali</h2>
+            <p class="sub-heading step" data-step="0">Tre generazioni di rappresentazioni</p>
+
+            <div class="evo-timeline" style="margin-top: clamp(0.3rem, 0.8vw, 0.6rem);">
+                <!-- Static -->
+                <div class="evo-block step" data-step="1">
+                    <div class="evo-icon">📌</div>
+                    <h3>Statici</h3>
+                    <div class="evo-era">2013–2017</div>
+                    <p>Un <strong>vettore fisso</strong> per ogni parola, indipendente dal contesto</p>
+                    <p class="evo-example">"banco" ha lo stesso vettore sia in "banco di scuola" che in "banco di pesci"¹</p>
+                </div>
+                <!-- Contextual -->
+                <div class="evo-block step" data-step="2">
+                    <div class="evo-icon">🔄</div>
+                    <h3>Contestuali</h3>
+                    <div class="evo-era">2018–oggi, interni ai modelli</div>
+                    <p>Il vettore <strong>dipende dal contesto</strong> della frase</p>
+                    <p class="evo-example">"banco" ha vettori diversi nelle due frasi — il Transformer capisce la differenza</p>
+                </div>
+                <!-- Document/sentence -->
+                <div class="evo-block highlight step" data-step="3">
+                    <div class="evo-icon">📄</div>
+                    <h3>Di documento</h3>
+                    <div class="evo-era">2020–oggi — il tipo che ci interessa</div>
+                    <p>Un intero paragrafo diventa <strong>un unico vettore</strong></p>
+                    <p class="evo-example">Usati per la ricerca semantica e la RAG²</p>
+                </div>
+            </div>
+
+            <div class="evo-arrow-row step" data-step="4">
+                Evoluzione: da parole singole <span class="arrow">→</span> a contesto <span class="arrow">→</span> a documenti interi
+            </div>
+        </div>
+
+        <div class="footnote">¹ Mikolov et al., 2013 &nbsp;&nbsp; ² OpenAI / Cohere / Google, 2025</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.5 — VISUALIZZAZIONE EMBEDDINGS
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="3">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ VISUALIZZAZIONE</div>
+            <h2 class="step" data-step="0">Vedere l'invisibile</h2>
+            <p class="sub-heading step" data-step="0">Come si esplorano spazi a 1536 dimensioni</p>
+
+            <div class="viz-layout" style="margin-top: clamp(0.3rem, 0.8vw, 0.6rem);">
+                <!-- Mockup embedding projector -->
+                <div class="viz-mockup step" data-step="1">
+                    <div class="viz-mockup-inner" id="viz-3d">
+                        <!-- Generated dots via JS -->
+                    </div>
+                    <div class="viz-mockup-label">Embedding Projector¹ — proiezione 3D di word2vec</div>
+                </div>
+
+                <!-- Bullets -->
+                <div class="viz-bullets step" data-step="2">
+                    <ul class="bullet-list">
+                        <li>Gli embedding vivono in spazi con <strong>centinaia di dimensioni</strong> — impossibili da visualizzare direttamente</li>
+                        <li>Tecniche come <strong>t-SNE</strong> e <strong>UMAP</strong> li proiettano in 2D o 3D, preservando le relazioni di vicinanza²</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step" data-step="3" style="display: flex; flex-direction: column; gap: clamp(0.3rem, 0.5vw, 0.4rem);">
+                <div class="note-box warning">
+                    ⚠️ Queste proiezioni sono <strong>approssimazioni</strong>. Le distanze tra cluster non sempre riflettono le distanze reali nello spazio originale.
+                </div>
+                <div class="demo-link">
+                    🔗 Demo live: <strong>projector.tensorflow.org</strong> — cercate una parola e vedrete i suoi "vicini" nello spazio
+                </div>
+            </div>
+        </div>
+
+        <div class="footnote">¹ Google, 2016 &nbsp;&nbsp; ² van der Maaten & Hinton, 2008 / McInnes et al., 2018</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.6 — PERCHÉ GLI LLM NON BASTANO DA SOLI
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="5">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); height: clamp(36px, 5vw, 52px); opacity: 0.8;">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ IL PROBLEMA</div>
+            <h2 class="step" data-step="1">Perché gli LLM non bastano da soli</h2>
+            <p class="sub-heading step" data-step="1">Tre limiti fondamentali</p>
+
+            <div class="limit-cards">
+                <div class="limit-card step" data-step="2">
+                    <div class="limit-card-num">①</div>
+                    <div class="limit-card-body">
+                        <h3>Conoscenza cristallizzata</h3>
+                        <p>Il modello sa solo ciò che ha letto durante il training. Niente di dopo, niente di interno alla vostra azienda.</p>
+                    </div>
+                </div>
+
+                <div class="limit-card step" data-step="3">
+                    <div class="limit-card-num">②</div>
+                    <div class="limit-card-body">
+                        <h3>Finestra di contesto limitata</h3>
+                        <p>Non potete incollare migliaia di documenti nel prompt. Anche con 200K token, serve selezionare.</p>
+                    </div>
+                </div>
+
+                <div class="limit-card step" data-step="4">
+                    <div class="limit-card-num">③</div>
+                    <div class="limit-card-body">
+                        <h3>Allucinazioni</h3>
+                        <p>Senza documenti di riferimento, il modello potrebbe inventare (ricordate il Blocco 3).¹</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bridge-box step" data-step="5">
+                Serve un modo per dare al modello le informazioni giuste, al momento giusto, da fonti verificabili. <span class="arrow-rag">→ Questo è RAG.</span>
+            </div>
+        </div>
+
+        <div class="footnote">¹ Rimando interno — Blocco 3, slide 3.10-3.11</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.7 — RAG: IL CONCETTO
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="5">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <img src="../../images/stars/conoscenza.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(50px, 7vw, 75px); opacity: 0.8;">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ LA SOLUZIONE</div>
+            <h2 class="step" data-step="1">RAG — Retrieval-Augmented Generation</h2>
+            <p class="sub-heading step" data-step="1">Consultare gli appunti prima di rispondere</p>
+
+            <div class="rag-flow">
+                <div class="rag-block step" data-step="2">
+                    <div class="rag-letter">R</div>
+                    <h3>Retrieve</h3>
+                    <p>Cerca nei tuoi documenti le informazioni rilevanti alla domanda, usando la <strong>ricerca semantica</strong> (embedding)</p>
+                </div>
+
+                <div class="rag-arrow step" data-step="3">→</div>
+
+                <div class="rag-block step" data-step="3">
+                    <div class="rag-letter">A</div>
+                    <h3>Augment</h3>
+                    <p>Inserisci i frammenti trovati nel <strong>contesto del modello</strong> come materiale di riferimento</p>
+                </div>
+
+                <div class="rag-arrow step" data-step="4">→</div>
+
+                <div class="rag-block active-block step" data-step="4">
+                    <div class="rag-letter">G</div>
+                    <h3>Generate</h3>
+                    <p>Il modello genera la risposta basandosi sulla sua conoscenza <strong>+ i documenti forniti</strong></p>
+                </div>
+            </div>
+
+            <div class="analogy-box step" data-step="5">
+                <span class="analogy-emoji">📖</span> Come uno studente che, prima di rispondere a un esame, può <strong>consultare i suoi appunti</strong>. Non deve ricordare tutto a memoria — basta che sappia dove cercare e come usare ciò che trova.¹
+            </div>
+        </div>
+
+        <div class="footnote">¹ Lewis et al., 2020 — Facebook AI Research</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.8 — LA PIPELINE RAG IN DETTAGLIO
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="7">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ PIPELINE</div>
+            <h2 class="step" data-step="0">Come funziona in pratica</h2>
+            <p class="sub-heading step" data-step="0">I 6 passi della pipeline RAG</p>
+
+            <!-- Row 1: steps 1-3 -->
+            <div class="pipeline-grid">
+                <div class="pipe-block step" data-step="1">
+                    <div class="pipe-num">①</div>
+                    <div class="pipe-icon">📄</div>
+                    <h3>Ingest</h3>
+                    <p>Raccogli e pulisci i documenti (PDF, pagine web, database)</p>
+                </div>
+
+                <div class="pipe-block step" data-step="2">
+                    <div class="pipe-num">②</div>
+                    <div class="pipe-icon">✂️</div>
+                    <h3>Chunking</h3>
+                    <p>Dividi in frammenti gestibili (400-512 token con overlap)¹</p>
+                </div>
+
+                <div class="pipe-block step" data-step="3">
+                    <div class="pipe-num">③</div>
+                    <div class="pipe-icon">🔢</div>
+                    <h3>Embedding</h3>
+                    <p>Trasforma ogni chunk in un vettore numerico</p>
+                </div>
+            </div>
+
+            <div class="pipe-arrow-row step" data-step="4">
+                <span class="arrow-icon">↓ ↓ ↓</span>
+            </div>
+
+            <!-- Row 2: steps 4-6 -->
+            <div class="pipeline-grid">
+                <div class="pipe-block step" data-step="4">
+                    <div class="pipe-num">④</div>
+                    <div class="pipe-icon">🔍</div>
+                    <h3>Retrieval</h3>
+                    <p>Domanda → vettore → trova i chunk più simili²</p>
+                </div>
+
+                <div class="pipe-block step" data-step="5">
+                    <div class="pipe-num">⑤</div>
+                    <div class="pipe-icon">📊</div>
+                    <h3>Reranking</h3>
+                    <p>Ri-ordina per rilevanza con modello specializzato <span class="innov-stat">(+33-40%)</span>³</p>
+                </div>
+
+                <div class="pipe-block step" data-step="6">
+                    <div class="pipe-num">⑥</div>
+                    <div class="pipe-icon">🤖</div>
+                    <h3>Generation</h3>
+                    <p>LLM genera la risposta con citazioni alle fonti</p>
+                </div>
+            </div>
+
+            <div class="pipe-warning step" data-step="7">
+                ⚠️ La qualità di RAG dipende dal <strong>retrieval</strong>. Documenti sbagliati in input → risposte sbagliate in output. <em>Garbage in, garbage out.</em>
+            </div>
+        </div>
+
+        <div class="footnote">¹ NVIDIA / Weaviate, 2024-2025 &nbsp;&nbsp; ² Weaviate / Neo4j, 2025 &nbsp;&nbsp; ³ Ailog RAG, 2025</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.9 — LOST IN THE MIDDLE
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="4">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ ATTENZIONE</div>
+            <h2 class="step" data-step="0">Lost in the Middle</h2>
+            <p class="sub-heading step" data-step="0">Dove metti i documenti nel contesto conta</p>
+
+            <div class="litm-container">
+                <!-- Context bar -->
+                <div class="context-bar-wrap step" data-step="1">
+                    <div class="context-bar" id="litm-bar">
+                        <div class="ctx-segment bright">Inizio</div>
+                        <div class="ctx-segment">Doc 2</div>
+                        <div class="ctx-segment">Doc 3</div>
+                        <div class="ctx-segment">Doc 4</div>
+                        <div class="ctx-segment">Centro</div>
+                        <div class="ctx-segment">Doc 6</div>
+                        <div class="ctx-segment">Doc 7</div>
+                        <div class="ctx-segment">Doc 8</div>
+                        <div class="ctx-segment bright">Fine</div>
+                    </div>
+                </div>
+
+                <!-- U-curve -->
+                <div class="u-curve-wrap step" data-step="2">
+                    <svg viewBox="0 0 700 55" preserveAspectRatio="none">
+                        <path id="u-curve" class="u-curve-path" d="M 20 10 C 20 10, 200 50, 350 50 C 500 50, 680 10, 680 10" />
+                    </svg>
+                </div>
+
+                <!-- Attention labels -->
+                <div class="attn-labels step" data-step="2" style="max-width: 700px;">
+                    <span class="attn-label high">⬆ Alta attenzione</span>
+                    <span class="attn-label low">⬇ Bassa attenzione</span>
+                    <span class="attn-label high">⬆ Alta attenzione</span>
+                </div>
+
+                <!-- Practical rule -->
+                <div class="litm-rule step" data-step="3">
+                    💡 <strong>Regola pratica:</strong> metti le informazioni più importanti <strong>all'inizio o alla fine</strong> del contesto
+                </div>
+
+                <!-- Data + connection -->
+                <div class="litm-data step" data-step="4">
+                    <div class="note-box warning" style="font-size: clamp(0.65rem, 0.9vw, 0.8rem);">
+                        L'effetto può ridurre le performance di <strong>oltre il 30%</strong> quando le informazioni chiave sono al centro del contesto¹
+                    </div>
+                    <div class="bridge-box" style="font-size: clamp(0.65rem, 0.9vw, 0.8rem); padding: clamp(0.25rem, 0.4vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.6rem);">
+                        Ecco perché il <strong>reranking</strong> è importante: non solo <em>quali</em> documenti, ma anche in <em>che ordine</em> li presenti al modello.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footnote">¹ Liu et al., 2023 — Stanford / University of Washington</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.10 — INNOVAZIONI RAG 2024-2025
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="5">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ FRONTIERA</div>
+            <h2 class="step" data-step="1">RAG evolve velocemente</h2>
+            <p class="sub-heading step" data-step="1">Le innovazioni più importanti</p>
+
+            <div class="innov-cards">
+                <div class="innov-card step" data-step="2">
+                    <div class="innov-year">2024</div>
+                    <div class="innov-body">
+                        <h3>Contextual Retrieval <span style="font-weight: 500; font-size: clamp(0.6rem, 0.85vw, 0.75rem);">— Anthropic</span></h3>
+                        <p>Aggiunge contesto a ogni chunk prima dell'embedding: <em>"questo paragrafo parla di..."</em><br>Risultato: <span class="innov-stat">-67% errori di retrieval</span>¹</p>
+                    </div>
+                </div>
+
+                <div class="innov-card step" data-step="3">
+                    <div class="innov-year">2024</div>
+                    <div class="innov-body">
+                        <h3>GraphRAG <span style="font-weight: 500; font-size: clamp(0.6rem, 0.85vw, 0.75rem);">— Microsoft</span></h3>
+                        <p>Costruisce un <strong>grafo di relazioni</strong> (entità, connessioni) sopra i documenti. Risponde a domande globali impossibili con RAG standard²</p>
+                    </div>
+                </div>
+
+                <div class="innov-card step" data-step="4">
+                    <div class="innov-year">2025</div>
+                    <div class="innov-body">
+                        <h3>Agentic RAG</h3>
+                        <p>Un <strong>agente AI pianifica</strong> più passaggi di ricerca, usa tool, verifica risultati intermedi. Per task complessi che richiedono ragionamento multi-step³</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bridge-box step" data-step="5" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                L'evoluzione va da "cerca e rispondi" a <strong>"ragiona, cerca, verifica, rispondi"</strong> — un pattern che vedremo nel <strong>Blocco 7</strong> (Agenti).
+            </div>
+        </div>
+
+        <div class="footnote">¹ Anthropic, 2024 &nbsp;&nbsp; ² Microsoft Research, 2024 &nbsp;&nbsp; ³ arXiv survey, 2025</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.11 — IMPLICAZIONI PER UX/COMMS
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-blue);" data-steps="6">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <img src="../../images/stars/controllo.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(50px, 7vw, 75px); opacity: 0.8;">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ PER VOI</div>
+            <h2 class="step" data-step="1">Progettare con RAG in mente</h2>
+            <p class="sub-heading step" data-step="1">Pattern UX per sistemi basati su retrieval</p>
+
+            <div class="ux-patterns">
+                <div class="ux-pattern step" data-step="2">
+                    <div class="ux-emoji">📎</div>
+                    <div>
+                        <h3>Mostrare le fonti</h3>
+                        <p>Ogni risposta deve indicare da quali documenti proviene. Costruisce fiducia e permette audit.¹</p>
+                    </div>
+                </div>
+
+                <div class="ux-pattern step" data-step="3">
+                    <div class="ux-emoji">🔗</div>
+                    <div>
+                        <h3>"Apri passaggio originale"</h3>
+                        <p>Permettere all'utente di leggere il contesto completo da cui è stata estratta l'informazione.</p>
+                    </div>
+                </div>
+
+                <div class="ux-pattern step" data-step="4">
+                    <div class="ux-emoji">📅</div>
+                    <div>
+                        <h3>Indicare la data</h3>
+                        <p>Mostrare quando il documento fonte è stato aggiornato. Informazione vecchia = rischio.</p>
+                    </div>
+                </div>
+
+                <div class="ux-pattern step" data-step="5">
+                    <div class="ux-emoji">🤷</div>
+                    <div>
+                        <h3>"Non ho trovato informazioni"</h3>
+                        <p>Se il retrieval non trova nulla di rilevante, il sistema deve dirlo chiaramente invece di inventare.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-rule step" data-step="6">
+                La trasparenza delle fonti è la differenza tra un chatbot che <em>"risponde"</em> e un assistente di cui <strong>ci si fida</strong>.
+            </div>
+        </div>
+
+        <div class="footnote">¹ Stanford Law, 2025 — Tool RAG legali allucinano nel 17-33% dei casi</div>
+    </section>
+
+    <!-- ================================================
+         SLIDE 5.12 — RIEPILOGO DEL BLOCCO
+         ================================================ -->
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="6">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <img src="../../images/stars/conversione1.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(55px, 7.5vw, 80px); opacity: 0.8;">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="0">★ TAKEAWAY</div>
+            <h2 class="step" data-step="0">Embeddings & RAG in 5 concetti</h2>
+
+            <div class="takeaway-list">
+                <div class="takeaway-item step" data-step="1">
+                    <div class="takeaway-num">①</div>
+                    <div><h3>Embeddings <span>— Trasformano testo in numeri. Concetti simili → vettori vicini nello spazio.</span></h3></div>
+                </div>
+
+                <div class="takeaway-item step" data-step="2">
+                    <div class="takeaway-num">②</div>
+                    <div><h3>Ricerca semantica <span>— Cercare per significato, non per parole chiave. La base del sistema RAG.</span></h3></div>
+                </div>
+
+                <div class="takeaway-item step" data-step="3">
+                    <div class="takeaway-num">③</div>
+                    <div><h3>RAG = Retrieve + Augment + Generate <span>— Dare al modello documenti verificabili prima di fargli rispondere.</span></h3></div>
+                </div>
+
+                <div class="takeaway-item step" data-step="4">
+                    <div class="takeaway-num">④</div>
+                    <div><h3>Pipeline in 6 passi <span>— Ingest → Chunk → Embed → Retrieve → Rerank → Generate. Ogni passo conta.</span></h3></div>
+                </div>
+
+                <div class="takeaway-item step" data-step="5">
+                    <div class="takeaway-num">⑤</div>
+                    <div><h3>Fonti e trasparenza <span>— Mostrare le fonti, permettere audit, dire "non lo so". La fiducia si costruisce con la verificabilità.</span></h3></div>
+                </div>
+            </div>
+
+            <div class="bridge-box step" data-step="6" style="margin-top: clamp(0.3rem, 0.5vw, 0.4rem);">
+                Nel prossimo blocco: i <strong>Reasoning Model</strong> — quando il modello "pensa" prima di rispondere →
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.totalSlides = this.slides.length;
+                this.currentSlide = 0;
+                this.currentSteps = {};
+                this.maxSteps = {};
+                this._hintVisible = true;
+
+                this.slides.forEach((slide, i) => {
+                    this.maxSteps[i] = parseInt(slide.dataset.steps, 10) || 0;
+                    this.currentSteps[i] = 0;
+                });
+
+                this._initSlide(0);
+                this._bindEvents();
+            }
+
+            /* ===========================================
+               STEP REVEAL
+               =========================================== */
+            _revealUpToStep(slideIndex, step) {
+                const slide = this.slides[slideIndex];
+                const allSteps = slide.querySelectorAll('.step');
+                allSteps.forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    el.classList.toggle('visible', s <= step);
+                });
+
+                this._customStepLogic(slideIndex, step);
+            }
+
+            _customStepLogic(slideIndex, step) {
+                // Slide 5.1 — Scatter plot dots animation
+                if (slideIndex === 1) {
+                    this._animateScatter(step);
+                }
+                // Slide 5.3 — Vector arithmetic animation (was 5.2, now index 3)
+                if (slideIndex === 3) {
+                    this._animateVectors(step);
+                }
+                // Slide 5.5 — 3D mockup dots (was 5.4, now index 5)
+                if (slideIndex === 5) {
+                    this._initVizMockup();
+                }
+                // Slide 5.9 — Lost in the Middle animation (index 9)
+                if (slideIndex === 9) {
+                    this._animateLostInMiddle(step);
+                }
+            }
+
+            /* ===========================================
+               SCATTER PLOT ANIMATION (Slide 5.1)
+               =========================================== */
+            _animateScatter(step) {
+                const dots = document.querySelectorAll('.scatter-dot');
+                const labels = document.querySelectorAll('.scatter-label');
+                const clusters = document.querySelectorAll('.cluster-label');
+
+                if (step >= 2) {
+                    dots.forEach((d, i) => {
+                        setTimeout(() => d.classList.add('show'), i * 120);
+                    });
+                    labels.forEach((l, i) => {
+                        setTimeout(() => l.classList.add('show'), i * 120 + 200);
+                    });
+                    clusters.forEach((c, i) => {
+                        setTimeout(() => c.classList.add('show'), 600 + i * 200);
+                    });
+                } else {
+                    dots.forEach(d => d.classList.remove('show'));
+                    labels.forEach(l => l.classList.remove('show'));
+                    clusters.forEach(c => c.classList.remove('show'));
+                }
+            }
+
+            /* ===========================================
+               VECTOR ARITHMETIC ANIMATION (Slide 5.3)
+               =========================================== */
+            _animateVectors(step) {
+                const ex1 = document.getElementById('vec-ex1');
+                const ex2 = document.getElementById('vec-ex2');
+                const axes = document.getElementById('vec-axes');
+                const f1 = document.getElementById('vec-formula1');
+                const f2 = document.getElementById('vec-formula2');
+                const explain = document.getElementById('vec-explain');
+                const dot1 = document.getElementById('moving-dot-1');
+                const dot2 = document.getElementById('moving-dot-2');
+                const lbInter1 = document.getElementById('lb-intermediate-1');
+                const lbInter2 = document.getElementById('lb-intermediate-2');
+
+                if (!ex1) return;
+
+                // --- Ranges ---
+                const showEx1 = step >= 1 && step <= 4;
+                const showEx2 = step >= 5 && step <= 7;
+
+                // --- EXAMPLE 1 visibility ---
+                if (axes) axes.setAttribute('opacity', showEx1 ? '1' : '0');
+                ex1.setAttribute('opacity', showEx1 ? '1' : '0');
+
+                // Step 1: Points + labels + gender arrow + label (fused)
+                const pts1 = ['pt-uomo', 'pt-donna', 'pt-re', 'pt-regina'];
+                const lbs1 = ['lb-uomo', 'lb-donna', 'lb-re', 'lb-regina'];
+                pts1.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) { el.setAttribute('r', showEx1 ? '8' : '0'); el.setAttribute('opacity', showEx1 ? '1' : '0'); }
+                });
+                lbs1.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.toggle('show', showEx1);
+                });
+
+                const arrGender = document.getElementById('arr-gender');
+                const lbGender = document.getElementById('lb-gender');
+                if (arrGender) arrGender.classList.toggle('draw', showEx1);
+                if (lbGender) lbGender.classList.toggle('show', showEx1);
+
+                // --- Dot 1 elements ---
+                const arrGhost = document.getElementById('arr-ghost');
+                const paraTop = document.getElementById('para-top');
+                const paraBottom = document.getElementById('para-bottom');
+                const ptRegina = document.getElementById('pt-regina');
+
+                // Step 2: Dot appears on "re" (440, 290)
+                const showDot1 = step >= 2 && step <= 4;
+                if (dot1) {
+                    dot1.setAttribute('opacity', showDot1 ? '1' : '0');
+                    if (step <= 1) {
+                        // Reset to starting position (no transition visible since opacity=0)
+                        dot1.setAttribute('cx', '440'); dot1.setAttribute('cy', '290');
+                    } else if (step === 2) {
+                        dot1.setAttribute('cx', '440'); dot1.setAttribute('cy', '290');
+                    } else if (step === 3) {
+                        // Step 3: Dot moves to intermediate (300, 40)
+                        dot1.setAttribute('cx', '300'); dot1.setAttribute('cy', '40');
+                    } else if (step === 4) {
+                        // Step 4: Dot moves to regina (520, 130)
+                        dot1.setAttribute('cx', '520'); dot1.setAttribute('cy', '130');
+                    }
+                }
+
+                // Step 3: intermediate label
+                if (lbInter1) lbInter1.classList.toggle('show', step === 3);
+
+                // Step 4: regina highlight, ghost arrow, parallelogram, explain, formula
+                if (ptRegina) ptRegina.setAttribute('r', step >= 4 && step <= 4 ? '12' : (showEx1 ? '8' : '0'));
+                if (arrGhost) arrGhost.classList.toggle('show', step === 4);
+                if (paraTop) paraTop.classList.toggle('show', step === 4);
+                if (paraBottom) paraBottom.classList.toggle('show', step === 4);
+                if (explain) explain.setAttribute('opacity', step === 4 ? '1' : '0');
+                if (f1) f1.classList.toggle('show', step === 4);
+
+                // --- EXAMPLE 2 visibility ---
+                if (ex2) ex2.setAttribute('opacity', showEx2 ? '1' : '0');
+                if (axes) { if (showEx2) axes.setAttribute('opacity', '1'); }
+
+                const pts2 = ['pt-francia', 'pt-italia', 'pt-parigi', 'pt-roma'];
+                const lbs2 = ['lb-francia', 'lb-italia', 'lb-parigi', 'lb-roma'];
+                if (showEx2) {
+                    pts2.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) { el.setAttribute('r', '8'); el.setAttribute('opacity', '1'); }
+                    });
+                    lbs2.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.add('show');
+                    });
+                } else {
+                    pts2.forEach(id => { const el = document.getElementById(id); if (el) { el.setAttribute('r', '0'); el.setAttribute('opacity', '0'); }});
+                    lbs2.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('show'); });
+                }
+
+                // Country arrow
+                const arrC = document.getElementById('arr-country');
+                const lbC = document.getElementById('lb-country');
+                if (arrC) arrC.classList.toggle('draw', showEx2);
+                if (lbC) lbC.classList.toggle('show', showEx2);
+
+                // --- Dot 2 elements ---
+                const arrG2 = document.getElementById('arr-ghost2');
+                const p2t = document.getElementById('para2-top');
+                const p2b = document.getElementById('para2-bottom');
+                const ptRoma = document.getElementById('pt-roma');
+
+                // Step 5: Dot appears on "Parigi" (450, 290)
+                const showDot2 = step >= 5 && step <= 7;
+                if (dot2) {
+                    dot2.setAttribute('opacity', showDot2 ? '1' : '0');
+                    if (step <= 4) {
+                        dot2.setAttribute('cx', '450'); dot2.setAttribute('cy', '290');
+                    } else if (step === 5) {
+                        dot2.setAttribute('cx', '450'); dot2.setAttribute('cy', '290');
+                    } else if (step === 6) {
+                        // Step 6: Dot moves to intermediate (310, 30)
+                        dot2.setAttribute('cx', '310'); dot2.setAttribute('cy', '30');
+                    } else if (step === 7) {
+                        // Step 7: Dot moves to Roma (520, 120)
+                        dot2.setAttribute('cx', '520'); dot2.setAttribute('cy', '120');
+                    }
+                }
+
+                // Step 6: intermediate label
+                if (lbInter2) lbInter2.classList.toggle('show', step === 6);
+
+                // Step 7: Roma highlight, ghost arrow, parallelogram, formula
+                if (ptRoma) ptRoma.setAttribute('r', step === 7 ? '12' : (showEx2 ? '8' : '0'));
+                if (arrG2) arrG2.classList.toggle('show', step === 7);
+                if (p2t) p2t.classList.toggle('show', step === 7);
+                if (p2b) p2b.classList.toggle('show', step === 7);
+                if (f2) f2.classList.toggle('show', step === 7);
+            }
+
+            /* ===========================================
+               LOST IN THE MIDDLE (Slide 5.9)
+               =========================================== */
+            _animateLostInMiddle(step) {
+                const bar = document.getElementById('litm-bar');
+                const uCurve = document.getElementById('u-curve');
+                if (!bar) return;
+
+                if (step >= 2) {
+                    bar.classList.add('faded');
+                    if (uCurve) setTimeout(() => uCurve.classList.add('drawn'), 100);
+                } else {
+                    bar.classList.remove('faded');
+                    if (uCurve) uCurve.classList.remove('drawn');
+                }
+            }
+
+            /* ===========================================
+               VIZ MOCKUP DOTS (Slide 5.4)
+               =========================================== */
+            _vizInited = false;
+            _initVizMockup() {
+                if (this._vizInited) return;
+                const container = document.getElementById('viz-3d');
+                if (!container) return;
+                this._vizInited = true;
+
+                const clusters = [
+                    { cx: 25, cy: 30, color: 'c1', count: 12 },
+                    { cx: 70, cy: 25, color: 'c2', count: 10 },
+                    { cx: 35, cy: 70, color: 'c3', count: 11 },
+                    { cx: 75, cy: 65, color: 'c4', count: 9 },
+                ];
+                clusters.forEach(cl => {
+                    for (let i = 0; i < cl.count; i++) {
+                        const dot = document.createElement('div');
+                        dot.className = `viz-dot-3d ${cl.color}`;
+                        const x = cl.cx + (Math.random() - 0.5) * 18;
+                        const y = cl.cy + (Math.random() - 0.5) * 18;
+                        dot.style.left = x + '%';
+                        dot.style.top = y + '%';
+                        dot.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
+                        const s = 0.6 + Math.random() * 0.8;
+                        dot.style.transform = `scale(${s})`;
+                        container.appendChild(dot);
+                    }
+                });
+            }
+
+            /* ===========================================
+               NAVIGATION
+               =========================================== */
+            _initSlide(index) {
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+            }
+
+            advance() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                const ms = this.maxSteps[this.currentSlide];
+                if (cs < ms) {
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                if (cs > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else if (this.currentSlide > 0) {
+                    const prev = this.currentSlide - 1;
+                    this.currentSteps[prev] = this.maxSteps[prev];
+                    this._revealUpToStep(prev, this.currentSteps[prev]);
+                    this._scrollToSlide(prev);
+                    this.currentSlide = prev;
+                    this._updateNavDots();
+                } else if (window.parent !== window) {
+                    window.parent.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(i) { this.slides[i].scrollIntoView({ behavior: 'smooth' }); }
+            _updateNavDots() { this.navDots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide)); }
+            _hideHint() { if (this._hintVisible && this.keyboardHint) { this.keyboardHint.style.opacity = '0'; this._hintVisible = false; } }
+
+            _bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight': case 'ArrowDown': case ' ': case 'Enter': case 'PageDown':
+                            e.preventDefault(); this.advance(); break;
+                        case 'ArrowLeft': case 'ArrowUp': case 'Backspace': case 'PageUp':
+                            e.preventDefault(); this.goBack(); break;
+                    }
+                });
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-dots')) this.advance();
+                });
+                this.navDots.forEach(d => d.addEventListener('click', (e) => {
+                    e.stopPropagation(); this.goToSlide(parseInt(d.dataset.slide, 10));
+                }));
+                let ty = 0;
+                document.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const d = ty - e.changedTouches[0].clientY;
+                    if (Math.abs(d) > 50) d > 0 ? this.advance() : this.goBack();
+                }, { passive: true });
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1 && idx !== this.currentSlide) {
+                                this.currentSlide = idx;
+                                if (this.currentSteps[idx] === 0) this._revealUpToStep(idx, 0);
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { window._pres = new SlidePresentation(); });
+
+        /* Parent iframe communication */
+        if (window.parent !== window) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'escape' }, '*'); }
+                else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'fullscreen' }, '*'); }
+            }, true);
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres, last = p.totalSlides - 1;
+                    p.currentSlide = last; p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]); p._scrollToSlide(last); p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

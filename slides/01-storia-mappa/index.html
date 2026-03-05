@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 1 — Storia + Mappa Concetti | Formazione AI MemorAIz</title>
+
+    <!-- Google Fonts: Anton (headings) + Darker Grotesque (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            /* Slide background gradients */
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-blue: linear-gradient(160deg, #d0dff5 0%, #e4edf8 40%, #eae8f2 100%);
+
+            /* Text */
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --text-on-accent: #ffffff;
+
+            /* Brand accent */
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+
+            /* Functional */
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+
+            /* Bullet dots */
+            --bullet-color: var(--accent-gold);
+
+            /* Typography — PRESENTATION sizes */
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { height: 100%; overflow-x: hidden; }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        .slide-content.centered {
+            margin: 0 auto;
+            text-align: center;
+            align-items: center;
+        }
+
+        /* ===========================================
+           LOGO
+           =========================================== */
+        .logo {
+            position: absolute;
+            top: clamp(1rem, 2.5vw, 2rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            height: clamp(24px, 3vw, 40px);
+            z-index: 10;
+            opacity: 0.85;
+        }
+
+        /* ===========================================
+           MASCOT STARS
+           =========================================== */
+        .mascot {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .mascot.bottom-right {
+            bottom: clamp(1rem, 3vw, 2.5rem);
+            right: clamp(1.5rem, 4vw, 4rem);
+            height: clamp(60px, 10vw, 110px);
+            opacity: 0.85;
+        }
+
+        /* ===========================================
+           SECTION LABELS & NUMBERS
+           =========================================== */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.8rem);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+
+        .section-number {
+            width: clamp(36px, 4vw, 52px);
+            height: clamp(36px, 4vw, 52px);
+            border: 2px solid var(--text-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           GOLD DOT BULLET LIST
+           =========================================== */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+
+        .bullet-list li {
+            padding-left: 1.5em;
+            position: relative;
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .bullet-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 0.7em;
+            top: 0.35em;
+        }
+
+        .bullet-list li strong { font-weight: 700; }
+
+        /* ===========================================
+           HIGHLIGHT BOX
+           =========================================== */
+        .highlight-box {
+            background: var(--highlight-bg);
+            border-left: 3px solid var(--accent-gold);
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            border-radius: 0 8px 8px 0;
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        /* ===========================================
+           CITATION FOOTNOTE
+           =========================================== */
+        .footnote {
+            position: absolute;
+            bottom: clamp(0.8rem, 2vw, 1.5rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            font-family: var(--font-body);
+            font-size: clamp(0.5rem, 0.7vw, 0.65rem);
+            color: var(--text-secondary);
+            opacity: 0.55;
+            font-weight: 400;
+            max-width: 60%;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        /* ===========================================
+           STARBURST & SPARKLE
+           =========================================== */
+        .starburst {
+            width: clamp(60px, 10vw, 120px);
+            height: clamp(60px, 10vw, 120px);
+            background: var(--accent-gold);
+            clip-path: polygon(
+                50% 0%, 63% 28%, 93% 18%, 75% 43%,
+                100% 58%, 72% 63%, 80% 93%, 55% 73%,
+                32% 98%, 38% 67%, 7% 75%, 30% 50%,
+                0% 30%, 33% 33%, 22% 5%, 45% 28%
+            );
+            position: absolute;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            width: clamp(20px, 3vw, 40px);
+            height: clamp(20px, 3vw, 40px);
+            background: var(--accent-gold-light);
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                2% 35%, 39% 35%
+            );
+            position: absolute;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.8rem, 1.5vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 12px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: clamp(8px, 1vw, 12px);
+            height: clamp(8px, 1vw, 12px);
+            border-radius: 50%;
+            border: 2px solid var(--text-primary);
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            padding: 0;
+        }
+
+        .nav-dot:hover { border-color: var(--accent-gold); }
+
+        .nav-dot.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        /* ===========================================
+           KEYBOARD HINT
+           =========================================== */
+        .keyboard-hint {
+            position: fixed;
+            bottom: clamp(0.5rem, 1.5vw, 1rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            opacity: 0.4;
+            z-index: 100;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           STEP-BY-STEP REVEAL
+           =========================================== */
+        .step {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Slide-left/right variants for timeline */
+        .step.from-left {
+            transform: translateX(-40px);
+        }
+        .step.from-right {
+            transform: translateX(40px);
+        }
+        .step.from-left.visible,
+        .step.from-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===========================================
+           SLIDE 1.1 — TIMELINE
+           =========================================== */
+        .timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.8vh, 0.6rem);
+            padding: clamp(0.3rem, 0.5vw, 0.5rem) 0;
+            max-height: min(62vh, 500px);
+        }
+
+        /* Vertical center line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(26, 26, 78, 0.15);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Alternating left/right */
+        .timeline-item.left .timeline-text {
+            width: 44%;
+            text-align: right;
+            padding-right: clamp(0.8rem, 2vw, 1.5rem);
+        }
+
+        .timeline-item.right .timeline-text {
+            width: 44%;
+            text-align: left;
+            padding-left: clamp(0.8rem, 2vw, 1.5rem);
+            margin-left: auto;
+        }
+
+        /* Circle marker on the line */
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(28px, 3.5vw, 40px);
+            height: clamp(28px, 3.5vw, 40px);
+            border-radius: 50%;
+            background: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 1vw, 0.8rem);
+            font-weight: 700;
+            color: #fff;
+            z-index: 2;
+        }
+
+        .timeline-date {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.2vw, 1rem);
+            text-transform: uppercase;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .timeline-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.35;
+            margin-top: 2px;
+        }
+
+        /* ===========================================
+           SLIDE 1.2 — CONCENTRIC CIRCLES
+           =========================================== */
+        .circles-layout {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 3vw, 3rem);
+            width: 100%;
+        }
+
+        .circles-container {
+            position: relative;
+            width: min(50vh, 380px);
+            height: min(50vh, 380px);
+            flex-shrink: 0;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .circle-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(26, 26, 78, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.5s, background 0.5s, opacity 0.5s;
+            opacity: 0.35;
+        }
+
+        .circle-ring.active {
+            border-color: var(--accent-gold);
+            border-width: 3px;
+            opacity: 1;
+        }
+
+        .circle-ring.past {
+            border-color: rgba(245, 166, 35, 0.4);
+            opacity: 0.7;
+        }
+
+        /* AI — outermost */
+        .circle-ai {
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+        }
+        .circle-ai.active { background: rgba(245, 166, 35, 0.04); }
+
+        /* ML */
+        .circle-ml {
+            width: 75%;
+            height: 75%;
+            top: 12.5%; left: 12.5%;
+        }
+        .circle-ml.active { background: rgba(245, 166, 35, 0.06); }
+
+        /* DL */
+        .circle-dl {
+            width: 50%;
+            height: 50%;
+            top: 25%; left: 25%;
+        }
+        .circle-dl.active { background: rgba(245, 166, 35, 0.08); }
+
+        /* LLM — innermost */
+        .circle-llm {
+            width: 28%;
+            height: 28%;
+            top: 36%; left: 36%;
+        }
+        .circle-llm.active {
+            background: rgba(245, 166, 35, 0.15);
+            border-width: 3px;
+        }
+
+        /* Labels on circles */
+        .circle-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.2vw, 1rem);
+            text-transform: uppercase;
+            color: rgba(26, 26, 78, 0.3);
+            letter-spacing: 0.05em;
+            transition: color 0.5s;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        .circle-ring.active .circle-label,
+        .circle-ring.past .circle-label {
+            color: var(--text-primary);
+        }
+
+        /* Position labels at the top of each ring */
+        .circle-ai > .circle-label { top: clamp(4px, 1vh, 12px); left: 50%; transform: translateX(-50%); }
+        .circle-ml > .circle-label { top: clamp(4px, 1vh, 10px); left: 50%; transform: translateX(-50%); }
+        .circle-dl > .circle-label { top: clamp(4px, 1vh, 8px); left: 50%; transform: translateX(-50%); }
+        .circle-llm > .circle-label { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* Definition box */
+        .circle-definition {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .circle-def-item {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+            position: absolute;
+        }
+
+        .circle-def-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+
+        .circle-def-name {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        .circle-def-full {
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
+            font-style: italic;
+        }
+
+        .circle-def-text {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           SLIDE 1.3 — ANALOGY COLUMNS
+           =========================================== */
+        .analogy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1.5rem);
+            align-items: start;
+        }
+
+        .analogy-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            position: relative;
+        }
+
+        .analogy-icon {
+            width: clamp(40px, 6vw, 70px);
+            height: clamp(40px, 6vw, 70px);
+            border-radius: 50%;
+            background: var(--highlight-bg);
+            border: 2px solid rgba(26, 26, 78, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .analogy-level {
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .analogy-value {
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.2vw, 1rem);
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .analogy-arrow {
+            position: absolute;
+            right: clamp(-12px, -1.5vw, -20px);
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(26, 26, 78, 0.2);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .analogy-col:last-child .analogy-arrow { display: none; }
+
+        /* ===========================================
+           SLIDE 1.4 — TRAINING VS INFERENCE SPLIT
+           =========================================== */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 2.5vw, 2.5rem);
+        }
+
+        .split-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.8vw, 0.6rem);
+            padding: clamp(0.8rem, 1.5vw, 1.5rem);
+            border-radius: 12px;
+            background: rgba(26, 26, 78, 0.03);
+            border: 1px solid rgba(26, 26, 78, 0.08);
+            position: relative;
+        }
+
+        .split-col-icon {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem);
+        }
+
+        .split-col h3 {
+            font-size: var(--h3-size);
+            color: var(--text-primary);
+        }
+
+        .split-col p {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        .split-col .accent-line {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem);
+                --title-size: clamp(1.5rem, 4.5vw, 3rem);
+                --h2-size: clamp(1.2rem, 3vw, 2.2rem);
+            }
+            .timeline { gap: clamp(0.15rem, 0.5vh, 0.3rem); }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint { display: none; }
+            .mascot { display: none; }
+            .timeline-desc { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+            .starburst, .sparkle { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .circles-layout {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .circles-container {
+                width: min(40vh, 250px);
+                height: min(40vh, 250px);
+            }
+            .analogy-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .analogy-col:nth-child(2) .analogy-arrow { display: none; }
+            .split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.5rem, 7vw, 2.5rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* Title slide */
+        .slide.title-slide {
+            justify-content: center;
+        }
+
+        .slide.title-slide h1 {
+            font-size: var(--title-size);
+            color: var(--text-primary);
+        }
+
+        .slide .sub-heading {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .slide h2 {
+            font-size: var(--h2-size);
+            color: var(--text-primary);
+        }
+
+        /* Summary line at bottom of analogy */
+        .analogy-summary {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-align: center;
+            margin-top: clamp(0.5rem, 1vw, 1rem);
+            font-style: italic;
+        }
+
+        /* Mascot for training column */
+        .mascot-inline {
+            height: clamp(45px, 7vw, 75px);
+            opacity: 0.75;
+            margin-top: auto;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV DOTS -->
+    <nav class="nav-dots" aria-label="Navigazione slide">
+        <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
+        <button class="nav-dot" data-slide="4" aria-label="Slide 5"></button>
+        <button class="nav-dot" data-slide="5" aria-label="Slide 6"></button>
+    </nav>
+
+    <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
+
+    <!-- ===========================================
+         SLIDE 1.0 — TITOLO DI SEZIONE
+         =========================================== -->
+    <section class="slide title-slide" style="background: var(--slide-bg-blue);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 15%; right: 12%;"></div>
+        <div class="starburst" style="bottom: 10%; left: 4%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="0" data-step="0">★ BLOCCO 1</div>
+            <h1 class="step" data-slide="0" data-step="0">Una breve storia dell'AI</h1>
+            <p class="sub-heading step" data-slide="0" data-step="0">…e la mappa per orientarsi</p>
+        </div>
+
+        <img src="../../images/stars/bussola.png" alt="" class="mascot bottom-right">
+    </section>
+
+    <!-- ===========================================
+         SLIDE 1.1 — TIMELINE ESSENZIALE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="max-width: 1100px;">
+            <div class="section-label step" data-slide="1" data-step="0">★ STORIA</div>
+            <h2 class="step" data-slide="1" data-step="0">70 anni in un minuto</h2>
+
+            <div class="timeline">
+                <!-- Item 1: left -->
+                <div class="timeline-item left step from-left" data-slide="1" data-step="1">
+                    <div class="timeline-text">
+                        <div class="timeline-date">1950s–60s</div>
+                        <div class="timeline-desc">Nascita dell'AI. Sistemi simbolici, il Perceptron¹ (1957)</div>
+                    </div>
+                    <div class="timeline-marker">1</div>
+                </div>
+
+                <!-- Item 2: right -->
+                <div class="timeline-item right step from-right" data-slide="1" data-step="2">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-text">
+                        <div class="timeline-date">1974–1987</div>
+                        <div class="timeline-desc">AI Winter²³: i fondi si prosciugano. Revival con i sistemi esperti⁴</div>
+                    </div>
+                </div>
+
+                <!-- Item 3: left -->
+                <div class="timeline-item left step from-left" data-slide="1" data-step="3">
+                    <div class="timeline-text">
+                        <div class="timeline-date">1990s–2000s</div>
+                        <div class="timeline-desc">ML statistico. Deep Blue batte Kasparov⁵ (1997)</div>
+                    </div>
+                    <div class="timeline-marker">3</div>
+                </div>
+
+                <!-- Item 4: right -->
+                <div class="timeline-item right step from-right" data-slide="1" data-step="4">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-text">
+                        <div class="timeline-date">2012</div>
+                        <div class="timeline-desc">AlexNet⁶ vince ImageNet. Deep Learning su larga scala con GPU</div>
+                    </div>
+                </div>
+
+                <!-- Item 5: left -->
+                <div class="timeline-item left step from-left" data-slide="1" data-step="5">
+                    <div class="timeline-text">
+                        <div class="timeline-date">2017</div>
+                        <div class="timeline-desc">"Attention Is All You Need"⁷ — nasce il Transformer</div>
+                    </div>
+                    <div class="timeline-marker">5</div>
+                </div>
+
+                <!-- Item 6: right -->
+                <div class="timeline-item right step from-right" data-slide="1" data-step="6">
+                    <div class="timeline-marker">6</div>
+                    <div class="timeline-text">
+                        <div class="timeline-date">2020–oggi</div>
+                        <div class="timeline-desc">GPT-3⁸, ChatGPT⁹, Claude¹⁰, Gemini¹¹. Esplosione consumer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footnote">
+            ¹ Cornell Chronicle &nbsp; ² Wikipedia &nbsp; ³ Lighthill, 1973 &nbsp; ⁴ Holloway &nbsp; ⁵ IBM<br>
+            ⁶ IEEE Spectrum &nbsp; ⁷ Vaswani et al., 2017 &nbsp; ⁸ OpenAI, 2020 &nbsp; ⁹ OpenAI, 2022 &nbsp; ¹⁰ Anthropic, 2023 &nbsp; ¹¹ Google, 2023
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 1.2 — CERCHI CONCENTRICI (★★★ HERO)
+         =========================================== -->
+    <section class="slide" id="circles-slide" style="background: var(--slide-bg-blue);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="bottom: 15%; left: 3%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="2" data-step="0">★ LA MAPPA</div>
+            <div class="section-header step" data-slide="2" data-step="0">
+                <div class="section-number">①</div>
+                <h2>La matrioska dell'intelligenza artificiale</h2>
+            </div>
+
+            <div class="circles-layout">
+                <!-- Concentric circles -->
+                <div class="circles-container" id="circlesContainer">
+                    <div class="circle-ring circle-ai" id="ring-ai">
+                        <span class="circle-label">AI</span>
+                    </div>
+                    <div class="circle-ring circle-ml" id="ring-ml">
+                        <span class="circle-label">ML</span>
+                    </div>
+                    <div class="circle-ring circle-dl" id="ring-dl">
+                        <span class="circle-label">DL</span>
+                    </div>
+                    <div class="circle-ring circle-llm" id="ring-llm">
+                        <span class="circle-label">LLM</span>
+                    </div>
+                </div>
+
+                <!-- Definition box (updates per step) -->
+                <div class="circle-definition">
+                    <div class="circle-def-item" id="def-ai">
+                        <div class="circle-def-name">Artificial Intelligence</div>
+                        <div class="circle-def-text">Qualsiasi sistema che esegue compiti che richiederebbero intelligenza umana</div>
+                        <div class="circle-def-full">Include anche sistemi basati su regole scritte a mano</div>
+                    </div>
+                    <div class="circle-def-item" id="def-ml">
+                        <div class="circle-def-name">Machine Learning</div>
+                        <div class="circle-def-text">Il sistema impara dai dati invece di seguire regole esplicite</div>
+                        <div class="circle-def-full">Trova pattern nei dati e li usa per fare previsioni</div>
+                    </div>
+                    <div class="circle-def-item" id="def-dl">
+                        <div class="circle-def-name">Deep Learning</div>
+                        <div class="circle-def-text">Reti neurali con molti strati, capaci di rappresentazioni sempre più astratte</div>
+                        <div class="circle-def-full">Da qui "deep" — la profondità degli strati</div>
+                    </div>
+                    <div class="circle-def-item" id="def-llm">
+                        <div class="circle-def-name">Large Language Model</div>
+                        <div class="circle-def-text">Reti neurali molto grandi, addestrate su enormi quantità di testo</div>
+                        <div class="circle-def-full">Specializzate nel comprendere e generare linguaggio naturale</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footnote">¹ IBM, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 1.3 — ANALOGIA VEICOLI
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="starburst" style="bottom: 8%; right: 2%; opacity: 0.06;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="3" data-step="0">★ ANALOGIA</div>
+            <h2 class="step" data-slide="3" data-step="0">Pensatela così</h2>
+
+            <div class="analogy-grid">
+                <div class="analogy-col step" data-slide="3" data-step="1">
+                    <div class="analogy-icon">🚗</div>
+                    <div class="analogy-level">AI</div>
+                    <div class="analogy-value">Veicoli</div>
+                    <div class="analogy-arrow">→</div>
+                </div>
+                <div class="analogy-col step" data-slide="3" data-step="2">
+                    <div class="analogy-icon">🏎️</div>
+                    <div class="analogy-level">ML</div>
+                    <div class="analogy-value">Veicoli a motore</div>
+                    <div class="analogy-arrow">→</div>
+                </div>
+                <div class="analogy-col step" data-slide="3" data-step="3">
+                    <div class="analogy-icon">🚘</div>
+                    <div class="analogy-level">DL</div>
+                    <div class="analogy-value">Automobili</div>
+                    <div class="analogy-arrow">→</div>
+                </div>
+                <div class="analogy-col step" data-slide="3" data-step="4">
+                    <div class="analogy-icon">⚡</div>
+                    <div class="analogy-level">LLM</div>
+                    <div class="analogy-value">Tesla Model S</div>
+                </div>
+            </div>
+
+            <p class="analogy-summary step" data-slide="3" data-step="4">Ogni livello è più specifico del precedente</p>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 1.4 — TRAINING VS INFERENCE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-blue);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="4" data-step="0">★ CONCETTO PONTE</div>
+            <div class="section-header step" data-slide="4" data-step="0">
+                <div class="section-number">②</div>
+                <h2>Training vs Inference</h2>
+            </div>
+
+            <div class="split-layout">
+                <!-- Training column -->
+                <div class="split-col step" data-slide="4" data-step="1">
+                    <div class="split-col-icon">⚙️</div>
+                    <h3>Training</h3>
+                    <p>La fase in cui il modello impara</p>
+                    <p>Miliardi di dati, settimane di GPU</p>
+                    <p class="accent-line">Costa centinaia di milioni di dollari¹</p>
+                    <img src="../../images/stars/conoscenza.png" alt="" class="mascot-inline">
+                </div>
+
+                <!-- Inference column -->
+                <div class="split-col step" data-slide="4" data-step="2">
+                    <div class="split-col-icon">⚡</div>
+                    <h3>Inference</h3>
+                    <p>La fase in cui il modello risponde</p>
+                    <p>È quello che succede quando chattate con Claude</p>
+                    <p class="accent-line">Ogni conversazione parte dallo stesso modello base</p>
+                    <img src="../../images/stars/computer.png" alt="" class="mascot-inline">
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-slide="4" data-step="3">
+                Quando chattate con un LLM, non lo state insegnando. Il modello non impara dalla vostra conversazione.
+            </div>
+        </div>
+
+        <div class="footnote">¹ Epoch AI, 2025 · Cottier & Rahman, 2024</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 1.5 — COSA RENDE GLI LLM DIVERSI
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 18%; right: 10%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="5" data-step="0">★ LLM</div>
+            <div class="section-header step" data-slide="5" data-step="0">
+                <div class="section-number">③</div>
+                <h2>Cosa rende gli LLM "diversi"</h2>
+            </div>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="5" data-step="1">
+                    <strong>Scala</strong> — Trilioni di token di dati¹, centinaia di miliardi di parametri²
+                </li>
+                <li class="step" data-slide="5" data-step="2">
+                    <strong>Architettura</strong> — Il Transformer³ con il meccanismo di attenzione (lo vedremo nel Blocco 3)
+                </li>
+                <li class="step" data-slide="5" data-step="3">
+                    <strong>Obiettivo semplice ma potente</strong> — Predire il prossimo token (lo vedremo nel Blocco 3)
+                </li>
+                <li class="step" data-slide="5" data-step="4">
+                    <strong>Emergenza di abilità</strong> — Capacità che emergono con la scala⁴ (ragionamento, traduzione, coding) ma senza garanzia di verità
+                </li>
+            </ul>
+        </div>
+
+        <img src="../../images/stars/super.png" alt="" class="mascot bottom-right">
+
+        <div class="footnote">
+            ¹ Meta AI Blog, 2025 (30T+ token) &nbsp; ² Meta AI Blog, 2025 (400B param.)<br>
+            ³ Vaswani et al., 2017 &nbsp; ⁴ Wei et al., 2022 · arXiv, 2025
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         JAVASCRIPT — Slide Controller
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+
+                this.currentSteps = new Array(this.totalSlides).fill(0);
+                this.maxSteps = this._computeMaxSteps();
+
+                // Special: concentric circles controller (slide index 2)
+                this.circlesSlideIndex = 2;
+                this.circleRings = ['ring-ai', 'ring-ml', 'ring-dl', 'ring-llm'];
+                this.circleDefs = ['def-ai', 'def-ml', 'def-dl', 'def-llm'];
+                this.circlesContainer = document.getElementById('circlesContainer');
+
+                this._bindEvents();
+                this._initSlide(0);
+                this._hintVisible = true;
+            }
+
+            _computeMaxSteps() {
+                const maxSteps = [];
+                this.slides.forEach((slide, i) => {
+                    // For the circles slide (index 2), we override: steps 0 (header) + 1-4 (circles)
+                    if (i === 2) {
+                        maxSteps.push(4);
+                        return;
+                    }
+                    const steps = slide.querySelectorAll('.step');
+                    let max = 0;
+                    steps.forEach(el => {
+                        const s = parseInt(el.dataset.step, 10);
+                        if (s > max) max = s;
+                    });
+                    maxSteps.push(max);
+                });
+                return maxSteps;
+            }
+
+            _revealUpToStep(slideIndex, stepNum) {
+                // Special handling for concentric circles slide
+                if (slideIndex === this.circlesSlideIndex) {
+                    this._updateCircles(stepNum);
+                    // Also reveal regular step elements (header/label at step 0)
+                    const slide = this.slides[slideIndex];
+                    slide.querySelectorAll('.step').forEach(el => {
+                        const s = parseInt(el.dataset.step, 10);
+                        if (s <= 0) el.classList.add('visible');
+                    });
+                    return;
+                }
+
+                const slide = this.slides[slideIndex];
+                const steps = slide.querySelectorAll('.step');
+                steps.forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    if (s <= stepNum) {
+                        el.classList.add('visible');
+                    } else {
+                        el.classList.remove('visible');
+                    }
+                });
+            }
+
+            /* ===========================================
+               CONCENTRIC CIRCLES ANIMATION CONTROLLER
+               Steps 1-4 correspond to AI, ML, DL, LLM
+               =========================================== */
+            _updateCircles(stepNum) {
+                const scaleValues = [1, 1, 1.05, 1.1, 1.15];
+                const scale = scaleValues[stepNum] || 1;
+
+                if (this.circlesContainer) {
+                    this.circlesContainer.style.transform = `scale(${scale})`;
+                }
+
+                // Update ring states
+                this.circleRings.forEach((ringId, i) => {
+                    const ring = document.getElementById(ringId);
+                    if (!ring) return;
+                    const ringStep = i + 1; // AI=1, ML=2, DL=3, LLM=4
+
+                    ring.classList.remove('active', 'past');
+
+                    if (stepNum === 0) {
+                        // All rings dimmed (initial state)
+                        return;
+                    }
+
+                    if (ringStep === stepNum) {
+                        ring.classList.add('active');
+                    } else if (ringStep < stepNum) {
+                        ring.classList.add('past');
+                    }
+                });
+
+                // Update definitions
+                this.circleDefs.forEach((defId, i) => {
+                    const def = document.getElementById(defId);
+                    if (!def) return;
+                    const defStep = i + 1;
+
+                    if (defStep === stepNum) {
+                        def.classList.add('active');
+                    } else {
+                        def.classList.remove('active');
+                    }
+                });
+            }
+
+            _initSlide(index) {
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+            }
+
+            advance() {
+                this._hideHint();
+                const currentStep = this.currentSteps[this.currentSlide];
+                const maxStep = this.maxSteps[this.currentSlide];
+
+                if (currentStep < maxStep) {
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+                const currentStep = this.currentSteps[this.currentSlide];
+
+                if (currentStep > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else if (this.currentSlide > 0) {
+                    const prevIndex = this.currentSlide - 1;
+                    this.currentSteps[prevIndex] = this.maxSteps[prevIndex];
+                    this._revealUpToStep(prevIndex, this.currentSteps[prevIndex]);
+                    this._scrollToSlide(prevIndex);
+                    this.currentSlide = prevIndex;
+                    this._updateNavDots();
+                } else if (window.parent !== window) {
+                    window.parent.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            _updateNavDots() {
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            _hideHint() {
+                if (this._hintVisible && this.keyboardHint) {
+                    this.keyboardHint.style.opacity = '0';
+                    this._hintVisible = false;
+                }
+            }
+
+            _bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight':
+                        case 'ArrowDown':
+                        case ' ':
+                        case 'Enter':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.advance();
+                            break;
+                        case 'ArrowLeft':
+                        case 'ArrowUp':
+                        case 'Backspace':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.goBack();
+                            break;
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-dots')) return;
+                    this.advance();
+                });
+
+                this.navDots.forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.goToSlide(parseInt(dot.dataset.slide, 10));
+                    });
+                });
+
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const diff = touchStartY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 50) {
+                        diff > 0 ? this.advance() : this.goBack();
+                    }
+                }, { passive: true });
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1 && idx !== this.currentSlide) {
+                                this.currentSlide = idx;
+                                if (this.currentSteps[idx] === 0) {
+                                    this._revealUpToStep(idx, 0);
+                                }
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window._pres = new SlidePresentation();
+        });
+
+        if (window.parent !== window) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault(); e.stopPropagation();
+                    window.parent.postMessage({ type: 'escape' }, '*');
+                } else if (e.key === 'f' || e.key === 'F') {
+                    e.preventDefault(); e.stopPropagation();
+                    window.parent.postMessage({ type: 'fullscreen' }, '*');
+                }
+            }, true);
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres, last = p.totalSlides - 1;
+                    p.currentSlide = last;
+                    p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]);
+                    p._scrollToSlide(last);
+                    p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

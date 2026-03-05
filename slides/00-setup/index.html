@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 0 — Setup | Formazione AI MemorAIz</title>
+
+    <!-- Google Fonts: Anton (headings) + Darker Grotesque (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            /* Slide background gradients */
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+
+            /* Text */
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --text-on-accent: #ffffff;
+
+            /* Brand accent — the "star" gold */
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+
+            /* Functional */
+            --cta-bg: #1a1a4e;
+            --cta-text: #ffffff;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+
+            /* Bullet dots */
+            --bullet-color: var(--accent-gold);
+
+            /* Typography — PRESENTATION sizes (readable from distance) */
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+        }
+
+        /* Anton headings — uppercase geometric style */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER — Each slide = exact viewport
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: var(--slide-padding);
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.6rem, 1.5vw, 1.2rem);
+        }
+
+        .slide-content.centered {
+            margin: 0 auto;
+            text-align: center;
+            align-items: center;
+        }
+
+        /* ===========================================
+           LOGO — Consistent position on every slide
+           =========================================== */
+        .logo {
+            position: absolute;
+            top: clamp(1rem, 2.5vw, 2rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            height: clamp(24px, 3vw, 40px);
+            z-index: 10;
+            opacity: 0.85;
+        }
+
+        /* Cover slide: larger centered logo */
+        .slide.cover .logo-cover {
+            height: clamp(40px, 5vw, 70px);
+            margin-bottom: clamp(0.5rem, 1.5vw, 1.5rem);
+            opacity: 1;
+        }
+
+        .slide.cover .logo {
+            display: none;
+        }
+
+        /* ===========================================
+           MASCOT STARS — Subtle decorative images
+           =========================================== */
+        .mascot {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .mascot.bottom-right {
+            bottom: clamp(1rem, 3vw, 2.5rem);
+            right: clamp(1.5rem, 4vw, 4rem);
+            height: clamp(60px, 10vw, 110px);
+            opacity: 0.85;
+        }
+
+        .mascot.top-right-inset {
+            top: clamp(3.5rem, 8vw, 6rem);
+            right: clamp(2rem, 5vw, 5rem);
+            height: clamp(70px, 12vw, 130px);
+            opacity: 0.8;
+        }
+
+        /* ===========================================
+           SECTION LABELS — Spaced small caps with ★
+           =========================================== */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: var(--label-size);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+
+        /* ===========================================
+           SECTION NUMBER — Thin stroke circle
+           =========================================== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.8rem);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+
+        .section-number {
+            width: clamp(36px, 4vw, 52px);
+            height: clamp(36px, 4vw, 52px);
+            border: 2px solid var(--text-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           GOLD DOT BULLET LIST
+           =========================================== */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
+        .bullet-list li {
+            padding-left: 1.5em;
+            position: relative;
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .bullet-list li::before {
+            content: '●';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 0.7em;
+            top: 0.35em;
+        }
+
+        .bullet-list li strong {
+            font-weight: 700;
+        }
+
+        /* ===========================================
+           HIGHLIGHT BOX — Pill with emphasis
+           =========================================== */
+        .highlight-box {
+            background: var(--highlight-bg);
+            border-left: 3px solid var(--accent-gold);
+            padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.5rem);
+            border-radius: 0 8px 8px 0;
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: clamp(0.3rem, 0.8vw, 0.5rem);
+        }
+
+        /* ===========================================
+           SUBTITLE PILL
+           =========================================== */
+        .subtitle-pill {
+            display: inline-block;
+            background: var(--highlight-bg);
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            border-radius: 999px;
+            font-family: var(--font-body);
+            font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ===========================================
+           CITATION FOOTNOTE
+           =========================================== */
+        .footnote {
+            position: absolute;
+            bottom: clamp(0.8rem, 2vw, 1.5rem);
+            right: clamp(1.5rem, 3vw, 3rem);
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        /* ===========================================
+           STARBURST — Abstract CSS decoration
+           =========================================== */
+        .starburst {
+            width: clamp(60px, 10vw, 120px);
+            height: clamp(60px, 10vw, 120px);
+            background: var(--accent-gold);
+            clip-path: polygon(
+                50% 0%, 63% 28%, 93% 18%, 75% 43%,
+                100% 58%, 72% 63%, 80% 93%, 55% 73%,
+                32% 98%, 38% 67%, 7% 75%, 30% 50%,
+                0% 30%, 33% 33%, 22% 5%, 45% 28%
+            );
+            position: absolute;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            width: clamp(20px, 3vw, 40px);
+            height: clamp(20px, 3vw, 40px);
+            background: var(--accent-gold-light);
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                2% 35%, 39% 35%
+            );
+            position: absolute;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           NAV DOTS — Right edge
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.8rem, 1.5vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 12px);
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: clamp(8px, 1vw, 12px);
+            height: clamp(8px, 1vw, 12px);
+            border-radius: 50%;
+            border: 2px solid var(--text-primary);
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            padding: 0;
+        }
+
+        .nav-dot:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .nav-dot.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        /* ===========================================
+           KEYBOARD HINT
+           =========================================== */
+        .keyboard-hint {
+            position: fixed;
+            bottom: clamp(0.5rem, 1.5vw, 1rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            opacity: 0.4;
+            z-index: 100;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           STEP-BY-STEP REVEAL
+           Elements hidden until their step is reached
+           =========================================== */
+        .step {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cover slide elements — always visible */
+        .slide.cover .step {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===========================================
+           RESPONSIVE BREAKPOINTS
+           =========================================== */
+
+        /* Short screens */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.5rem, 4.5vw, 3rem);
+                --h2-size: clamp(1.2rem, 3vw, 2.2rem);
+            }
+        }
+
+        /* Very short */
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+
+            .nav-dots, .keyboard-hint {
+                display: none;
+            }
+
+            .mascot {
+                display: none;
+            }
+        }
+
+        /* Extremely short (landscape phones) */
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+
+            .starburst, .sparkle {
+                display: none;
+            }
+        }
+
+        /* Narrow screens */
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.5rem, 7vw, 2.5rem);
+            }
+
+            .mascot.bottom-right {
+                height: clamp(50px, 15vw, 80px);
+            }
+
+            .mascot.top-right-inset {
+                height: clamp(50px, 15vw, 80px);
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ===========================================
+           SLIDE-SPECIFIC STYLES
+           =========================================== */
+
+        /* Cover slide */
+        .slide.cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide.cover h1 {
+            font-size: var(--title-size);
+            color: var(--text-primary);
+            max-width: 900px;
+            margin-bottom: clamp(0.3rem, 1vw, 0.8rem);
+        }
+
+        .slide.cover .date {
+            font-family: var(--font-body);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: clamp(0.5rem, 1vw, 1rem);
+            letter-spacing: 0.05em;
+        }
+
+        /* Content headings */
+        .slide h2 {
+            font-size: var(--h2-size);
+            color: var(--text-primary);
+            margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem);
+        }
+
+        .slide .sub-heading {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: clamp(0.4rem, 1vw, 0.8rem);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===========================================
+         NAV DOTS — Right edge navigation
+         =========================================== -->
+    <nav class="nav-dots" aria-label="Navigazione slide">
+        <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
+    </nav>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
+
+    <!-- ===========================================
+         SLIDE 1 — COPERTINA
+         =========================================== -->
+    <section class="slide cover" style="background: var(--slide-bg-default);">
+        <!-- Starburst decorations -->
+        <div class="starburst" style="bottom: 15%; left: 5%;"></div>
+        <div class="sparkle" style="top: 20%; right: 15%;"></div>
+        <div class="sparkle" style="bottom: 25%; right: 8%;"></div>
+
+        <!-- Logo (prominent, centered on cover) -->
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo-cover">
+
+        <h1>Capire l'AI — Dal funzionamento alla pratica</h1>
+        <span class="subtitle-pill">Formazione interna per il team UX/UI e Comunicazione</span>
+        <div class="date">Marzo 2026 · ~3–4 ore</div>
+
+        <!-- Mascot: indica.png -->
+        <img src="../../images/stars/indica.png" alt="" class="mascot bottom-right">
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2 — PERCHÉ SIAMO QUI
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <!-- Logo -->
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <!-- Starburst decoration -->
+        <div class="starburst" style="bottom: 8%; right: 3%; opacity: 0.06;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="1" data-step="0">★ SETUP</div>
+
+            <div class="section-header step" data-slide="1" data-step="0">
+                <div class="section-number">①</div>
+                <h2>Perché siamo qui</h2>
+            </div>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="1" data-step="1">
+                    <strong>Linguaggio comune</strong> — Parlare la stessa lingua del team tecnico quando si discute di AI
+                </li>
+                <li class="step" data-slide="1" data-step="2">
+                    <strong>Guardrail operativi</strong> — Sapere cosa si può e cosa non si può fare (qualità, privacy, sicurezza, IP)
+                </li>
+                <li class="step" data-slide="1" data-step="3">
+                    <strong>Capacità pratica</strong> — Scrivere richieste efficaci, valutare risposte, capire cosa vendere ai clienti
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3 — IL CONCETTO FONDAMENTALE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <!-- Logo -->
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <!-- Mascot: lampadina.png -->
+        <img src="../../images/stars/lampadina.png" alt="" class="mascot top-right-inset">
+
+        <!-- Sparkle decoration -->
+        <div class="sparkle" style="bottom: 12%; left: 5%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="2" data-step="0">★ CONCETTO CHIAVE</div>
+
+            <h2 class="step" data-slide="2" data-step="0" style="font-size: var(--title-size); margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem);">Probabilistico, non deterministico</h2>
+            <p class="sub-heading step" data-slide="2" data-step="0">L'idea più importante di tutta la giornata</p>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="2" data-step="1">
+                    <strong>Un LLM non "sa"</strong> — Produce testo plausibile dato un contesto. Non ha conoscenza nel senso umano del termine.
+                </li>
+                <li class="step" data-slide="2" data-step="2">
+                    <strong>Eloquenza ≠ accuratezza</strong> — Una risposta che suona sicura e ben scritta non è necessariamente vera.
+                </li>
+            </ul>
+
+            <div class="highlight-box step" data-slide="2" data-step="3">
+                Se portate a casa solo una cosa oggi, sia questa.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 4 — LE QUATTRO CONFUSIONI
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <!-- Logo -->
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <!-- Mascot: dubbioso/pensieroso -->
+        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot bottom-right">
+
+        <!-- Starburst decoration -->
+        <div class="starburst" style="top: 10%; right: 2%; opacity: 0.05;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="3" data-step="0">★ ERRORI COMUNI</div>
+
+            <div class="section-header step" data-slide="3" data-step="0">
+                <div class="section-number">②</div>
+                <h2>Le quattro confusioni più frequenti</h2>
+            </div>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="3" data-step="1">
+                    <strong>Conoscenza vs Comportamento vs Accesso</strong> — Il modello "sa" cose (training), "si comporta" in un certo modo (fine-tuning), e "accede" a dati (tool/RAG). Sono tre cose diverse.
+                </li>
+                <li class="step" data-slide="3" data-step="2">
+                    <strong>"Ha funzionato una volta" ≠ "Funzionerà sempre"</strong> — L'output è probabilistico: la stessa domanda può dare risposte diverse.
+                </li>
+                <li class="step" data-slide="3" data-step="3">
+                    <strong>Chatbot ≠ Database di fatti</strong> — Non è un'enciclopedia verificata. È un generatore di testo plausibile.
+                </li>
+                <li class="step" data-slide="3" data-step="4">
+                    <strong>Psychofancy (compiacenza)</strong> — Il modello tende a confermare ciò che l'utente dice, anche quando è sbagliato<sup>1</sup>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Citation footnote -->
+        <div class="footnote">¹ Sharma et al., 2024</div>
+    </section>
+
+
+    <!-- ===========================================
+         JAVASCRIPT — Slide Controller
+         =========================================== -->
+    <script>
+        /* ===========================================
+           SlidePresentation Class
+           Handles navigation, step-by-step reveal,
+           keyboard/click/touch controls, nav dots
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+
+                // Track current step within each slide
+                // Step 0 = heading/label (auto-shown on enter), steps 1+ = click-revealed
+                this.currentSteps = new Array(this.totalSlides).fill(0);
+                this.maxSteps = this._computeMaxSteps();
+
+                this._bindEvents();
+                this._initSlide(0);
+
+                // Hide keyboard hint after first interaction
+                this._hintVisible = true;
+            }
+
+            /* Compute max step index for each slide */
+            _computeMaxSteps() {
+                const maxSteps = [];
+                this.slides.forEach((slide, i) => {
+                    const steps = slide.querySelectorAll('.step');
+                    let max = 0;
+                    steps.forEach(el => {
+                        const s = parseInt(el.dataset.step, 10);
+                        if (s > max) max = s;
+                    });
+                    maxSteps.push(max);
+                });
+                return maxSteps;
+            }
+
+            /* Show all steps up to given step number for a slide */
+            _revealUpToStep(slideIndex, stepNum) {
+                const slide = this.slides[slideIndex];
+                const steps = slide.querySelectorAll('.step');
+                steps.forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    if (s <= stepNum) {
+                        el.classList.add('visible');
+                    } else {
+                        el.classList.remove('visible');
+                    }
+                });
+            }
+
+            /* Initialize a slide: show step 0 (heading/label) */
+            _initSlide(index) {
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+            }
+
+            /* Advance: next step in current slide, or next slide if all steps revealed */
+            advance() {
+                this._hideHint();
+
+                const currentStep = this.currentSteps[this.currentSlide];
+                const maxStep = this.maxSteps[this.currentSlide];
+
+                if (currentStep < maxStep) {
+                    // Reveal next step
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    // All steps revealed — go to next slide
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            /* Go back: hide last step, or go to previous slide */
+            goBack() {
+                this._hideHint();
+
+                const currentStep = this.currentSteps[this.currentSlide];
+
+                if (currentStep > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    // Go to previous slide, fully revealed
+                    if (this.currentSlide > 0) {
+                        const prevIndex = this.currentSlide - 1;
+                        this.currentSteps[prevIndex] = this.maxSteps[prevIndex];
+                        this._revealUpToStep(prevIndex, this.currentSteps[prevIndex]);
+                        this._scrollToSlide(prevIndex);
+                        this.currentSlide = prevIndex;
+                        this._updateNavDots();
+                    } else if (window.parent !== window) {
+                        window.parent.postMessage({ type: 'prev-block' }, '*');
+                    }
+                }
+            }
+
+            /* Navigate to a specific slide */
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            _updateNavDots() {
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            _hideHint() {
+                if (this._hintVisible && this.keyboardHint) {
+                    this.keyboardHint.style.opacity = '0';
+                    this._hintVisible = false;
+                }
+            }
+
+            /* ===========================================
+               EVENT BINDING
+               =========================================== */
+            _bindEvents() {
+                // Keyboard
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight':
+                        case 'ArrowDown':
+                        case ' ':
+                        case 'Enter':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.advance();
+                            break;
+                        case 'ArrowLeft':
+                        case 'ArrowUp':
+                        case 'Backspace':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.goBack();
+                            break;
+                    }
+                });
+
+                // Click to advance (on the slide body, not on nav dots)
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-dots')) return;
+                    this.advance();
+                });
+
+                // Nav dots
+                this.navDots.forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const slideIndex = parseInt(dot.dataset.slide, 10);
+                        this.goToSlide(slideIndex);
+                    });
+                });
+
+                // Touch swipe
+                let touchStartY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const diff = touchStartY - touchEndY;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            this.advance();
+                        } else {
+                            this.goBack();
+                        }
+                    }
+                }, { passive: true });
+
+                // Sync scroll position with nav dots using IntersectionObserver
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const slideIndex = Array.from(this.slides).indexOf(entry.target);
+                            if (slideIndex !== -1 && slideIndex !== this.currentSlide) {
+                                this.currentSlide = slideIndex;
+                                // Reveal step 0 if entering a new slide
+                                if (this.currentSteps[slideIndex] === 0) {
+                                    this._revealUpToStep(slideIndex, 0);
+                                }
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window._pres = new SlidePresentation();
+        });
+
+        /* === Master deck integration (only active when embedded in iframe) === */
+        if (window.parent !== window) {
+            // Forward Escape / F to the master
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault(); e.stopPropagation();
+                    window.parent.postMessage({ type: 'escape' }, '*');
+                } else if (e.key === 'f' || e.key === 'F') {
+                    e.preventDefault(); e.stopPropagation();
+                    window.parent.postMessage({ type: 'fullscreen' }, '*');
+                }
+            }, true);
+
+            // Listen for commands from master
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres;
+                    const last = p.totalSlides - 1;
+                    p.currentSlide = last;
+                    p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]);
+                    p._scrollToSlide(last);
+                    p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

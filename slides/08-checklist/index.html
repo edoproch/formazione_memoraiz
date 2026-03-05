@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 8 — Checklist Operativa | Formazione AI MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-mint: linear-gradient(160deg, #d0ece4 0%, #e2f2ec 40%, #eae8f2 100%);
+            --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+            --slide-bg-lavender: linear-gradient(160deg, #dcd8ec 0%, #e8e5f2 40%, #eae8f2 100%);
+            --slide-bg-blue: linear-gradient(160deg, #d0dff5 0%, #e4edf8 40%, #eae8f2 100%);
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding: var(--slide-padding);
+        }
+        .slide-content {
+            max-width: 1200px; width: 90%;
+            display: flex; flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .slide-content.centered { margin: 0 auto; text-align: center; align-items: center; }
+
+        /* ===========================================
+           SHARED ELEMENTS
+           =========================================== */
+        .logo { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); height: clamp(24px, 3vw, 40px); z-index: 10; opacity: 0.85; }
+        .mascot { position: absolute; z-index: 5; pointer-events: none; }
+        .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
+        .mascot.small { height: clamp(40px, 6vw, 60px); }
+        .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
+        .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
+        .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+        .nav-dot:hover { border-color: var(--accent-gold); }
+        .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+
+        /* Step reveal */
+        .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .step.visible { opacity: 1; transform: translateY(0); }
+
+        .slide h1 { font-size: var(--title-size); color: var(--text-primary); }
+        .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
+
+        /* ===========================================
+           SLIDE 8.1 — DECISION TREE
+           =========================================== */
+        .decision-tree {
+            position: relative;
+            width: 100%;
+            max-height: min(55vh, 450px);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .tree-node {
+            display: inline-flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.6rem, 1vw, 0.8rem);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: clamp(0.62rem, 0.9vw, 0.78rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            border: 1.5px solid rgba(26, 26, 78, 0.1);
+            background: rgba(255,255,255,0.6);
+            user-select: none;
+        }
+        .tree-node:hover { border-color: var(--accent-gold); }
+        .tree-node.active {
+            border-color: var(--accent-gold);
+            background: rgba(245, 166, 35, 0.08);
+            box-shadow: 0 0 12px rgba(245, 166, 35, 0.15);
+        }
+        .tree-node.dimmed { opacity: 0.25; pointer-events: none; }
+        .tree-node.leaf {
+            background: rgba(245, 166, 35, 0.06);
+            border-color: var(--accent-gold);
+        }
+        .tree-node.leaf.active {
+            background: rgba(245, 166, 35, 0.15);
+            box-shadow: 0 0 16px rgba(245, 166, 35, 0.25);
+        }
+        .tree-node-icon { font-size: clamp(0.8rem, 1.2vw, 1rem); }
+        .tree-level {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.5rem, 1.5vw, 1.2rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .tree-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(0.2rem, 0.4vw, 0.3rem);
+            transition: opacity 0.3s ease-out;
+        }
+        .tree-branch.hidden { display: none; }
+        .tree-connector {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-weight: 700;
+            padding: 2px clamp(6px, 0.8vw, 10px);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+        }
+        .tree-connector.yes {
+            background: rgba(123, 191, 168, 0.2);
+            color: #4a9a7a;
+        }
+        .tree-connector.no {
+            background: rgba(212, 149, 107, 0.2);
+            color: #b87a4a;
+        }
+        .tree-connector:hover { transform: scale(1.1); }
+        .tree-connector.dimmed { opacity: 0.2; pointer-events: none; }
+        .tree-arrow {
+            color: var(--accent-gold);
+            opacity: 0.4;
+            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+        }
+        .tree-leaf-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            text-align: center;
+            max-width: 200px;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+        .tree-leaf-desc.show { opacity: 1; }
+        .tree-reset-hint {
+            font-family: var(--font-body);
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            color: var(--text-secondary);
+            opacity: 0.4;
+            text-align: center;
+            margin-top: clamp(0.2rem, 0.4vw, 0.3rem);
+        }
+
+        /* ===========================================
+           SLIDE 8.2 — REGOLE D'ORO
+           =========================================== */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.25rem, 0.6vw, 0.45rem) clamp(0.4rem, 1vw, 0.8rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        @media (max-width: 600px) {
+            .rules-grid { grid-template-columns: 1fr; }
+        }
+        .rule-card {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.7vw, 0.6rem);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.45);
+            border: 1px solid rgba(26, 26, 78, 0.05);
+        }
+        .rule-icon {
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+            flex-shrink: 0;
+            width: clamp(20px, 2.5vw, 28px);
+            text-align: center;
+        }
+        .rule-info { flex: 1; min-width: 0; }
+        .rule-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.92vw, 0.8rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .rule-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.56rem, 0.78vw, 0.68rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.35;
+        }
+
+        /* ===========================================
+           SLIDE 8.3 — TEMPLATE PROMPT
+           =========================================== */
+        .template-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        @media (max-width: 800px) {
+            .template-layout { grid-template-columns: 1fr; }
+        }
+        .template-card {
+            background: rgba(26, 26, 78, 0.92);
+            border-radius: 12px;
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem);
+            border: 1px solid var(--accent-gold);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.15rem, 0.3vw, 0.25rem);
+        }
+        .template-section {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: clamp(0.15rem, 0.3vw, 0.25rem);
+        }
+        .template-section:last-child { border-bottom: none; padding-bottom: 0; }
+        .template-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.52rem, 0.72vw, 0.62rem);
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.5;
+            transition: opacity 0.3s ease-out;
+        }
+        .template-label.lit { opacity: 1; }
+        .template-placeholder {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.78vw, 0.66rem);
+            color: rgba(255,255,255,0.35);
+            font-weight: 400;
+            line-height: 1.35;
+            transition: color 0.3s ease-out;
+        }
+        .template-placeholder.lit { color: rgba(255,255,255,0.85); }
+        .example-card {
+            border-radius: 10px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.5rem, 1vw, 0.8rem);
+            background: rgba(245, 166, 35, 0.05);
+            border: 1.5px dashed rgba(245, 166, 35, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.15rem, 0.3vw, 0.25rem);
+        }
+        .example-pill {
+            font-family: var(--font-body);
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-weight: 700;
+            background: var(--accent-gold);
+            color: var(--text-primary);
+            padding: 1px clamp(6px, 0.8vw, 10px);
+            border-radius: 999px;
+            align-self: flex-start;
+        }
+        .example-line {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.78vw, 0.66rem);
+            color: var(--accent-gold);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .example-line strong {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ===========================================
+           HEIGHT BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
+                --title-size: clamp(1.8rem, 5vw, 3rem);
+                --h2-size: clamp(1.3rem, 3vw, 2.2rem);
+                --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            }
+            .nav-dots, .keyboard-hint, .starburst, .sparkle { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 1.5rem);
+                --title-size: clamp(1.2rem, 4vw, 2rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+            .mascot { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         SLIDE 8.0 — TITOLO DI SEZIONE
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content centered">
+            <div class="section-label">&#9733; BLOCCO 8</div>
+            <h1>La vostra cassetta degli attrezzi</h1>
+            <p class="sub-heading">Decision tree, regole d&rsquo;oro e template pronti all&rsquo;uso</p>
+            <p class="sub-note">~10 minuti &mdash; da qui portate a casa gli strumenti operativi</p>
+        </div>
+
+        <img src="../../images/stars/correbussola.png" alt="" class="mascot bottom-right" style="opacity: 0.7;">
+        <div class="starburst" style="top: 10%; left: 5%;"></div>
+        <div class="sparkle" style="bottom: 25%; right: 15%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.1 — DECISION TREE
+         ========================================== -->
+    <div class="slide" data-steps="1" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; SCEGLI L&rsquo;APPROCCIO</div>
+            <h2 class="step" data-step="1">L&rsquo;albero delle decisioni AI</h2>
+            <p class="sub-heading step" data-step="1">Parti dalla task, arrivi allo strumento giusto</p>
+
+            <!-- Decision tree — interactive, managed by JS -->
+            <div class="decision-tree step" data-step="1" id="decisionTree">
+                <!-- Root node -->
+                <div class="tree-level" id="treeLevel0">
+                    <div class="tree-branch">
+                        <div class="tree-node active" id="nodeRoot" data-node="root">
+                            La tua task richiede azioni esterne o integrazioni?
+                        </div>
+                        <div class="tree-level" id="treeLevel1">
+                            <div class="tree-branch" id="branchYes1">
+                                <div class="tree-connector yes" data-choice="root-yes">S&igrave;</div>
+                                <div class="tree-arrow">&#9660;</div>
+                                <div class="tree-node" id="nodeAgent" data-node="agent">
+                                    &#9881;&#65039; AGENTE (con tool)
+                                </div>
+                                <div class="tree-level" id="treeLevel2a">
+                                    <div class="tree-branch hidden" id="branchAgentYes">
+                                        <div class="tree-connector yes" data-choice="agent-yes">Scomponibile?</div>
+                                        <div class="tree-arrow">&#9660;</div>
+                                        <div class="tree-node leaf" id="nodeMultiAgent" data-node="multi-agent">
+                                            <span class="tree-node-icon">&#127760;</span> Multi-agente
+                                        </div>
+                                        <div class="tree-leaf-desc" id="descMultiAgent">Orchestrazione: fan-out, swarm, delegato</div>
+                                    </div>
+                                    <div class="tree-branch hidden" id="branchAgentNo">
+                                        <div class="tree-connector no" data-choice="agent-no">Singolo task?</div>
+                                        <div class="tree-arrow">&#9660;</div>
+                                        <div class="tree-node leaf" id="nodeSingleAgent" data-node="single-agent">
+                                            <span class="tree-node-icon">&#129302;</span> Singolo agente
+                                        </div>
+                                        <div class="tree-leaf-desc" id="descSingleAgent">Un loop agente con i tool necessari</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tree-branch" id="branchNo1">
+                                <div class="tree-connector no" data-choice="root-no">No</div>
+                                <div class="tree-arrow">&#9660;</div>
+                                <div class="tree-node" id="nodeLlm" data-node="llm">
+                                    &#128172; Solo LLM
+                                </div>
+                                <div class="tree-level" id="treeLevel2b">
+                                    <div class="tree-branch hidden" id="branchLlmYes">
+                                        <div class="tree-connector yes" data-choice="llm-yes">Dati aziendali?</div>
+                                        <div class="tree-arrow">&#9660;</div>
+                                        <div class="tree-node leaf" id="nodeRag" data-node="rag">
+                                            <span class="tree-node-icon">&#128196;</span> RAG&sup1;
+                                        </div>
+                                        <div class="tree-leaf-desc" id="descRag">Retrieval + generazione: riduce allucinazioni del 71%</div>
+                                    </div>
+                                    <div class="tree-branch hidden" id="branchLlmNo">
+                                        <div class="tree-connector no" data-choice="llm-no">Prompt diretto</div>
+                                        <div class="tree-arrow">&#9660;</div>
+                                        <div class="tree-node" id="nodePrompt" data-node="prompt">
+                                            &#9999;&#65039; Prompt diretto
+                                        </div>
+                                        <div class="tree-level" id="treeLevel3">
+                                            <div class="tree-branch hidden" id="branchPromptYes">
+                                                <div class="tree-connector yes" data-choice="prompt-yes">Multi-step?</div>
+                                                <div class="tree-arrow">&#9660;</div>
+                                                <div class="tree-node leaf" id="nodeReasoning" data-node="reasoning">
+                                                    <span class="tree-node-icon">&#129504;</span> Reasoning model&sup2;
+                                                </div>
+                                                <div class="tree-leaf-desc" id="descReasoning">~30x pi&ugrave; lento, ~6x pi&ugrave; costoso. Solo per task complesse.</div>
+                                            </div>
+                                            <div class="tree-branch hidden" id="branchPromptNo">
+                                                <div class="tree-connector no" data-choice="prompt-no">Semplice</div>
+                                                <div class="tree-arrow">&#9660;</div>
+                                                <div class="tree-node" id="nodeStandard" data-node="standard">
+                                                    Modello standard
+                                                </div>
+                                                <div class="tree-level" id="treeLevel4">
+                                                    <div class="tree-branch hidden" id="branchStdYes">
+                                                        <div class="tree-connector yes" data-choice="std-yes">Creativo?</div>
+                                                        <div class="tree-arrow">&#9660;</div>
+                                                        <div class="tree-node leaf" id="nodeCreative" data-node="creative">
+                                                            <span class="tree-node-icon">&#128293;</span> Temp. alta + few-shot&sup3;
+                                                        </div>
+                                                        <div class="tree-leaf-desc" id="descCreative">Temperatura 0.7-1.2, pi&ugrave; varianti creative</div>
+                                                    </div>
+                                                    <div class="tree-branch hidden" id="branchStdNo">
+                                                        <div class="tree-connector no" data-choice="std-no">Preciso</div>
+                                                        <div class="tree-arrow">&#9660;</div>
+                                                        <div class="tree-node leaf" id="nodeStrict" data-node="strict">
+                                                            <span class="tree-node-icon">&#127919;</span> Temp. bassa + vincoli
+                                                        </div>
+                                                        <div class="tree-leaf-desc" id="descStrict">Temperatura 0-0.3, output deterministico</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tree-reset-hint">Clicca un nodo per esplorare &middot; Clicca il genitore per tornare indietro &middot; Doppio-click sulla radice per reset</div>
+            </div>
+
+            <div class="highlight-box step" data-step="1" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                &#128161; <strong>Regola d&rsquo;oro:</strong> inizia sempre dalla soluzione pi&ugrave; semplice. Aggiungi complessit&agrave; solo quando serve.&#8308;
+            </div>
+        </div>
+
+        <div class="footnote">&sup1; Lakera, 2025 &nbsp; &sup2; Vellum, 2024 &nbsp; &sup3; IBM, 2025 &nbsp; &#8308; Anthropic, 2024</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.2 — REGOLE D'ORO
+         ========================================== -->
+    <div class="slide" data-steps="6" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; REGOLE D&rsquo;ORO</div>
+            <h2 class="step" data-step="1">9 regole per lavorare con l&rsquo;AI</h2>
+            <p class="sub-heading step" data-step="1">Da stampare e appendere accanto al monitor</p>
+
+            <div class="rules-grid">
+                <!-- Row 1-2: click 2 -->
+                <div class="rule-card step" data-step="2">
+                    <div class="rule-icon">&#128270;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">1. Mai senza fonte</div>
+                        <div class="rule-desc">Chiedi citazioni o fornisci il testo sorgente. Tasso allucinazione: 0.7%&ndash;33% anche nei migliori modelli&sup1;</div>
+                    </div>
+                </div>
+                <div class="rule-card step" data-step="2">
+                    <div class="rule-icon">&#129521;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">2. Separa sempre</div>
+                        <div class="rule-desc">Obiettivo / vincoli / fonti / output atteso. Un prompt strutturato batte uno generico, sempre&sup2;</div>
+                    </div>
+                </div>
+
+                <!-- Row 3-4: click 3 -->
+                <div class="rule-card step" data-step="3">
+                    <div class="rule-icon">&#9998;&#65039;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">3. Bozza + revisione</div>
+                        <div class="rule-desc">Per contenuti pubblici, tratta l&rsquo;output AI come prima bozza. Sempre revisione umana</div>
+                    </div>
+                </div>
+                <div class="rule-card step" data-step="3">
+                    <div class="rule-icon">&#128274;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">4. Zero dati sensibili</div>
+                        <div class="rule-desc">Mai PII o info riservate in tool AI pubblici. Principio di minimizzazione&sup3;</div>
+                    </div>
+                </div>
+
+                <!-- Row 5-6: click 4 -->
+                <div class="rule-card step" data-step="4">
+                    <div class="rule-icon">&#128260;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">5. Itera</div>
+                        <div class="rule-desc">Non accontentatevi della prima risposta. Template condivisi: +50% di risultato&#8308;</div>
+                    </div>
+                </div>
+                <div class="rule-card step" data-step="4">
+                    <div class="rule-icon">&#9989;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">6. Verifica</div>
+                        <div class="rule-desc">Specialmente fatti, numeri, citazioni. &laquo;Eloquenza &ne; accuratezza&raquo; (ricordate il Blocco 0?)</div>
+                    </div>
+                </div>
+
+                <!-- Row 7-8: click 4 -->
+                <div class="rule-card step" data-step="4">
+                    <div class="rule-icon">&#129514;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">7. Sperimenta</div>
+                        <div class="rule-desc">Provate modelli, approcci, temperature diversi. Non c&rsquo;&egrave; formula magica</div>
+                    </div>
+                </div>
+                <div class="rule-card step" data-step="4">
+                    <div class="rule-icon">&#128736;&#65039;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">8. Usate i tool</div>
+                        <div class="rule-desc">Figma Make, Claude, generazione file &mdash; sono l&igrave; per accelerarvi</div>
+                    </div>
+                </div>
+
+                <!-- Rule 9: full-width -->
+                <div class="rule-card step" data-step="5" style="grid-column: 1 / -1;">
+                    <div class="rule-icon">&#127919;</div>
+                    <div class="rule-info">
+                        <div class="rule-title">9. Pi&ugrave; bias = meglio</div>
+                        <div class="rule-desc">Ogni vincolo, esempio o formato che date al prompt restringe la distribuzione di probabilit&agrave; dell&rsquo;LLM. Meno ambiguit&agrave; &rarr; output pi&ugrave; preciso&#8309;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="6" style="margin-top: clamp(0.3rem, 0.5vw, 0.4rem);">
+                Queste regole valgono per <strong>qualsiasi modello</strong> e <strong>qualsiasi strumento AI</strong> &mdash; oggi e domani.
+            </div>
+        </div>
+
+        <img src="../../images/stars/controllo.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
+        <div class="footnote">&sup1; AI Multiple, 2025 &nbsp; &sup2; Parloa, 2024 &nbsp; &sup3; ICO/GDPR, 2024 &nbsp; &#8308; MIT Sloan, 2025 &nbsp; &#8309; Min et al., EMNLP 2022; Schulhoff et al., 2024</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.3 — TEMPLATE PROMPT
+         ========================================== -->
+    <div class="slide" data-steps="4" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; IL VOSTRO TEMPLATE</div>
+            <h2 class="step" data-step="1">Il template MemorAIz</h2>
+            <p class="sub-heading step" data-step="1">Copiate, incollate, compilate &mdash; funziona con qualsiasi LLM</p>
+
+            <div class="template-layout">
+                <!-- Template card (dark) -->
+                <div class="template-card step" data-step="1" id="templateCard">
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel1">SCOPO</div>
+                        <div class="template-placeholder" id="tplText1">[Cosa deve fare il modello &mdash; 1-2 righe chiare]</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel2">AUDIENCE E TONO</div>
+                        <div class="template-placeholder" id="tplText2">[Chi legger&agrave; l&rsquo;output, che tono usare]</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel3">VINCOLI</div>
+                        <div class="template-placeholder" id="tplText3">Lingua: [...] &middot; Lunghezza: [...] &middot; Formato: [...] &middot; Cosa NON fare: [...]</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel4">CONTESTO</div>
+                        <div class="template-placeholder" id="tplText4">[Incollare qui i testi di riferimento, dati, file &mdash; &laquo;everything as files&raquo;]</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel5">FORMATO OUTPUT + REASONING</div>
+                        <div class="template-placeholder" id="tplText5">[Formato desiderato + &laquo;Spiega il tuo ragionamento prima della risposta&raquo;]</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label" id="tplLabel6">CHECKLIST QUALIT&Agrave;</div>
+                        <div class="template-placeholder" id="tplText6">&#9744; [Criterio 1] &middot; &#9744; [Criterio 2] &middot; &#9744; [Criterio 3]</div>
+                    </div>
+                </div>
+
+                <!-- Example card -->
+                <div class="example-card step" data-step="3" id="exampleCard">
+                    <div class="example-pill">Esempio compilato</div>
+                    <div class="example-line"><strong>SCOPO:</strong> Scrivi 3 varianti di microcopy per la schermata &laquo;nessun risultato&raquo; dell&rsquo;app MemorAIz</div>
+                    <div class="example-line"><strong>AUDIENCE:</strong> Utenti HR manager, tono professionale ma empatico</div>
+                    <div class="example-line"><strong>VINCOLI:</strong> Italiano, max 2 righe per variante, no emoji</div>
+                    <div class="example-line"><strong>CONTESTO:</strong> Brand guidelines MemorAIz (allegare file)</div>
+                    <div class="example-line"><strong>OUTPUT + REASONING:</strong> Tabella (variante, tono, n&deg; parole). Spiega perch&eacute; ogni variante funziona</div>
+                    <div class="example-line"><strong>CHECK:</strong> &#9744; Empatico? &#9744; &le;2 righe? &#9744; Brand-consistent?</div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="4" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                Pattern DSPy a 4 livelli: semplice &rarr; vincoli &rarr; esempi &rarr; decomposizione&sup1; &mdash; i template battono il prompting ad hoc&sup2;
+            </div>
+        </div>
+
+        <img src="../../images/stars/matita.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
+        <div class="footnote">&sup1; MemorAIz Handbook, 2025 &nbsp; &sup2; MIT Sloan, 2025</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.4 — CHIUSURA E RINGRAZIAMENTI
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content centered">
+            <h1 style="font-size: clamp(3rem, 8vw, 6rem);">Grazie!</h1>
+            <p class="sub-heading">Domande, feedback, idee &rarr; siamo qui</p>
+            <p class="sub-note" style="margin-top: clamp(0.5rem, 1vw, 1rem);">Risorse interne: Handbook MemorAIz &middot; Canale #ai-experiments &middot; Repository prompt condivisi</p>
+        </div>
+
+        <img src="../../images/stars/super.png" alt="" class="mascot bottom-right" style="opacity: 0.7;">
+        <div class="starburst" style="top: 15%; right: 10%;"></div>
+        <div class="sparkle" style="bottom: 30%; left: 12%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.5 — BIBLIOGRAFIA (Blocchi 0-1-2)
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 0&ndash;2</h2>
+            <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
+
+            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 0 &mdash; Setup</p>
+                <p style="margin: 0 0 0.1rem;">Sharma et al. (2024) &mdash; Sycophancy in LLMs &middot; <em>arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Perez et al. (2023) &mdash; Understanding Sycophancy &middot; <em>Anthropic/arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Nature npj Digital Medicine (2025) &mdash; Sycophancy in medical AI</p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 1 &mdash; Storia + Mappa</p>
+                <p style="margin: 0 0 0.1rem;">Cornell Chronicle &mdash; Perceptron di Rosenblatt (1957)</p>
+                <p style="margin: 0 0 0.1rem;">HISTORY.com &mdash; Deep Blue vs Kasparov (1997)</p>
+                <p style="margin: 0 0 0.1rem;">Vaswani et al. (2017) &mdash; Attention Is All You Need &middot; <em>NeurIPS</em></p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2022) &mdash; ChatGPT release</p>
+                <p style="margin: 0 0 0.1rem;">Meta AI Blog (2025) &mdash; Llama 4 (400B params, 17B active)</p>
+                <p style="margin: 0 0 0.1rem;">Epoch AI (2025) &mdash; Costi training modelli frontier</p>
+                <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Emergent Abilities &middot; <em>arXiv</em></p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 2 &mdash; Fondamenti ML</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2026) &mdash; Claude Opus 4.6</p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; GPT-5 e GPT-5.2</p>
+                <p style="margin: 0 0 0.1rem;">Google DeepMind (2025&ndash;2026) &mdash; Gemini 2.5 / 3</p>
+                <p style="margin: 0 0 0.1rem;">DeepSeek (2025) &mdash; R1 training con GRPO</p>
+                <p style="margin: 0 0 0.1rem;">Largo.dev (2026) &mdash; Frontier LLM Architectures</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.6 — BIBLIOGRAFIA (Blocchi 3-4)
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 3&ndash;4</h2>
+            <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
+
+            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 3 &mdash; Come funzionano gli LLM</p>
+                <p style="margin: 0 0 0.1rem;">OpenAI tiktoken &mdash; Tokenizer o200k_base (~200K vocab)</p>
+                <p style="margin: 0 0 0.1rem;">Ferrara et al. (2025) &mdash; Optimizing LLMs for Italian &middot; <em>arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">IBM &mdash; LLM come modelli di next-token prediction</p>
+                <p style="margin: 0 0 0.1rem;">Ouyang et al. (2022) &mdash; InstructGPT: SFT &rarr; RLHF &middot; <em>OpenAI/arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Rafailov et al. (2023) &mdash; DPO &middot; <em>arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Vaswani et al. (2017) &mdash; Attention Is All You Need &middot; <em>arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Liu et al. (2024) &mdash; Lost in the Middle &middot; <em>TACL</em></p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2024) &mdash; SimpleQA benchmark</p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 4 &mdash; Context Engineering</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; Effective Context Engineering for AI Agents</p>
+                <p style="margin: 0 0 0.1rem;">Karpathy (2025) &mdash; &laquo;Context engineering is the delicate art...&raquo;</p>
+                <p style="margin: 0 0 0.1rem;">Teo (2023) &mdash; CO-STAR Framework &middot; <em>Towards Data Science</em></p>
+                <p style="margin: 0 0 0.1rem;">Chroma Research (2025) &mdash; Context Rot</p>
+                <p style="margin: 0 0 0.1rem;">OWASP (2025) &mdash; LLM01 Prompt Injection</p>
+                <p style="margin: 0 0 0.1rem;">Phil Schmid (2025) &mdash; The New Skill in AI is Context Engineering</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.7 — BIBLIOGRAFIA (Blocco 5)
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocco 5</h2>
+            <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
+
+            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Embeddings</p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2024) &mdash; text-embedding-3-small/large</p>
+                <p style="margin: 0 0 0.1rem;">Cohere (2025) &mdash; Embed v4 (multimodale, 128K context)</p>
+                <p style="margin: 0 0 0.1rem;">Google (2025) &mdash; gemini-embedding-001 (MTEB #1)</p>
+                <p style="margin: 0 0 0.1rem;">Migda&#322; (2017) &mdash; king &minus; man + woman &asymp; queen &middot; <em>Blog</em></p>
+                <p style="margin: 0 0 0.1rem;">Kusupati et al. (2022) &mdash; Matryoshka Representation Learning &middot; <em>NeurIPS</em></p>
+                <p style="margin: 0 0 0.1rem;">TensorFlow &mdash; Embedding Projector (tool interattivo)</p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">RAG</p>
+                <p style="margin: 0 0 0.1rem;">Weaviate (2025) &mdash; Chunking strategies per RAG</p>
+                <p style="margin: 0 0 0.1rem;">NVIDIA (2024) &mdash; Chunking benchmark</p>
+                <p style="margin: 0 0 0.1rem;">Analytics Vidhya (2025) &mdash; Top 7 reranker per RAG</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Contextual Retrieval (&minus;67% failure)</p>
+                <p style="margin: 0 0 0.1rem;">Microsoft Research (2024) &mdash; GraphRAG</p>
+                <p style="margin: 0 0 0.1rem;">Stanford Law (2025) &mdash; RAG hallucinations in legal AI (17&ndash;33%)</p>
+                <p style="margin: 0 0 0.1rem;">RAGFlow (2025) &mdash; State of RAG 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.8 — BIBLIOGRAFIA (Blocchi 6-7)
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 6&ndash;7</h2>
+            <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
+
+            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 6 &mdash; Reasoning e Benchmark</p>
+                <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Chain-of-Thought Prompting &middot; <em>NeurIPS</em></p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; o3 e o4-mini reasoning models</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; Claude extended thinking</p>
+                <p style="margin: 0 0 0.1rem;">DeepSeek (2025) &mdash; R1 reasoning</p>
+                <p style="margin: 0 0 0.1rem;">Hendrycks et al. (2021) &mdash; MMLU benchmark &middot; <em>ICLR</em></p>
+                <p style="margin: 0 0 0.1rem;">LMSYS/UC Berkeley (2023) &mdash; Chatbot Arena</p>
+                <p style="margin: 0 0 0.1rem;">Balloccu et al. (2024) &mdash; Data contamination &middot; <em>EACL</em></p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 7 &mdash; Agenti</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; MCP annuncio e donazione Linux Foundation</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Building Effective Agents</p>
+                <p style="margin: 0 0 0.1rem;">OWASP (2025) &mdash; Top 10 for LLM Applications &amp; Agentic AI</p>
+                <p style="margin: 0 0 0.1rem;">UC Berkeley (2025) &mdash; BFCL V4 Function Calling Leaderboard</p>
+                <p style="margin: 0 0 0.1rem;">MCP Blog (2025) &mdash; One Year of MCP (17.800+ server)</p>
+                <p style="margin: 0 0 0.1rem;">Figma (2025) &mdash; Figma MCP Server</p>
+                <p style="margin: 0 0 0.1rem;">OpenReview (2025) &mdash; Log-To-Leak: Prompt Injection via MCP</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8.9 — BIBLIOGRAFIA (Blocco 8 + Paper scientifici)
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocco 8 + Paper scientifici</h2>
+            <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
+
+            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 8 &mdash; Checklist Operativa</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Building Effective Agents</p>
+                <p style="margin: 0 0 0.1rem;">MIT Sloan (2025) &mdash; Prompt templates &gt; prompt engineering</p>
+                <p style="margin: 0 0 0.1rem;">AI Multiple (2025) &mdash; Hallucination rate comparison (0.7%&ndash;33%)</p>
+                <p style="margin: 0 0 0.1rem;">Lakera (2025) &mdash; Guida completa allucinazioni LLM</p>
+                <p style="margin: 0 0 0.1rem;">Parloa (2024) &mdash; Framework prompt engineering (+67%)</p>
+                <p style="margin: 0 0 0.1rem;">MemorAIz Handbook (2025) &mdash; Pattern DSPy a 4 livelli</p>
+                <p style="margin: 0 0 0.1rem;">IBM (2025) &mdash; LLM Temperature best practice</p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Paper scientifici &mdash; Bias e distribuzione</p>
+                <p style="margin: 0 0 0.1rem;">Min et al. (2022) &mdash; Rethinking Role of Demonstrations &middot; <em>EMNLP</em></p>
+                <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Chain-of-Thought Prompting &middot; <em>NeurIPS</em></p>
+                <p style="margin: 0 0 0.1rem;">Li et al. (2024) &mdash; DETAIL Matters: specificità migliora accuracy &middot; <em>arXiv</em></p>
+                <p style="margin: 0 0 0.1rem;">Schulhoff et al. (2024) &mdash; The Prompt Report (1.565 paper, 58 tecniche) &middot; <em>arXiv</em></p>
+
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Safety e Alignment</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Alignment Faking in LLMs (12% casi)</p>
+                <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; ASL-3 Protections</p>
+                <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; Preparedness Framework v2</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         NAV DOTS
+         ========================================== -->
+    <nav class="nav-dots">
+        <button class="nav-dot active" data-slide="0"></button>
+        <button class="nav-dot" data-slide="1"></button>
+        <button class="nav-dot" data-slide="2"></button>
+        <button class="nav-dot" data-slide="3"></button>
+        <button class="nav-dot" data-slide="4"></button>
+        <button class="nav-dot" data-slide="5"></button>
+        <button class="nav-dot" data-slide="6"></button>
+        <button class="nav-dot" data-slide="7"></button>
+        <button class="nav-dot" data-slide="8"></button>
+        <button class="nav-dot" data-slide="9"></button>
+    </nav>
+
+    <div class="keyboard-hint">
+        <kbd>&rarr;</kbd> <kbd>Space</kbd> avanza &middot; <kbd>&larr;</kbd> indietro &middot; <kbd>Esc</kbd> panoramica
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT — Presentation Engine
+         ========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.totalSlides = this.slides.length;
+                this.currentSlide = 0;
+                this.currentSteps = {};
+                this.maxSteps = {};
+                this._hintVisible = true;
+
+                this.slides.forEach((slide, i) => {
+                    this.maxSteps[i] = parseInt(slide.dataset.steps, 10) || 0;
+                    this.currentSteps[i] = 0;
+                });
+
+                this._initSlide(0);
+                this._bindEvents();
+                this._initDecisionTree();
+            }
+
+            /* ===========================================
+               STEP REVEAL
+               =========================================== */
+            _revealUpToStep(slideIndex, step) {
+                const slide = this.slides[slideIndex];
+                const allSteps = slide.querySelectorAll('.step');
+                allSteps.forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    el.classList.toggle('visible', s <= step);
+                });
+                this._customStepLogic(slideIndex, step);
+            }
+
+            _customStepLogic(slideIndex, step) {
+                // Slide 8.3 — Template card label illumination
+                if (slideIndex === 3) {
+                    this._animateTemplate(step);
+                }
+            }
+
+            /* ===========================================
+               SLIDE 8.3 — TEMPLATE ANIMATION
+               =========================================== */
+            _animateTemplate(step) {
+                // Step 2: illuminate labels and text
+                for (let i = 1; i <= 6; i++) {
+                    const label = document.getElementById('tplLabel' + i);
+                    const text = document.getElementById('tplText' + i);
+                    if (label) label.classList.toggle('lit', step >= 2);
+                    if (text) text.classList.toggle('lit', step >= 2);
+                }
+            }
+
+            /* ===========================================
+               DECISION TREE (Slide 8.1)
+               =========================================== */
+            _initDecisionTree() {
+                this._treeState = 'root'; // tracks current expanded node
+                this._treeDebounce = false;
+
+                // Click handlers on connectors (Sì/No pills)
+                document.querySelectorAll('.tree-connector').forEach(conn => {
+                    conn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (this._treeDebounce) return;
+                        this._treeDebounce = true;
+                        setTimeout(() => this._treeDebounce = false, 250);
+                        this._handleTreeChoice(conn.dataset.choice);
+                    });
+                });
+
+                // Click handlers on non-leaf nodes to go back
+                document.querySelectorAll('.tree-node:not(.leaf)').forEach(node => {
+                    node.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (this._treeDebounce) return;
+                        this._treeDebounce = true;
+                        setTimeout(() => this._treeDebounce = false, 250);
+                        this._handleTreeNodeClick(node.dataset.node);
+                    });
+                });
+
+                // Double-click on root to reset
+                const rootNode = document.getElementById('nodeRoot');
+                if (rootNode) {
+                    rootNode.addEventListener('dblclick', (e) => {
+                        e.stopPropagation();
+                        this._resetTree();
+                    });
+                }
+            }
+
+            _handleTreeChoice(choice) {
+                switch (choice) {
+                    case 'root-yes':
+                        this._expandBranch('branchYes1', 'branchNo1', 'nodeAgent');
+                        this._showSubBranches('branchAgentYes', 'branchAgentNo');
+                        break;
+                    case 'root-no':
+                        this._expandBranch('branchNo1', 'branchYes1', 'nodeLlm');
+                        this._showSubBranches('branchLlmYes', 'branchLlmNo');
+                        break;
+                    case 'agent-yes':
+                        this._activateLeaf('nodeMultiAgent', 'descMultiAgent');
+                        this._dimBranch('branchAgentNo');
+                        break;
+                    case 'agent-no':
+                        this._activateLeaf('nodeSingleAgent', 'descSingleAgent');
+                        this._dimBranch('branchAgentYes');
+                        break;
+                    case 'llm-yes':
+                        this._activateLeaf('nodeRag', 'descRag');
+                        this._dimBranch('branchLlmNo');
+                        break;
+                    case 'llm-no':
+                        this._expandBranch('branchLlmNo', 'branchLlmYes', 'nodePrompt');
+                        this._showSubBranches('branchPromptYes', 'branchPromptNo');
+                        break;
+                    case 'prompt-yes':
+                        this._activateLeaf('nodeReasoning', 'descReasoning');
+                        this._dimBranch('branchPromptNo');
+                        break;
+                    case 'prompt-no':
+                        this._expandBranch('branchPromptNo', 'branchPromptYes', 'nodeStandard');
+                        this._showSubBranches('branchStdYes', 'branchStdNo');
+                        break;
+                    case 'std-yes':
+                        this._activateLeaf('nodeCreative', 'descCreative');
+                        this._dimBranch('branchStdNo');
+                        break;
+                    case 'std-no':
+                        this._activateLeaf('nodeStrict', 'descStrict');
+                        this._dimBranch('branchStdYes');
+                        break;
+                }
+            }
+
+            _handleTreeNodeClick(nodeId) {
+                // Clicking a parent node retracts its children
+                switch (nodeId) {
+                    case 'root':
+                        this._resetTree();
+                        break;
+                    case 'agent':
+                        this._hideBranches('branchAgentYes', 'branchAgentNo');
+                        this._undimAll();
+                        this._showSubBranches('branchAgentYes', 'branchAgentNo');
+                        break;
+                    case 'llm':
+                        this._hideBranches('branchLlmYes', 'branchLlmNo');
+                        this._undimAll();
+                        this._showSubBranches('branchLlmYes', 'branchLlmNo');
+                        break;
+                    case 'prompt':
+                        this._hideBranches('branchPromptYes', 'branchPromptNo');
+                        this._undimAll();
+                        this._showSubBranches('branchPromptYes', 'branchPromptNo');
+                        break;
+                    case 'standard':
+                        this._hideBranches('branchStdYes', 'branchStdNo');
+                        this._undimAll();
+                        this._showSubBranches('branchStdYes', 'branchStdNo');
+                        break;
+                }
+            }
+
+            _expandBranch(showId, dimId, activateId) {
+                const show = document.getElementById(showId);
+                const dim = document.getElementById(dimId);
+                const activate = document.getElementById(activateId);
+                if (show) show.style.opacity = '1';
+                if (dim) {
+                    dim.style.opacity = '0.25';
+                    dim.querySelectorAll('.tree-connector').forEach(c => c.classList.add('dimmed'));
+                }
+                if (activate) activate.classList.add('active');
+            }
+
+            _showSubBranches(...ids) {
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('hidden');
+                });
+            }
+
+            _hideBranches(...ids) {
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.classList.add('hidden');
+                        // Also hide nested branches
+                        el.querySelectorAll('.tree-branch').forEach(b => b.classList.add('hidden'));
+                        el.querySelectorAll('.tree-leaf-desc').forEach(d => d.classList.remove('show'));
+                        el.querySelectorAll('.tree-node').forEach(n => n.classList.remove('active'));
+                    }
+                });
+            }
+
+            _activateLeaf(nodeId, descId) {
+                const node = document.getElementById(nodeId);
+                const desc = document.getElementById(descId);
+                if (node) node.classList.add('active');
+                if (desc) desc.classList.add('show');
+            }
+
+            _dimBranch(branchId) {
+                const branch = document.getElementById(branchId);
+                if (branch) {
+                    branch.style.opacity = '0.2';
+                    branch.querySelectorAll('.tree-connector').forEach(c => c.classList.add('dimmed'));
+                }
+            }
+
+            _undimAll() {
+                document.querySelectorAll('.tree-branch').forEach(b => {
+                    b.style.opacity = '';
+                    b.querySelectorAll('.tree-connector').forEach(c => c.classList.remove('dimmed'));
+                });
+                document.querySelectorAll('.tree-leaf-desc').forEach(d => d.classList.remove('show'));
+                document.querySelectorAll('.tree-node').forEach(n => {
+                    if (n.id !== 'nodeRoot') n.classList.remove('active');
+                });
+            }
+
+            _resetTree() {
+                // Hide all sub-branches
+                const allSubBranches = ['branchAgentYes', 'branchAgentNo', 'branchLlmYes', 'branchLlmNo',
+                    'branchPromptYes', 'branchPromptNo', 'branchStdYes', 'branchStdNo'];
+                allSubBranches.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add('hidden');
+                });
+                this._undimAll();
+                // Reset top-level branches
+                const b1 = document.getElementById('branchYes1');
+                const b2 = document.getElementById('branchNo1');
+                if (b1) b1.style.opacity = '';
+                if (b2) b2.style.opacity = '';
+                b1?.querySelectorAll('.tree-connector').forEach(c => c.classList.remove('dimmed'));
+                b2?.querySelectorAll('.tree-connector').forEach(c => c.classList.remove('dimmed'));
+                const nodeAgent = document.getElementById('nodeAgent');
+                const nodeLlm = document.getElementById('nodeLlm');
+                if (nodeAgent) nodeAgent.classList.remove('active');
+                if (nodeLlm) nodeLlm.classList.remove('active');
+            }
+
+            /* ===========================================
+               NAVIGATION
+               =========================================== */
+            _initSlide(index) {
+                this.slides.forEach((s, i) => {
+                    s.style.display = i === index ? 'flex' : 'none';
+                });
+                this.navDots.forEach((d, i) => d.classList.toggle('active', i === index));
+                if (this.maxSteps[index] === 0) {
+                    const allSteps = this.slides[index].querySelectorAll('.step');
+                    allSteps.forEach(el => el.classList.add('visible'));
+                }
+            }
+
+            advance() {
+                this._hideHint();
+                const idx = this.currentSlide;
+                if (this.currentSteps[idx] < this.maxSteps[idx]) {
+                    this.currentSteps[idx]++;
+                    this._revealUpToStep(idx, this.currentSteps[idx]);
+                } else if (idx < this.totalSlides - 1) {
+                    this.goToSlide(idx + 1);
+                } else {
+                    window.parent?.postMessage({ type: 'next-block' }, '*');
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+                const idx = this.currentSlide;
+                if (this.currentSteps[idx] > 0) {
+                    this.currentSteps[idx]--;
+                    this._revealUpToStep(idx, this.currentSteps[idx]);
+                } else if (idx > 0) {
+                    this.goToSlide(idx - 1, true);
+                } else {
+                    window.parent?.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index, revealAll = false) {
+                if (index < 0 || index >= this.totalSlides) return;
+                // Reset tree when leaving slide 1
+                if (this.currentSlide === 1 && index !== 1) {
+                    this._resetTree();
+                }
+                this.currentSlide = index;
+                this.slides.forEach((s, i) => {
+                    s.style.display = i === index ? 'flex' : 'none';
+                });
+                this.navDots.forEach((d, i) => d.classList.toggle('active', i === index));
+                if (revealAll) {
+                    this.currentSteps[index] = this.maxSteps[index];
+                    this._revealUpToStep(index, this.maxSteps[index]);
+                } else {
+                    this.currentSteps[index] = 0;
+                    this._revealUpToStep(index, 0);
+                    if (this.maxSteps[index] === 0) {
+                        this.slides[index].querySelectorAll('.step').forEach(el => el.classList.add('visible'));
+                    }
+                }
+            }
+
+            _hideHint() {
+                if (this._hintVisible && this.keyboardHint) {
+                    this.keyboardHint.style.opacity = '0';
+                    this._hintVisible = false;
+                }
+            }
+
+            _bindEvents() {
+                document.addEventListener('keydown', e => {
+                    switch (e.key) {
+                        case 'ArrowRight': case ' ': case 'PageDown':
+                            e.preventDefault(); this.advance(); break;
+                        case 'ArrowLeft': case 'PageUp':
+                            e.preventDefault(); this.goBack(); break;
+                        case 'Escape':
+                            window.parent?.postMessage({ type: 'escape' }, '*'); break;
+                        case 'f':
+                            window.parent?.postMessage({ type: 'fullscreen' }, '*'); break;
+                    }
+                });
+
+                this.navDots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(parseInt(dot.dataset.slide, 10));
+                    });
+                });
+
+                let touchStartX = 0;
+                document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+                document.addEventListener('touchend', e => {
+                    const dx = e.changedTouches[0].clientX - touchStartX;
+                    if (Math.abs(dx) > 50) dx < 0 ? this.advance() : this.goBack();
+                }, { passive: true });
+            }
+        }
+
+        const presentation = new SlidePresentation();
+
+        /* === Master deck integration: go-to-end + presenter remote === */
+        window.addEventListener('message', (msg) => {
+            if (!msg.data) return;
+            if (msg.data.type === 'presenter-advance') { presentation.advance(); return; }
+            if (msg.data.type === 'presenter-goback') { presentation.goBack(); return; }
+            if (msg.data.type !== 'go-to-end') return;
+            const last = presentation.totalSlides - 1;
+            presentation.currentSlide = last;
+            presentation.currentSteps[last] = presentation.maxSteps[last];
+            presentation._revealUpToStep(last, presentation.maxSteps[last]);
+            presentation.goToSlide(last, true);
+        });
+    </script>
+</body>
+</html>

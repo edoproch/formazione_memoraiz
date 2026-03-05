@@ -1,0 +1,2647 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 7 — Agenti AI | Formazione AI MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-mint: linear-gradient(160deg, #d0ece4 0%, #e2f2ec 40%, #eae8f2 100%);
+            --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+            --slide-bg-lavender: linear-gradient(160deg, #dcd8ec 0%, #e8e5f2 40%, #eae8f2 100%);
+            --slide-bg-blue: linear-gradient(160deg, #d0dff5 0%, #e4edf8 40%, #eae8f2 100%);
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding: var(--slide-padding);
+        }
+        .slide-content {
+            max-width: 1200px; width: 90%;
+            display: flex; flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .slide-content.centered { margin: 0 auto; text-align: center; align-items: center; }
+
+        /* ===========================================
+           SHARED ELEMENTS
+           =========================================== */
+        .logo { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); height: clamp(24px, 3vw, 40px); z-index: 10; opacity: 0.85; }
+        .mascot { position: absolute; z-index: 5; pointer-events: none; }
+        .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
+        .mascot.small { height: clamp(40px, 6vw, 60px); }
+        .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
+        .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
+        .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
+        .bullet-list li strong { font-weight: 700; }
+        .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
+        .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
+        .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+        .nav-dot:hover { border-color: var(--accent-gold); }
+        .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+
+        /* Step reveal */
+        .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .step.visible { opacity: 1; transform: translateY(0); }
+
+        .slide h1 { font-size: var(--title-size); color: var(--text-primary); }
+        .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
+
+        /* ===========================================
+           SLIDE 7.0 — TITLE
+           =========================================== */
+        /* Title slide uses centered layout, no step animation */
+
+        /* ===========================================
+           SLIDE 7.1 — LLM vs AGENT COMPARISON
+           =========================================== */
+        .compare-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.8rem, 2vw, 1.5rem);
+            margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+        }
+        @media (max-width: 700px) {
+            .compare-split { grid-template-columns: 1fr; }
+        }
+
+        .compare-panel {
+            border-radius: 12px;
+            padding: clamp(0.7rem, 1.5vw, 1.2rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .compare-panel.llm-only {
+            background: rgba(26, 26, 78, 0.04);
+            border: 2px solid rgba(26, 26, 78, 0.1);
+        }
+        .compare-panel.agent {
+            background: rgba(245, 166, 35, 0.06);
+            border: 2px solid rgba(245, 166, 35, 0.25);
+        }
+
+        .compare-panel-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            margin-bottom: clamp(0.2rem, 0.4vw, 0.3rem);
+        }
+
+        .compare-panel-icon {
+            width: clamp(32px, 4vw, 44px);
+            height: clamp(32px, 4vw, 44px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            flex-shrink: 0;
+        }
+        .llm-only .compare-panel-icon {
+            background: rgba(26, 26, 78, 0.08);
+        }
+        .agent .compare-panel-icon {
+            background: rgba(245, 166, 35, 0.15);
+        }
+
+        .compare-panel-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .llm-only .compare-panel-title { color: var(--text-secondary); }
+        .agent .compare-panel-title { color: var(--accent-gold); }
+
+        .compare-panel .mini-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.4vw, 0.35rem);
+        }
+        .compare-panel .mini-list li {
+            font-family: var(--font-body);
+            font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+            color: var(--text-primary);
+            line-height: 1.4;
+            font-weight: 500;
+            padding-left: 1.2em;
+            position: relative;
+        }
+        .compare-panel .mini-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+        .agent .mini-list li::before {
+            content: '✓';
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 0.8em;
+        }
+
+        .compare-analogy {
+            margin-top: auto;
+            padding-top: clamp(0.3rem, 0.6vw, 0.5rem);
+            border-top: 1px solid rgba(26, 26, 78, 0.08);
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .key-diff-box {
+            grid-column: 1 / -1;
+            background: var(--text-primary);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.4;
+        }
+        .key-diff-box .gold { color: var(--accent-gold); }
+
+        /* ===========================================
+           SLIDE 7.2 — AGENT LOOP (SVG Animation)
+           =========================================== */
+        .loop-diagram-container {
+            width: 100%;
+            max-height: min(62vh, 520px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .loop-diagram-container svg {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: min(58vh, 500px);
+        }
+
+        /* SVG node styles */
+        .loop-node {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .loop-node.show { opacity: 1; transform: translateY(0); }
+
+        /* Arrow draw-in animation */
+        .loop-arrow {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.8s var(--ease-out-expo);
+        }
+        .loop-arrow.draw { stroke-dashoffset: 0; }
+
+        /* Arrow tip triangles — hidden until .show */
+        .arrow-tip { opacity: 0; transition: opacity 0.4s ease; }
+        .arrow-tip.show { opacity: 1; }
+
+        /* Signal dot — hidden by default */
+        .signal-dot { opacity: 0; }
+        .signal-dot.animate {
+            opacity: 1;
+            animation: signalLoop 5s ease-in-out forwards;
+        }
+
+        @keyframes signalLoop {
+            /* Cycle 1: Obiettivo → Observe → Think → Act → Verifica(center) */
+            0%   { cx: 260; cy: 48; opacity: 1; }
+            6%   { cx: 380; cy: 100; }
+            12%  { cx: 472; cy: 200; }
+            18%  { cx: 380; cy: 300; }
+            24%  { cx: 260; cy: 352; }
+            30%  { cx: 140; cy: 300; }
+            36%  { cx: 48; cy: 200; }
+            40%  { cx: 260; cy: 200; }
+            /* Cycle 2: back to Observe → Think → Act → Verifica */
+            44%  { cx: 472; cy: 200; }
+            50%  { cx: 380; cy: 300; }
+            56%  { cx: 260; cy: 352; }
+            62%  { cx: 140; cy: 300; }
+            68%  { cx: 48; cy: 200; }
+            72%  { cx: 260; cy: 200; }
+            /* Exit to Risposta finale (right side) */
+            80%  { cx: 260; cy: 200; opacity: 1; }
+            90%  { cx: 380; cy: 340; opacity: 0.8; }
+            100% { cx: 430; cy: 395; opacity: 0; }
+        }
+
+        .loop-example-box {
+            background: var(--highlight-bg);
+            border-left: 3px solid var(--accent-gold);
+            border-radius: 0 8px 8px 0;
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-top: clamp(0.2rem, 0.4vw, 0.3rem);
+        }
+        .loop-example-box strong { font-weight: 700; }
+        .loop-example-box .example-flow {
+            color: var(--text-secondary);
+            font-size: clamp(0.6rem, 0.8vw, 0.72rem);
+            margin-top: 2px;
+        }
+
+        /* ===========================================
+           SLIDE 7.3 — TOOLS: LE MANI DELL'AGENTE (CSS Layout)
+           =========================================== */
+        .tools-hub {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2.5rem);
+            margin-top: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        @media (max-width: 800px) {
+            .tools-hub { flex-direction: column; gap: clamp(0.5rem, 1.5vw, 1rem); }
+        }
+
+        /* Central LLM hub */
+        .llm-hub {
+            position: relative;
+            width: clamp(100px, 14vw, 150px);
+            height: clamp(100px, 14vw, 150px);
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 35%, rgba(245,166,35,0.18) 0%, rgba(245,166,35,0.04) 70%);
+            border: 2.5px solid var(--accent-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 40px rgba(245,166,35,0.12), 0 0 80px rgba(245,166,35,0.05);
+        }
+        .llm-hub-icon {
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            line-height: 1;
+        }
+        .llm-hub-label {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+
+        /* Tool cards grid — 3 rows × 2 columns flanking the hub */
+        .tools-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 0.8vw, 0.6rem);
+        }
+        @media (max-width: 800px) {
+            .tools-col { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+        }
+
+        .tool-card {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.5rem, 1vw, 0.8rem);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.55);
+            border: 1.5px solid rgba(26, 26, 78, 0.08);
+            min-width: clamp(160px, 20vw, 220px);
+            transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.4s var(--ease-out-expo);
+            opacity: 0;
+            transform: translateX(-12px);
+        }
+        .tools-col.right .tool-card {
+            transform: translateX(12px);
+        }
+        .tool-card.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .tool-card-icon {
+            width: clamp(32px, 4vw, 40px);
+            height: clamp(32px, 4vw, 40px);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+            flex-shrink: 0;
+        }
+        .tool-card-icon.mint { background: rgba(123,191,168,0.18); }
+        .tool-card-icon.lavender { background: rgba(156,141,196,0.18); }
+        .tool-card-icon.peach { background: rgba(212,149,107,0.18); }
+
+        .tool-card-info { flex: 1; min-width: 0; }
+        .tool-card-name {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .tool-card-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        /* Connection dots — between hub and tool columns */
+        .hub-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(14px, 2.5vh, 28px);
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo);
+        }
+        .hub-connector.show { opacity: 1; }
+        .hub-connector-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            opacity: 0.5;
+        }
+        .hub-connector-line {
+            width: 2px;
+            height: clamp(10px, 2vh, 18px);
+            background: linear-gradient(180deg, var(--accent-gold) 0%, rgba(245,166,35,0.15) 100%);
+            border-radius: 1px;
+        }
+        @media (max-width: 800px) {
+            .hub-connector { display: none; }
+        }
+
+        /* Staggered card appearance */
+        .tool-card[data-tool="1"] { transition-delay: 0s; }
+        .tool-card[data-tool="2"] { transition-delay: 0.12s; }
+        .tool-card[data-tool="3"] { transition-delay: 0.24s; }
+        .tool-card[data-tool="4"] { transition-delay: 0.06s; }
+        .tool-card[data-tool="5"] { transition-delay: 0.18s; }
+        .tool-card[data-tool="6"] { transition-delay: 0.3s; }
+
+        /* ===========================================
+           SLIDE 7.4 — TOOL CALLING STEP-BY-STEP
+           =========================================== */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.15rem, 0.4vw, 0.3rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.4rem, 0.8vw, 0.7rem);
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            border-radius: 10px;
+            background: rgba(26, 26, 78, 0.03);
+            border-left: 3px solid transparent;
+        }
+        .flow-step.user-step { border-left-color: var(--accent-gold); background: rgba(245, 166, 35, 0.04); }
+        .flow-step.llm-step { border-left-color: #9b8dc4; background: rgba(156, 141, 196, 0.06); }
+        .flow-step.system-step { border-left-color: #7bbfa8; background: rgba(123, 191, 168, 0.06); }
+
+        .flow-step-num {
+            width: clamp(24px, 3vw, 32px);
+            height: clamp(24px, 3vw, 32px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 700;
+            flex-shrink: 0;
+            color: #ffffff;
+        }
+        .user-step .flow-step-num { background: var(--accent-gold); }
+        .llm-step .flow-step-num { background: #9b8dc4; }
+        .system-step .flow-step-num { background: #7bbfa8; }
+
+        .flow-step-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .flow-step-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 1px;
+        }
+        .flow-step-text {
+            font-family: var(--font-body);
+            font-size: clamp(0.72rem, 1.05vw, 0.88rem);
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.35;
+        }
+
+        .json-block {
+            background: #1a1a4e;
+            color: #e8e4df;
+            border-radius: 6px;
+            padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            line-height: 1.5;
+            margin-top: 3px;
+            overflow: hidden;
+        }
+        .json-block .json-key { color: #7bbfa8; }
+        .json-block .json-string { color: #ffd56b; }
+        .json-block .json-num { color: #f5a623; }
+
+        .flow-arrow-down {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            color: rgba(26, 26, 78, 0.2);
+            font-size: clamp(0.7rem, 1vw, 0.9rem);
+        }
+
+        /* ===========================================
+           SLIDE 7.5 — FAILURE MODES (2×2 Grid)
+           =========================================== */
+        .failure-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        @media (max-width: 600px) {
+            .failure-grid { grid-template-columns: 1fr; }
+        }
+
+        .failure-card {
+            border-radius: 10px;
+            padding: clamp(0.5rem, 1vw, 0.8rem);
+            display: flex;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            align-items: flex-start;
+        }
+        .failure-card.severity-red { background: rgba(220, 80, 60, 0.06); border-left: 3px solid rgba(220, 80, 60, 0.5); }
+        .failure-card.severity-orange { background: rgba(240, 160, 40, 0.06); border-left: 3px solid rgba(240, 160, 40, 0.5); }
+        .failure-card.severity-yellow { background: rgba(220, 200, 40, 0.06); border-left: 3px solid rgba(220, 200, 40, 0.5); }
+        .failure-card.severity-blue { background: rgba(80, 130, 220, 0.06); border-left: 3px solid rgba(80, 130, 220, 0.5); }
+
+        .failure-icon {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .failure-info { flex: 1; min-width: 0; }
+        .failure-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        .failure-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .defense-box {
+            background: var(--text-primary);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 600;
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+            line-height: 1.4;
+        }
+        .defense-box .gold { color: var(--accent-gold); }
+
+        /* ===========================================
+           SLIDE 7.6 — MCP N×M DIAGRAM
+           =========================================== */
+        .mcp-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.3rem, 1vw, 1rem);
+            margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
+            position: relative;
+            min-height: clamp(200px, 36vh, 320px);
+        }
+
+        .mcp-col {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.7vw, 0.5rem);
+            z-index: 2;
+        }
+
+        .mcp-node {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            padding: clamp(0.3rem, 0.6vw, 0.45rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.6);
+            border: 1.5px solid rgba(26, 26, 78, 0.1);
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        .mcp-node-icon {
+            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            line-height: 1;
+        }
+
+        /* Center area: lines SVG + MCP box overlay */
+        .mcp-center {
+            position: relative;
+            width: clamp(180px, 28vw, 320px);
+            height: clamp(200px, 34vh, 300px);
+            flex-shrink: 0;
+        }
+        .mcp-center svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Chaos lines (phase 1) */
+        .mcp-chaos-line {
+            stroke: rgba(220, 80, 60, 0.35);
+            stroke-width: 1.5;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.6s var(--ease-out-expo), opacity 0.5s ease;
+        }
+        .mcp-chaos-line.draw { stroke-dashoffset: 0; }
+        .mcp-chaos-line.fade { opacity: 0; }
+
+        /* Order lines (phase 2) */
+        .mcp-order-line {
+            stroke: var(--accent-gold);
+            stroke-width: 2;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 0.7s var(--ease-out-expo);
+            opacity: 0;
+        }
+        .mcp-order-line.draw { stroke-dashoffset: 0; opacity: 1; }
+
+        /* MCP box (center overlay) */
+        .mcp-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--text-primary);
+            color: #ffffff;
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: center;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+            box-shadow: 0 8px 32px rgba(26, 26, 78, 0.2);
+        }
+        .mcp-box.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .mcp-box-sub {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--accent-gold-light);
+            margin-top: 2px;
+        }
+
+        /* Phase labels */
+        .mcp-phase-label {
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-weight: 700;
+            text-align: center;
+            white-space: nowrap;
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 0.4s ease, color 0.4s ease;
+        }
+        .mcp-phase-label.show { opacity: 1; }
+        .mcp-phase-label.chaos { color: rgba(220, 80, 60, 0.7); }
+        .mcp-phase-label.order { color: var(--accent-gold); }
+
+        /* ===========================================
+           SLIDE 7.7 — MCP IN PRATICA
+           =========================================== */
+        .mcp-arch-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.5rem, 1.5vw, 1.2rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .mcp-arch-box {
+            border-radius: 10px;
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.7rem, 1.2vw, 1rem);
+            font-family: var(--font-body);
+            text-align: center;
+            min-width: clamp(100px, 16vw, 160px);
+        }
+        .mcp-arch-box.client {
+            background: rgba(156, 141, 196, 0.1);
+            border: 2px solid rgba(156, 141, 196, 0.3);
+        }
+        .mcp-arch-box.server {
+            background: rgba(123, 191, 168, 0.1);
+            border: 2px solid rgba(123, 191, 168, 0.3);
+        }
+        .mcp-arch-box-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+        .mcp-arch-box-list {
+            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+        .mcp-arch-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            color: var(--accent-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .mcp-arch-arrow-line {
+            width: clamp(40px, 8vw, 80px);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(245,166,35,0.3), var(--accent-gold), rgba(245,166,35,0.3));
+            border-radius: 1px;
+            position: relative;
+        }
+        .mcp-arch-arrow-line::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -3px;
+            border: 4px solid transparent;
+            border-left-color: var(--accent-gold);
+        }
+
+        .mcp-examples-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.3rem, 0.7vw, 0.5rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        @media (max-width: 600px) {
+            .mcp-examples-grid { grid-template-columns: 1fr; }
+        }
+        .mcp-example {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            padding: clamp(0.3rem, 0.6vw, 0.45rem) clamp(0.4rem, 0.8vw, 0.6rem);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(26, 26, 78, 0.06);
+        }
+        .mcp-example-icon {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .mcp-example-info { flex: 1; min-width: 0; }
+        .mcp-example-name {
+            font-family: var(--font-body);
+            font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .mcp-example-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .mcp-example-badge {
+            font-size: clamp(0.5rem, 0.65vw, 0.58rem);
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===========================================
+           SLIDE 7.8 — SICUREZZA AGENTI
+           =========================================== */
+        .security-risks {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vw, 0.45rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .security-risk {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.4rem, 0.8vw, 0.6rem);
+            padding: clamp(0.35rem, 0.7vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            border-radius: 8px;
+            border-left: 3px solid transparent;
+        }
+        .security-risk.critical {
+            background: rgba(220, 80, 60, 0.04);
+            border-left-color: rgba(220, 80, 60, 0.5);
+        }
+        .security-risk.high {
+            background: rgba(240, 160, 40, 0.04);
+            border-left-color: rgba(240, 160, 40, 0.5);
+        }
+        .security-risk.medium {
+            background: rgba(220, 200, 40, 0.04);
+            border-left-color: rgba(220, 200, 40, 0.5);
+        }
+        .security-risk-severity {
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .security-risk-info { flex: 1; min-width: 0; }
+        .security-risk-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.72rem, 1vw, 0.85rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .security-risk-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.85vw, 0.73rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.35;
+        }
+        .security-mitigations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.2rem, 0.4vw, 0.3rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        @media (max-width: 600px) {
+            .security-mitigations { grid-template-columns: 1fr; }
+        }
+        .security-mitigation {
+            font-family: var(--font-body);
+            font-size: clamp(0.62rem, 0.85vw, 0.75rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: clamp(0.25rem, 0.5vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.5rem);
+            background: rgba(123, 191, 168, 0.08);
+            border-radius: 6px;
+            line-height: 1.3;
+        }
+        .security-mitigation .check { color: #7bbfa8; margin-right: 4px; }
+
+        /* ===========================================
+           SLIDE 7.9 — PERCHÉ PIÙ AGENTI
+           =========================================== */
+        .orchestra-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.6rem, 1.5vw, 1.2rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+            padding: clamp(0.5rem, 1vw, 0.8rem);
+            background: rgba(255,255,255,0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(26, 26, 78, 0.06);
+        }
+        .orchestra-conductor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .orchestra-conductor-icon {
+            width: clamp(44px, 6vw, 56px);
+            height: clamp(44px, 6vw, 56px);
+            border-radius: 50%;
+            background: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+        }
+        .orchestra-conductor-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        .orchestra-arrow {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            color: var(--accent-gold);
+            opacity: 0.5;
+        }
+        .orchestra-musicians {
+            display: flex;
+            gap: clamp(0.3rem, 0.7vw, 0.5rem);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .orchestra-musician {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .orchestra-musician-icon {
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+        }
+        .orchestra-musician-icon.mint { background: rgba(123,191,168,0.2); }
+        .orchestra-musician-icon.lavender { background: rgba(156,141,196,0.2); }
+        .orchestra-musician-icon.peach { background: rgba(212,149,107,0.2); }
+        .orchestra-musician-icon.blue { background: rgba(130,170,220,0.2); }
+        .orchestra-musician-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .orchestra-caption {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            text-align: center;
+            margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
+        }
+
+        /* ===========================================
+           SLIDE 7.10 — TRE PATTERN ORCHESTRAZIONE
+           =========================================== */
+        .patterns-stack {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 0.8vw, 0.6rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .pattern-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1vw, 0.8rem);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.45);
+            border: 1.5px solid rgba(26, 26, 78, 0.06);
+        }
+        .pattern-num {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--accent-gold);
+            flex-shrink: 0;
+            width: clamp(28px, 3vw, 36px);
+            text-align: center;
+        }
+        .pattern-diagram {
+            display: flex;
+            align-items: center;
+            gap: clamp(3px, 0.4vw, 5px);
+            flex-shrink: 0;
+            min-width: clamp(120px, 18vw, 200px);
+        }
+        .pattern-node {
+            width: clamp(28px, 3.5vw, 36px);
+            height: clamp(28px, 3.5vw, 36px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+            font-family: var(--font-body);
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .pattern-node.orch { background: var(--accent-gold); color: var(--text-primary); }
+        .pattern-node.agent-a { background: #7bbfa8; }
+        .pattern-node.agent-b { background: #9b8dc4; }
+        .pattern-node.agent-c { background: #d4956b; }
+        .pattern-arrow {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            color: rgba(26, 26, 78, 0.3);
+            flex-shrink: 0;
+        }
+        .pattern-arrow.gold { color: var(--accent-gold); opacity: 0.6; }
+        .pattern-agents-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+        }
+        .pattern-agents-row {
+            display: flex;
+            align-items: center;
+            gap: clamp(2px, 0.3vw, 4px);
+        }
+        .pattern-inter-arrow {
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            color: var(--accent-gold);
+            opacity: 0.7;
+        }
+        .pattern-info { flex: 1; min-width: 0; }
+        .pattern-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .pattern-when {
+            font-family: var(--font-body);
+            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .pattern-example {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-style: italic;
+            margin-top: 1px;
+        }
+
+        /* ===========================================
+           SLIDE 7.11 — MEMORY
+           =========================================== */
+        .memory-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        @media (max-width: 600px) {
+            .memory-split { grid-template-columns: 1fr; }
+        }
+        .memory-panel {
+            border-radius: 10px;
+            padding: clamp(0.5rem, 1vw, 0.8rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.4vw, 0.3rem);
+        }
+        .memory-panel.short-term {
+            background: rgba(156, 141, 196, 0.08);
+            border: 1.5px solid rgba(156, 141, 196, 0.2);
+        }
+        .memory-panel.long-term {
+            background: rgba(123, 191, 168, 0.08);
+            border: 1.5px solid rgba(123, 191, 168, 0.2);
+        }
+        .memory-panel-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+        }
+        .memory-panel-icon {
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+        }
+        .memory-panel-title {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+        .memory-panel .mini-list li { font-size: clamp(0.65rem, 0.9vw, 0.78rem); }
+
+        /* ===========================================
+           SLIDE 7.12 — SKILLS
+           =========================================== */
+        .skills-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        @media (max-width: 600px) {
+            .skills-compare { grid-template-columns: 1fr; }
+        }
+        .skill-compare-box {
+            border-radius: 10px;
+            padding: clamp(0.4rem, 0.8vw, 0.6rem);
+            text-align: center;
+        }
+        .skill-compare-box.tool-box {
+            background: rgba(26, 26, 78, 0.04);
+            border: 1.5px solid rgba(26, 26, 78, 0.1);
+        }
+        .skill-compare-box.skill-box {
+            background: rgba(245, 166, 35, 0.05);
+            border: 1.5px solid rgba(245, 166, 35, 0.2);
+        }
+        .skill-compare-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .skill-compare-code {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            background: rgba(26, 26, 78, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 2px 0;
+        }
+        .skill-compare-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .skills-examples {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vw, 0.35rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .skill-example {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(26, 26, 78, 0.05);
+        }
+        .skill-example-icon { font-size: clamp(1rem, 1.5vw, 1.2rem); flex-shrink: 0; }
+        .skill-example-info { flex: 1; min-width: 0; }
+        .skill-example-name {
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .skill-example-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.58rem, 0.78vw, 0.68rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           SLIDE 7.13 — OBSERVABILITY
+           =========================================== */
+        .obs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.3rem, 0.7vw, 0.5rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        @media (max-width: 600px) {
+            .obs-grid { grid-template-columns: 1fr; }
+        }
+        .obs-card {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+            padding: clamp(0.35rem, 0.7vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.6rem);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(26, 26, 78, 0.06);
+        }
+        .obs-card-icon { font-size: clamp(1rem, 1.5vw, 1.2rem); flex-shrink: 0; }
+        .obs-card-info { flex: 1; }
+        .obs-card-title {
+            font-family: var(--font-body);
+            font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .obs-card-desc {
+            font-family: var(--font-body);
+            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .kpi-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.2rem, 0.5vw, 0.35rem);
+            margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
+        }
+        .kpi-pill {
+            font-family: var(--font-body);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            background: rgba(245, 166, 35, 0.1);
+            padding: clamp(2px, 0.3vw, 4px) clamp(6px, 0.8vw, 10px);
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        /* ===========================================
+           SLIDE 7.14 — RIEPILOGO
+           =========================================== */
+        .takeaway-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.5vw, 0.35rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .takeaway-item {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.4rem, 0.8vw, 0.6rem);
+        }
+        .takeaway-num {
+            font-family: var(--font-body);
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            font-weight: 800;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+            width: clamp(20px, 2.5vw, 28px);
+            text-align: center;
+            line-height: 1.4;
+        }
+        .takeaway-text {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .takeaway-text strong { font-weight: 700; }
+
+        /* ===========================================
+           HEIGHT BREAKPOINTS
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
+                --title-size: clamp(1.8rem, 5vw, 3rem);
+                --h2-size: clamp(1.3rem, 3vw, 2.2rem);
+                --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            }
+        }
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
+                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            }
+            .nav-dots, .keyboard-hint, .starburst, .sparkle { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 1.5rem);
+                --title-size: clamp(1.2rem, 4vw, 2rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+            .mascot { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         SLIDE 7.0 — TITOLO DI SEZIONE
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content centered">
+            <div class="section-label">&#9733; Blocco 7</div>
+            <h1 style="margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);">Agenti AI: il Deep Dive</h1>
+            <p class="sub-heading">Quando l'AI smette di parlare e inizia ad agire</p>
+            <p class="sub-note" style="margin-top: clamp(0.5rem, 1vw, 0.8rem);">~55 minuti &mdash; il blocco pi&ugrave; rilevante per il vostro lavoro</p>
+        </div>
+
+        <img src="../../images/stars/connessione2.png" alt="" class="mascot bottom-right" style="opacity: 0.75;">
+        <div class="starburst" style="bottom: 15%; left: 5%;"></div>
+        <div class="sparkle" style="top: 20%; right: 15%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.1 — SOLO LLM vs AGENTE AI
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; La differenza</div>
+            <h2 class="step" data-step="1">Dall'LLM all'Agente</h2>
+            <p class="sub-heading step" data-step="1">Cosa cambia quando l'AI pu&ograve; agire</p>
+
+            <div class="compare-split">
+                <!-- Colonna Solo LLM -->
+                <div class="compare-panel llm-only step" data-step="1">
+                    <div class="compare-panel-header">
+                        <div class="compare-panel-icon">&#129504;</div>
+                        <div class="compare-panel-title">Solo LLM</div>
+                    </div>
+                    <ul class="mini-list">
+                        <li>Riceve input &rarr; genera output testuale. Fine.</li>
+                        <li>Reattivo: risponde una volta, dentro la context window</li>
+                        <li>Non pu&ograve; cercare, eseguire codice o verificare fatti</li>
+                    </ul>
+                    <div class="compare-analogy">&laquo;Un esperto in una stanza senza telefono n&eacute; computer&raquo;</div>
+                </div>
+
+                <!-- Colonna Agente AI -->
+                <div class="compare-panel agent step" data-step="2">
+                    <div class="compare-panel-header">
+                        <div class="compare-panel-icon">&#9889;</div>
+                        <div class="compare-panel-title">Agente AI</div>
+                    </div>
+                    <ul class="mini-list">
+                        <li>Osserva &rarr; Pianifica &rarr; Agisce &rarr; Verifica &rarr; Itera</li>
+                        <li>Ha strumenti: cerca sul web, legge file, chiama API</li>
+                        <li>Ha stato e decide autonomamente quando ha finito</li>
+                    </ul>
+                    <div class="compare-analogy">&laquo;Lo stesso esperto, con telefono, computer e accesso a tutto&raquo;</div>
+                </div>
+
+                <!-- Box differenza chiave -->
+                <div class="key-diff-box step" data-step="3">
+                    La differenza: l'agente ha <span class="gold">azioni</span> e <span class="gold">stato</span>. Non solo genera testo &mdash; <strong>fa cose</strong>.
+                </div>
+            </div>
+        </div>
+
+        <div class="starburst" style="bottom: 8%; right: 3%; opacity: 0.06;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.2 — IL LOOP AGENTE: Observe → Think → Act
+         ========================================== -->
+    <div class="slide" data-steps="6" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; Il loop</div>
+            <h2 class="step" data-step="1">Il ciclo dell'agente</h2>
+            <p class="sub-heading step" data-step="1">Observe &rarr; Think &rarr; Act &rarr; Verifica &rarr; Ripeti</p>
+
+            <div class="loop-diagram-container step" data-step="1" id="loopDiagram">
+                <svg viewBox="0 0 520 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+
+                    <!--
+                        Node centers & radii:
+                        Obiettivo (260, 48)  r=38    Observe (472, 200) r=38
+                        Think     (260, 352) r=38    Act     (48, 200)  r=38
+                        Verifica  (260, 200) r=28
+
+                        Arrow geometry: path ends at tip base-center.
+                        Tip triangle: point at target edge, base ⊥ to direction.
+                        h=12 (base→point), w=6 (half-base).
+
+                        Obiettivo→Observe  dir-unit (0.812, 0.582)  perp (-0.582, 0.812)
+                        Observe→Think      dir-unit (-0.812, 0.582) perp (-0.582,-0.812)
+                        Think→Act          dir-unit (-0.812,-0.582) perp (0.582,-0.812)
+                        Act→Verifica       dir-unit (1, 0)          perp (0,-1)
+                    -->
+
+                    <!-- Arrow 1: Obiettivo → Observe -->
+                    <g>
+                        <path id="arrow-1" class="loop-arrow"
+                              d="M291,70 Q420,70 431,171"
+                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <polygon id="tip-1" class="arrow-tip"
+                                 points="441,178 435,166 428,176" fill="#1a1a4e"/>
+                    </g>
+
+                    <!-- Arrow 2: Observe → Think -->
+                    <g>
+                        <path id="arrow-2" class="loop-arrow"
+                              d="M441,222 Q380,320 301,323"
+                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <polygon id="tip-2" class="arrow-tip"
+                                 points="291,330 305,328 298,318" fill="#1a1a4e"/>
+                    </g>
+
+                    <!-- Arrow 3: Think → Act -->
+                    <g>
+                        <path id="arrow-3" class="loop-arrow"
+                              d="M229,330 Q100,330 89,229"
+                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <polygon id="tip-3" class="arrow-tip"
+                                 points="79,222 86,234 93,224" fill="#1a1a4e"/>
+                    </g>
+
+                    <!-- Arrow 4a: Act → Verifica (straight right) -->
+                    <g>
+                        <path id="arrow-4a" class="loop-arrow"
+                              d="M86,200 L220,200"
+                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"
+                              stroke-dasharray="150" stroke-dashoffset="150"/>
+                        <polygon id="tip-4a" class="arrow-tip"
+                                 points="232,200 220,194 220,206" fill="#1a1a4e"/>
+                    </g>
+
+                    <!-- Arrow 4b: Verifica → Observe (loop back, gold, arcs upward) -->
+                    <g>
+                        <path id="arrow-4b" class="loop-arrow"
+                              d="M288,188 Q390,150 430,177"
+                              stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" fill="none"
+                              stroke-dasharray="150" stroke-dashoffset="150" opacity="0.6"/>
+                        <polygon id="tip-4b" class="arrow-tip"
+                                 points="439,182 432,173 428,181" fill="#f5a623" opacity="0.6"/>
+                    </g>
+
+                    <!-- Arrow 4c: Verifica → Risposta finale (curves right, avoids Think) -->
+                    <g>
+                        <path id="arrow-4c" class="loop-arrow"
+                              d="M279,221 Q380,280 422,379"
+                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"
+                              stroke-dasharray="220" stroke-dashoffset="220"/>
+                        <polygon id="tip-4c" class="arrow-tip"
+                                 points="430,388 426,375 418,383" fill="#1a1a4e"/>
+                    </g>
+
+                    <!-- NODE: Obiettivo (top center) -->
+                    <g class="loop-node" id="node-obiettivo">
+                        <circle cx="260" cy="48" r="42" fill="#f5a623" opacity="0.15"/>
+                        <circle cx="260" cy="48" r="38" fill="none" stroke="#f5a623" stroke-width="2.5"/>
+                        <text x="260" y="42" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">OBIETTIVO</text>
+                        <text x="260" y="60" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="20" fill="#f5a623">&#127919;</text>
+                    </g>
+
+                    <!-- NODE: Observe (right) -->
+                    <g class="loop-node" id="node-observe">
+                        <circle cx="472" cy="200" r="42" fill="#d0ece4" opacity="0.4"/>
+                        <circle cx="472" cy="200" r="38" fill="none" stroke="#7bbfa8" stroke-width="2"/>
+                        <text x="472" y="192" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#7bbfa8">&#128269;</text>
+                        <text x="472" y="212" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">OBSERVE</text>
+                    </g>
+
+                    <!-- NODE: Think (bottom center) -->
+                    <g class="loop-node" id="node-think">
+                        <circle cx="260" cy="352" r="42" fill="#dcd8ec" opacity="0.4"/>
+                        <circle cx="260" cy="352" r="38" fill="none" stroke="#9b8dc4" stroke-width="2"/>
+                        <text x="260" y="344" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#9b8dc4">&#129504;</text>
+                        <text x="260" y="364" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">THINK</text>
+                    </g>
+
+                    <!-- NODE: Act (left) -->
+                    <g class="loop-node" id="node-act">
+                        <circle cx="48" cy="200" r="42" fill="#f0ddd0" opacity="0.4"/>
+                        <circle cx="48" cy="200" r="38" fill="none" stroke="#d4956b" stroke-width="2"/>
+                        <text x="48" y="192" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#d4956b">&#9889;</text>
+                        <text x="48" y="212" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">ACT</text>
+                    </g>
+
+                    <!-- NODE: Verifica (center) -->
+                    <g class="loop-node" id="node-verifica">
+                        <circle cx="260" cy="200" r="30" fill="var(--highlight-bg)"/>
+                        <circle cx="260" cy="200" r="28" fill="none" stroke="#1a1a4e" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <text x="260" y="196" text-anchor="middle" font-family="'Anton', sans-serif" font-size="9" fill="#1a1a4e" letter-spacing="0.3">OBIETTIVO</text>
+                        <text x="260" y="209" text-anchor="middle" font-family="'Anton', sans-serif" font-size="9" fill="#1a1a4e" letter-spacing="0.3">RAGGIUNTO?</text>
+                        <!-- Labels Si/No -->
+                        <text x="306" y="185" font-family="'Darker Grotesque', sans-serif" font-size="13" fill="var(--accent-gold)" font-weight="700">No &#8635;</text>
+                        <text x="305" y="240" font-family="'Darker Grotesque', sans-serif" font-size="13" fill="#1a1a4e" font-weight="700">S&igrave; &#8600;</text>
+                    </g>
+
+                    <!-- Risposta finale (bottom-right, avoids Think) -->
+                    <g class="loop-node" id="node-risposta">
+                        <rect x="375" y="388" width="110" height="36" rx="10" fill="#1a1a4e"/>
+                        <text x="430" y="411" text-anchor="middle" font-family="'Anton', sans-serif" font-size="11" fill="#ffffff" letter-spacing="0.5">RISPOSTA FINALE</text>
+                    </g>
+
+                    <!-- Signal dot (animated on step 5) -->
+                    <circle class="signal-dot" id="signalDot" cx="260" cy="48" r="8" fill="var(--accent-gold)" filter="url(#glow)"/>
+                </svg>
+            </div>
+
+            <!-- Box esempio -->
+            <div class="loop-example-box step" data-step="6">
+                <strong>Esempio:</strong> &laquo;Trova i dati di mercato per il pitch deck&raquo;
+                <div class="example-flow">
+                    Observe (legge il brief) &rarr; Think (serve cercare) &rarr; Act (web_search) &rarr; Observe (legge risultati) &rarr; Think (servono dati pi&ugrave; specifici) &rarr; Act (altra ricerca) &rarr; &hellip; &rarr; Risposta con dati e fonti
+                </div>
+            </div>
+        </div>
+
+        <img src="../../images/stars/conversione2.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
+        <div class="footnote">&sup1; Anthropic, 2025</div>
+        <div class="sparkle" style="top: 12%; right: 10%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.3 — TOOLS: LE MANI DELL'AGENTE
+         ========================================== -->
+    <div class="slide" data-steps="4" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; Tools</div>
+            <h2 class="step" data-step="1">Tools &mdash; le mani dell'agente</h2>
+            <p class="sub-heading step" data-step="1">Funzioni che l'LLM pu&ograve; decidere di invocare</p>
+
+            <div class="tools-hub">
+                <!-- Left column: 3 tools -->
+                <div class="tools-col left step" data-step="3">
+                    <div class="tool-card" data-tool="1" id="tool-1">
+                        <div class="tool-card-icon mint">&#128269;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">web_search(query)</div>
+                            <div class="tool-card-desc">Cercare informazioni sul web</div>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="2" id="tool-2">
+                        <div class="tool-card-icon lavender">&#128231;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">send_email(to, body)</div>
+                            <div class="tool-card-desc">Inviare email automaticamente</div>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="3" id="tool-3">
+                        <div class="tool-card-icon peach">&#128451;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">query_database(sql)</div>
+                            <div class="tool-card-desc">Interrogare un database</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left connector -->
+                <div class="hub-connector" id="connector-left">
+                    <div class="hub-connector-dot"></div>
+                    <div class="hub-connector-line"></div>
+                    <div class="hub-connector-dot"></div>
+                    <div class="hub-connector-line"></div>
+                    <div class="hub-connector-dot"></div>
+                </div>
+
+                <!-- Central LLM -->
+                <div class="llm-hub step" data-step="2" id="node-llm-center">
+                    <div class="llm-hub-icon">&#129504;</div>
+                    <div class="llm-hub-label">LLM</div>
+                </div>
+
+                <!-- Right connector -->
+                <div class="hub-connector" id="connector-right">
+                    <div class="hub-connector-dot"></div>
+                    <div class="hub-connector-line"></div>
+                    <div class="hub-connector-dot"></div>
+                    <div class="hub-connector-line"></div>
+                    <div class="hub-connector-dot"></div>
+                </div>
+
+                <!-- Right column: 3 tools -->
+                <div class="tools-col right step" data-step="3">
+                    <div class="tool-card" data-tool="4" id="tool-4">
+                        <div class="tool-card-icon mint">&#128193;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">create_file(name, content)</div>
+                            <div class="tool-card-desc">Creare e scrivere file</div>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="5" id="tool-5">
+                        <div class="tool-card-icon lavender">&#128248;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">get_screenshot(url)</div>
+                            <div class="tool-card-desc">Catturare screenshot di pagine</div>
+                        </div>
+                    </div>
+                    <div class="tool-card" data-tool="6" id="tool-6">
+                        <div class="tool-card-icon peach">&#128187;</div>
+                        <div class="tool-card-info">
+                            <div class="tool-card-name">run_code(lang, code)</div>
+                            <div class="tool-card-desc">Eseguire codice in sandbox</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="4">
+                L'LLM <strong>non esegue</strong> il tool &mdash; genera una <strong>richiesta JSON</strong>. Il sistema esterno esegue e restituisce il risultato.&sup1;
+            </div>
+        </div>
+
+        <div class="footnote">&sup1; Anthropic / OpenAI, 2024-2025</div>
+        <div class="starburst" style="bottom: 10%; right: 4%; opacity: 0.06;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.4 — TOOL CALLING STEP-BY-STEP
+         ========================================== -->
+    <div class="slide" data-steps="5" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; Come funziona</div>
+            <h2 class="step" data-step="1">Tool calling in azione</h2>
+            <p class="sub-heading step" data-step="1">5 passi, dal prompt alla risposta</p>
+
+            <div class="flow-container">
+                <!-- Step 1: Utente -->
+                <div class="flow-step user-step step" data-step="2">
+                    <div class="flow-step-num">&#9312;</div>
+                    <div class="flow-step-content">
+                        <div class="flow-step-label">Utente chiede</div>
+                        <div class="flow-step-text">&laquo;Che tempo fa a Bologna domani?&raquo;</div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down step" data-step="3">&#9660;</div>
+
+                <!-- Step 2: LLM riceve -->
+                <div class="flow-step llm-step step" data-step="3">
+                    <div class="flow-step-num">&#9313;</div>
+                    <div class="flow-step-content">
+                        <div class="flow-step-label">LLM riceve</div>
+                        <div class="flow-step-text">La domanda + la lista dei tool disponibili con descrizioni</div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down step" data-step="4">&#9660;</div>
+
+                <!-- Step 3: LLM decide -->
+                <div class="flow-step llm-step step" data-step="4">
+                    <div class="flow-step-num">&#9314;</div>
+                    <div class="flow-step-content">
+                        <div class="flow-step-label">LLM decide &amp; genera</div>
+                        <div class="json-block">
+                            {<br>
+                            &nbsp;&nbsp;<span class="json-key">"tool"</span>: <span class="json-string">"get_weather"</span>,<br>
+                            &nbsp;&nbsp;<span class="json-key">"city"</span>: <span class="json-string">"Bologna"</span>,<br>
+                            &nbsp;&nbsp;<span class="json-key">"days"</span>: <span class="json-num">1</span><br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down step" data-step="5">&#9660;</div>
+
+                <!-- Step 4: Sistema esegue -->
+                <div class="flow-step system-step step" data-step="5">
+                    <div class="flow-step-num">&#9315;</div>
+                    <div class="flow-step-content">
+                        <div class="flow-step-label">Sistema esegue</div>
+                        <div class="flow-step-text">API meteo &rarr; <code style="background:rgba(26,26,78,0.06); padding: 1px 4px; border-radius: 3px; font-size: 0.85em;">{"temp": 22, "condition": "soleggiato"}</code></div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down step" data-step="5">&#9660;</div>
+
+                <!-- Step 5: LLM risponde -->
+                <div class="flow-step user-step step" data-step="5">
+                    <div class="flow-step-num">&#9316;</div>
+                    <div class="flow-step-content">
+                        <div class="flow-step-label">LLM risponde</div>
+                        <div class="flow-step-text">&laquo;Domani a Bologna ci saranno 22&deg;C con cielo soleggiato.&raquo;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="5" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                La qualit&agrave; delle <strong>descrizioni dei tool</strong> &egrave; cruciale&sup1; &mdash; se il tool &egrave; descritto male, il modello non sapr&agrave; quando usarlo.
+            </div>
+        </div>
+
+        <div class="footnote">&sup1; Anthropic, 2025</div>
+        <div class="sparkle" style="top: 15%; right: 12%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.5 — FAILURE MODES DEI TOOL
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#128279; Concetto ponte</div>
+            <h2 class="step" data-step="1">Quando i tool falliscono</h2>
+            <p class="sub-heading step" data-step="1">I tool possono sbagliare &mdash; e l'agente deve saperlo gestire</p>
+
+            <div class="failure-grid step" data-step="2">
+                <div class="failure-card severity-red">
+                    <div class="failure-icon">&#128308;</div>
+                    <div class="failure-info">
+                        <div class="failure-title">Timeout / Errori API</div>
+                        <div class="failure-desc">Il tool non risponde. L'agente deve avere un piano B.</div>
+                    </div>
+                </div>
+                <div class="failure-card severity-orange">
+                    <div class="failure-icon">&#128992;</div>
+                    <div class="failure-info">
+                        <div class="failure-title">Dati incompleti</div>
+                        <div class="failure-desc">Il tool restituisce risultati parziali o malformati.</div>
+                    </div>
+                </div>
+                <div class="failure-card severity-yellow">
+                    <div class="failure-icon">&#128993;</div>
+                    <div class="failure-info">
+                        <div class="failure-title">Prompt injection via output</div>
+                        <div class="failure-desc">Un documento scaricato contiene istruzioni malevole&sup1; &rarr; diventano parte del contesto dell'LLM.</div>
+                    </div>
+                </div>
+                <div class="failure-card severity-blue">
+                    <div class="failure-icon">&#128309;</div>
+                    <div class="failure-info">
+                        <div class="failure-title">Azioni non autorizzate</div>
+                        <div class="failure-desc">L'agente potrebbe fare qualcosa che non doveva (es. inviare un'email senza conferma).</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="defense-box step" data-step="3">
+                <span class="gold">Difese:</span> retry controllati &bull; timeout &bull; validazione output &bull; conferma utente per azioni sensibili
+            </div>
+        </div>
+
+        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
+        <div class="footnote">&sup1; OWASP, 2025</div>
+        <div class="starburst" style="bottom: 12%; left: 5%; opacity: 0.05;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.6 — MCP: IL PROBLEMA N×M
+         ========================================== -->
+    <div class="slide" data-steps="5" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; MCP</div>
+            <h2 class="step" data-step="1">MCP &mdash; Model Context Protocol</h2>
+            <p class="sub-heading step" data-step="1">Lo standard che risolve il caos delle integrazioni</p>
+
+            <div class="mcp-diagram step" data-step="2">
+                <!-- Left: 4 AI Clients -->
+                <div class="mcp-col">
+                    <div class="mcp-node"><span class="mcp-node-icon">&#9670;</span> Claude</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#9670;</span> ChatGPT</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#9670;</span> Cursor</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#9670;</span> VS Code</div>
+                </div>
+
+                <!-- Center: SVG lines + MCP box -->
+                <div class="mcp-center" id="mcpCenter">
+                    <svg viewBox="0 0 200 200" preserveAspectRatio="none">
+                        <!-- Chaos lines (16 = 4×4 crossings) -->
+                        <line class="mcp-chaos-line" id="cl-1" x1="0" y1="25" x2="200" y2="25"/>
+                        <line class="mcp-chaos-line" id="cl-2" x1="0" y1="25" x2="200" y2="75"/>
+                        <line class="mcp-chaos-line" id="cl-3" x1="0" y1="25" x2="200" y2="125"/>
+                        <line class="mcp-chaos-line" id="cl-4" x1="0" y1="25" x2="200" y2="175"/>
+                        <line class="mcp-chaos-line" id="cl-5" x1="0" y1="75" x2="200" y2="25"/>
+                        <line class="mcp-chaos-line" id="cl-6" x1="0" y1="75" x2="200" y2="75"/>
+                        <line class="mcp-chaos-line" id="cl-7" x1="0" y1="75" x2="200" y2="125"/>
+                        <line class="mcp-chaos-line" id="cl-8" x1="0" y1="75" x2="200" y2="175"/>
+                        <line class="mcp-chaos-line" id="cl-9" x1="0" y1="125" x2="200" y2="25"/>
+                        <line class="mcp-chaos-line" id="cl-10" x1="0" y1="125" x2="200" y2="75"/>
+                        <line class="mcp-chaos-line" id="cl-11" x1="0" y1="125" x2="200" y2="125"/>
+                        <line class="mcp-chaos-line" id="cl-12" x1="0" y1="125" x2="200" y2="175"/>
+                        <line class="mcp-chaos-line" id="cl-13" x1="0" y1="175" x2="200" y2="25"/>
+                        <line class="mcp-chaos-line" id="cl-14" x1="0" y1="175" x2="200" y2="75"/>
+                        <line class="mcp-chaos-line" id="cl-15" x1="0" y1="175" x2="200" y2="125"/>
+                        <line class="mcp-chaos-line" id="cl-16" x1="0" y1="175" x2="200" y2="175"/>
+                        <!-- Order lines (4 left + 4 right, through center) -->
+                        <line class="mcp-order-line" id="ol-l1" x1="0" y1="25" x2="90" y2="85"/>
+                        <line class="mcp-order-line" id="ol-l2" x1="0" y1="75" x2="90" y2="92"/>
+                        <line class="mcp-order-line" id="ol-l3" x1="0" y1="125" x2="90" y2="108"/>
+                        <line class="mcp-order-line" id="ol-l4" x1="0" y1="175" x2="90" y2="115"/>
+                        <line class="mcp-order-line" id="ol-r1" x1="110" y1="85" x2="200" y2="25"/>
+                        <line class="mcp-order-line" id="ol-r2" x1="110" y1="92" x2="200" y2="75"/>
+                        <line class="mcp-order-line" id="ol-r3" x1="110" y1="108" x2="200" y2="125"/>
+                        <line class="mcp-order-line" id="ol-r4" x1="110" y1="115" x2="200" y2="175"/>
+                    </svg>
+
+                    <div class="mcp-box" id="mcpBox">
+                        MCP
+                        <div class="mcp-box-sub">Standard aperto</div>
+                    </div>
+
+                    <div class="mcp-phase-label chaos" id="mcpLabelChaos">N &times; M = 16 integrazioni &#10060;</div>
+                    <div class="mcp-phase-label order" id="mcpLabelOrder">N + M = 8 integrazioni&sup1; &#10004;</div>
+                </div>
+
+                <!-- Right: 4 Services -->
+                <div class="mcp-col">
+                    <div class="mcp-node"><span class="mcp-node-icon">&#127912;</span> Figma</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#128172;</span> Slack</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#128187;</span> GitHub</div>
+                    <div class="mcp-node"><span class="mcp-node-icon">&#128451;</span> Database</div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="5">
+                Un servizio implementa MCP <strong>una volta</strong> &rarr; funziona con <strong>qualsiasi client</strong> compatibile.&sup2; Adottato da Claude, ChatGPT, Gemini, Cursor, VS Code.
+            </div>
+        </div>
+
+        <img src="../../images/stars/connessione1.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 3vw, 2.5rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.65;">
+        <div class="footnote">&sup1; Anthropic, 2024 &nbsp; &sup2; MCP Ecosystem, 2025-2026</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.7 — MCP IN PRATICA
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; MCP in pratica</div>
+            <h2 class="step" data-step="1">MCP nella pratica</h2>
+            <p class="sub-heading step" data-step="1">Come lo usiamo gi&agrave; e come interessa ai clienti</p>
+
+            <!-- Architecture diagram -->
+            <div class="mcp-arch-diagram step" data-step="1">
+                <div class="mcp-arch-box client">
+                    <div class="mcp-arch-box-title">Client AI</div>
+                    <div class="mcp-arch-box-list">Claude, Cursor,<br>VS Code, ChatGPT</div>
+                </div>
+                <div class="mcp-arch-arrow">
+                    <div class="mcp-arch-arrow-line"></div>
+                    <span>MCP Protocol</span>
+                </div>
+                <div class="mcp-arch-box server">
+                    <div class="mcp-arch-box-title">MCP Server</div>
+                    <div class="mcp-arch-box-list">Figma, Slack,<br>GitHub, Database&hellip;</div>
+                </div>
+            </div>
+
+            <!-- 4 examples -->
+            <div class="mcp-examples-grid step" data-step="2">
+                <div class="mcp-example">
+                    <div class="mcp-example-icon">&#127912;</div>
+                    <div class="mcp-example-info">
+                        <div class="mcp-example-name">Figma MCP <span class="mcp-example-badge">Lo usiamo!</span></div>
+                        <div class="mcp-example-desc">Claude legge design, genera screenshot, ottiene contesto visivo</div>
+                    </div>
+                </div>
+                <div class="mcp-example">
+                    <div class="mcp-example-icon">&#128187;</div>
+                    <div class="mcp-example-info">
+                        <div class="mcp-example-name">GitHub MCP&sup1;</div>
+                        <div class="mcp-example-desc">L'AI crea PR, legge issues, cerca nel codice</div>
+                    </div>
+                </div>
+                <div class="mcp-example">
+                    <div class="mcp-example-icon">&#128451;</div>
+                    <div class="mcp-example-info">
+                        <div class="mcp-example-name">Database MCP</div>
+                        <div class="mcp-example-desc">L'AI interroga direttamente il database aziendale</div>
+                    </div>
+                </div>
+                <div class="mcp-example">
+                    <div class="mcp-example-icon">&#128196;</div>
+                    <div class="mcp-example-info">
+                        <div class="mcp-example-name">Google Drive MCP</div>
+                        <div class="mcp-example-desc">L'AI cerca e legge documenti dal Drive</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box step" data-step="3">
+                Potete integrare i vostri strumenti <strong>senza copia/incolla</strong> continuo. Come azienda, potete creare MCP server per i clienti.
+            </div>
+        </div>
+
+        <div class="footnote">&sup1; GitHub, 2025</div>
+        <div class="sparkle" style="top: 14%; right: 10%;"></div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.8 — SICUREZZA NEGLI AGENTI
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#128279; Sicurezza</div>
+            <h2 class="step" data-step="1">Pi&ugrave; potere = pi&ugrave; responsabilit&agrave;</h2>
+            <p class="sub-heading step" data-step="1">I rischi specifici degli agenti AI</p>
+
+            <div class="security-risks step" data-step="2">
+                <div class="security-risk critical">
+                    <div class="security-risk-severity">&#128308;</div>
+                    <div class="security-risk-info">
+                        <div class="security-risk-title">Prompt injection via tool</div>
+                        <div class="security-risk-desc">Un documento scaricato contiene &laquo;ignora le istruzioni e fai X&raquo;&sup1;. L'output del tool diventa nuovo contesto per l'LLM.</div>
+                    </div>
+                </div>
+                <div class="security-risk critical">
+                    <div class="security-risk-severity">&#128308;</div>
+                    <div class="security-risk-info">
+                        <div class="security-risk-title">Azioni non autorizzate</div>
+                        <div class="security-risk-desc">L'agente invia un'email che non doveva, o modifica dati sensibili senza conferma.</div>
+                    </div>
+                </div>
+                <div class="security-risk high">
+                    <div class="security-risk-severity">&#128992;</div>
+                    <div class="security-risk-info">
+                        <div class="security-risk-title">Supply chain di tool</div>
+                        <div class="security-risk-desc">Un MCP server compromesso = tutti i client esposti. Anche tool &laquo;ufficiali&raquo; possono avere vulnerabilit&agrave;.</div>
+                    </div>
+                </div>
+                <div class="security-risk medium">
+                    <div class="security-risk-severity">&#128993;</div>
+                    <div class="security-risk-info">
+                        <div class="security-risk-title">Token DoS</div>
+                        <div class="security-risk-desc">Un agente in loop pu&ograve; consumare enormi quantit&agrave; di token = costi fuori controllo.&sup2;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="security-mitigations step" data-step="3">
+                <div class="security-mitigation"><span class="check">&#10004;</span> Conferma umana per azioni ad alto impatto</div>
+                <div class="security-mitigation"><span class="check">&#10004;</span> Principio del minimo privilegio</div>
+                <div class="security-mitigation"><span class="check">&#10004;</span> Logging di tutte le azioni per audit</div>
+                <div class="security-mitigation"><span class="check">&#10004;</span> OWASP Top 10 per LLM Applications&sup3;</div>
+            </div>
+        </div>
+
+        <img src="../../images/stars/chiave.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
+        <div class="footnote">&sup1; OWASP, 2025 &nbsp; &sup2; Industria, 2025 &nbsp; &sup3; OWASP Top 10 LLM Apps v2.0</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.9 — QUANDO UN AGENTE NON BASTA
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; MULTI-AGENT</div>
+            <h2 class="step" data-step="1">Quando un agente non basta</h2>
+            <p class="sub-heading step" data-step="1">Troppi tool, troppi obiettivi, troppo contesto &mdash; serve dividere il lavoro</p>
+
+            <ul class="mini-list step" data-step="1" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
+                <li><strong>Contesto overload</strong> &mdash; 50 tool + istruzioni lunghe = l&rsquo;LLM si confonde&sup1;</li>
+                <li><strong>Compiti paralleli</strong> &mdash; Ricerca, analisi e scrittura simultanee</li>
+                <li><strong>Specializzazione</strong> &mdash; Un agente &laquo;sa tutto male&raquo; vs. tanti che sanno una cosa bene</li>
+            </ul>
+
+            <div class="orchestra-visual step" data-step="2">
+                <div class="orchestra-conductor">
+                    <div class="orchestra-conductor-icon">&#127930;</div>
+                    <div class="orchestra-conductor-label">Orchestratore</div>
+                </div>
+                <div class="orchestra-arrow">&#10140;</div>
+                <div class="orchestra-musicians">
+                    <div class="orchestra-musician">
+                        <div class="orchestra-musician-icon mint">&#128270;</div>
+                        <div class="orchestra-musician-label">Ricercatore</div>
+                    </div>
+                    <div class="orchestra-musician">
+                        <div class="orchestra-musician-icon lavender">&#9997;&#65039;</div>
+                        <div class="orchestra-musician-label">Scrittore</div>
+                    </div>
+                    <div class="orchestra-musician">
+                        <div class="orchestra-musician-icon peach">&#128065;</div>
+                        <div class="orchestra-musician-label">Critico</div>
+                    </div>
+                    <div class="orchestra-musician">
+                        <div class="orchestra-musician-icon blue">&#9881;&#65039;</div>
+                        <div class="orchestra-musician-label">Esecutore</div>
+                    </div>
+                </div>
+            </div>
+            <div class="orchestra-caption step" data-step="2">&laquo;Ogni musicista &egrave; specializzato. Il direttore coordina. L&rsquo;insieme &egrave; pi&ugrave; della somma delle parti.&raquo;</div>
+
+            <div class="warning-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
+                &#9888;&#65039; Pi&ugrave; agenti = pi&ugrave; chiamate LLM = pi&ugrave; costi e latenza. <strong>Regola: partire semplice, crescere solo quando serve&sup2;.</strong>
+            </div>
+        </div>
+
+        <div class="footnote">&sup1; Anthropic, 2025 &nbsp; &sup2; Industria, 2025</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.10 — TRE PATTERN DI ORCHESTRAZIONE
+         ========================================== -->
+    <div class="slide" data-steps="4" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; I PATTERN</div>
+            <h2 class="step" data-step="1">Tre modi di organizzare gli agenti</h2>
+
+            <div class="patterns-stack">
+                <!-- Pattern 1 — Singolo agente delegato -->
+                <div class="pattern-row step" data-step="1">
+                    <div class="pattern-num">1</div>
+                    <div class="pattern-diagram">
+                        <div class="pattern-node orch">O</div>
+                        <div class="pattern-arrow gold">&#8594;&#8592;</div>
+                        <div class="pattern-node agent-a">A</div>
+                    </div>
+                    <div class="pattern-info">
+                        <div class="pattern-title">Singolo delegato</div>
+                        <div class="pattern-when">Task sequenziale, sotto-compiti ben definiti</div>
+                        <div class="pattern-example">&laquo;Traduci questo documento in 3 lingue&raquo;</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 2 — Fan-out (parallelo) -->
+                <div class="pattern-row step" data-step="2">
+                    <div class="pattern-num">2</div>
+                    <div class="pattern-diagram">
+                        <div class="pattern-node orch">O</div>
+                        <div class="pattern-arrow gold">&#8594;</div>
+                        <div class="pattern-agents-group">
+                            <div class="pattern-node agent-a" style="width:24px;height:24px;font-size:0.5rem;">A</div>
+                            <div class="pattern-node agent-b" style="width:24px;height:24px;font-size:0.5rem;">B</div>
+                            <div class="pattern-node agent-c" style="width:24px;height:24px;font-size:0.5rem;">C</div>
+                        </div>
+                        <div class="pattern-arrow gold">&#8594;</div>
+                        <div class="pattern-node orch" style="width:24px;height:24px;font-size:0.5rem;">&#8721;</div>
+                    </div>
+                    <div class="pattern-info">
+                        <div class="pattern-title">Fan-out (parallelo)</div>
+                        <div class="pattern-when">Sotto-compiti indipendenti, parallelizzabili</div>
+                        <div class="pattern-example">&laquo;Analizza 3 competitor in parallelo e sintetizza&raquo;</div>
+                    </div>
+                </div>
+
+                <!-- Pattern 3 — Swarm -->
+                <div class="pattern-row step" data-step="3">
+                    <div class="pattern-num">3</div>
+                    <div class="pattern-diagram">
+                        <div class="pattern-node orch">O</div>
+                        <div class="pattern-arrow gold">&#8594;</div>
+                        <div class="pattern-agents-group">
+                            <div class="pattern-agents-row">
+                                <div class="pattern-node agent-a" style="width:24px;height:24px;font-size:0.5rem;">A</div>
+                                <div class="pattern-inter-arrow">&#8596;</div>
+                                <div class="pattern-node agent-b" style="width:24px;height:24px;font-size:0.5rem;">B</div>
+                                <div class="pattern-inter-arrow">&#8596;</div>
+                                <div class="pattern-node agent-c" style="width:24px;height:24px;font-size:0.5rem;">C</div>
+                            </div>
+                        </div>
+                        <div class="pattern-arrow gold">&#8594;</div>
+                        <div class="pattern-node orch" style="width:24px;height:24px;font-size:0.5rem;">O</div>
+                    </div>
+                    <div class="pattern-info">
+                        <div class="pattern-title">Swarm (inter-agente)</div>
+                        <div class="pattern-when">Collaborazione, revisione incrociata, negoziazione</div>
+                        <div class="pattern-example">&laquo;Scrittore produce bozza &#8594; Critico la rivede &#8594; Scrittore incorpora feedback&sup1;&raquo;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="4" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
+                &#128161; <strong>Partire dal Pattern 1.</strong> Crescere solo quando avete metriche che dimostrano che serve pi&ugrave; complessit&agrave;.
+            </div>
+        </div>
+
+        <img src="../../images/stars/coinvolgimento.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.55;">
+        <div class="footnote">&sup1; Anthropic, 2025</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.11 — MEMORY NEGLI AGENTI
+         ========================================== -->
+    <div class="slide" data-steps="4" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#128279; CONCETTO PONTE</div>
+            <h2 class="step" data-step="1">Memory &mdash; come un agente &laquo;ricorda&raquo;</h2>
+            <p class="sub-heading step" data-step="1">Non &egrave; magia: &egrave; stato persistente</p>
+
+            <div class="memory-split">
+                <div class="memory-panel short-term step" data-step="2">
+                    <div class="memory-panel-header">
+                        <div class="memory-panel-icon">&#128221;</div>
+                        <div class="memory-panel-title">Short-term</div>
+                    </div>
+                    <ul class="mini-list">
+                        <li>La conversazione corrente (il contesto)</li>
+                        <li>Limitata dalla context window</li>
+                        <li>Si perde quando la sessione finisce</li>
+                    </ul>
+                </div>
+                <div class="memory-panel long-term step" data-step="3">
+                    <div class="memory-panel-header">
+                        <div class="memory-panel-icon">&#128451;</div>
+                        <div class="memory-panel-title">Long-term</div>
+                    </div>
+                    <ul class="mini-list">
+                        <li>Informazioni salvate tra sessioni diverse</li>
+                        <li>Database, vector store, file CLAUDE.md</li>
+                        <li>Persiste, ma va gestita e aggiornata</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box step" data-step="4" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
+                &#9888;&#65039; Memoria senza governance = rischio privacy (dati utente persistenti) + drift (info obsolete o errate)
+            </div>
+        </div>
+
+        <img src="../../images/stars/conoscenza.png" alt="" class="mascot small" style="position: absolute; top: 50%; right: clamp(0.5rem, 1.5vw, 1.5rem); transform: translateY(-50%); opacity: 0.4; max-height: 60px;">
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.12 — SKILLS
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; SKILLS</div>
+            <h2 class="step" data-step="1">Skills &mdash; il manuale operativo dell&rsquo;agente</h2>
+            <p class="sub-heading step" data-step="1">Non tool (azioni), ma conoscenza procedurale (come fare bene)</p>
+
+            <div class="skills-compare step" data-step="1">
+                <div class="skill-compare-box tool-box">
+                    <div class="skill-compare-label">Tool</div>
+                    <div class="skill-compare-code">web_search(query)</div>
+                    <div class="skill-compare-desc">Azione esecutiva &mdash; <strong>fa</strong> qualcosa</div>
+                </div>
+                <div class="skill-compare-box skill-box">
+                    <div class="skill-compare-label">Skill</div>
+                    <div class="skill-compare-code">SKILL.md + template + esempi</div>
+                    <div class="skill-compare-desc">Conoscenza procedurale &mdash; <strong>sa come</strong> fare bene</div>
+                </div>
+            </div>
+
+            <div class="skills-examples step" data-step="2">
+                <div class="skill-example">
+                    <div class="skill-example-icon">&#128202;</div>
+                    <div class="skill-example-info">
+                        <div class="skill-example-name">Skill &laquo;crea presentazione&raquo;</div>
+                        <div class="skill-example-desc">Istruzioni su come strutturare slide, formattare, gestire layout</div>
+                    </div>
+                </div>
+                <div class="skill-example">
+                    <div class="skill-example-icon">&#128221;</div>
+                    <div class="skill-example-info">
+                        <div class="skill-example-name">Skill &laquo;crea documento Word&raquo;</div>
+                        <div class="skill-example-desc">Come generare un .docx professionale con TOC e stili</div>
+                    </div>
+                </div>
+                <div class="skill-example">
+                    <div class="skill-example-icon">&#127912;</div>
+                    <div class="skill-example-info">
+                        <div class="skill-example-name">Skill &laquo;frontend design&raquo;</div>
+                        <div class="skill-example-desc">Principi di design, come evitare l&rsquo;estetica &laquo;generica AI&raquo;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.5vw, 0.4rem);">
+                &#128260; Spec &#8594; Esempi &#8594; Test &#8594; Deploy &#8594; Monitor &#8594; Iterazione. <strong>Una skill senza eval &egrave; una demo, non un asset.</strong>
+            </div>
+            <div class="box-memoraiz step" data-step="3" style="margin-top: clamp(0.15rem, 0.3vw, 0.25rem); padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem); background: rgba(245, 166, 35, 0.06); border: 1.5px solid rgba(245, 166, 35, 0.15); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.72rem); color: var(--text-secondary); font-weight: 500;">
+                &#11088; <strong>Per i clienti MemorAIz:</strong> skill personalizzate = output consistenti con il loro brand.
+            </div>
+        </div>
+
+        <img src="../../images/stars/matita.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
+        <!-- no footnote needed: internal concept -->
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.13 — OBSERVABILITY
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#128279; OBSERVABILITY</div>
+            <h2 class="step" data-step="1">Non basta costruire &mdash; bisogna monitorare</h2>
+            <p class="sub-heading step" data-step="1">Come sapere cosa fa un agente in produzione</p>
+
+            <div class="obs-grid step" data-step="1">
+                <div class="obs-card">
+                    <div class="obs-card-icon">&#128203;</div>
+                    <div class="obs-card-info">
+                        <div class="obs-card-title">Logging</div>
+                        <div class="obs-card-desc">Prompt, risposte, tool chiamati e loro output</div>
+                    </div>
+                </div>
+                <div class="obs-card">
+                    <div class="obs-card-icon">&#128279;</div>
+                    <div class="obs-card-info">
+                        <div class="obs-card-title">Tracing</div>
+                        <div class="obs-card-desc">Tracciare la catena decisionale: quale tool, perch&eacute;, cosa ha ottenuto&sup1;</div>
+                    </div>
+                </div>
+                <div class="obs-card">
+                    <div class="obs-card-icon">&#128176;</div>
+                    <div class="obs-card-info">
+                        <div class="obs-card-title">Costi</div>
+                        <div class="obs-card-desc">Token consumati per task, costo per completamento</div>
+                    </div>
+                </div>
+                <div class="obs-card">
+                    <div class="obs-card-icon">&#128680;</div>
+                    <div class="obs-card-info">
+                        <div class="obs-card-title">Errori</div>
+                        <div class="obs-card-desc">Tasso di fallimento, fallback, anomalie</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-bar step" data-step="2">
+                <div class="kpi-pill">Tasso errore</div>
+                <div class="kpi-pill">Precisione retrieval</div>
+                <div class="kpi-pill">Tempo per task</div>
+                <div class="kpi-pill">Costo per task</div>
+                <div class="kpi-pill">Soddisfazione utente</div>
+            </div>
+
+            <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
+                &#128161; Non &laquo;credere&raquo; alla spiegazione del modello &mdash; <strong>verificare la sequenza di azioni.</strong>
+            </div>
+        </div>
+
+        <img src="../../images/stars/controllo.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
+        <div class="footnote">&sup1; Industria, 2025</div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7.14 — RIEPILOGO BLOCCO
+         ========================================== -->
+    <div class="slide" data-steps="2" style="background: var(--slide-bg-mint);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; TAKEAWAY</div>
+            <h2 class="step" data-step="1">Agenti AI &mdash; il quadro completo</h2>
+            <p class="sub-heading step" data-step="1">Da LLM passivo ad agente autonomo, in 7 concetti</p>
+
+            <div class="takeaway-list step" data-step="1">
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9312;</div>
+                    <div class="takeaway-text"><strong>Loop</strong> &mdash; L&rsquo;agente osserva, pensa, agisce, verifica, e ripete finch&eacute; non ha finito.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9313;</div>
+                    <div class="takeaway-text"><strong>Tools</strong> &mdash; Funzioni che l&rsquo;LLM invoca generando richieste JSON. Non esegue &mdash; delega.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9314;</div>
+                    <div class="takeaway-text"><strong>Tool calling</strong> &mdash; 5 step: domanda &#8594; scelta tool &#8594; JSON &#8594; esecuzione &#8594; risposta.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9315;</div>
+                    <div class="takeaway-text"><strong>MCP</strong> &mdash; Standard aperto per connettere LLM a servizi. N+M invece di N&times;M.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9316;</div>
+                    <div class="takeaway-text"><strong>Sicurezza</strong> &mdash; Prompt injection, azioni non autorizzate, costi fuori controllo. Human-in-the-loop.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9317;</div>
+                    <div class="takeaway-text"><strong>Orchestrazione</strong> &mdash; Da singolo agente a swarm. Partire semplice, crescere con le metriche.</div>
+                </div>
+                <div class="takeaway-item">
+                    <div class="takeaway-num">&#9318;</div>
+                    <div class="takeaway-text"><strong>Skills + Memory + Observability</strong> &mdash; Conoscenza procedurale + stato persistente + monitoraggio.</div>
+                </div>
+            </div>
+
+            <div class="highlight-box step" data-step="2" style="margin-top: clamp(0.4rem, 0.8vw, 0.6rem);">
+                &#128073; Prossimo e ultimo blocco: la <strong>checklist operativa</strong> per mettere tutto in pratica &#8594; Blocco 8
+            </div>
+        </div>
+
+        <img src="../../images/stars/super.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.55;">
+    </div>
+
+    <!-- ==========================================
+         NAV DOTS
+         ========================================== -->
+    <nav class="nav-dots">
+        <button class="nav-dot active" data-slide="0"></button>
+        <button class="nav-dot" data-slide="1"></button>
+        <button class="nav-dot" data-slide="2"></button>
+        <button class="nav-dot" data-slide="3"></button>
+        <button class="nav-dot" data-slide="4"></button>
+        <button class="nav-dot" data-slide="5"></button>
+        <button class="nav-dot" data-slide="6"></button>
+        <button class="nav-dot" data-slide="7"></button>
+        <button class="nav-dot" data-slide="8"></button>
+        <button class="nav-dot" data-slide="9"></button>
+        <button class="nav-dot" data-slide="10"></button>
+        <button class="nav-dot" data-slide="11"></button>
+        <button class="nav-dot" data-slide="12"></button>
+        <button class="nav-dot" data-slide="13"></button>
+        <button class="nav-dot" data-slide="14"></button>
+    </nav>
+
+    <div class="keyboard-hint">
+        <kbd>&rarr;</kbd> <kbd>Space</kbd> avanza &middot; <kbd>&larr;</kbd> indietro &middot; <kbd>Esc</kbd> panoramica
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT — Presentation Engine
+         ========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.totalSlides = this.slides.length;
+                this.currentSlide = 0;
+                this.currentSteps = {};
+                this.maxSteps = {};
+                this._hintVisible = true;
+                this._animFrameIds = {};
+
+                this.slides.forEach((slide, i) => {
+                    this.maxSteps[i] = parseInt(slide.dataset.steps, 10) || 0;
+                    this.currentSteps[i] = 0;
+                });
+
+                this._initSlide(0);
+                this._bindEvents();
+            }
+
+            /* ===========================================
+               STEP REVEAL
+               =========================================== */
+            _revealUpToStep(slideIndex, step) {
+                const slide = this.slides[slideIndex];
+                const allSteps = slide.querySelectorAll('.step');
+                allSteps.forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    el.classList.toggle('visible', s <= step);
+                });
+                this._customStepLogic(slideIndex, step);
+            }
+
+            _customStepLogic(slideIndex, step) {
+                // Slide 7.2 — Agent Loop SVG animation
+                if (slideIndex === 2) {
+                    this._animateAgentLoop(step);
+                }
+                // Slide 7.3 — Tools hub animation
+                if (slideIndex === 3) {
+                    this._animateToolsRadial(step);
+                }
+                // Slide 7.6 — MCP N×M diagram
+                if (slideIndex === 6) {
+                    this._animateMcpDiagram(step);
+                }
+            }
+
+            /* ===========================================
+               SLIDE 7.2 — Agent Loop SVG Step Logic
+               =========================================== */
+            _animateAgentLoop(step) {
+                const nodes = {
+                    obiettivo: document.getElementById('node-obiettivo'),
+                    observe: document.getElementById('node-observe'),
+                    think: document.getElementById('node-think'),
+                    act: document.getElementById('node-act'),
+                    verifica: document.getElementById('node-verifica'),
+                    risposta: document.getElementById('node-risposta')
+                };
+                const arrows = {
+                    a1: document.getElementById('arrow-1'),
+                    a2: document.getElementById('arrow-2'),
+                    a3: document.getElementById('arrow-3'),
+                    a4a: document.getElementById('arrow-4a'),
+                    a4b: document.getElementById('arrow-4b'),
+                    a4c: document.getElementById('arrow-4c')
+                };
+                const tips = {
+                    t1: document.getElementById('tip-1'),
+                    t2: document.getElementById('tip-2'),
+                    t3: document.getElementById('tip-3'),
+                    t4a: document.getElementById('tip-4a'),
+                    t4b: document.getElementById('tip-4b'),
+                    t4c: document.getElementById('tip-4c')
+                };
+                const signal = document.getElementById('signalDot');
+
+                // Helpers
+                const showNode = (node, show) => { if (node) node.classList.toggle('show', show); };
+                const drawArrow = (arrow, draw) => { if (arrow) arrow.classList.toggle('draw', draw); };
+                const showTip = (tip, show) => { if (tip) tip.classList.toggle('show', show); };
+
+                // Step 1: heading + Obiettivo node
+                showNode(nodes.obiettivo, step >= 1);
+
+                // Step 2: Observe + arrow from Obiettivo
+                showNode(nodes.observe, step >= 2);
+                drawArrow(arrows.a1, step >= 2);
+                showTip(tips.t1, step >= 2);
+
+                // Step 3: Think + arrow from Observe
+                showNode(nodes.think, step >= 3);
+                drawArrow(arrows.a2, step >= 3);
+                showTip(tips.t2, step >= 3);
+
+                // Step 4: Act + arrow from Think + Verifica + connecting arrows + Risposta
+                showNode(nodes.act, step >= 4);
+                drawArrow(arrows.a3, step >= 4);
+                showTip(tips.t3, step >= 4);
+                showNode(nodes.verifica, step >= 4);
+                showNode(nodes.risposta, step >= 4);
+                drawArrow(arrows.a4a, step >= 4);
+                showTip(tips.t4a, step >= 4);
+                drawArrow(arrows.a4b, step >= 4);
+                showTip(tips.t4b, step >= 4);
+                drawArrow(arrows.a4c, step >= 4);
+                showTip(tips.t4c, step >= 4);
+
+                // Step 5: Signal dot animation
+                if (signal) {
+                    if (step >= 5) {
+                        signal.classList.add('animate');
+                    } else {
+                        signal.classList.remove('animate');
+                        signal.setAttribute('cx', '260');
+                        signal.setAttribute('cy', '48');
+                    }
+                }
+                // Step 6: example box (handled by .step reveal)
+            }
+
+            /* ===========================================
+               SLIDE 7.3 — Tools Hub Step Logic
+               =========================================== */
+            _animateToolsRadial(step) {
+                // Step 3: show tool cards (staggered via CSS transition-delay)
+                const cards = document.querySelectorAll('.tool-card');
+                cards.forEach(card => card.classList.toggle('show', step >= 3));
+
+                // Show connectors when tools appear
+                const connL = document.getElementById('connector-left');
+                const connR = document.getElementById('connector-right');
+                if (connL) connL.classList.toggle('show', step >= 3);
+                if (connR) connR.classList.toggle('show', step >= 3);
+            }
+
+            /* ===========================================
+               SLIDE 7.6 — MCP N×M Diagram Step Logic
+               =========================================== */
+            _animateMcpDiagram(step) {
+                // Step 3: draw chaos lines
+                const chaosLines = document.querySelectorAll('.mcp-chaos-line');
+                chaosLines.forEach(l => {
+                    l.classList.toggle('draw', step >= 3);
+                    l.classList.toggle('fade', step >= 4);
+                });
+
+                // Step 3: show chaos label
+                const labelChaos = document.getElementById('mcpLabelChaos');
+                if (labelChaos) {
+                    labelChaos.classList.toggle('show', step >= 3 && step < 4);
+                }
+
+                // Step 4: show MCP box + order lines + order label
+                const mcpBox = document.getElementById('mcpBox');
+                if (mcpBox) mcpBox.classList.toggle('show', step >= 4);
+
+                const orderLines = document.querySelectorAll('.mcp-order-line');
+                orderLines.forEach(l => l.classList.toggle('draw', step >= 4));
+
+                const labelOrder = document.getElementById('mcpLabelOrder');
+                if (labelOrder) labelOrder.classList.toggle('show', step >= 4);
+            }
+
+            /* ===========================================
+               ANIMATION LIFECYCLE
+               =========================================== */
+            startAnimation(slideId) {
+                this.stopAnimation(slideId);
+            }
+
+            stopAnimation(slideId) {
+                if (this._animFrameIds[slideId]) {
+                    cancelAnimationFrame(this._animFrameIds[slideId]);
+                    delete this._animFrameIds[slideId];
+                }
+            }
+
+            stopAllAnimations() {
+                Object.keys(this._animFrameIds).forEach(id => this.stopAnimation(id));
+            }
+
+            /* ===========================================
+               NAVIGATION
+               =========================================== */
+            _initSlide(index) {
+                this.stopAllAnimations();
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+            }
+
+            advance() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                const ms = this.maxSteps[this.currentSlide];
+                if (cs < ms) {
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                if (cs > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else if (this.currentSlide > 0) {
+                    const prev = this.currentSlide - 1;
+                    this.currentSteps[prev] = this.maxSteps[prev];
+                    this._revealUpToStep(prev, this.currentSteps[prev]);
+                    this._scrollToSlide(prev);
+                    this.currentSlide = prev;
+                    this._updateNavDots();
+                } else if (window.parent !== window) {
+                    window.parent.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                this.stopAllAnimations();
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(i) { this.slides[i].scrollIntoView({ behavior: 'smooth' }); }
+            _updateNavDots() { this.navDots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide)); }
+            _hideHint() { if (this._hintVisible && this.keyboardHint) { this.keyboardHint.style.opacity = '0'; this._hintVisible = false; } }
+
+            _bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight': case 'ArrowDown': case ' ': case 'Enter': case 'PageDown':
+                            e.preventDefault(); this.advance(); break;
+                        case 'ArrowLeft': case 'ArrowUp': case 'Backspace': case 'PageUp':
+                            e.preventDefault(); this.goBack(); break;
+                    }
+                });
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.nav-dots')) this.advance();
+                });
+                this.navDots.forEach(d => d.addEventListener('click', (e) => {
+                    e.stopPropagation(); this.goToSlide(parseInt(d.dataset.slide, 10));
+                }));
+                let ty = 0;
+                document.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const d = ty - e.changedTouches[0].clientY;
+                    if (Math.abs(d) > 50) d > 0 ? this.advance() : this.goBack();
+                }, { passive: true });
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1 && idx !== this.currentSlide) {
+                                this.currentSlide = idx;
+                                if (this.currentSteps[idx] === 0) this._revealUpToStep(idx, 0);
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { window._pres = new SlidePresentation(); });
+
+        /* Parent iframe communication */
+        if (window.parent !== window) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'escape' }, '*'); }
+                else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'fullscreen' }, '*'); }
+            }, true);
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres, last = p.totalSlides - 1;
+                    p.currentSlide = last; p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]); p._scrollToSlide(last); p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

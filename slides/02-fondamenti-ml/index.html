@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocco 2 — Fondamenti ML | Formazione AI MemorAIz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES — MemorAIz Theme
+           =========================================== */
+        :root {
+            --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
+            --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+            --text-primary: #1a1a4e;
+            --text-secondary: #555566;
+            --accent-gold: #f5a623;
+            --accent-gold-light: #ffd56b;
+            --highlight-bg: rgba(26, 26, 78, 0.06);
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Darker Grotesque', sans-serif;
+            --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
+            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.5s;
+            --error-red: #e74c3c;
+            --backward-orange: #f39c12;
+            --success-green: #2ecc71;
+            --forward-blue: #3b82f6;
+            --backward-red: #ef4444;
+            --adjusted-green: #22c55e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); color: var(--text-primary); }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative; padding: var(--slide-padding);
+        }
+        .slide-content {
+            max-width: 1200px; width: 90%;
+            display: flex; flex-direction: column;
+            gap: clamp(0.4rem, 1vw, 0.8rem);
+        }
+        .slide-content.centered { margin: 0 auto; text-align: center; align-items: center; }
+
+        /* Logo, mascot, labels, numbers, bullets, highlight, footnote — shared */
+        .logo { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); height: clamp(24px, 3vw, 40px); z-index: 10; opacity: 0.85; }
+        .mascot { position: absolute; z-index: 5; pointer-events: none; }
+        .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
+        .mascot-inline { height: clamp(45px, 7vw, 70px); opacity: 0.75; align-self: flex-end; margin-top: auto; }
+        .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .section-header { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem); margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem); }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
+        .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
+        .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
+        .bullet-list li strong { font-weight: 700; }
+        .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
+        .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
+
+        /* Nav dots */
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
+        .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
+        .nav-dot:hover { border-color: var(--accent-gold); }
+        .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
+
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+
+        /* Step reveal */
+        .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .step.visible { opacity: 1; transform: translateY(0); }
+
+        .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+
+        /* ===========================================
+           SPLIT LAYOUT (Overfitting, Training vs Inference style)
+           =========================================== */
+        .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 2vw, 2rem); }
+        .split-col { display: flex; flex-direction: column; gap: clamp(0.2rem, 0.5vw, 0.4rem); padding: clamp(0.6rem, 1.2vw, 1.2rem); border-radius: 12px; background: rgba(26, 26, 78, 0.03); border: 1px solid rgba(26, 26, 78, 0.08); }
+        .split-col-icon { font-size: clamp(1.2rem, 2.5vw, 2rem); }
+        .split-col h3 { font-size: var(--h3-size); color: var(--text-primary); }
+        .split-col p { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; line-height: 1.4; }
+        .split-col .analogy-text { font-style: italic; color: var(--accent-gold); font-weight: 600; }
+        .split-col.bad { border-color: rgba(231, 76, 60, 0.2); }
+        .split-col.good { border-color: rgba(46, 204, 113, 0.2); }
+
+        /* Self-supervised rows */
+        .row-block { background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); }
+        .row-block strong { font-weight: 700; }
+
+        /* ===========================================
+           SVG NEURAL NETWORK — shared styles
+           =========================================== */
+        .nn-container { width: 100%; max-height: min(42vh, 320px); display: flex; align-items: center; justify-content: center; position: relative; }
+        .nn-container svg { width: 100%; height: auto; max-height: min(42vh, 320px); }
+
+        /* SVG node */
+        .nn-node { transition: fill 0.4s, stroke 0.4s, opacity 0.4s; }
+        /* SVG connection line */
+        .nn-line { transition: stroke-width 0.5s, stroke 0.5s, opacity 0.5s; }
+
+        /* Layer labels */
+        .nn-layer-label { font-family: var(--font-body); font-weight: 600; fill: var(--text-secondary); font-size: 11px; }
+
+        /* Neuron diagram */
+        .neuron-container { width: 100%; max-height: min(35vh, 280px); display: flex; align-items: center; justify-content: center; }
+        .neuron-container svg { width: 100%; height: auto; max-height: min(35vh, 280px); }
+
+        /* Weight indicators */
+        .weight-label { font-family: var(--font-body); font-size: 9px; fill: var(--text-secondary); font-weight: 600; }
+
+        /* ===========================================
+           BACKPROP ANIMATION — Loop states
+           =========================================== */
+        .bp-output-box { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: var(--font-body); font-weight: 700; font-size: clamp(0.75rem, 1.2vw, 1rem); }
+        .bp-output-box.prediction { background: rgba(245, 166, 35, 0.15); color: var(--accent-gold); }
+        .bp-output-box.correct { background: rgba(231, 76, 60, 0.12); color: var(--error-red); }
+        .bp-result-row { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 1rem); flex-wrap: wrap; }
+
+        /* Error bar */
+        .error-bar-container { width: min(200px, 30vw); height: 14px; background: rgba(26, 26, 78, 0.06); border-radius: 7px; overflow: hidden; }
+        .error-bar { height: 100%; border-radius: 7px; transition: width 0.6s var(--ease-out-expo), background 0.6s; }
+        .error-bar.high { width: 90%; background: var(--error-red); }
+        .error-bar.low { width: 25%; background: var(--success-green); }
+        .error-label { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); font-weight: 700; }
+
+        /* Signal dot for animation */
+        .signal-dot { r: 5; opacity: 0; }
+
+        /* Looping indicator */
+        .loop-indicator { position: absolute; top: clamp(0.5rem, 1vw, 1rem); right: clamp(0.5rem, 1vw, 1rem); font-family: var(--font-body); font-size: var(--label-size); color: var(--accent-gold); font-weight: 600; opacity: 0; transition: opacity 0.3s; letter-spacing: 0.05em; }
+        .loop-indicator.active { opacity: 0.6; }
+
+        /* ===========================================
+           TOKEN MASKING ANIMATION (Slide 2.3)
+           =========================================== */
+        .token-row { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.6vw, 8px); align-items: center; margin: clamp(0.3rem, 0.8vw, 0.6rem) 0; }
+        .token { display: inline-block; padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 14px); border-radius: 8px; background: rgba(26, 26, 78, 0.06); font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); transition: all 0.4s var(--ease-out-expo); }
+        .token.masked { background: var(--accent-gold); color: white; animation: token-pulse 1.5s ease-in-out infinite; cursor: default; }
+        .token.revealed { background: rgba(46, 204, 113, 0.15); color: #166534; animation: none; }
+        @keyframes token-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+        }
+        .prob-candidates { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.5vw, 8px); align-items: center; margin-top: clamp(0.2rem, 0.5vw, 0.4rem); }
+        .prob-bar { display: flex; align-items: center; gap: clamp(2px, 0.3vw, 4px); font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; }
+        .prob-bar .bar-fill { height: clamp(14px, 2vw, 20px); border-radius: 6px; transition: width 0.6s var(--ease-out-expo); }
+        .prob-bar .bar-label { white-space: nowrap; }
+        .prob-bar:nth-child(1) .bar-fill { background: rgba(46, 204, 113, 0.6); }
+        .prob-bar:nth-child(2) .bar-fill { background: rgba(245, 166, 35, 0.5); }
+        .prob-bar:nth-child(3) .bar-fill { background: rgba(26, 26, 78, 0.15); }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root { --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem); --title-size: clamp(1.5rem, 4.5vw, 3rem); --h2-size: clamp(1.2rem, 3vw, 2.2rem); }
+        }
+        @media (max-height: 600px) {
+            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+            .nav-dots, .keyboard-hint { display: none; }
+            .mascot { display: none; }
+        }
+        @media (max-height: 500px) {
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+            .starburst, .sparkle { display: none; }
+        }
+        @media (max-width: 768px) {
+            .split-layout { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            :root { --title-size: clamp(1.5rem, 7vw, 2.5rem); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV DOTS -->
+    <nav class="nav-dots" aria-label="Navigazione slide">
+        <button class="nav-dot active" data-slide="0"></button>
+        <button class="nav-dot" data-slide="1"></button>
+        <button class="nav-dot" data-slide="2"></button>
+        <button class="nav-dot" data-slide="3"></button>
+        <button class="nav-dot" data-slide="4"></button>
+        <button class="nav-dot" data-slide="5"></button>
+        <button class="nav-dot" data-slide="6"></button>
+        <button class="nav-dot" data-slide="7"></button>
+        <button class="nav-dot" data-slide="8"></button>
+        <button class="nav-dot" data-slide="9"></button>
+    </nav>
+    <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
+
+    <!-- ===========================================
+         SLIDE 2.0 — TITOLO SEZIONE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 18%; right: 10%;"></div>
+        <div class="starburst" style="bottom: 12%; left: 4%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="0" data-step="0">★ BLOCCO 2</div>
+            <h1 class="step" data-slide="0" data-step="0" style="font-size: var(--title-size);">Come imparano le macchine</h1>
+            <p class="sub-heading step" data-slide="0" data-step="0">Fondamenti di Machine Learning — zero formule, solo intuizioni</p>
+        </div>
+        <img src="../../images/stars/conoscenza.png" alt="" class="mascot bottom-right">
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.1 — SUPERVISED LEARNING
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="1" data-step="0">★ PARADIGMI</div>
+            <div class="section-header step" data-slide="1" data-step="0">
+                <div class="section-number">①</div>
+                <h2>Apprendimento supervisionato</h2>
+            </div>
+            <p class="sub-heading step" data-slide="1" data-step="0">Il modello impara da esempi corretti</p>
+            <ul class="bullet-list">
+                <li class="step" data-slide="1" data-step="1"><strong>Il meccanismo</strong> — Il modello riceve coppie (input → output corretto). Fa una previsione, viene confrontata con la risposta giusta, e si aggiusta.</li>
+                <li class="step" data-slide="1" data-step="2"><strong>L'analogia</strong> — Come un insegnante che corregge i compiti: sbaglio → correzione → miglioramento.</li>
+                <li class="step" data-slide="1" data-step="3"><strong>Esempi concreti</strong> — Classificazione email (spam/non spam), moderazione contenuti, analisi sentiment, classificazione ticket.</li>
+            </ul>
+            <div class="highlight-box step" data-slide="1" data-step="3">Servono dati etichettati → costosi da creare</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.2 — UNSUPERVISED LEARNING
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="2" data-step="0">★ PARADIGMI</div>
+            <div class="section-header step" data-slide="2" data-step="0">
+                <div class="section-number">②</div>
+                <h2>Apprendimento non supervisionato</h2>
+            </div>
+            <p class="sub-heading step" data-slide="2" data-step="0">Il modello trova struttura nei dati da solo</p>
+            <ul class="bullet-list">
+                <li class="step" data-slide="2" data-step="1"><strong>Il meccanismo</strong> — Nessun insegnante, nessuna risposta giusta. Il modello osserva i dati e raggruppa da solo ciò che si somiglia.</li>
+                <li class="step" data-slide="2" data-step="2"><strong>L'analogia</strong> — Come organizzare un guardaroba: nessuno vi dice le regole, ma mettete insieme le magliette, i pantaloni e le giacche per istinto. Il modello fa lo stesso con i dati.</li>
+                <li class="step" data-slide="2" data-step="3"><strong>Esempi concreti</strong> — Spotify che raggruppa le canzoni per mood senza che nessuno le etichetti · il feed di Instagram che capisce quali foto sono simili · Gmail che individua email sospette senza sapere cos'è una "truffa".</li>
+            </ul>
+            <div class="highlight-box step" data-slide="2" data-step="3">Non servono etichette → scala facilmente, ma meno controllabile</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.3 — SELF-SUPERVISED LEARNING
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="3" data-step="0">★ CONCETTO PONTE</div>
+            <div class="section-header step" data-slide="3" data-step="0">
+                <div class="section-number">③</div>
+                <h2>Self-supervised learning</h2>
+            </div>
+            <p class="sub-heading step" data-slide="3" data-step="0">Il segreto dietro gli LLM</p>
+            <div class="row-block step" data-slide="3" data-step="1">
+                <strong>Il meccanismo</strong> — Il modello crea le proprie "etichette" dal testo stesso. Prendi una frase, nascondi l'ultima parola: l'etichetta è la parola nascosta.
+            </div>
+
+            <!-- Token masking animation -->
+            <div class="step" data-slide="3" data-step="2" id="token-mask-container">
+                <div class="token-row">
+                    <span class="token">Il</span>
+                    <span class="token">gatto</span>
+                    <span class="token">si</span>
+                    <span class="token">è</span>
+                    <span class="token">seduto</span>
+                    <span class="token">sul</span>
+                    <span class="token masked" id="masked-token">[???]</span>
+                </div>
+            </div>
+            <div class="step" data-slide="3" data-step="3" id="token-reveal-container">
+                <div class="prob-candidates">
+                    <div class="prob-bar">
+                        <div class="bar-fill" style="width: clamp(80px, 14vw, 170px);"></div>
+                        <span class="bar-label">divano <strong>68%</strong></span>
+                    </div>
+                    <div class="prob-bar">
+                        <div class="bar-fill" style="width: clamp(40px, 7vw, 90px);"></div>
+                        <span class="bar-label">tappeto <strong>22%</strong></span>
+                    </div>
+                    <div class="prob-bar">
+                        <div class="bar-fill" style="width: clamp(18px, 3vw, 40px);"></div>
+                        <span class="bar-label">letto <strong>10%</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-block step" data-slide="3" data-step="4">
+                <strong>Il collegamento con gli LLM</strong> — È esattamente ciò che fanno gli LLM nel pre-training¹: predire il prossimo token². Nessun umano etichetta a mano — il segnale viene dai dati stessi.
+            </div>
+            <div class="highlight-box step" data-slide="3" data-step="5" style="display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem);">
+                <span>Self-supervised = scala infinita. Internet intera come materiale di training.</span>
+                <img src="../../images/stars/lampadina.png" alt="" style="height: clamp(40px, 6vw, 60px); opacity: 0.8; flex-shrink: 0;">
+            </div>
+        </div>
+        <div class="footnote">¹ Stack Overflow, 2025 &nbsp; ² Georgetown CSET, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.4 — OVERFITTING VS GENERALIZZAZIONE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="4" data-step="0">★ CONCETTO PONTE</div>
+            <h2 class="step" data-slide="4" data-step="0">Imparare a memoria vs capire davvero</h2>
+            <div class="split-layout">
+                <div class="split-col bad step" data-slide="4" data-step="1">
+                    <div class="split-col-icon">❌</div>
+                    <h3>Overfitting</h3>
+                    <p>Il modello memorizza i dati di training</p>
+                    <p>Perfetto sugli esempi già visti, fallisce su casi nuovi</p>
+                    <p class="analogy-text">"Memorizzare le risposte dell'esame dell'anno scorso"</p>
+                </div>
+                <div class="split-col good step" data-slide="4" data-step="2">
+                    <div class="split-col-icon">✅</div>
+                    <h3>Generalizzazione</h3>
+                    <p>Il modello cattura pattern veri</p>
+                    <p>Funziona anche su dati mai visti — l'obiettivo di ogni training</p>
+                    <p class="analogy-text">"Capire la materia e saper rispondere a domande nuove"</p>
+                </div>
+            </div>
+            <div class="highlight-box step" data-slide="4" data-step="3">"Ha risposto bene una volta" ≠ "Funzionerà sempre". Serve testare su casi diversi.</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.5 — IL NEURONE ARTIFICIALE
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="5" data-step="0">★ RETI NEURALI</div>
+            <div class="section-header step" data-slide="5" data-step="0">
+                <div class="section-number">④</div>
+                <h2>Il neurone artificiale</h2>
+            </div>
+            <p class="sub-heading step" data-slide="5" data-step="0">L'unità base di ogni rete neurale</p>
+
+            <div class="neuron-container">
+                <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Input arrows + labels (step 1) -->
+                    <g class="step" data-slide="5" data-step="1">
+                        <text x="30" y="55" font-family="Darker Grotesque" font-size="13" fill="#555566" font-weight="600">Input 1</text>
+                        <text x="30" y="125" font-family="Darker Grotesque" font-size="13" fill="#555566" font-weight="600">Input 2</text>
+                        <text x="30" y="195" font-family="Darker Grotesque" font-size="13" fill="#555566" font-weight="600">Input 3</text>
+                        <circle cx="100" cy="50" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="100" cy="120" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="100" cy="190" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    </g>
+                    <!-- Weight lines (step 2) — varying thickness -->
+                    <g class="step" data-slide="5" data-step="2">
+                        <line x1="112" y1="50" x2="260" y2="120" stroke="#f5a623" stroke-width="3.5" opacity="0.8"/>
+                        <line x1="112" y1="120" x2="260" y2="120" stroke="#f5a623" stroke-width="3" opacity="0.7"/>
+                        <line x1="112" y1="190" x2="260" y2="120" stroke="#1a1a4e" stroke-width="1.5" opacity="0.3"/>
+                        <text x="170" y="72" font-family="Darker Grotesque" font-size="10" fill="#f5a623" font-weight="700">peso: alto</text>
+                        <text x="170" y="112" font-family="Darker Grotesque" font-size="10" fill="#f5a623" font-weight="700">peso: alto</text>
+                        <text x="170" y="172" font-family="Darker Grotesque" font-size="10" fill="#555566" font-weight="600">peso: basso</text>
+                    </g>
+                    <!-- Neuron (step 3) -->
+                    <g class="step" data-slide="5" data-step="3">
+                        <circle cx="280" cy="120" r="28" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="3"/>
+                        <text x="280" y="125" text-anchor="middle" font-family="Darker Grotesque" font-size="11" fill="#1a1a4e" font-weight="700">Σ + f</text>
+                    </g>
+                    <!-- Output (step 4) -->
+                    <g class="step" data-slide="5" data-step="4">
+                        <line x1="308" y1="120" x2="430" y2="120" stroke="#1a1a4e" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <circle cx="450" cy="120" r="16" fill="rgba(245,166,35,0.15)" stroke="#f5a623" stroke-width="2"/>
+                        <text x="450" y="125" text-anchor="middle" font-family="Darker Grotesque" font-size="11" fill="#1a1a4e" font-weight="700">Out</text>
+                        <text x="490" y="124" font-family="Darker Grotesque" font-size="12" fill="#555566" font-weight="500">→ Decisione</text>
+                    </g>
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#1a1a4e"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="highlight-box step" data-slide="5" data-step="4" style="font-weight: 500; font-style: italic;">
+                Come prendere una decisione: "Porto l'ombrello?" → Guardo il cielo (peso: alto), guardo il meteo (peso: alto), guardo se ho fretta (peso: basso). Peso le informazioni e decido.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.6 — RETE NEURALE (STRATI) ★★★
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="6" data-step="0">★ RETI NEURALI</div>
+            <div class="section-header step" data-slide="6" data-step="0">
+                <div class="section-number">⑤</div>
+                <h2>Dalla singola unità alla rete</h2>
+            </div>
+            <div class="nn-container" id="nn-layers">
+                <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Connection lines: drawn per step -->
+                    <!-- Layer 0→1 connections (step 2) -->
+                    <g class="step" data-slide="6" data-step="2" style="transform: none;">
+                        <line x1="120" y1="60" x2="260" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="60" x2="260" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="60" x2="260" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="60" x2="260" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="60" x2="260" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="120" x2="260" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="120" x2="260" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="120" x2="260" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="120" x2="260" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="120" x2="260" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="180" x2="260" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="180" x2="260" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="180" x2="260" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="180" x2="260" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="180" x2="260" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="240" x2="260" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="240" x2="260" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="240" x2="260" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="240" x2="260" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="120" y1="240" x2="260" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                    </g>
+                    <!-- Layer 1→2 connections (step 3) -->
+                    <g class="step" data-slide="6" data-step="3" style="transform: none;">
+                        <line x1="280" y1="35" x2="420" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="35" x2="420" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="35" x2="420" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="35" x2="420" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="35" x2="420" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="85" x2="420" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="85" x2="420" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="85" x2="420" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="85" x2="420" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="85" x2="420" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="135" x2="420" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="135" x2="420" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="135" x2="420" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="135" x2="420" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="135" x2="420" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="185" x2="420" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="185" x2="420" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="185" x2="420" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="185" x2="420" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="185" x2="420" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="235" x2="420" y2="35" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="235" x2="420" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="235" x2="420" y2="135" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="235" x2="420" y2="185" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="280" y1="235" x2="420" y2="235" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                    </g>
+                    <!-- Layer 2→3 connections (step 4) -->
+                    <g class="step" data-slide="6" data-step="4" style="transform: none;">
+                        <line x1="440" y1="35" x2="570" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="35" x2="570" y2="150" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="35" x2="570" y2="215" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="85" x2="570" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="85" x2="570" y2="150" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="85" x2="570" y2="215" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="135" x2="570" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="135" x2="570" y2="150" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="135" x2="570" y2="215" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="185" x2="570" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="185" x2="570" y2="150" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="185" x2="570" y2="215" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="235" x2="570" y2="85" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="235" x2="570" y2="150" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                        <line x1="440" y1="235" x2="570" y2="215" stroke="#1a1a4e" stroke-width="0.8" opacity="0.15"/>
+                    </g>
+                    <!-- Input layer nodes (step 1) -->
+                    <g class="step" data-slide="6" data-step="1" style="transform: none;">
+                        <circle cx="120" cy="60" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="120" cy="120" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="120" cy="180" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="120" cy="240" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <text x="120" y="285" text-anchor="middle" class="nn-layer-label">Dati grezzi</text>
+                    </g>
+                    <!-- Hidden layer 1 nodes (step 2) -->
+                    <g class="step" data-slide="6" data-step="2" style="transform: none;">
+                        <circle cx="270" cy="35" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="270" cy="85" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="270" cy="135" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="270" cy="185" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="270" cy="235" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <text x="270" y="285" text-anchor="middle" class="nn-layer-label">Pattern semplici</text>
+                    </g>
+                    <!-- Hidden layer 2 nodes (step 3) -->
+                    <g class="step" data-slide="6" data-step="3" style="transform: none;">
+                        <circle cx="430" cy="35" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="430" cy="85" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="430" cy="135" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="430" cy="185" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="430" cy="235" r="14" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <text x="430" y="285" text-anchor="middle" class="nn-layer-label">Pattern complessi</text>
+                    </g>
+                    <!-- Output layer nodes (step 4) -->
+                    <g class="step" data-slide="6" data-step="4" style="transform: none;">
+                        <circle cx="580" cy="85" r="14" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="2.5"/>
+                        <circle cx="580" cy="150" r="14" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="2.5"/>
+                        <circle cx="580" cy="215" r="14" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="2.5"/>
+                        <text x="580" y="260" text-anchor="middle" class="nn-layer-label" fill="#f5a623">Risultato</text>
+                    </g>
+                </svg>
+            </div>
+            <div class="highlight-box step" data-slide="6" data-step="4">Più strati = più capacità di catturare complessità → ecco perché "deep" learning</div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.7 — I PESI ★★★
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="7" data-step="0">★ RETI NEURALI</div>
+            <div class="section-header step" data-slide="7" data-step="0">
+                <div class="section-number">⑥</div>
+                <h2>I pesi — il DNA del modello</h2>
+            </div>
+
+            <!-- Weight state label -->
+            <p class="sub-heading" id="weight-state-label" style="opacity: 0; transition: opacity 0.4s;"></p>
+
+            <div class="nn-container" id="nn-weights">
+                <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- All connections — will be styled by JS -->
+                    <!-- Layer 0→1 -->
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3" data-trained-c="#f5a623" x1="80" y1="45" x2="210" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="80" y1="45" x2="210" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2.5" data-trained-c="#f5a623" x1="80" y1="45" x2="210" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="1" data-trained-c="#aaa" x1="80" y1="45" x2="210" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="80" y1="110" x2="210" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3.5" data-trained-c="#f5a623" x1="80" y1="110" x2="210" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.8" data-trained-c="#bbb" x1="80" y1="110" x2="210" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2" data-trained-c="#f5a623" x1="80" y1="110" x2="210" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2.5" data-trained-c="#f5a623" x1="80" y1="175" x2="210" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="80" y1="175" x2="210" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="1.5" data-trained-c="#d4a574" x1="80" y1="175" x2="210" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3" data-trained-c="#f5a623" x1="80" y1="175" x2="210" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Layer 1→2 -->
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2.5" data-trained-c="#f5a623" x1="230" y1="30" x2="370" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="30" x2="370" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="1" data-trained-c="#aaa" x1="230" y1="30" x2="370" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="30" x2="370" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3" data-trained-c="#f5a623" x1="230" y1="75" x2="370" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2" data-trained-c="#f5a623" x1="230" y1="75" x2="370" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.8" data-trained-c="#bbb" x1="230" y1="75" x2="370" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="75" x2="370" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="120" x2="370" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3.5" data-trained-c="#f5a623" x1="230" y1="120" x2="370" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2.5" data-trained-c="#f5a623" x1="230" y1="120" x2="370" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="120" x2="370" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="1" data-trained-c="#aaa" x1="230" y1="165" x2="370" y2="30" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="230" y1="165" x2="370" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2" data-trained-c="#f5a623" x1="230" y1="165" x2="370" y2="120" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3" data-trained-c="#f5a623" x1="230" y1="165" x2="370" y2="165" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Layer 2→output -->
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3.5" data-trained-c="#f5a623" x1="390" y1="30" x2="510" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="390" y1="30" x2="510" y2="145" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="390" y1="75" x2="510" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="3" data-trained-c="#f5a623" x1="390" y1="75" x2="510" y2="145" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2.5" data-trained-c="#f5a623" x1="390" y1="120" x2="510" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="1" data-trained-c="#aaa" x1="390" y1="120" x2="510" y2="145" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="0.5" data-trained-c="#ccc" x1="390" y1="165" x2="510" y2="75" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <line class="wt-line" data-random-w="1.5" data-trained-w="2" data-trained-c="#f5a623" x1="390" y1="165" x2="510" y2="145" stroke="#888" stroke-width="1.5" opacity="0.4"/>
+                    <!-- Nodes — always visible once step 1 -->
+                    <g class="step" data-slide="7" data-step="1" style="transform: none;">
+                        <!-- Input -->
+                        <circle cx="80" cy="45" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="80" cy="110" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="80" cy="175" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <!-- Hidden 1 -->
+                        <circle cx="220" cy="30" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="220" cy="75" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="220" cy="120" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="220" cy="165" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <!-- Hidden 2 -->
+                        <circle cx="380" cy="30" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="380" cy="75" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="380" cy="120" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <circle cx="380" cy="165" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                        <!-- Output -->
+                        <circle cx="520" cy="75" r="12" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="2.5"/>
+                        <circle cx="520" cy="145" r="12" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="2.5"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="highlight-box step" data-slide="7" data-step="3" style="font-size: clamp(0.75rem, 1.2vw, 1rem);">
+                GPT-3 (2020): 175 miliardi di parametri¹ · Llama 4 Maverick (2025): 400B totali, 17B attivi² · Behemoth: ~2 trilioni²
+            </div>
+        </div>
+        <div class="footnote">¹ OpenAI, 2020 &nbsp; ² Meta AI Blog, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.8 — BACKPROPAGATION ★★★ HERO + LOOP
+         =========================================== -->
+    <section class="slide" id="bp-slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="loop-indicator" id="bp-loop-indicator">⟳ IN LOOP</div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="8" data-step="0">★ COME IMPARA</div>
+            <div class="section-header step" data-slide="8" data-step="0">
+                <div class="section-number">⑦</div>
+                <h2>Backpropagation</h2>
+            </div>
+            <p class="sub-heading step" data-slide="8" data-step="0">Come il modello si corregge</p>
+
+            <!-- BP Network -->
+            <div class="nn-container" id="bp-network">
+                <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Input label -->
+                    <g>
+                        <rect x="2" y="72" width="48" height="56" rx="6" fill="rgba(26,26,78,0.06)" stroke="#1a1a4e" stroke-width="1.2"/>
+                        <text x="26" y="92" text-anchor="middle" font-family="Darker Grotesque" font-size="14">🖼️🐕</text>
+                        <text x="26" y="118" text-anchor="middle" font-family="Darker Grotesque" font-size="9" fill="#555566" font-weight="600">Foto cane</text>
+                    </g>
+                    <!-- Output label -->
+                    <g id="bp-output-label">
+                        <rect x="575" y="78" width="58" height="44" rx="6" fill="rgba(26,26,78,0.06)" stroke="#1a1a4e" stroke-width="1.2" id="bp-output-rect"/>
+                        <text x="604" y="96" text-anchor="middle" font-family="Darker Grotesque" font-size="16">🏷️</text>
+                        <text x="604" y="114" text-anchor="middle" font-family="Darker Grotesque" font-size="9" fill="#555566" font-weight="600" id="bp-output-text">Gatto?</text>
+                    </g>
+                    <!-- Arrow from input to first layer -->
+                    <line x1="52" y1="100" x2="68" y2="100" stroke="#1a1a4e" stroke-width="1.2" opacity="0.3" marker-end="none"/>
+                    <!-- Arrow from output node to label -->
+                    <line x1="530" y1="100" x2="573" y2="100" stroke="#1a1a4e" stroke-width="1.2" opacity="0.3"/>
+                    <!-- Connections -->
+                    <g id="bp-connections">
+                        <!-- L0→L1 -->
+                        <line class="bp-line" x1="95" y1="50" x2="225" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="50" x2="225" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="50" x2="225" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="100" x2="225" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="100" x2="225" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="100" x2="225" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="150" x2="225" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="150" x2="225" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="95" y1="150" x2="225" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <!-- L1→L2 -->
+                        <line class="bp-line" x1="245" y1="35" x2="385" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="35" x2="385" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="35" x2="385" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="100" x2="385" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="100" x2="385" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="100" x2="385" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="165" x2="385" y2="35" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="165" x2="385" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="245" y1="165" x2="385" y2="165" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <!-- L2→Output -->
+                        <line class="bp-line" x1="405" y1="35" x2="505" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="405" y1="100" x2="505" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                        <line class="bp-line" x1="405" y1="165" x2="505" y2="100" stroke="#1a1a4e" stroke-width="1.5" opacity="0.2"/>
+                    </g>
+                    <!-- Nodes -->
+                    <circle cx="95" cy="50" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="95" cy="100" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="95" cy="150" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="235" cy="35" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="235" cy="100" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="235" cy="165" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="395" cy="35" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="395" cy="100" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="395" cy="165" r="12" fill="white" stroke="#1a1a4e" stroke-width="2"/>
+                    <circle cx="515" cy="100" r="14" fill="white" stroke="#1a1a4e" stroke-width="2" id="bp-output-node"/>
+                </svg>
+            </div>
+
+            <!-- Step-revealed result area -->
+            <div class="bp-result-row step" data-slide="8" data-step="1" id="bp-step1">
+                <span style="font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--forward-blue);">Forward pass →</span>
+                <span class="bp-output-box prediction" style="background: rgba(59,130,246,0.12); color: var(--forward-blue);">Previsione: "Gatto"</span>
+            </div>
+            <div class="bp-result-row step" data-slide="8" data-step="2" id="bp-step2">
+                <span class="bp-output-box correct" style="background: rgba(239,68,68,0.12); color: var(--backward-red);">Corretto: "Cane"</span>
+                <div class="error-bar-container"><div class="error-bar high" id="bp-error-bar"></div></div>
+                <span class="error-label" style="color: var(--backward-red);">Errore: alto!</span>
+            </div>
+            <div class="bp-result-row step" data-slide="8" data-step="3" id="bp-step3">
+                <span style="font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--backward-red);">← Backward pass: errore si propaga indietro</span>
+            </div>
+            <div class="step" data-slide="8" data-step="4" id="bp-step4">
+                <div class="bp-result-row">
+                    <span style="font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--adjusted-green);">✓ Pesi aggiustati</span>
+                    <div class="error-bar-container"><div class="error-bar low"></div></div>
+                    <span class="error-label" style="color: var(--adjusted-green);">Errore: basso</span>
+                </div>
+                <div class="highlight-box" style="margin-top: clamp(0.2rem, 0.5vw, 0.4rem); font-style: italic; font-weight: 500;">
+                    Come accordare una chitarra: suoni, senti che è stonata, giri la chiave. Ripeti. Ora immagina 400 miliardi di chiavi.
+                </div>
+            </div>
+        </div>
+        <div class="footnote">Backpropagation: metodo standard dal 1986, ancora in uso nel 2026¹<br>¹ NoProp (arXiv, 2025) — alternative in ricerca, nessuna in produzione</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2.9 — TAKEAWAY
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 15%; right: 8%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="9" data-step="0">★ TAKEAWAY</div>
+            <h2 class="step" data-slide="9" data-step="0" style="font-size: var(--title-size);">Il modello non "capisce"</h2>
+            <p class="sub-heading step" data-slide="9" data-step="0">Aggiusta pesi per minimizzare l'errore sugli esempi di training</p>
+            <ul class="bullet-list">
+                <li class="step" data-slide="9" data-step="1"><strong>Self-supervised</strong> — Gli LLM imparano prevedendo il prossimo token¹. Il testo di Internet si etichetta da solo → scala infinita.</li>
+                <li class="step" data-slide="9" data-step="2"><strong>Più pesi = più capace</strong> — Da 175 miliardi (GPT-3, 2020)² a 2 trilioni (Llama 4 Behemoth, 2025)³. Ma capace ≠ affidabile.</li>
+                <li class="step" data-slide="9" data-step="3"><strong>Ottimizzazione, non comprensione</strong> — Il modello minimizza errori statistici. Non "sa" nel senso umano del termine.</li>
+            </ul>
+            <div class="highlight-box step" data-slide="9" data-step="3" style="display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem);">
+                <span>Ricordate la slide 0.3: probabilistico, non deterministico. Ora sapete il perché.</span>
+                <img src="../../images/stars/lampadina.png" alt="" style="height: clamp(40px, 6vw, 55px); opacity: 0.8; flex-shrink: 0;">
+            </div>
+        </div>
+        <div class="footnote">¹ IBM, 2025 &nbsp; ² OpenAI, 2020 &nbsp; ³ Meta AI Blog, 2025</div>
+    </section>
+
+
+    <!-- ===========================================
+         JAVASCRIPT
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.keyboardHint = document.querySelector('.keyboard-hint');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.currentSteps = new Array(this.totalSlides).fill(0);
+                this.maxSteps = this._computeMaxSteps();
+                this._hintVisible = true;
+
+                /* === Special slide indices === */
+                this.selfSupSlideIndex = 3;  // slide 2.3
+                this.weightsSlideIndex = 7;  // slide 2.7
+                this.bpSlideIndex = 8;       // slide 2.8
+
+                /* === Backprop loop state === */
+                this.bpLooping = false;
+                this.bpLoopTimer = null;
+                this.bpLoopPhase = 0;
+
+                this._bindEvents();
+                this._initSlide(0);
+            }
+
+            _computeMaxSteps() {
+                const m = [];
+                this.slides.forEach((slide) => {
+                    const steps = slide.querySelectorAll('.step');
+                    let max = 0;
+                    steps.forEach(el => { const s = parseInt(el.dataset.step, 10); if (s > max) max = s; });
+                    m.push(max);
+                });
+                return m;
+            }
+
+            _revealUpToStep(si, stepNum) {
+                const slide = this.slides[si];
+                slide.querySelectorAll('.step').forEach(el => {
+                    const s = parseInt(el.dataset.step, 10);
+                    el.classList.toggle('visible', s <= stepNum);
+                });
+
+                // Self-supervised slide: token masking animation
+                if (si === this.selfSupSlideIndex) this._updateTokenMask(stepNum);
+
+                // Weights slide: toggle random/trained state
+                if (si === this.weightsSlideIndex) this._updateWeights(stepNum);
+
+                // Backprop slide: update visual state
+                if (si === this.bpSlideIndex) this._updateBP(stepNum);
+            }
+
+            /* ===========================================
+               WEIGHTS ANIMATION (slide 2.7)
+               Step 1: network + random weights visible
+               Step 2: transition to trained weights
+               Step 3: data box
+               =========================================== */
+            _updateWeights(step) {
+                const label = document.getElementById('weight-state-label');
+                const lines = document.querySelectorAll('.wt-line');
+                if (step >= 1) {
+                    lines.forEach(l => l.style.opacity = '0.5');
+                }
+                if (step === 1) {
+                    label.textContent = 'Prima del training — pesi casuali';
+                    label.style.opacity = '1';
+                    lines.forEach(l => {
+                        l.style.strokeWidth = l.dataset.randomW + 'px';
+                        l.style.stroke = '#888';
+                        l.style.opacity = '0.4';
+                    });
+                } else if (step >= 2) {
+                    label.textContent = 'Dopo il training — pesi ottimizzati';
+                    label.style.opacity = '1';
+                    lines.forEach(l => {
+                        l.style.strokeWidth = l.dataset.trainedW + 'px';
+                        l.style.stroke = l.dataset.trainedC;
+                        l.style.opacity = parseFloat(l.dataset.trainedW) > 1.5 ? '0.85' : '0.25';
+                    });
+                }
+                if (step === 0) { label.style.opacity = '0'; }
+            }
+
+            /* ===========================================
+               TOKEN MASKING (slide 2.3)
+               Step 2: show masked token row
+               Step 3: reveal token + probability bars
+               =========================================== */
+            _updateTokenMask(step) {
+                const maskedToken = document.getElementById('masked-token');
+                if (!maskedToken) return;
+
+                if (step >= 3) {
+                    // Reveal the token
+                    maskedToken.textContent = 'divano';
+                    maskedToken.classList.remove('masked');
+                    maskedToken.classList.add('revealed');
+                } else {
+                    // Reset to masked state
+                    maskedToken.textContent = '[???]';
+                    maskedToken.classList.add('masked');
+                    maskedToken.classList.remove('revealed');
+                }
+            }
+
+            /* ===========================================
+               BACKPROPAGATION ANIMATION (slide 2.8)
+               Steps 1-4 controlled by click, then auto-loop
+               =========================================== */
+            _updateBP(step) {
+                const lines = document.querySelectorAll('.bp-line');
+                const outputNode = document.getElementById('bp-output-node');
+                const outputRect = document.getElementById('bp-output-rect');
+                const outputText = document.getElementById('bp-output-text');
+
+                // Reset colors and output text
+                lines.forEach(l => { l.style.stroke = '#1a1a4e'; l.style.opacity = '0.2'; l.style.strokeWidth = '1.5'; });
+                if (outputNode) { outputNode.style.stroke = '#1a1a4e'; outputNode.style.fill = 'white'; }
+                if (outputRect) { outputRect.style.stroke = '#1a1a4e'; outputRect.style.fill = 'rgba(26,26,78,0.06)'; }
+                if (outputText) { outputText.textContent = 'Gatto?'; }
+
+                if (step >= 1) {
+                    // Forward pass: BLUE connections
+                    lines.forEach(l => { l.style.stroke = '#3b82f6'; l.style.opacity = '0.5'; });
+                    if (outputNode) { outputNode.style.stroke = '#3b82f6'; outputNode.style.fill = 'rgba(59,130,246,0.15)'; }
+                    if (outputRect) { outputRect.style.stroke = '#3b82f6'; outputRect.style.fill = 'rgba(59,130,246,0.08)'; }
+                    if (outputText) { outputText.textContent = 'Gatto?'; }
+                }
+                if (step >= 2) {
+                    // Error: output turns red
+                    if (outputNode) { outputNode.style.stroke = '#ef4444'; outputNode.style.fill = 'rgba(239,68,68,0.1)'; }
+                    if (outputRect) { outputRect.style.stroke = '#ef4444'; outputRect.style.fill = 'rgba(239,68,68,0.08)'; }
+                }
+                if (step >= 3) {
+                    // Backward pass: RED connections
+                    lines.forEach(l => { l.style.stroke = '#ef4444'; l.style.opacity = '0.6'; });
+                }
+                if (step >= 4) {
+                    // Adjusted: green strong, gray weak — correct prediction!
+                    lines.forEach((l, i) => {
+                        if (i % 3 === 0) { l.style.stroke = '#22c55e'; l.style.strokeWidth = '3'; l.style.opacity = '0.8'; }
+                        else if (i % 3 === 1) { l.style.stroke = '#d1d5db'; l.style.strokeWidth = '0.8'; l.style.opacity = '0.3'; }
+                        else { l.style.stroke = '#22c55e'; l.style.strokeWidth = '2'; l.style.opacity = '0.6'; }
+                    });
+                    if (outputNode) { outputNode.style.stroke = '#22c55e'; outputNode.style.fill = 'rgba(34,197,94,0.1)'; }
+                    if (outputRect) { outputRect.style.stroke = '#22c55e'; outputRect.style.fill = 'rgba(34,197,94,0.08)'; }
+                    if (outputText) { outputText.textContent = 'Cane ✓'; }
+                }
+            }
+
+            /* Backprop loop: cycles through visual phases automatically */
+            _startBPLoop() {
+                if (this.bpLooping) return;
+                this.bpLooping = true;
+                this.bpLoopPhase = 0;
+                document.getElementById('bp-loop-indicator').classList.add('active');
+                this._tickBPLoop();
+            }
+
+            _tickBPLoop() {
+                if (!this.bpLooping) return;
+                const lines = document.querySelectorAll('.bp-line');
+                const outputNode = document.getElementById('bp-output-node');
+                const outputRect = document.getElementById('bp-output-rect');
+                const outputText = document.getElementById('bp-output-text');
+                const errorBar = document.getElementById('bp-error-bar');
+                const phase = this.bpLoopPhase % 4;
+
+                if (phase === 0) {
+                    // Forward: BLUE — wrong prediction
+                    lines.forEach(l => { l.style.stroke = '#3b82f6'; l.style.opacity = '0.5'; l.style.strokeWidth = '1.5'; });
+                    if (outputNode) { outputNode.style.stroke = '#3b82f6'; outputNode.style.fill = 'rgba(59,130,246,0.15)'; }
+                    if (outputRect) { outputRect.style.stroke = '#3b82f6'; outputRect.style.fill = 'rgba(59,130,246,0.08)'; }
+                    if (outputText) { outputText.textContent = 'Gatto?'; }
+                    if (errorBar) { errorBar.className = 'error-bar high'; }
+                } else if (phase === 1) {
+                    // Error comparison: RED
+                    if (outputNode) { outputNode.style.stroke = '#ef4444'; outputNode.style.fill = 'rgba(239,68,68,0.1)'; }
+                    if (outputRect) { outputRect.style.stroke = '#ef4444'; outputRect.style.fill = 'rgba(239,68,68,0.08)'; }
+                } else if (phase === 2) {
+                    // Backward: RED connections
+                    lines.forEach(l => { l.style.stroke = '#ef4444'; l.style.opacity = '0.6'; l.style.strokeWidth = '1.5'; });
+                } else if (phase === 3) {
+                    // Adjusted: GREEN strong, gray weak — correct prediction!
+                    lines.forEach((l, i) => {
+                        if (i % 3 === 0) { l.style.stroke = '#22c55e'; l.style.strokeWidth = '3'; l.style.opacity = '0.8'; }
+                        else if (i % 3 === 1) { l.style.stroke = '#d1d5db'; l.style.strokeWidth = '0.8'; l.style.opacity = '0.3'; }
+                        else { l.style.stroke = '#22c55e'; l.style.strokeWidth = '2'; l.style.opacity = '0.6'; }
+                    });
+                    if (outputNode) { outputNode.style.stroke = '#22c55e'; outputNode.style.fill = 'rgba(34,197,94,0.1)'; }
+                    if (outputRect) { outputRect.style.stroke = '#22c55e'; outputRect.style.fill = 'rgba(34,197,94,0.08)'; }
+                    if (outputText) { outputText.textContent = 'Cane ✓'; }
+                    if (errorBar) { errorBar.className = 'error-bar low'; }
+                }
+
+                this.bpLoopPhase++;
+                this.bpLoopTimer = setTimeout(() => this._tickBPLoop(), 1200);
+            }
+
+            _stopBPLoop() {
+                this.bpLooping = false;
+                if (this.bpLoopTimer) { clearTimeout(this.bpLoopTimer); this.bpLoopTimer = null; }
+                document.getElementById('bp-loop-indicator').classList.remove('active');
+                // Restore to step 4 static state
+                this._updateBP(4);
+            }
+
+            _initSlide(index) {
+                this.currentSteps[index] = 0;
+                this._revealUpToStep(index, 0);
+                this._updateNavDots();
+                // Stop BP loop if leaving that slide
+                if (index !== this.bpSlideIndex && this.bpLooping) this._stopBPLoop();
+            }
+
+            advance() {
+                this._hideHint();
+                const cs = this.currentSteps[this.currentSlide];
+                const ms = this.maxSteps[this.currentSlide];
+
+                if (cs < ms) {
+                    this.currentSteps[this.currentSlide]++;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                    // Start BP loop after reaching final step
+                    if (this.currentSlide === this.bpSlideIndex && this.currentSteps[this.currentSlide] === ms) {
+                        setTimeout(() => this._startBPLoop(), 800);
+                    }
+                } else {
+                    // If BP is looping, first click past final step goes to next slide
+                    if (this.currentSlide === this.bpSlideIndex && this.bpLooping) {
+                        this._stopBPLoop();
+                    }
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            goBack() {
+                this._hideHint();
+
+                // If BP loop active, first back press just stops the loop
+                if (this.currentSlide === this.bpSlideIndex && this.bpLooping) {
+                    this._stopBPLoop();
+                    return;
+                }
+
+                const cs = this.currentSteps[this.currentSlide];
+                if (cs > 0) {
+                    this.currentSteps[this.currentSlide]--;
+                    this._revealUpToStep(this.currentSlide, this.currentSteps[this.currentSlide]);
+                } else if (this.currentSlide > 0) {
+                    const prev = this.currentSlide - 1;
+                    this.currentSteps[prev] = this.maxSteps[prev];
+                    this._revealUpToStep(prev, this.currentSteps[prev]);
+                    this._scrollToSlide(prev);
+                    this.currentSlide = prev;
+                    this._updateNavDots();
+                } else if (window.parent !== window) {
+                    window.parent.postMessage({ type: 'prev-block' }, '*');
+                }
+            }
+
+            goToSlide(index) {
+                if (index >= this.totalSlides) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'next-block' }, '*');
+                    return;
+                }
+                if (index < 0) {
+                    if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
+                    return;
+                }
+                if (this.bpLooping) this._stopBPLoop();
+                this.currentSlide = index;
+                this._initSlide(index);
+                this._scrollToSlide(index);
+            }
+
+            _scrollToSlide(i) { this.slides[i].scrollIntoView({ behavior: 'smooth' }); }
+            _updateNavDots() { this.navDots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide)); }
+            _hideHint() { if (this._hintVisible && this.keyboardHint) { this.keyboardHint.style.opacity = '0'; this._hintVisible = false; } }
+
+            _bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight': case 'ArrowDown': case ' ': case 'Enter': case 'PageDown':
+                            e.preventDefault(); this.advance(); break;
+                        case 'ArrowLeft': case 'ArrowUp': case 'Backspace': case 'PageUp':
+                            e.preventDefault(); this.goBack(); break;
+                    }
+                });
+                document.addEventListener('click', (e) => { if (!e.target.closest('.nav-dots')) this.advance(); });
+                this.navDots.forEach(d => d.addEventListener('click', (e) => { e.stopPropagation(); this.goToSlide(parseInt(d.dataset.slide, 10)); }));
+                let ty = 0;
+                document.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => { const d = ty - e.changedTouches[0].clientY; if (Math.abs(d) > 50) d > 0 ? this.advance() : this.goBack(); }, { passive: true });
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const idx = Array.from(this.slides).indexOf(entry.target);
+                            if (idx !== -1 && idx !== this.currentSlide) {
+                                if (this.bpLooping) this._stopBPLoop();
+                                this.currentSlide = idx;
+                                if (this.currentSteps[idx] === 0) this._revealUpToStep(idx, 0);
+                                this._updateNavDots();
+                            }
+                        }
+                    });
+                }, { threshold: 0.6 });
+                this.slides.forEach(s => obs.observe(s));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { window._pres = new SlidePresentation(); });
+
+        if (window.parent !== window) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'escape' }, '*'); }
+                else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); e.stopPropagation(); window.parent.postMessage({ type: 'fullscreen' }, '*'); }
+            }, true);
+            window.addEventListener('message', (msg) => {
+                if (!msg.data || !window._pres) return;
+                if (msg.data.type === 'presenter-advance') { window._pres.advance(); return; }
+                if (msg.data.type === 'presenter-goback') { window._pres.goBack(); return; }
+                if (msg.data.type === 'go-to-end') {
+                    const p = window._pres, last = p.totalSlides - 1;
+                    p.currentSlide = last; p.currentSteps[last] = p.maxSteps[last];
+                    p._revealUpToStep(last, p.maxSteps[last]); p._scrollToSlide(last); p._updateNavDots();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
