@@ -1,7 +1,7 @@
 # Blocco 6 — Reasoning, Benchmark e Modelli (~30 min)
 
 ## Obiettivo del blocco
-Far capire ai partecipanti cosa sono i reasoning models, come si differenziano dagli LLM standard, quando ha senso usarli e quando no, e introdurre il pattern di routing come concetto di design. In aggiunta, dare al team gli strumenti per valutare criticamente i benchmark e le classifiche dei modelli, capire la differenza tra modelli open e closed weights, e saper rispondere alla domanda "quale modello è meglio per noi?". Il blocco chiude il cerchio sui modelli prima di passare alla safety (Blocco 6B) e poi agli agenti (Blocco 7).
+Far capire ai partecipanti cosa sono i reasoning models, come si differenziano dagli LLM standard, quando ha senso usarli e quando no, e introdurre il pattern di routing come concetto di design. In aggiunta, dare al team gli strumenti per valutare criticamente i benchmark e le classifiche dei modelli, capire la differenza tra modelli open e closed weights, e saper rispondere alla domanda "quale modello è meglio per noi?". Il blocco chiude il cerchio sui modelli prima di passare alla safety (Blocco 7) e poi agli agenti (Blocco 8).
 
 ---
 

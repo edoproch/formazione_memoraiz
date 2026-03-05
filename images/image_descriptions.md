@@ -64,7 +64,7 @@ Tutte le stelline sono la mascotte MemorAIz: una stella giallo-oro a 6 punte con
 
 | File | Descrizione | Mood/Uso suggerito |
 |------|-------------|-------------------|
-| `dubbioso:pensieroso.png` | Stellina con espressione dubbiosa/perplessa e punto interrogativo | Dubbi, incertezze, "dove si sbaglia più spesso", allucinazioni, limiti |
+| `dubbioso-pensieroso.png` | Stellina con espressione dubbiosa/perplessa e punto interrogativo | Dubbi, incertezze, "dove si sbaglia più spesso", allucinazioni, limiti |
 | `molto confuso.png` | Stellina con occhi rotondi spalancati e punto interrogativo, visibilmente confusa | Confusione, errori comuni, malintesi, "cosa non fare" |
 | `controllo.png` | Stellina che guarda attraverso una grande lente d'ingrandimento | Verifica, ispezione, controllo qualità, observability, audit |
 

@@ -38,9 +38,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
 
             /* Spacing */
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
@@ -222,7 +222,7 @@
             bottom: clamp(0.8rem, 2vw, 1.5rem);
             right: clamp(1.5rem, 3vw, 3rem);
             font-family: var(--font-body);
-            font-size: clamp(0.5rem, 0.7vw, 0.65rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             color: var(--text-secondary);
             opacity: 0.55;
             font-weight: 400;
@@ -304,7 +304,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             color: var(--text-secondary);
             opacity: 0.4;
             z-index: 100;
@@ -398,7 +398,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 1vw, 0.8rem);
+            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
             font-weight: 700;
             color: #fff;
             z-index: 2;
@@ -406,7 +406,7 @@
 
         .timeline-date {
             font-family: var(--font-display);
-            font-size: clamp(0.7rem, 1.2vw, 1rem);
+            font-size: clamp(0.85rem, 1.45vw, 1.2rem);
             text-transform: uppercase;
             color: var(--text-primary);
             letter-spacing: 0.02em;
@@ -414,7 +414,7 @@
 
         .timeline-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.85rem, 1.35vw, 1.15rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.35;
@@ -499,7 +499,7 @@
         /* Labels on circles */
         .circle-label {
             font-family: var(--font-display);
-            font-size: clamp(0.7rem, 1.2vw, 1rem);
+            font-size: clamp(0.85rem, 1.45vw, 1.2rem);
             text-transform: uppercase;
             color: rgba(26, 26, 78, 0.3);
             letter-spacing: 0.05em;
@@ -548,7 +548,7 @@
 
         .circle-def-full {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             color: var(--text-secondary);
             font-weight: 500;
             margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
@@ -603,7 +603,7 @@
 
         .analogy-value {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.2vw, 1rem);
+            font-size: clamp(0.9rem, 1.45vw, 1.2rem);
             color: var(--accent-gold);
             font-weight: 700;
         }
@@ -680,7 +680,7 @@
             :root {
                 --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem);
                 --title-size: clamp(1.1rem, 4vw, 2rem);
-                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+                --body-size: clamp(0.95rem, 1.55vw, 1.3rem);
             }
             .nav-dots, .keyboard-hint { display: none; }
             .mascot { display: none; }
@@ -691,7 +691,7 @@
             :root {
                 --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem);
                 --title-size: clamp(1rem, 3.5vw, 1.5rem);
-                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+                --body-size: clamp(0.9rem, 1.35vw, 1.15rem);
             }
             .starburst, .sparkle { display: none; }
         }
@@ -780,7 +780,6 @@
         <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
         <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
         <button class="nav-dot" data-slide="4" aria-label="Slide 5"></button>
-        <button class="nav-dot" data-slide="5" aria-label="Slide 6"></button>
     </nav>
 
     <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
@@ -822,20 +821,20 @@
                     <div class="timeline-marker">1</div>
                 </div>
 
-                <!-- Item 2: right -->
+                <!-- Item 2: right — AI Winter -->
                 <div class="timeline-item right step from-right" data-slide="1" data-step="2">
                     <div class="timeline-marker">2</div>
                     <div class="timeline-text">
-                        <div class="timeline-date">1974–1987</div>
-                        <div class="timeline-desc">AI Winter²³: i fondi si prosciugano. Revival con i sistemi esperti⁴</div>
+                        <div class="timeline-date">1974–1980</div>
+                        <div class="timeline-desc">AI Winter²³: fondi si prosciugano dopo il Lighthill Report. Le aspettative irrealistiche si scontrano con i limiti dell'hardware e degli algoritmi</div>
                     </div>
                 </div>
 
-                <!-- Item 3: left -->
+                <!-- Item 3: left — Expert Systems -->
                 <div class="timeline-item left step from-left" data-slide="1" data-step="3">
                     <div class="timeline-text">
-                        <div class="timeline-date">1990s–2000s</div>
-                        <div class="timeline-desc">ML statistico. Deep Blue batte Kasparov⁵ (1997)</div>
+                        <div class="timeline-date">1980–1987</div>
+                        <div class="timeline-desc">Expert Systems boom⁴: revival breve con sistemi basati su regole (MYCIN, XCON). L'industria investe miliardi, ma i sistemi si rivelano fragili e costosi da mantenere</div>
                     </div>
                     <div class="timeline-marker">3</div>
                 </div>
@@ -844,16 +843,16 @@
                 <div class="timeline-item right step from-right" data-slide="1" data-step="4">
                     <div class="timeline-marker">4</div>
                     <div class="timeline-text">
-                        <div class="timeline-date">2012</div>
-                        <div class="timeline-desc">AlexNet⁶ vince ImageNet. Deep Learning su larga scala con GPU</div>
+                        <div class="timeline-date">1990s–2000s</div>
+                        <div class="timeline-desc">ML statistico. Deep Blue batte Kasparov⁵ (1997)</div>
                     </div>
                 </div>
 
                 <!-- Item 5: left -->
                 <div class="timeline-item left step from-left" data-slide="1" data-step="5">
                     <div class="timeline-text">
-                        <div class="timeline-date">2017</div>
-                        <div class="timeline-desc">"Attention Is All You Need"⁷ — nasce il Transformer</div>
+                        <div class="timeline-date">2012</div>
+                        <div class="timeline-desc">AlexNet⁶ vince ImageNet. Deep Learning su larga scala con GPU</div>
                     </div>
                     <div class="timeline-marker">5</div>
                 </div>
@@ -862,9 +861,18 @@
                 <div class="timeline-item right step from-right" data-slide="1" data-step="6">
                     <div class="timeline-marker">6</div>
                     <div class="timeline-text">
+                        <div class="timeline-date">2017</div>
+                        <div class="timeline-desc">"Attention Is All You Need"⁷ — nasce il Transformer</div>
+                    </div>
+                </div>
+
+                <!-- Item 7: left -->
+                <div class="timeline-item left step from-left" data-slide="1" data-step="7">
+                    <div class="timeline-text">
                         <div class="timeline-date">2020–oggi</div>
                         <div class="timeline-desc">GPT-3⁸, ChatGPT⁹, Claude¹⁰, Gemini¹¹. Esplosione consumer</div>
                     </div>
+                    <div class="timeline-marker">7</div>
                 </div>
             </div>
         </div>
@@ -936,62 +944,21 @@
     </section>
 
     <!-- ===========================================
-         SLIDE 1.3 — ANALOGIA VEICOLI
-         =========================================== -->
-    <section class="slide" style="background: var(--slide-bg-default);">
-        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
-        <div class="starburst" style="bottom: 8%; right: 2%; opacity: 0.06;"></div>
-
-        <div class="slide-content">
-            <div class="section-label step" data-slide="3" data-step="0">★ ANALOGIA</div>
-            <h2 class="step" data-slide="3" data-step="0">Pensatela così</h2>
-
-            <div class="analogy-grid">
-                <div class="analogy-col step" data-slide="3" data-step="1">
-                    <div class="analogy-icon">🚗</div>
-                    <div class="analogy-level">AI</div>
-                    <div class="analogy-value">Veicoli</div>
-                    <div class="analogy-arrow">→</div>
-                </div>
-                <div class="analogy-col step" data-slide="3" data-step="2">
-                    <div class="analogy-icon">🏎️</div>
-                    <div class="analogy-level">ML</div>
-                    <div class="analogy-value">Veicoli a motore</div>
-                    <div class="analogy-arrow">→</div>
-                </div>
-                <div class="analogy-col step" data-slide="3" data-step="3">
-                    <div class="analogy-icon">🚘</div>
-                    <div class="analogy-level">DL</div>
-                    <div class="analogy-value">Automobili</div>
-                    <div class="analogy-arrow">→</div>
-                </div>
-                <div class="analogy-col step" data-slide="3" data-step="4">
-                    <div class="analogy-icon">⚡</div>
-                    <div class="analogy-level">LLM</div>
-                    <div class="analogy-value">Tesla Model S</div>
-                </div>
-            </div>
-
-            <p class="analogy-summary step" data-slide="3" data-step="4">Ogni livello è più specifico del precedente</p>
-        </div>
-    </section>
-
-    <!-- ===========================================
-         SLIDE 1.4 — TRAINING VS INFERENCE
+         SLIDE 1.3 — TRAINING VS INFERENCE
          =========================================== -->
     <section class="slide" style="background: var(--slide-bg-blue);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content">
-            <div class="section-label step" data-slide="4" data-step="0">★ CONCETTO PONTE</div>
-            <div class="section-header step" data-slide="4" data-step="0">
+            <div class="section-label step" data-slide="3" data-step="0">★ CONCETTO PONTE</div>
+            <div class="section-header step" data-slide="3" data-step="0">
                 <div class="section-number">②</div>
                 <h2>Training vs Inference</h2>
             </div>
 
             <div class="split-layout">
                 <!-- Training column -->
-                <div class="split-col step" data-slide="4" data-step="1">
+                <div class="split-col step" data-slide="3" data-step="1">
                     <div class="split-col-icon">⚙️</div>
                     <h3>Training</h3>
                     <p>La fase in cui il modello impara</p>
@@ -1001,7 +968,7 @@
                 </div>
 
                 <!-- Inference column -->
-                <div class="split-col step" data-slide="4" data-step="2">
+                <div class="split-col step" data-slide="3" data-step="2">
                     <div class="split-col-icon">⚡</div>
                     <h3>Inference</h3>
                     <p>La fase in cui il modello risponde</p>
@@ -1011,7 +978,7 @@
                 </div>
             </div>
 
-            <div class="highlight-box step" data-slide="4" data-step="3">
+            <div class="highlight-box step" data-slide="3" data-step="3">
                 Quando chattate con un LLM, non lo state insegnando. Il modello non impara dalla vostra conversazione.
             </div>
         </div>
@@ -1027,23 +994,23 @@
         <div class="sparkle" style="top: 18%; right: 10%;"></div>
 
         <div class="slide-content">
-            <div class="section-label step" data-slide="5" data-step="0">★ LLM</div>
-            <div class="section-header step" data-slide="5" data-step="0">
+            <div class="section-label step" data-slide="4" data-step="0">★ LLM</div>
+            <div class="section-header step" data-slide="4" data-step="0">
                 <div class="section-number">③</div>
                 <h2>Cosa rende gli LLM "diversi"</h2>
             </div>
 
             <ul class="bullet-list">
-                <li class="step" data-slide="5" data-step="1">
+                <li class="step" data-slide="4" data-step="1">
                     <strong>Scala</strong> — Trilioni di token di dati¹, centinaia di miliardi di parametri²
                 </li>
-                <li class="step" data-slide="5" data-step="2">
+                <li class="step" data-slide="4" data-step="2">
                     <strong>Architettura</strong> — Il Transformer³ con il meccanismo di attenzione (lo vedremo nel Blocco 3)
                 </li>
-                <li class="step" data-slide="5" data-step="3">
+                <li class="step" data-slide="4" data-step="3">
                     <strong>Obiettivo semplice ma potente</strong> — Predire il prossimo token (lo vedremo nel Blocco 3)
                 </li>
-                <li class="step" data-slide="5" data-step="4">
+                <li class="step" data-slide="4" data-step="4">
                     <strong>Emergenza di abilità</strong> — Capacità che emergono con la scala⁴ (ragionamento, traduzione, coding) ma senza garanzia di verità
                 </li>
             </ul>

@@ -40,9 +40,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
 
             /* Spacing */
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
@@ -270,7 +270,7 @@
             bottom: clamp(0.8rem, 2vw, 1.5rem);
             right: clamp(1.5rem, 3vw, 3rem);
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             color: var(--text-secondary);
             opacity: 0.6;
             font-weight: 400;
@@ -351,7 +351,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             color: var(--text-secondary);
             opacity: 0.4;
             z-index: 100;
@@ -400,7 +400,7 @@
             :root {
                 --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem);
                 --title-size: clamp(1.1rem, 4vw, 2rem);
-                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+                --body-size: clamp(0.95rem, 1.55vw, 1.3rem);
             }
 
             .nav-dots, .keyboard-hint {
@@ -417,7 +417,7 @@
             :root {
                 --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem);
                 --title-size: clamp(1rem, 3.5vw, 1.5rem);
-                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+                --body-size: clamp(0.9rem, 1.35vw, 1.15rem);
             }
 
             .starburst, .sparkle {
@@ -504,7 +504,6 @@
         <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
         <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
         <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
-        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
     </nav>
 
     <!-- Keyboard hint -->
@@ -523,7 +522,7 @@
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo-cover">
 
         <h1>Capire l'AI — Dal funzionamento alla pratica</h1>
-        <span class="subtitle-pill">Formazione interna per il team UX/UI e Comunicazione</span>
+        <span class="subtitle-pill">Formazione interna</span>
         <div class="date">Marzo 2026 · ~3–4 ore</div>
 
         <!-- Mascot: indica.png -->
@@ -557,6 +556,12 @@
                 </li>
                 <li class="step" data-slide="1" data-step="3">
                     <strong>Capacità pratica</strong> — Scrivere richieste efficaci, valutare risposte, capire cosa vendere ai clienti
+                </li>
+                <li class="step" data-slide="1" data-step="4">
+                    <strong>Usare al meglio gli strumenti AI</strong> — Sfruttare appieno le potenzialità degli strumenti a disposizione nel lavoro quotidiano
+                </li>
+                <li class="step" data-slide="1" data-step="5">
+                    <strong>Progettare e comunicare per i nostri target</strong> — Creare soluzioni di design e comunicazione efficaci per i clienti MemorAIz
                 </li>
             </ul>
         </div>
@@ -594,47 +599,6 @@
                 Se portate a casa solo una cosa oggi, sia questa.
             </div>
         </div>
-    </section>
-
-    <!-- ===========================================
-         SLIDE 4 — LE QUATTRO CONFUSIONI
-         =========================================== -->
-    <section class="slide" style="background: var(--slide-bg-peach);">
-        <!-- Logo -->
-        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
-
-        <!-- Mascot: dubbioso/pensieroso -->
-        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot bottom-right">
-
-        <!-- Starburst decoration -->
-        <div class="starburst" style="top: 10%; right: 2%; opacity: 0.05;"></div>
-
-        <div class="slide-content">
-            <div class="section-label step" data-slide="3" data-step="0">★ ERRORI COMUNI</div>
-
-            <div class="section-header step" data-slide="3" data-step="0">
-                <div class="section-number">②</div>
-                <h2>Le quattro confusioni più frequenti</h2>
-            </div>
-
-            <ul class="bullet-list">
-                <li class="step" data-slide="3" data-step="1">
-                    <strong>Conoscenza vs Comportamento vs Accesso</strong> — Il modello "sa" cose (training), "si comporta" in un certo modo (fine-tuning), e "accede" a dati (tool/RAG). Sono tre cose diverse.
-                </li>
-                <li class="step" data-slide="3" data-step="2">
-                    <strong>"Ha funzionato una volta" ≠ "Funzionerà sempre"</strong> — L'output è probabilistico: la stessa domanda può dare risposte diverse.
-                </li>
-                <li class="step" data-slide="3" data-step="3">
-                    <strong>Chatbot ≠ Database di fatti</strong> — Non è un'enciclopedia verificata. È un generatore di testo plausibile.
-                </li>
-                <li class="step" data-slide="3" data-step="4">
-                    <strong>Psychofancy (compiacenza)</strong> — Il modello tende a confermare ciò che l'utente dice, anche quando è sbagliato<sup>1</sup>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Citation footnote -->
-        <div class="footnote">¹ Sharma et al., 2024</div>
     </section>
 
 

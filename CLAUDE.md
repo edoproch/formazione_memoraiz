@@ -176,7 +176,7 @@ images/
 - Il mood e il contesto d'uso suggerito per ciascuna
 - L'associazione semantica tra stellina e concetto formativo
 
-Scegliere la stellina il cui significato si collega al contenuto della slide (es. `lampadina.png` per un insight chiave, `connessione1.png` per MCP/integrazioni, `dubbioso:pensieroso.png` per errori comuni). **Non scegliere a caso.**
+Scegliere la stellina il cui significato si collega al contenuto della slide (es. `lampadina.png` per un insight chiave, `connessione1.png` per MCP/integrazioni, `dubbioso-pensieroso.png` per errori comuni). **Non scegliere a caso.**
 
 ### Logo MemorAIz
 - File: `images/logo.svg`
@@ -212,8 +212,9 @@ Scegliere la stellina il cui significato si collega al contenuto della slide (es
 │   ├── 04-context-engineering/
 │   ├── 05-embeddings-rag/
 │   ├── 06-reasoning-models/
-│   ├── 07-agenti/
-│   └── 08-checklist/
+│   ├── 07-safety-rischi/
+│   ├── 08-agenti/
+│   └── 09-checklist/
 └── references/                        ← fonti utilizzate per la verifica dei contenuti
     └── sources.md
 ```

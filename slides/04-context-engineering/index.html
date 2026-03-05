@@ -23,9 +23,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -65,19 +65,19 @@
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
         .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -103,12 +103,12 @@
         }
         .cw-limit-label {
             position: absolute; top: -18px; right: 0;
-            font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             color: var(--text-secondary); font-weight: 600; white-space: nowrap;
         }
         .cw-section {
             width: 100%; display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700; color: var(--text-primary); text-align: center;
             transition: height 0.5s var(--ease-out-expo); height: 0; overflow: hidden;
             padding: 0 4px; line-height: 1.2;
@@ -124,7 +124,7 @@
         .cw-data-chip {
             background: var(--highlight-bg); border-radius: 8px;
             padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem);
             font-weight: 600; line-height: 1.3;
         }
         .cw-data-chip .model-name { color: var(--accent-gold); font-weight: 700; }
@@ -141,7 +141,7 @@
         .evo-col.old { opacity: 0.6; }
         .evo-col.new { border-color: rgba(245, 166, 35, 0.3); background: rgba(245, 166, 35, 0.04); }
         .evo-col h3 { font-size: var(--h3-size); }
-        .evo-col p { font-family: var(--font-body); font-size: clamp(0.75rem, 1.2vw, 1rem); font-weight: 500; line-height: 1.4; color: var(--text-secondary); padding-left: 1em; position: relative; }
+        .evo-col p { font-family: var(--font-body); font-size: clamp(0.9rem, 1.45vw, 1.2rem); font-weight: 500; line-height: 1.4; color: var(--text-secondary); padding-left: 1em; position: relative; }
         .evo-col p::before { content: '–'; position: absolute; left: 0; color: var(--text-secondary); }
         .evo-col.new p { color: var(--text-primary); }
         .evo-col.new p::before { color: var(--accent-gold); content: '●'; font-size: 0.6em; top: 0.4em; }
@@ -152,7 +152,7 @@
         .quote-box {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.15);
             border-radius: 8px; padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1vw, 1rem);
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 500; font-style: italic; color: var(--text-primary); line-height: 1.4;
         }
         .quote-box .attribution { font-style: normal; font-weight: 700; color: var(--accent-gold); display: block; margin-top: 0.2em; font-size: 0.9em; }
@@ -170,21 +170,21 @@
             width: clamp(24px, 3vw, 32px); height: clamp(24px, 3vw, 32px);
             border: 2px solid var(--text-primary); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-body); font-size: clamp(0.65rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem);
             font-weight: 700; flex-shrink: 0;
         }
         .template-block .tb-icon { font-size: clamp(0.9rem, 1.5vw, 1.3rem); flex-shrink: 0; }
-        .template-block .tb-text { font-family: var(--font-body); font-size: clamp(0.75rem, 1.2vw, 1rem); font-weight: 500; line-height: 1.3; }
+        .template-block .tb-text { font-family: var(--font-body); font-size: clamp(0.9rem, 1.45vw, 1.2rem); font-weight: 500; line-height: 1.3; }
         .template-block .tb-text strong { font-weight: 800; }
 
         .golden-rule {
             background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2);
             border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 600; line-height: 1.4;
         }
         .costar-note {
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             color: var(--text-secondary); font-weight: 500; line-height: 1.3;
         }
 
@@ -194,7 +194,7 @@
         .note-box {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.15);
             border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; line-height: 1.4; color: var(--text-primary);
         }
         .note-box.warning { border-color: rgba(231, 76, 60, 0.2); background: rgba(231, 76, 60, 0.04); }
@@ -211,14 +211,14 @@
         .heatmap-bar { display: flex; width: 100%; max-width: 700px; height: clamp(40px, 6vh, 55px); border-radius: 8px; overflow: hidden; }
         .hm-zone {
             flex: 1; display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
             font-weight: 700; color: var(--text-primary); transition: background 0.6s var(--ease-out-expo);
             background: rgba(26, 26, 78, 0.08);
         }
         .heatmap-bar.active .hm-zone.start { background: rgba(245, 166, 35, 0.4); }
         .heatmap-bar.active .hm-zone.middle { background: rgba(26, 26, 78, 0.06); color: var(--text-secondary); opacity: 0.5; }
         .heatmap-bar.active .hm-zone.end { background: rgba(46, 204, 113, 0.35); }
-        .heatmap-label { font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem); font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+        .heatmap-label { font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); font-weight: 600; color: var(--text-primary); line-height: 1.3; }
 
         /* Context Rot curve */
         .rot-curve-container { width: 100%; max-width: 700px; height: min(18vh, 120px); position: relative; }
@@ -231,7 +231,7 @@
         .rot-curve-path.draw { stroke-dashoffset: 0; }
         .rot-axis-label { font-family: var(--font-body); font-size: 10px; fill: var(--text-secondary); font-weight: 500; }
         .rot-curve-label {
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 600; color: var(--text-secondary); margin-top: 2px;
         }
 
@@ -241,7 +241,7 @@
         }
         .mitigations-box ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
         .mitigations-box li {
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; padding-left: 1.2em; position: relative; line-height: 1.3;
         }
         .mitigations-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent-gold); }
@@ -256,25 +256,25 @@
             background: rgba(26, 26, 78, 0.03); border: 1px solid rgba(26, 26, 78, 0.08);
         }
         .split-col h3 { font-size: var(--h3-size); }
-        .split-col p { font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 500; line-height: 1.4; color: var(--text-secondary); }
+        .split-col p { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 500; line-height: 1.4; color: var(--text-secondary); }
         .injection-demo {
             background: rgba(231, 76, 60, 0.05); border: 1px solid rgba(231, 76, 60, 0.2);
             border-radius: 6px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.7vw, 0.6rem);
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 500; color: var(--text-primary); line-height: 1.3;
         }
         .injection-demo .malicious { color: #e74c3c; font-weight: 700; }
         .defense-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.2rem, 0.4vw, 0.35rem); }
         .defense-list li {
             padding-left: 1.3em; position: relative; font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 500; line-height: 1.4;
+            font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 500; line-height: 1.4;
         }
         .defense-list li::before { content: '🛡'; position: absolute; left: 0; font-size: 0.8em; }
 
         .owasp-box {
             background: rgba(231, 76, 60, 0.06); border: 1px solid rgba(231, 76, 60, 0.15);
             border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 600; color: var(--text-primary); line-height: 1.3;
         }
 
@@ -294,18 +294,18 @@
         .ws-code {
             background: rgba(26, 26, 78, 0.06); border-radius: 6px;
             padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.7vw, 0.6rem);
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 500; font-style: italic; line-height: 1.3;
         }
         .ws-label {
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
             color: var(--text-secondary); font-weight: 600;
         }
         .ws-arrow { display: flex; align-items: center; justify-content: center; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--accent-gold); }
         .ws-instructions {
             background: var(--highlight-bg); border-radius: 8px;
             padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 600;
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 600;
         }
 
         /* ===========================================
@@ -319,7 +319,7 @@
             width: clamp(26px, 3vw, 34px); height: clamp(26px, 3vw, 34px);
             border: 2px solid var(--accent-gold); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700; color: var(--accent-gold); flex-shrink: 0;
         }
         .summary-item .si-text { font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 500; line-height: 1.4; }
@@ -328,7 +328,7 @@
         .bridge-box {
             background: rgba(26, 26, 78, 0.04); border: 1px solid rgba(26, 26, 78, 0.1);
             border-radius: 8px; padding: clamp(0.4rem, 0.7vw, 0.6rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 600; color: var(--text-secondary);
         }
 
@@ -379,19 +379,19 @@
     <!-- ================================================
          SLIDE 4.0 — TITOLO DI SEZIONE
          ================================================ -->
-    <section class="slide" style="background: var(--slide-bg-lavender);" data-steps="3">
+    <section class="slide" style="background: var(--slide-bg-lavender);" data-steps="0">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
         <div class="starburst" style="bottom: 15%; right: 8%;"></div>
         <div class="sparkle" style="top: 20%; right: 25%;"></div>
 
         <div class="slide-content centered">
             <div class="section-label step" data-step="0">★ BLOCCO 4</div>
-            <h1 class="step" data-step="1">Context Engineering</h1>
-            <p class="sub-heading step" data-step="2">Dall'arte del prompt alla disciplina del contesto</p>
-            <p class="sub-note step" data-step="3">~40 minuti — la parte più pratica della formazione</p>
+            <h1 class="step" data-step="0">Context Engineering</h1>
+            <p class="sub-heading step" data-step="0">Dall'arte del prompt alla disciplina del contesto</p>
+            <p class="sub-note step" data-step="0">~40 minuti — la parte più pratica della formazione</p>
         </div>
 
-        <img src="../../images/stars/matita.png" alt="" class="mascot bottom-right step" data-step="2">
+        <img src="../../images/stars/matita.png" alt="" class="mascot bottom-right step" data-step="0">
     </section>
 
     <!-- ================================================
@@ -449,7 +449,7 @@
     <!-- ================================================
          SLIDE 4.2 — DA PROMPT A CONTEXT ENGINEERING
          ================================================ -->
-    <section class="slide" style="background: var(--slide-bg-lavender);" data-steps="4">
+    <section class="slide" style="background: var(--slide-bg-lavender);" data-steps="2">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
         <div class="sparkle" style="top: 15%; left: 10%;"></div>
 
@@ -459,15 +459,15 @@
             <p class="sub-heading step" data-step="0">Context Engineering = progettare tutto ciò che entra nella finestra¹</p>
 
             <div class="evolution-layout">
-                <div class="evo-col old step" data-step="1">
+                <div class="evo-col old step" data-step="0">
                     <h3>Prompt Engineering</h3>
                     <p>Cercare la "frase magica"</p>
                     <p>Focus sulla singola domanda</p>
                     <p>Approccio ad hoc, tentativo</p>
                     <p>Ottimizzazione per una volta</p>
                 </div>
-                <div class="evo-arrow step" data-step="2">→</div>
-                <div class="evo-col new step" data-step="2">
+                <div class="evo-arrow step" data-step="1">→</div>
+                <div class="evo-col new step" data-step="1">
                     <h3>Context Engineering</h3>
                     <p>Progettare l'intero ecosistema informativo</p>
                     <p>Focus su sistema, dati, strumenti, memoria</p>
@@ -476,20 +476,20 @@
                 </div>
             </div>
 
-            <div class="quote-box step" data-step="3">
+            <div class="quote-box step" data-step="2">
                 "Context engineering is the delicate art and science of filling the context window with just the right information for the next step."
                 <span class="attribution">— Andrej Karpathy, 2025²</span>
             </div>
         </div>
 
-        <img src="../../images/stars/lampadina.png" alt="" class="mascot bottom-right step" data-step="3" style="height: clamp(50px, 8vw, 90px);">
+        <img src="../../images/stars/lampadina.png" alt="" class="mascot bottom-right step" data-step="2" style="height: clamp(50px, 8vw, 90px);">
         <div class="footnote">¹ Anthropic, 2025 &nbsp; ² Andrej Karpathy, 2025</div>
     </section>
 
     <!-- ================================================
          SLIDE 4.3 — TEMPLATE 6 BLOCCHI (★★☆)
          ================================================ -->
-    <section class="slide" style="background: var(--slide-bg-default);" data-steps="7">
+    <section class="slide" style="background: var(--slide-bg-default);" data-steps="6">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content">
@@ -534,12 +534,9 @@
                 ⚡ <strong>Regola d'oro:</strong> separare le istruzioni (cosa fare) dalle fonti (su cosa basarsi). Mescolarle aumenta allucinazioni e fraintendimenti.
             </div>
 
-            <div class="costar-note step" data-step="7">
-                💡 Acronimo alternativo: <strong>CO-STAR</strong> (Context, Objective, Style, Tone, Audience, Response) — stessi concetti, formato più facile da ricordare¹
-            </div>
         </div>
 
-        <div class="footnote">¹ Sheila Teo / GovTech Singapore, 2023</div>
+        <div class="footnote"></div>
     </section>
 
     <!-- ================================================
@@ -627,7 +624,7 @@
             </div>
         </div>
 
-        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot bottom-right step" data-step="1" style="height: clamp(50px, 8vw, 85px);">
+        <img src="../../images/stars/dubbioso-pensieroso.png" alt="" class="mascot bottom-right step" data-step="1" style="height: clamp(50px, 8vw, 85px);">
         <div class="footnote">¹ Liu et al., TACL 2024 &nbsp; ² Chroma Research, 2025</div>
     </section>
 

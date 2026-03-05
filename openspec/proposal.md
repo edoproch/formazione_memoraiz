@@ -1,5 +1,7 @@
 # Change: Formazione AI Interna per Team Non-Tecnici
 
+**Status: ARCHIVED** — Completato il 2026-03-05. Tutti i 10 blocchi (0 Setup → 9 Checklist) realizzati, revisionati e approvati. Master deck operativo con 10/10 blocchi pronti, 45 slide totali.
+
 Questa proposal produce un deck di slide interattive (~65-86 slide, ~3-4 ore) per formare il team UX/UI e Comunicazione di MemorAIz sui fondamenti dell'AI e degli LLM.
 
 ## Why
@@ -44,7 +46,7 @@ See `design.md` for detailed decisions on format, tools, and pedagogical approac
 ## Impact
 
 - **Specs coinvolte**: `openspec/plan.md`, 9 file `blocco-*.md`
-- **Output**: 9 file HTML autonomi in `slides/00-setup/` ... `slides/08-checklist/`
+- **Output**: 10 file HTML autonomi in `slides/00-setup/` ... `slides/09-checklist/`
 - **Fonti**: 200+ URL tracciate in `references/sources.md`
 - **Durata stimata della formazione**: ~285 minuti (3-4 ore con pause)
 - **Pubblico diretto**: ~5-10 persone (team UX/UI + Comunicazione)

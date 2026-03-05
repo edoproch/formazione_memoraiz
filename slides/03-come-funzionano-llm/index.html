@@ -25,9 +25,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -67,13 +67,13 @@
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
         /* Sub-heading */
         .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
@@ -81,7 +81,7 @@
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
 
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -98,7 +98,7 @@
         .token-pieces { display: flex; flex-wrap: wrap; gap: clamp(3px, 0.4vw, 6px); justify-content: center; padding: clamp(0.4rem, 0.8vw, 0.6rem); }
         .tok { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: clamp(3px, 0.5vw, 6px) clamp(6px, 0.8vw, 12px); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.2rem); font-weight: 700; color: var(--text-primary); transition: all 0.4s var(--ease-out-expo); transform: scale(0.8); opacity: 0; }
         .tok.show { transform: scale(1); opacity: 1; }
-        .tok .tok-id { font-size: clamp(0.5rem, 0.7vw, 0.65rem); font-weight: 500; color: var(--text-secondary); opacity: 0; transition: opacity 0.3s; }
+        .tok .tok-id { font-size: clamp(0.8rem, 1.1vw, 0.95rem); font-weight: 500; color: var(--text-secondary); opacity: 0; transition: opacity 0.3s; }
         .tok .tok-id.show { opacity: 0.7; }
 
         /* Token colors from MemorAIz palette */
@@ -112,10 +112,10 @@
 
         /* Data boxes for tokenization */
         .data-row { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.8vw, 0.6rem); }
-        .data-chip { flex: 1; min-width: min(200px, 100%); background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; text-align: center; }
+        .data-chip { flex: 1; min-width: min(200px, 100%); background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; text-align: center; }
 
         /* Strawberry box */
-        .curiosity-box { background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.65rem, 1vw, 0.85rem); font-weight: 500; line-height: 1.4; }
+        .curiosity-box { background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 500; line-height: 1.4; }
 
         /* ===========================================
            NEXT-TOKEN PREDICTION (Slide 3.2)
@@ -132,8 +132,8 @@
         .ntp-bar-wrapper { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; max-width: 90px; height: 100%; }
         .ntp-bar { width: 100%; border-radius: 4px 4px 0 0; background: rgba(26, 26, 78, 0.15); transition: height 0.5s var(--ease-out-expo), background 0.5s; min-height: 4px; }
         .ntp-bar.selected { background: var(--accent-gold); }
-        .ntp-bar-label { font-family: var(--font-body); font-size: clamp(0.55rem, 0.85vw, 0.75rem); font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
-        .ntp-bar-pct { font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.6rem); font-weight: 500; color: var(--text-secondary); }
+        .ntp-bar-label { font-family: var(--font-body); font-size: clamp(0.7rem, 1.05vw, 0.9rem); font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
+        .ntp-bar-pct { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.9rem); font-weight: 500; color: var(--text-secondary); }
 
         /* ===========================================
            TEMPERATURE / SAMPLING (Slide 3.3)
@@ -142,11 +142,11 @@
         .temp-distribution { display: flex; align-items: flex-end; justify-content: center; gap: clamp(4px, 0.7vw, 10px); height: clamp(80px, 15vh, 150px); width: 100%; max-width: 600px; }
         .temp-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; height: 100%; }
         .temp-bar { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.35s var(--ease-out-expo), background 0.35s; min-height: 2px; }
-        .temp-bar-name { font-family: var(--font-body); font-size: clamp(0.5rem, 0.75vw, 0.65rem); font-weight: 600; color: var(--text-primary); text-align: center; }
-        .temp-bar-pct { font-family: var(--font-body); font-size: clamp(0.45rem, 0.65vw, 0.55rem); color: var(--text-secondary); }
+        .temp-bar-name { font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 0.95rem); font-weight: 600; color: var(--text-primary); text-align: center; }
+        .temp-bar-pct { font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.85rem); color: var(--text-secondary); }
 
         .temp-slider-row { display: flex; align-items: center; gap: clamp(0.4rem, 0.8vw, 0.6rem); width: 100%; max-width: 500px; }
-        .temp-slider-label { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.8rem); font-weight: 700; white-space: nowrap; }
+        .temp-slider-label { font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 700; white-space: nowrap; }
         .temp-slider-label.cold { color: #3b82f6; }
         .temp-slider-label.hot { color: #f59e0b; }
         .temp-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #f59e0b 100%); outline: none; cursor: pointer; }
@@ -156,7 +156,7 @@
         .temp-slider:disabled::-webkit-slider-thumb { cursor: not-allowed; }
 
         .temp-value { font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 800; color: var(--text-primary); text-align: center; }
-        .temp-description { font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 600; text-align: center; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.6rem, 1vw, 0.8rem); border-radius: 20px; transition: all 0.4s; }
+        .temp-description { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 600; text-align: center; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.6rem, 1vw, 0.8rem); border-radius: 20px; transition: all 0.4s; }
         .temp-boxes { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.6vw, 0.5rem); width: 100%; }
         .temp-boxes .highlight-box { flex: 1; min-width: min(250px, 100%); }
 
@@ -169,7 +169,7 @@
         .phase-col.model { max-width: 22%; display: flex; align-items: center; justify-content: center; }
         .phase-col.output { max-width: 28%; }
 
-        .phase-icon-row { display: flex; align-items: center; gap: clamp(0.2rem, 0.4vw, 0.3rem); font-family: var(--font-body); font-size: clamp(0.65rem, 1vw, 0.85rem); font-weight: 600; color: var(--text-primary); }
+        .phase-icon-row { display: flex; align-items: center; gap: clamp(0.2rem, 0.4vw, 0.3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 600; color: var(--text-primary); }
         .phase-icon-row .emoji { font-size: clamp(0.9rem, 1.5vw, 1.3rem); }
 
         .phase-arrow { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: clamp(30px, 4vw, 50px); }
@@ -193,7 +193,7 @@
             border: 3px solid var(--accent-gold); box-shadow: 0 0 20px rgba(245, 166, 35, 0.3); opacity: 1;
         }
 
-        .phase-output-bubble { background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem); font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.75rem); font-weight: 500; color: var(--text-secondary); line-height: 1.4; }
+        .phase-output-bubble { background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem); font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.9rem); font-weight: 500; color: var(--text-secondary); line-height: 1.4; }
         .phase-output-bubble.chaotic { font-style: italic; opacity: 0.7; }
         .phase-output-bubble.structured { border-left: 2px solid var(--accent-gold); }
         .phase-output-bubble.safe { border-left: 2px solid #4ade80; }
@@ -204,12 +204,12 @@
         .schema-flow { display: flex; align-items: stretch; gap: 0; width: 100%; }
         .schema-block { flex: 1; background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.4rem, 0.8vw, 0.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(0.15rem, 0.3vw, 0.25rem); }
         .schema-block .sb-icon { font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
-        .schema-block .sb-title { font-family: var(--font-display); font-size: clamp(0.7rem, 1.2vw, 1rem); text-transform: uppercase; color: var(--text-primary); }
-        .schema-block .sb-desc { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.78rem); font-weight: 600; color: var(--text-primary); }
-        .schema-block .sb-meta { font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); font-weight: 500; }
+        .schema-block .sb-title { font-family: var(--font-display); font-size: clamp(0.85rem, 1.45vw, 1.2rem); text-transform: uppercase; color: var(--text-primary); }
+        .schema-block .sb-desc { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 600; color: var(--text-primary); }
+        .schema-block .sb-meta { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 500; }
         .schema-arrow { display: flex; align-items: center; justify-content: center; width: clamp(24px, 3vw, 40px); flex-shrink: 0; font-size: clamp(1rem, 1.8vw, 1.4rem); color: var(--accent-gold); font-weight: 700; }
 
-        .schema-formula { display: flex; flex-wrap: wrap; gap: clamp(0.2rem, 0.5vw, 0.4rem); align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; color: var(--text-primary); }
+        .schema-formula { display: flex; flex-wrap: wrap; gap: clamp(0.2rem, 0.5vw, 0.4rem); align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; color: var(--text-primary); }
         .schema-formula .sf-item { padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.8vw, 0.6rem); background: var(--highlight-bg); border-radius: 6px; }
         .schema-formula .sf-eq { color: var(--accent-gold); font-weight: 800; }
 
@@ -217,10 +217,10 @@
         .two-col { display: flex; gap: clamp(0.8rem, 2vw, 1.5rem); }
         .two-col .col { flex: 1; display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem); }
         .col-title { font-family: var(--font-display); font-size: clamp(0.85rem, 1.4vw, 1.15rem); text-transform: uppercase; color: var(--text-primary); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem); }
-        .col-subtitle { font-family: var(--font-body); font-size: clamp(0.65rem, 0.95vw, 0.8rem); color: var(--text-secondary); font-weight: 600; font-style: italic; margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .mini-bullet { font-family: var(--font-body); font-size: clamp(0.7rem, 1.05vw, 0.9rem); font-weight: 500; color: var(--text-primary); line-height: 1.45; padding-left: 1.2em; position: relative; }
+        .col-subtitle { font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 0.95rem); color: var(--text-secondary); font-weight: 600; font-style: italic; margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .mini-bullet { font-family: var(--font-body); font-size: clamp(0.85rem, 1.25vw, 1.1rem); font-weight: 500; color: var(--text-primary); line-height: 1.45; padding-left: 1.2em; position: relative; }
         .mini-bullet::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.6em; top: 0.4em; }
-        .analogy-small { font-family: var(--font-body); font-size: clamp(0.6rem, 0.9vw, 0.78rem); font-weight: 500; color: var(--text-secondary); font-style: italic; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.7vw, 0.5rem); background: rgba(245, 166, 35, 0.06); border-radius: 6px; margin-top: auto; }
+        .analogy-small { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 500; color: var(--text-secondary); font-style: italic; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.7vw, 0.5rem); background: rgba(245, 166, 35, 0.06); border-radius: 6px; margin-top: auto; }
 
         @media (max-width: 768px) {
             .phase-layout { flex-direction: column; min-height: auto; }
@@ -240,9 +240,6 @@
         .attn-word.highlight-strong { background: rgba(245, 166, 35, 0.25); }
         .attn-word.highlight-medium { background: rgba(245, 166, 35, 0.15); }
         .attn-word.highlight-weak { background: rgba(26, 26, 78, 0.06); }
-        .attn-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-        .attn-line { stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 0.6s var(--ease-out-expo); fill: none; stroke-linecap: round; }
-        .attn-line.drawn { stroke-dashoffset: 0; }
 
         /* ===========================================
            RESPONSIVE
@@ -251,12 +248,12 @@
             :root { --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem); --title-size: clamp(1.5rem, 4.5vw, 3rem); --h2-size: clamp(1.2rem, 3vw, 2.2rem); }
         }
         @media (max-height: 600px) {
-            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.95rem, 1.55vw, 1.3rem); }
             .nav-dots, .keyboard-hint { display: none; }
             .mascot { display: none; }
         }
         @media (max-height: 500px) {
-            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.9rem, 1.35vw, 1.15rem); }
             .starburst, .sparkle { display: none; }
         }
         @media (max-width: 768px) {
@@ -286,6 +283,10 @@
         <button class="nav-dot" data-slide="8"></button>
         <button class="nav-dot" data-slide="9"></button>
         <button class="nav-dot" data-slide="10"></button>
+        <button class="nav-dot" data-slide="11"></button>
+        <button class="nav-dot" data-slide="12"></button>
+        <button class="nav-dot" data-slide="13"></button>
+        <button class="nav-dot" data-slide="14"></button>
     </nav>
     <div class="keyboard-hint">Premi → o Spazio per avanzare · Click per rivelare</div>
 
@@ -340,7 +341,7 @@
             <div class="step" data-slide="1" data-step="3">
                 <div class="data-row">
                     <div class="data-chip">Vocabolario: ~100K-262K token possibili¹</div>
-                    <div class="data-chip">Contesto Claude: 200K token (fino a 1M)²</div>
+                    <div class="data-chip">Contesto Claude: 200K token (fino a 1M, beta)²</div>
                     <div class="data-chip">Italiano ≈ 1.5x più token dell'inglese³</div>
                 </div>
             </div>
@@ -439,6 +440,11 @@
                     <div class="highlight-box">🍳 <strong>Analogia</strong> — Come un cuoco: temperatura bassa = segue la ricetta alla lettera · temperatura alta = improvvisa con ingredienti inaspettati</div>
                     <div class="highlight-box">🎯 <strong>In pratica</strong> — Analisi dati, codice → T bassa (0–0.3) · Brainstorming, copy → T alta (0.7–1.0)</div>
                 </div>
+            </div>
+
+            <!-- Step 5: Top-p -->
+            <div class="step" data-slide="3" data-step="5">
+                <div class="highlight-box">🎲 <strong>Top-p (nucleus sampling)</strong> — Considera solo i token che insieme coprono una certa probabilità (es. 90%). Altro modo di controllare la varietà dell'output.</div>
             </div>
         </div>
     </section>
@@ -597,14 +603,14 @@
             <div class="step" data-slide="6" data-step="3">
                 <ul class="bullet-list">
                     <li><strong>RLHF</strong> — Preferenze umane soggettive: "questa risposta è migliore"¹. Il modello impara tono, sicurezza, utilità²</li>
-                    <li><strong>RLVR</strong> — Reward verificabili oggettivi: la risposta a un problema è giusta o sbagliata³. Usato per i reasoning model (o1, R1)</li>
+                    <li><strong>RLVR</strong> — <em>Evoluzione recente:</em> Reward verificabili oggettivi: la risposta a un problema è giusta o sbagliata³. Usato per i reasoning model (o1, R1)</li>
                     <li><strong>⚠️ L'RL cambia il comportamento, non aggiunge fatti.</strong> Non è una nuova enciclopedia.</li>
                 </ul>
             </div>
 
             <div class="step" data-slide="6" data-step="4">
                 <div class="data-row">
-                    <div class="curiosity-box" style="flex:1;">🔤 <strong>Varianti</strong>: RLHF (umani)¹ · RLAIF/Constitutional AI (AI come valutatore)² · DPO (ottimizzazione diretta)⁴ · GRPO (DeepSeek)⁵</div>
+                    <div class="curiosity-box" style="flex:1; font-size: 0.85em; opacity: 0.7;">🔤 <strong>Per approfondire</strong>: RLHF (umani)¹ · RLAIF/Constitutional AI (AI come valutatore)² · DPO (ottimizzazione diretta)⁴ · GRPO (DeepSeek)⁵</div>
                     <div class="curiosity-box" style="flex:1;">📌 <strong>"Effetto Nigeria"</strong>: ChatGPT usa "Delve" 10-100x più del normale. Perché? Molti annotatori RLHF erano nigeriani, dove "Delve" è comune nell'inglese formale. Il bias degli annotatori diventa bias del modello⁶.</div>
                 </div>
             </div>
@@ -744,7 +750,6 @@
                         <span class="attn-word" data-attn="0">nuovo</span>
                         <span class="ntp-cursor" id="attn-cursor"></span>
                     </div>
-                    <svg class="attn-svg" id="attn-svg"></svg>
                 </div>
             </div>
 
@@ -793,6 +798,144 @@
             </div>
         </div>
         <div class="footnote">¹ Liu et al., "Lost in the Middle", 2024</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.10 — ALLUCINAZIONI: COSA SONO ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="sparkle" style="top: 14%; right: 9%;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="11" data-step="0">★ BLOCCO 3 — COME FUNZIONANO GLI LLM</div>
+            <h2 class="step" data-slide="11" data-step="0">Allucinazioni</h2>
+            <p class="sub-heading step" data-slide="11" data-step="0">Quando l'AI inventa</p>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="11" data-step="1"><strong>Fatti inventati</strong> — Citazioni inesistenti, dati fabbricati — il modello genera testo plausibile ma falso¹</li>
+                <li class="step" data-slide="11" data-step="2"><strong>Nessun database di fatti</strong> — Ha solo pattern statistici dal training data. Se non sa qualcosa, riempie i buchi con token probabili²</li>
+                <li class="step" data-slide="11" data-step="3"><strong>Non "sa di non sapere"</strong> — Il fine-tuning aiuta ma non risolve al 100%. Il modello non ha un meccanismo interno di certezza²</li>
+            </ul>
+
+            <div class="step" data-slide="11" data-step="4">
+                <div class="highlight-box">⚠️ <strong>Conseguenza diretta del meccanismo di next-token prediction</strong> — Il modello è ottimizzato per generare testo plausibile, non per verificare la verità di ciò che dice.</div>
+            </div>
+        </div>
+        <img src="../../images/stars/dubbioso-pensieroso.png" alt="" class="mascot bottom-right">
+        <div class="footnote">¹ Ji et al., 2023 &nbsp; ² Huang et al., 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.11 — ALLUCINAZIONI: COSA FARE ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="12" data-step="0">★ BLOCCO 3 — COME FUNZIONANO GLI LLM</div>
+            <h2 class="step" data-slide="12" data-step="0">Allucinazioni: cosa fare</h2>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="12" data-step="1"><strong>Mai fidarsi ciecamente</strong> — Verificare sempre fatti specifici, numeri, date, citazioni nell'output</li>
+                <li class="step" data-slide="12" data-step="2"><strong>Usare RAG</strong> — Ancorare le risposte a fonti verificabili (→ Blocco 5)</li>
+                <li class="step" data-slide="12" data-step="3"><strong>Progettare con verifica</strong> — Meccanismi di verifica e attribuzione integrati nel sistema</li>
+                <li class="step" data-slide="12" data-step="4"><strong>Comunicare i limiti</strong> — I clienti devono conoscere i limiti reali del sistema</li>
+            </ul>
+
+            <div class="step" data-slide="12" data-step="5">
+                <div class="highlight-box" style="border-left-color: #e67e22;">🎨 <strong>Per UX/Comms</strong> — Il design dell'interfaccia può ridurre il rischio: mostrare le fonti, indicare il livello di confidenza, consentire la verifica da parte dell'utente.</div>
+            </div>
+        </div>
+        <img src="../../images/stars/controllo.png" alt="" class="mascot bottom-right" style="height: clamp(50px, 8vw, 85px); opacity: 0.7;">
+        <div class="footnote">¹ Ji et al., 2023 &nbsp; ² Huang et al., 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.12 — MULTIMODALITÀ ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="starburst" style="bottom: 10%; left: 5%; opacity: 0.06;"></div>
+        <div class="slide-content">
+            <div class="section-label step" data-slide="13" data-step="0">★ BLOCCO 3 — COME FUNZIONANO GLI LLM</div>
+            <h2 class="step" data-slide="13" data-step="0">Multimodalità</h2>
+            <p class="sub-heading step" data-slide="13" data-step="0">Oltre il testo</p>
+
+            <div class="two-col" style="margin-top: clamp(0.3rem, 0.8vw, 0.5rem);">
+                <div class="col step" data-slide="13" data-step="1">
+                    <div class="col-title">👁️ Vision</div>
+                    <div class="mini-bullet">Analizzare screenshot, foto, documenti, mockup</div>
+                    <div class="mini-bullet">GPT-4o, Claude, Gemini: comprensione visiva nativa¹</div>
+                </div>
+                <div class="col step" data-slide="13" data-step="2">
+                    <div class="col-title">🎧 Audio</div>
+                    <div class="mini-bullet">Trascrizione, comprensione, generazione vocale</div>
+                    <div class="mini-bullet">Gemini 2.5: audio nativo in input e output²</div>
+                </div>
+            </div>
+            <div class="two-col">
+                <div class="col step" data-slide="13" data-step="3">
+                    <div class="col-title">🎬 Video</div>
+                    <div class="mini-bullet">Analisi di contenuti video (emergente)</div>
+                    <div class="mini-bullet">Gemini: fino a 1 ora di video in un singolo prompt²</div>
+                </div>
+                <div class="col step" data-slide="13" data-step="4">
+                    <div class="col-title">💻 Codice</div>
+                    <div class="mini-bullet">Lettura e scrittura in molti linguaggi</div>
+                    <div class="mini-bullet">Claude: agente di coding autonomo con >50% SWE-bench³</div>
+                </div>
+            </div>
+        </div>
+        <div class="footnote">¹ OpenAI / Anthropic, 2025 &nbsp; ² Google Gemini, 2025 &nbsp; ³ Anthropic, 2025</div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3.13 — FIGMA MAKE (MULTIMODALITÀ IN PRATICA) ★☆☆
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+        <div class="slide-content">
+            <div class="section-label step" data-slide="14" data-step="0">★ BLOCCO 3 — COME FUNZIONANO GLI LLM</div>
+            <h2 class="step" data-slide="14" data-step="0">Figma Make</h2>
+            <p class="sub-heading step" data-slide="14" data-step="0">Multimodalità in pratica</p>
+
+            <div class="step" data-slide="14" data-step="1">
+                <div class="schema-flow">
+                    <div class="schema-block">
+                        <div class="sb-icon">🖼️</div>
+                        <div class="sb-title">Screenshot</div>
+                        <div class="sb-desc">Il designer crea il visual in Figma</div>
+                    </div>
+                    <div class="schema-arrow">→</div>
+                    <div class="schema-block">
+                        <div class="sb-icon">👁️</div>
+                        <div class="sb-title">LLM Vision</div>
+                        <div class="sb-desc">Il modello "vede" e comprende il layout</div>
+                    </div>
+                    <div class="schema-arrow">→</div>
+                    <div class="schema-block">
+                        <div class="sb-icon">💻</div>
+                        <div class="sb-title">Codice</div>
+                        <div class="sb-desc">Genera HTML/CSS/React dal design</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step" data-slide="14" data-step="2">
+                <ul class="bullet-list">
+                    <li><strong>Design → Code</strong> — Da mockup Figma a componente funzionante in secondi</li>
+                    <li><strong>Iterazione</strong> — Modifica il design, rigenera il codice — il ciclo si accorcia drasticamente</li>
+                </ul>
+            </div>
+
+            <div class="step" data-slide="14" data-step="3">
+                <div class="highlight-box">🎯 <strong>Multimodalità = nuovi workflow</strong> — Non è solo "capire le immagini". È collegare competenze visive, linguistiche e di codice in pipeline automatiche.</div>
+            </div>
+
+            <div class="step" data-slide="14" data-step="4">
+                <div class="highlight-box" style="background: rgba(245, 166, 35, 0.1); border-left-color: var(--accent-gold);">➡️ <strong>Prossimo</strong> — Ora che sapete COME funzionano gli LLM, nel prossimo blocco vedremo come <strong>USARLI</strong> al meglio → Context Engineering</div>
+            </div>
+        </div>
+        <img src="../../images/stars/computer.png" alt="" class="mascot bottom-right" style="height: clamp(50px, 8vw, 85px); opacity: 0.7;">
     </section>
 
     <!-- ===========================================
@@ -916,68 +1059,18 @@
                Step 3: analogy box
                =========================================== */
             _updateAttention(step) {
-                const container = document.getElementById('attn-container');
-                const svg = document.getElementById('attn-svg');
                 const sentence = document.getElementById('attn-sentence');
-                if (!container || !svg || !sentence) return;
+                if (!sentence) return;
 
                 const words = sentence.querySelectorAll('.attn-word[data-idx]');
+                const highlightMap = { 'strong': 'highlight-strong', 'medium': 'highlight-medium', 'weak': 'highlight-weak' };
 
-                if (step < 2) {
-                    // Remove lines and highlights
-                    svg.innerHTML = '';
-                    words.forEach(w => {
-                        w.classList.remove('highlight-strong', 'highlight-medium', 'highlight-weak');
-                    });
-                    return;
-                }
-
-                // Step 2+: draw attention lines
-                // Find cursor position (last element)
-                const cursor = document.getElementById('attn-cursor');
-                if (!cursor) return;
-
-                const containerRect = container.getBoundingClientRect();
-                const cursorRect = cursor.getBoundingClientRect();
-                const cx = cursorRect.left + cursorRect.width / 2 - containerRect.left;
-                const cy = cursorRect.top + cursorRect.height / 2 - containerRect.top;
-
-                // Build SVG lines
-                let svgContent = '';
-                const lineConfigs = {
-                    'strong': { stroke: 'rgba(245,166,35,0.9)', width: 3, highlightClass: 'highlight-strong' },
-                    'medium': { stroke: 'rgba(245,166,35,0.5)', width: 2, highlightClass: 'highlight-medium' },
-                    'weak':   { stroke: 'rgba(26,26,78,0.2)', width: 1, highlightClass: 'highlight-weak' }
-                };
-
-                words.forEach((w, i) => {
-                    const attn = w.dataset.attn;
-                    if (!attn || attn === '0') return;
-                    const config = lineConfigs[attn];
-                    if (!config) return;
-
-                    const wRect = w.getBoundingClientRect();
-                    const wx = wRect.left + wRect.width / 2 - containerRect.left;
-                    const wy = wRect.top + wRect.height / 2 - containerRect.top;
-
-                    // Curved line (quadratic bezier)
-                    const midY = Math.min(wy, cy) - 15 - i * 3;
-                    const midX = (wx + cx) / 2;
-
-                    svgContent += `<path class="attn-line" d="M${cx},${cy} Q${midX},${midY} ${wx},${wy}" stroke="${config.stroke}" stroke-width="${config.width}" style="transition-delay: ${i * 80}ms;" />`;
-                    w.classList.add(config.highlightClass);
-                });
-
-                svg.innerHTML = svgContent;
-
-                // Trigger draw animation after a frame
-                requestAnimationFrame(() => {
-                    svg.querySelectorAll('.attn-line').forEach(line => {
-                        const len = line.getTotalLength();
-                        line.style.strokeDasharray = len;
-                        line.style.strokeDashoffset = len;
-                        requestAnimationFrame(() => line.classList.add('drawn'));
-                    });
+                words.forEach(w => {
+                    w.classList.remove('highlight-strong', 'highlight-medium', 'highlight-weak');
+                    if (step >= 2) {
+                        const attn = w.dataset.attn;
+                        if (attn && highlightMap[attn]) w.classList.add(highlightMap[attn]);
+                    }
                 });
             }
 
@@ -1159,6 +1252,7 @@
             _animateSliderTo(targetVal, duration) {
                 const slider = document.getElementById('temp-slider');
                 if (!slider) return;
+                if (this._sliderAnimId) { cancelAnimationFrame(this._sliderAnimId); this._sliderAnimId = null; }
                 const start = parseInt(slider.value);
                 const diff = targetVal - start;
                 const startTime = performance.now();
@@ -1169,9 +1263,13 @@
                     const current = Math.round(start + diff * eased);
                     slider.value = current;
                     this._renderTempDist(current / 100);
-                    if (progress < 1) requestAnimationFrame(animate);
+                    if (progress < 1) {
+                        this._sliderAnimId = requestAnimationFrame(animate);
+                    } else {
+                        this._sliderAnimId = null;
+                    }
                 };
-                requestAnimationFrame(animate);
+                this._sliderAnimId = requestAnimationFrame(animate);
             }
 
             _softmax(logits, temperature) {
@@ -1281,9 +1379,10 @@
                     if (window.parent !== window) window.parent.postMessage({ type: 'prev-block' }, '*');
                     return;
                 }
-                // Disable temp interactivity when leaving temp slide
+                // Disable temp interactivity and cancel slider animation when leaving temp slide
                 if (this.currentSlide === this.tempSlideIndex && index !== this.tempSlideIndex) {
                     this._tempInteractive = false;
+                    if (this._sliderAnimId) { cancelAnimationFrame(this._sliderAnimId); this._sliderAnimId = null; }
                 }
                 this.currentSlide = index;
                 this._initSlide(index);

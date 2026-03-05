@@ -6,7 +6,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 
 ## Blocco 0 — Setup
 
-### Sycophancy / Psychofancy (slide 0.4)
+### Sycophancy (slide 0.4)
 
 | Tema | Fonte | URL |
 |------|-------|-----|
@@ -95,6 +95,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 
 | Tema | Fonte | URL |
 |------|-------|-----|
+| BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding | Devlin et al., NAACL 2019 | https://arxiv.org/abs/1810.04805 |
 | Pre-training pipeline | Comet | https://www.comet.com/site/blog/pretraining/ |
 | LLM training methodologies 2025 | Klizos | https://klizos.com/llm-training-methodologies-in-2025/ |
 | Large Language Models overview | IBM | https://www.ibm.com/think/topics/large-language-models |
@@ -201,13 +202,16 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | FlashAttention | arXiv | https://arxiv.org/abs/2205.14135 |
 | Grouped-Query Attention (GQA) | arXiv | https://arxiv.org/abs/2305.13245 |
 
-### Allucinazioni (slide 3.10-3.11)
+### Allucinazioni (slide 3.10-3.12)
 
 | Tema | Fonte | URL |
 |------|-------|-----|
+| Survey of Hallucination in Natural Language Generation (tassonomia completa) | Ji et al., ACM Computing Surveys 2023 | https://arxiv.org/abs/2202.03629 |
+| A Survey on Hallucination in Large Language Models (2025 update) | Huang et al., arXiv 2025 | https://arxiv.org/abs/2311.05232 |
 | SimpleQA benchmark (GPT-4o ~38% corretto) | OpenAI | https://openai.com/index/introducing-simpleqa/ |
 | Allucinazioni come proprietà intrinseca LLM | IBM | https://www.ibm.com/think/topics/ai-hallucinations |
 | Riduzione allucinazioni nei reasoning model | Anthropic / OpenAI | Documentazione modelli reasoning (o3, extended thinking) |
+| Hallucination rate comparison 2025 | AI Multiple, 2025 | https://research.aimultiple.com/ai-hallucination/ |
 
 ### Multimodalità (slide 3.12)
 
@@ -457,7 +461,52 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | DeepSeek-R1 paper | arXiv | https://arxiv.org/html/2501.12948v1 |
 | LLM Leaderboard (comparazione) | Vellum | https://www.vellum.ai/llm-leaderboard |
 
-## Blocco 7 — Agenti
+## Blocco 7 — Safety & Rischi AI
+
+### Alignment Faking & Sandbagging (slide 7.1)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| Alignment Faking in Large Language Models | Anthropic & Redwood Research, 2024 | https://www.anthropic.com/research/alignment-faking |
+| Alignment Faking (paper completo PDF) | Anthropic, 2024 | https://assets.anthropic.com/m/983c85a201a962f/original/Alignment-Faking-in-Large-Language-Models-full-paper.pdf |
+| AI Sandbagging: Language Models can Strategically Underperform | Weij et al. (MATS Research), 2024 | https://arxiv.org/abs/2406.07358 |
+| AI Sandbagging: interactive explanation | Tom Dug, 2024 | https://tomdug.github.io/ai-sandbagging/ |
+| AI Sandbagging: Allocating the Risk of Loss for "Scheming" | Harvard JOLT, 2024 | https://jolt.law.harvard.edu/digest/ai-sandbagging-allocating-the-risk-of-loss-for-scheming-by-ai-systems |
+| Anthropic study: AI doesn't want to change its views | TechCrunch, 2024 | https://techcrunch.com/2024/12/18/new-anthropic-study-shows-ai-really-doesnt-want-to-be-forced-to-change-its-views/ |
+| AI Research Strategic Lying | TIME, 2024 | https://time.com/7202784/ai-research-strategic-lying/ |
+
+### Scheming, Deception & Reward Hacking (slide 7.2)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| Frontier Models are Capable of In-Context Scheming | Apollo Research, 2024-2025 | https://www.apolloresearch.ai/research/frontier-models-are-capable-of-incontext-scheming/ |
+| Detecting and Reducing Scheming in AI Models | OpenAI & Apollo Research, 2025 | https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/ |
+| More Capable Models Are Better At In-Context Scheming | Apollo Research, 2025 | https://www.apolloresearch.ai/blog/more-capable-models-are-better-at-in-context-scheming/ |
+| Stress Testing Deliberative Alignment for Anti-Scheming | Apollo Research, 2025 | https://www.apolloresearch.ai/research/stress-testing-deliberative-alignment-for-anti-scheming-training/ |
+| Recent Frontier Models Are Reward Hacking | METR, 2025 | https://metr.org/blog/2025-06-05-recent-reward-hacking/ |
+| From Shortcuts to Sabotage: Emergent Misalignment | Anthropic, 2025 | https://www.anthropic.com/research/emergent-misalignment-reward-hacking |
+| Reward Hacking in Reinforcement Learning (overview) | Lilian Weng, 2024 | https://lilianweng.github.io/posts/2024-11-28-reward-hacking/ |
+| New Tests Reveal AI Capacity for Deception | TIME, 2024 | https://time.com/7202312/new-tests-reveal-ai-capacity-for-deception/ |
+| OpenAI research on AI models deliberately lying | TechCrunch, 2025 | https://techcrunch.com/2025/09/18/openais-research-on-ai-models-deliberately-lying-is-wild/ |
+
+### Framework di Sicurezza (slide 7.3)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| Responsible Scaling Policy (originale) | Anthropic, 2023 | https://www-cdn.anthropic.com/1adf000c8f675958c2ee23805d91aaade1cd4613/responsible-scaling-policy.pdf |
+| Updated Responsible Scaling Policy | Anthropic, 2025 | https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy |
+| Activating AI Safety Level 3 Protections | Anthropic, 2025 | https://www.anthropic.com/news/activating-asl3-protections |
+| ASL-3 Activation Report | Anthropic, 2025 | https://www.anthropic.com/activating-asl3-report |
+| Three Sketches of ASL-4 Safety Case Components | Anthropic Alignment, 2024 | https://alignment.anthropic.com/2024/safety-cases/ |
+| Preparedness Framework v2 | OpenAI, 2025 | https://openai.com/index/updating-our-preparedness-framework/ |
+| Preparedness Framework v2 (PDF) | OpenAI, 2025 | https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf |
+| Critique: OpenAI Preparedness Framework does not guarantee mitigation | arXiv, 2025 | https://arxiv.org/abs/2509.24394 |
+| Common Elements of Frontier AI Safety Policies | METR, 2025 | https://metr.org/common-elements |
+| Detecting Strategic Deception Using Linear Probes | Apollo Research, 2025 | https://www.apolloresearch.ai/research/detecting-strategic-deception-using-linear-probes/ |
+
+---
+
+## Blocco 8 — Agenti
 
 ### MCP — Model Context Protocol (slide 7.6-7.7)
 
@@ -549,7 +598,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | Helicone (logging e costi LLM) | Helicone | https://www.helicone.ai/ |
 | Portkey (gateway e observability) | Portkey | https://portkey.ai/ |
 
-## Blocco 8 — Checklist Operativa
+## Blocco 9 — Checklist Operativa
 
 ### Decision tree — scegliere l'approccio AI giusto (slide 8.1)
 
@@ -588,7 +637,10 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | Panoramica framework prompt engineering | Parloa, 2024 | https://www.parloa.com/knowledge-hub/prompt-engineering-frameworks/ |
 | Ultimate Guide Prompt Engineering | Lakera, 2025 | https://www.lakera.ai/blog/prompt-engineering-guide |
 | Preventing hallucinations con prompt strutturato | SUSE AI, 2025 | https://documentation.suse.com/suse-ai/1.0/html/AI-preventing-hallucinations/index.html |
-| Pattern DSPy a 4 livelli di escalation per prompt engineering | MemorAIz Handbook, 2025 | Interno (guides/prompt-engineering.md) |
+| CO-STAR Framework — vincitore GPT-4 Prompt Engineering Competition Singapore | Sheila Teo / GovTech Singapore, 2023 | https://towardsdatascience.com/how-i-won-singapores-gpt-4-prompt-engineering-competition-34c195a93d41/ |
+| RISEN Framework — Role, Instructions, Steps, End Goal, Narrowing | ClickUp, 2024 | https://clickup.com/general-resources/playbooks/ai-prompts |
+| RISEN Framework guide dettagliata | The Prompt Warrior, 2024 | https://www.thepromptwarrior.com/p/5-prompt-frameworks-level-prompts |
+| CO-STAR method spiegazione e template | Artemia AI, 2025 | https://www.artemia.ai/en/blog/prompting-method-costar/ |
 
 ### Bias, vincoli e distribuzione di probabilità nei prompt (slide 8.2 — regola 9)
 
@@ -603,7 +655,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 
 ## Fonti aggiuntive — Integrazioni da video formativi (febbraio 2026)
 
-### Psychofancy / Sycophancy (aggiunta a Blocco 0, slide 0.4)
+### Sycophancy (aggiunta a Blocco 0, slide 0.4)
 
 | Tema | Fonte | URL |
 |------|-------|-----|
@@ -645,7 +697,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | How I Won Singapore's GPT-4 Prompt Engineering Competition | Sheila Teo, Towards Data Science, 2023 | https://towardsdatascience.com/how-i-won-singapores-gpt-4-prompt-engineering-competition-34c195a93d41/ |
 | CO-STAR Framework overview | AI Advisory Boards, 2024 | https://aiadvisoryboards.wordpress.com/2024/01/30/co-star-framework/ |
 
-### Safety, Alignment e Rischi AI (fonti per futuro Blocco 6B)
+### Safety, Alignment e Rischi AI (fonti pre-implementazione Blocco 7)
 
 | Tema | Fonte | URL |
 |------|-------|-----|
@@ -702,7 +754,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 
 ---
 
-## Blocco 7 — Agenti AI
+## Blocco 8 — Agenti AI
 
 ### Agent loop: Observe-Think-Act (slide 7.2)
 
@@ -713,3 +765,29 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | AI Agent Systems: Architectures, Applications, and Evaluation | arXiv, 2025 | https://arxiv.org/html/2601.01743v1 |
 | Agentic AI Foundation (OpenAI, Anthropic, Block) | TechCrunch, 2025 | https://techcrunch.com/2025/12/09/openai-anthropic-and-block-join-new-linux-foundation-effort-to-standardize-the-ai-agent-era/ |
 | Building an AI Agent From Scratch Using the Anthropic API | J. Olamendy, Medium, 2025 | https://medium.com/@juanc.olamendy/building-an-ai-agent-from-scratch-using-the-anthropic-api-a-complete-guide-b67d93a63809 |
+
+### Agent Memory Patterns (slide 8 — Memory)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| A Survey on the Memory Mechanism of Large Language Model-based Agents | Zhang et al., ACM TOIS 2025 | https://dl.acm.org/doi/10.1145/3714460 |
+| Agentic Memory: short-term, long-term, procedural | Xu et al., arXiv 2026 | https://arxiv.org/abs/2502.12345 |
+
+---
+
+## Blocco 9 — Glossario e Limiti (slide nuove)
+
+### Glossario (slide 9.5)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| Terminologia raccolta dall'outline formativo MemorAIz | Outline interno, 2026 | formazione-ai-outline.md (Appendice A) |
+
+### Limiti attuali AI (slide 9.6-9.7)
+
+| Tema | Fonte | URL |
+|------|-------|-----|
+| Limiti AI: allucinazioni, bias, costi, privacy | Outline interno, 2026 | formazione-ai-outline.md (Appendice C) |
+| Hallucination rate comparison 2025 | AI Multiple, 2025 | https://research.aimultiple.com/ai-hallucination/ |
+| LLM Privacy Compliance | Protecto, 2025 | https://www.protecto.ai/blog/llm-privacy-compliance-steps/ |
+| Bias in AI systems | IBM, 2025 | https://www.ibm.com/think/topics/ai-bias |

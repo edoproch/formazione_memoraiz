@@ -21,9 +21,9 @@
 | 4 | Context Engineering | 40' | 8-10 | Media-alta | `blocco-04-context-engineering.md` |
 | 5 | Embeddings & RAG | 35' | 8-10 | Alta | `blocco-05-embeddings-rag.md` |
 | 6 | Reasoning, Benchmark e Modelli | 30' | 7-8 | Media-alta | `blocco-06-reasoning-models.md` |
-| 6B | Safety & Rischi AI | 15-20' | 4-5 | Media-alta | `blocco-06b-safety-rischi.md` |
-| 7 | Agenti (deep dive) | 55' | 14-18 | Molto alta | `blocco-07-agenti.md` |
-| 8 | Checklist operativa | 10' | 3-4 | Media | `blocco-08-checklist.md` |
+| 7 | Safety & Rischi AI | 15-20' | 4-5 | Media-alta | `blocco-07-safety-rischi.md` |
+| 8 | Agenti (deep dive) | 55' | 14-18 | Molto alta | `blocco-08-agenti.md` |
+| 9 | Checklist operativa | 10' | 3-4 | Media | `blocco-09-checklist.md` |
 | **Totale** | | **~310-320'** | **~75-97** | | |
 
 ---
@@ -65,7 +65,7 @@ Ogni blocco ha un gradiente "primario" assegnato per coerenza visiva:
 | 4 - Context Eng. | `--slide-bg-lavender` | `--slide-bg-default` |
 | 5 - Embeddings/RAG | `--slide-bg-blue` | `--slide-bg-mint` |
 | 6 - Reasoning/Benchmark | `--slide-bg-peach` | `--slide-bg-lavender` |
-| 6B - Safety & Rischi | `--slide-bg-lavender` | `--slide-bg-peach` |
+| 7 - Safety & Rischi | `--slide-bg-lavender` | `--slide-bg-peach` |
 | 7 - Agenti | `--slide-bg-mint` | `--slide-bg-blue` |
 | 8 - Checklist | `--slide-bg-default` | `--slide-bg-peach` |
 
@@ -88,7 +88,7 @@ Ogni blocco produce **un singolo file HTML** nella directory `slides/XX-nome-blo
 ## Flusso di lavoro
 
 1. Approvazione di questo piano generale ✋
-2. Per ogni blocco (0→8, incluso 6B tra 6 e 7):
+2. Per ogni blocco (0→9):
    a. Approvazione del file di dettaglio del blocco ✋
    b. Realizzazione delle slide con `frontend-slides`
    c. Presentazione e feedback ✋

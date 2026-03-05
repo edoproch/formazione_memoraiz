@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocco 8 — Checklist Operativa | Formazione AI MemorAIz</title>
+    <title>Blocco 9 — Checklist Operativa | Formazione AI MemorAIz</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
@@ -26,9 +26,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -67,18 +67,18 @@
         .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
         .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
         .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -88,7 +88,72 @@
         .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
 
         /* ===========================================
-           SLIDE 8.1 — DECISION TREE
+           SLIDE 9.5 — GLOSSARIO
+           =========================================== */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.8rem, 1.5vw, 1.2rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .glossary-item {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            color: var(--text-primary);
+            line-height: 1.4;
+            padding: clamp(0.15rem, 0.3vw, 0.25rem) 0;
+            border-bottom: 1px solid rgba(26, 26, 78, 0.06);
+        }
+        .glossary-item strong {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .glossary-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===========================================
+           SLIDES 9.6-9.7 — LIMITI ATTUALI
+           =========================================== */
+        .limits-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 0.8rem);
+            margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
+        }
+        .limits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(0.5rem, 1vw, 0.8rem);
+            background: var(--highlight-bg);
+            padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-gold);
+        }
+        .limit-icon {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        .limit-text {
+            font-family: var(--font-body);
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            line-height: 1.45;
+            font-weight: 500;
+        }
+        .limit-text strong {
+            font-weight: 700;
+        }
+
+        /* ===========================================
+           SLIDE 9.1 — DECISION TREE
            =========================================== */
         .decision-tree {
             position: relative;
@@ -103,7 +168,7 @@
             padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.6rem, 1vw, 0.8rem);
             border-radius: 10px;
             font-family: var(--font-body);
-            font-size: clamp(0.62rem, 0.9vw, 0.78rem);
+            font-size: clamp(0.77rem, 1.1vw, 0.95rem);
             font-weight: 600;
             color: var(--text-primary);
             cursor: pointer;
@@ -144,7 +209,7 @@
         .tree-branch.hidden { display: none; }
         .tree-connector {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             font-weight: 700;
             padding: 2px clamp(6px, 0.8vw, 10px);
             border-radius: 999px;
@@ -164,11 +229,11 @@
         .tree-arrow {
             color: var(--accent-gold);
             opacity: 0.4;
-            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
         }
         .tree-leaf-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             color: var(--text-secondary);
             font-style: italic;
             text-align: center;
@@ -179,7 +244,7 @@
         .tree-leaf-desc.show { opacity: 1; }
         .tree-reset-hint {
             font-family: var(--font-body);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             color: var(--text-secondary);
             opacity: 0.4;
             text-align: center;
@@ -187,7 +252,7 @@
         }
 
         /* ===========================================
-           SLIDE 8.2 — REGOLE D'ORO
+           SLIDE 9.2 — REGOLE D'ORO
            =========================================== */
         .rules-grid {
             display: grid;
@@ -216,24 +281,24 @@
         .rule-info { flex: 1; min-width: 0; }
         .rule-title {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.92vw, 0.8rem);
+            font-size: clamp(0.8rem, 1.12vw, 0.95rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .rule-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.56rem, 0.78vw, 0.68rem);
+            font-size: clamp(0.7rem, 0.98vw, 0.83rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.35;
         }
 
         /* ===========================================
-           SLIDE 8.3 — TEMPLATE PROMPT
+           SLIDE 9.3 — TEMPLATE PROMPT
            =========================================== */
         .template-layout {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1fr 1fr;
             gap: clamp(0.5rem, 1.2vw, 1rem);
             margin-top: clamp(0.2rem, 0.5vw, 0.4rem);
         }
@@ -256,7 +321,7 @@
         .template-section:last-child { border-bottom: none; padding-bottom: 0; }
         .template-label {
             font-family: var(--font-body);
-            font-size: clamp(0.52rem, 0.72vw, 0.62rem);
+            font-size: clamp(0.67rem, 0.9vw, 0.77rem);
             font-weight: 700;
             color: var(--accent-gold);
             text-transform: uppercase;
@@ -267,7 +332,7 @@
         .template-label.lit { opacity: 1; }
         .template-placeholder {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.78vw, 0.66rem);
+            font-size: clamp(0.7rem, 0.98vw, 0.8rem);
             color: rgba(255,255,255,0.35);
             font-weight: 400;
             line-height: 1.35;
@@ -285,7 +350,7 @@
         }
         .example-pill {
             font-family: var(--font-body);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             font-weight: 700;
             background: var(--accent-gold);
             color: var(--text-primary);
@@ -295,7 +360,7 @@
         }
         .example-line {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.78vw, 0.66rem);
+            font-size: clamp(0.7rem, 0.98vw, 0.8rem);
             color: var(--accent-gold);
             font-weight: 500;
             line-height: 1.4;
@@ -313,14 +378,14 @@
                 --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
                 --title-size: clamp(1.8rem, 5vw, 3rem);
                 --h2-size: clamp(1.3rem, 3vw, 2.2rem);
-                --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+                --body-size: clamp(1.05rem, 1.7vw, 1.4rem);
             }
         }
         @media (max-height: 600px) {
             :root {
                 --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
                 --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
-                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+                --body-size: clamp(0.95rem, 1.45vw, 1.25rem);
             }
             .nav-dots, .keyboard-hint, .starburst, .sparkle { display: none; }
         }
@@ -328,7 +393,7 @@
             :root {
                 --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 1.5rem);
                 --title-size: clamp(1.2rem, 4vw, 2rem);
-                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+                --body-size: clamp(0.9rem, 1.35vw, 1.15rem);
             }
             .mascot { display: none; }
         }
@@ -340,13 +405,13 @@
 <body>
 
     <!-- ==========================================
-         SLIDE 8.0 — TITOLO DI SEZIONE
+         SLIDE 9.0 — TITOLO DI SEZIONE
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content centered">
-            <div class="section-label">&#9733; BLOCCO 8</div>
+            <div class="section-label">&#9733; BLOCCO 9</div>
             <h1>La vostra cassetta degli attrezzi</h1>
             <p class="sub-heading">Decision tree, regole d&rsquo;oro e template pronti all&rsquo;uso</p>
             <p class="sub-note">~10 minuti &mdash; da qui portate a casa gli strumenti operativi</p>
@@ -358,7 +423,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.1 — DECISION TREE
+         SLIDE 9.1 — DECISION TREE
          ========================================== -->
     <div class="slide" data-steps="1" style="background: var(--slide-bg-peach);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -476,7 +541,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.2 — REGOLE D'ORO
+         SLIDE 9.2 — REGOLE D'ORO
          ========================================== -->
     <div class="slide" data-steps="6" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -571,68 +636,89 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.3 — TEMPLATE PROMPT
+         SLIDE 9.3 — I DUE FRAMEWORK DI PROMPTING PIU' EFFICACI
          ========================================== -->
-    <div class="slide" data-steps="4" style="background: var(--slide-bg-peach);">
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-peach);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content">
-            <div class="section-label step" data-step="1">&#9733; IL VOSTRO TEMPLATE</div>
-            <h2 class="step" data-step="1">Il template MemorAIz</h2>
-            <p class="sub-heading step" data-step="1">Copiate, incollate, compilate &mdash; funziona con qualsiasi LLM</p>
+            <div class="section-label step" data-step="0">&#9733; FRAMEWORK DI PROMPTING</div>
+            <h2 class="step" data-step="0">Due template da portare a casa</h2>
+            <p class="sub-heading step" data-step="0">Copiate, incollate, compilate &mdash; funzionano con qualsiasi LLM</p>
 
             <div class="template-layout">
-                <!-- Template card (dark) -->
-                <div class="template-card step" data-step="1" id="templateCard">
-                    <div class="template-section">
-                        <div class="template-label" id="tplLabel1">SCOPO</div>
-                        <div class="template-placeholder" id="tplText1">[Cosa deve fare il modello &mdash; 1-2 righe chiare]</div>
+                <!-- CO-STAR card (dark) -->
+                <div class="template-card step" data-step="1">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem);">
+                        <span style="font-family: var(--font-body); font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 800; color: var(--accent-gold); letter-spacing: 0.05em;">CO-STAR</span>
+                        <span style="font-family: var(--font-body); font-size: clamp(0.6rem, 0.8vw, 0.7rem); color: rgba(255,255,255,0.4); font-weight: 500;">Vincitore GPT-4 Prompt Competition, Singapore&sup1;</span>
                     </div>
                     <div class="template-section">
-                        <div class="template-label" id="tplLabel2">AUDIENCE E TONO</div>
-                        <div class="template-placeholder" id="tplText2">[Chi legger&agrave; l&rsquo;output, che tono usare]</div>
+                        <div class="template-label lit">C &mdash; CONTEXT</div>
+                        <div class="template-placeholder lit">Background e situazione: chi sei, cosa stai facendo, perch&eacute;</div>
                     </div>
                     <div class="template-section">
-                        <div class="template-label" id="tplLabel3">VINCOLI</div>
-                        <div class="template-placeholder" id="tplText3">Lingua: [...] &middot; Lunghezza: [...] &middot; Formato: [...] &middot; Cosa NON fare: [...]</div>
+                        <div class="template-label lit">O &mdash; OBJECTIVE</div>
+                        <div class="template-placeholder lit">L&rsquo;obiettivo specifico: cosa deve produrre il modello</div>
                     </div>
                     <div class="template-section">
-                        <div class="template-label" id="tplLabel4">CONTESTO</div>
-                        <div class="template-placeholder" id="tplText4">[Incollare qui i testi di riferimento, dati, file &mdash; &laquo;everything as files&raquo;]</div>
+                        <div class="template-label lit">S &mdash; STYLE</div>
+                        <div class="template-placeholder lit">Stile di scrittura: formale, tecnico, colloquiale, brand voice</div>
                     </div>
                     <div class="template-section">
-                        <div class="template-label" id="tplLabel5">FORMATO OUTPUT + REASONING</div>
-                        <div class="template-placeholder" id="tplText5">[Formato desiderato + &laquo;Spiega il tuo ragionamento prima della risposta&raquo;]</div>
+                        <div class="template-label lit">T &mdash; TONE</div>
+                        <div class="template-placeholder lit">Tono emotivo: empatico, assertivo, neutro, entusiasta</div>
                     </div>
                     <div class="template-section">
-                        <div class="template-label" id="tplLabel6">CHECKLIST QUALIT&Agrave;</div>
-                        <div class="template-placeholder" id="tplText6">&#9744; [Criterio 1] &middot; &#9744; [Criterio 2] &middot; &#9744; [Criterio 3]</div>
+                        <div class="template-label lit">A &mdash; AUDIENCE</div>
+                        <div class="template-placeholder lit">Chi legger&agrave; l&rsquo;output: clienti, colleghi, utenti finali</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">R &mdash; RESPONSE</div>
+                        <div class="template-placeholder lit">Formato atteso: elenco, tabella, paragrafo, JSON, email</div>
                     </div>
                 </div>
 
-                <!-- Example card -->
-                <div class="example-card step" data-step="3" id="exampleCard">
-                    <div class="example-pill">Esempio compilato</div>
-                    <div class="example-line"><strong>SCOPO:</strong> Scrivi 3 varianti di microcopy per la schermata &laquo;nessun risultato&raquo; dell&rsquo;app MemorAIz</div>
-                    <div class="example-line"><strong>AUDIENCE:</strong> Utenti HR manager, tono professionale ma empatico</div>
-                    <div class="example-line"><strong>VINCOLI:</strong> Italiano, max 2 righe per variante, no emoji</div>
-                    <div class="example-line"><strong>CONTESTO:</strong> Brand guidelines MemorAIz (allegare file)</div>
-                    <div class="example-line"><strong>OUTPUT + REASONING:</strong> Tabella (variante, tono, n&deg; parole). Spiega perch&eacute; ogni variante funziona</div>
-                    <div class="example-line"><strong>CHECK:</strong> &#9744; Empatico? &#9744; &le;2 righe? &#9744; Brand-consistent?</div>
+                <!-- RISEN card (example-style) -->
+                <div class="template-card step" data-step="2">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem);">
+                        <span style="font-family: var(--font-body); font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 800; color: var(--accent-gold); letter-spacing: 0.05em;">RISEN</span>
+                        <span style="font-family: var(--font-body); font-size: clamp(0.6rem, 0.8vw, 0.7rem); color: rgba(255,255,255,0.4); font-weight: 500;">Il pi&ugrave; adottato per task complessi&sup2;</span>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">R &mdash; ROLE</div>
+                        <div class="template-placeholder lit">Assegna un ruolo: &laquo;Sei un UX writer senior con 10 anni di esperienza&raquo;</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">I &mdash; INSTRUCTIONS</div>
+                        <div class="template-placeholder lit">Istruzioni chiare e specifiche su cosa fare</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">S &mdash; STEPS</div>
+                        <div class="template-placeholder lit">Passi da seguire in ordine: 1&rarr; 2&rarr; 3&rarr; ...</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">E &mdash; END GOAL</div>
+                        <div class="template-placeholder lit">Il risultato finale atteso e i criteri di successo</div>
+                    </div>
+                    <div class="template-section">
+                        <div class="template-label lit">N &mdash; NARROWING</div>
+                        <div class="template-placeholder lit">Vincoli e limiti: cosa NON fare, lunghezza, lingua, formato</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="highlight-box step" data-step="4" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
-                Pattern DSPy a 4 livelli: semplice &rarr; vincoli &rarr; esempi &rarr; decomposizione&sup1; &mdash; i template battono il prompting ad hoc&sup2;
+            <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.2rem, 0.4vw, 0.3rem);">
+                Usare un framework strutturato migliora la qualit&agrave; delle risposte fino al 67% rispetto al prompting libero&sup3; &mdash; scegliete quello che vi viene pi&ugrave; naturale
             </div>
         </div>
 
         <img src="../../images/stars/matita.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
-        <div class="footnote">&sup1; MemorAIz Handbook, 2025 &nbsp; &sup2; MIT Sloan, 2025</div>
+        <div class="footnote">&sup1; Sheila Teo / GovTech Singapore, 2023 &nbsp; &sup2; ClickUp / Prompt Warrior, 2024 &nbsp; &sup3; Parloa, 2024</div>
     </div>
 
     <!-- ==========================================
-         SLIDE 8.4 — CHIUSURA E RINGRAZIAMENTI
+         SLIDE 9.4 — CHIUSURA E RINGRAZIAMENTI
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -649,7 +735,112 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.5 — BIBLIOGRAFIA (Blocchi 0-1-2)
+         SLIDE 9.5 — GLOSSARIO
+         ========================================== -->
+    <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label">&#9733; RIFERIMENTO RAPIDO</div>
+            <h2>Glossario</h2>
+
+            <div class="glossary-grid">
+                <div class="glossary-item"><strong>Token</strong> &mdash; Frammento di testo &mdash; unit&agrave; base degli LLM</div>
+                <div class="glossary-item"><strong>Context window</strong> &mdash; Quantit&agrave; massima di testo elaborabile in una volta</div>
+                <div class="glossary-item"><strong>System prompt</strong> &mdash; Istruzioni di base date al modello</div>
+                <div class="glossary-item"><strong>Few-shot</strong> &mdash; Esempi concreti di input/output desiderati</div>
+                <div class="glossary-item"><strong>Fine-tuning</strong> &mdash; Ri-addestrare un modello su dati specifici</div>
+                <div class="glossary-item"><strong>Embedding</strong> &mdash; Rappresentazione numerica di testo nello spazio</div>
+                <div class="glossary-item"><strong>Chunk</strong> &mdash; Frammento di documento per il retrieval</div>
+                <div class="glossary-item"><strong>RAG</strong> &mdash; Retrieval-Augmented Generation</div>
+                <div class="glossary-item"><strong>Hallucination</strong> &mdash; Output falso ma plausibile</div>
+                <div class="glossary-item"><strong>Grounding</strong> &mdash; Ancorare risposte a fonti verificabili</div>
+                <div class="glossary-item"><strong>Tool calling</strong> &mdash; Capacit&agrave; dell&rsquo;LLM di invocare API esterne</div>
+                <div class="glossary-item"><strong>MCP</strong> &mdash; Model Context Protocol &mdash; standard di connessione</div>
+                <div class="glossary-item"><strong>Agent</strong> &mdash; LLM + loop di ragionamento + tool</div>
+                <div class="glossary-item"><strong>Orchestratore</strong> &mdash; Agente che coordina sotto-agenti</div>
+                <div class="glossary-item"><strong>Skill</strong> &mdash; Pacchetto di istruzioni per competenze specifiche</div>
+                <div class="glossary-item"><strong>Eval</strong> &mdash; Valutazione sistematica delle performance</div>
+                <div class="glossary-item"><strong>RLHF</strong> &mdash; Reinforcement Learning from Human Feedback</div>
+                <div class="glossary-item"><strong>Temperatura</strong> &mdash; Controlla la creativit&agrave; dell&rsquo;output</div>
+                <div class="glossary-item"><strong>Top-p</strong> &mdash; Limita i token per probabilit&agrave; cumulativa</div>
+                <div class="glossary-item"><strong>Inference</strong> &mdash; Momento in cui il modello genera una risposta</div>
+                <div class="glossary-item"><strong>Latenza</strong> &mdash; Tempo di risposta del modello</div>
+                <div class="glossary-item"><strong>Guardrails</strong> &mdash; Regole e filtri per output indesiderati</div>
+                <div class="glossary-item"><strong>Prompt injection</strong> &mdash; Manipolazione tramite istruzioni nascoste</div>
+                <div class="glossary-item"><strong>Reranker</strong> &mdash; Modello che ri-ordina risultati per rilevanza</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 9.6 — LIMITI ATTUALI (1/2)
+         ========================================== -->
+    <div class="slide" data-steps="4" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; CONSAPEVOLEZZA</div>
+            <h2 class="step" data-step="1">Limiti attuali dell&rsquo;AI</h2>
+            <p class="sub-heading step" data-step="1">Parte 1</p>
+
+            <ul class="limits-list">
+                <li class="step" data-step="1">
+                    <div class="limit-icon">&#127917;</div>
+                    <div class="limit-text"><strong>Allucinazioni</strong> &mdash; i modelli possono inventare fatti con assoluta sicurezza</div>
+                </li>
+                <li class="step" data-step="2">
+                    <div class="limit-icon">&#128197;</div>
+                    <div class="limit-text"><strong>Conoscenza non aggiornata</strong> &mdash; senza RAG o web search, il modello sa solo ci&ograve; che era nel training data</div>
+                </li>
+                <li class="step" data-step="3">
+                    <div class="limit-icon">&#128279;</div>
+                    <div class="limit-text"><strong>Nessuna comprensione causale vera</strong> &mdash; trovano correlazioni, non capiscono cause ed effetti</div>
+                </li>
+                <li class="step" data-step="4">
+                    <div class="limit-icon">&#128172;</div>
+                    <div class="limit-text"><strong>Sensibilit&agrave; al prompt</strong> &mdash; piccoli cambiamenti nel prompt possono dare risultati molto diversi</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 9.7 — LIMITI ATTUALI (2/2)
+         ========================================== -->
+    <div class="slide" data-steps="3" style="background: var(--slide-bg-peach);">
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <div class="slide-content">
+            <div class="section-label step" data-step="1">&#9733; CONSAPEVOLEZZA</div>
+            <h2 class="step" data-step="1">Limiti attuali dell&rsquo;AI</h2>
+            <p class="sub-heading step" data-step="1">Parte 2</p>
+
+            <ul class="limits-list">
+                <li class="step" data-step="1">
+                    <div class="limit-icon">&#128274;</div>
+                    <div class="limit-text"><strong>Privacy e sicurezza</strong> &mdash; attenzione a cosa si mette nel contesto</div>
+                </li>
+                <li class="step" data-step="2">
+                    <div class="limit-icon">&#9878;&#65039;</div>
+                    <div class="limit-text"><strong>Bias</strong> &mdash; i modelli ereditano i bias dei dati di training</div>
+                </li>
+                <li class="step" data-step="3">
+                    <div class="limit-icon">&#128176;</div>
+                    <div class="limit-text"><strong>Costi</strong> &mdash; modelli pi&ugrave; potenti costano di pi&ugrave;, ogni token ha un costo</div>
+                </li>
+            </ul>
+
+            <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.5rem, 1vw, 0.8rem);">
+                &#128161; Conoscere questi limiti &egrave; ci&ograve; che distingue un <strong>uso professionale dell&rsquo;AI</strong> da un uso ingenuo
+            </div>
+        </div>
+
+        <img src="../../images/stars/dubbioso-pensieroso.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
+    </div>
+
+    <!-- ==========================================
+         SLIDE 9.8 — BIBLIOGRAFIA (Blocchi 0-1-2)
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -658,13 +849,13 @@
             <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 0&ndash;2</h2>
             <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
 
-            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
-                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 0 &mdash; Setup</p>
+            <div style="font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 0 &mdash; Setup</p>
                 <p style="margin: 0 0 0.1rem;">Sharma et al. (2024) &mdash; Sycophancy in LLMs &middot; <em>arXiv</em></p>
                 <p style="margin: 0 0 0.1rem;">Perez et al. (2023) &mdash; Understanding Sycophancy &middot; <em>Anthropic/arXiv</em></p>
                 <p style="margin: 0 0 0.1rem;">Nature npj Digital Medicine (2025) &mdash; Sycophancy in medical AI</p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 1 &mdash; Storia + Mappa</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 1 &mdash; Storia + Mappa</p>
                 <p style="margin: 0 0 0.1rem;">Cornell Chronicle &mdash; Perceptron di Rosenblatt (1957)</p>
                 <p style="margin: 0 0 0.1rem;">HISTORY.com &mdash; Deep Blue vs Kasparov (1997)</p>
                 <p style="margin: 0 0 0.1rem;">Vaswani et al. (2017) &mdash; Attention Is All You Need &middot; <em>NeurIPS</em></p>
@@ -673,7 +864,7 @@
                 <p style="margin: 0 0 0.1rem;">Epoch AI (2025) &mdash; Costi training modelli frontier</p>
                 <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Emergent Abilities &middot; <em>arXiv</em></p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 2 &mdash; Fondamenti ML</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 2 &mdash; Fondamenti ML</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2026) &mdash; Claude Opus 4.6</p>
                 <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; GPT-5 e GPT-5.2</p>
                 <p style="margin: 0 0 0.1rem;">Google DeepMind (2025&ndash;2026) &mdash; Gemini 2.5 / 3</p>
@@ -684,7 +875,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.6 — BIBLIOGRAFIA (Blocchi 3-4)
+         SLIDE 9.6 — BIBLIOGRAFIA (Blocchi 3-4)
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-peach);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -693,8 +884,8 @@
             <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 3&ndash;4</h2>
             <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
 
-            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
-                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 3 &mdash; Come funzionano gli LLM</p>
+            <div style="font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 3 &mdash; Come funzionano gli LLM</p>
                 <p style="margin: 0 0 0.1rem;">OpenAI tiktoken &mdash; Tokenizer o200k_base (~200K vocab)</p>
                 <p style="margin: 0 0 0.1rem;">Ferrara et al. (2025) &mdash; Optimizing LLMs for Italian &middot; <em>arXiv</em></p>
                 <p style="margin: 0 0 0.1rem;">IBM &mdash; LLM come modelli di next-token prediction</p>
@@ -704,7 +895,7 @@
                 <p style="margin: 0 0 0.1rem;">Liu et al. (2024) &mdash; Lost in the Middle &middot; <em>TACL</em></p>
                 <p style="margin: 0 0 0.1rem;">OpenAI (2024) &mdash; SimpleQA benchmark</p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 4 &mdash; Context Engineering</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 4 &mdash; Context Engineering</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; Effective Context Engineering for AI Agents</p>
                 <p style="margin: 0 0 0.1rem;">Karpathy (2025) &mdash; &laquo;Context engineering is the delicate art...&raquo;</p>
                 <p style="margin: 0 0 0.1rem;">Teo (2023) &mdash; CO-STAR Framework &middot; <em>Towards Data Science</em></p>
@@ -716,7 +907,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.7 — BIBLIOGRAFIA (Blocco 5)
+         SLIDE 9.7 — BIBLIOGRAFIA (Blocco 5)
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -725,8 +916,8 @@
             <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocco 5</h2>
             <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
 
-            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
-                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Embeddings</p>
+            <div style="font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Embeddings</p>
                 <p style="margin: 0 0 0.1rem;">OpenAI (2024) &mdash; text-embedding-3-small/large</p>
                 <p style="margin: 0 0 0.1rem;">Cohere (2025) &mdash; Embed v4 (multimodale, 128K context)</p>
                 <p style="margin: 0 0 0.1rem;">Google (2025) &mdash; gemini-embedding-001 (MTEB #1)</p>
@@ -734,7 +925,7 @@
                 <p style="margin: 0 0 0.1rem;">Kusupati et al. (2022) &mdash; Matryoshka Representation Learning &middot; <em>NeurIPS</em></p>
                 <p style="margin: 0 0 0.1rem;">TensorFlow &mdash; Embedding Projector (tool interattivo)</p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">RAG</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">RAG</p>
                 <p style="margin: 0 0 0.1rem;">Weaviate (2025) &mdash; Chunking strategies per RAG</p>
                 <p style="margin: 0 0 0.1rem;">NVIDIA (2024) &mdash; Chunking benchmark</p>
                 <p style="margin: 0 0 0.1rem;">Analytics Vidhya (2025) &mdash; Top 7 reranker per RAG</p>
@@ -747,7 +938,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.8 — BIBLIOGRAFIA (Blocchi 6-7)
+         SLIDE 9.8 — BIBLIOGRAFIA (Blocchi 6-7)
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-peach);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -756,8 +947,8 @@
             <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocchi 6&ndash;7</h2>
             <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
 
-            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
-                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 6 &mdash; Reasoning e Benchmark</p>
+            <div style="font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 6 &mdash; Reasoning e Benchmark</p>
                 <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Chain-of-Thought Prompting &middot; <em>NeurIPS</em></p>
                 <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; o3 e o4-mini reasoning models</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; Claude extended thinking</p>
@@ -766,7 +957,7 @@
                 <p style="margin: 0 0 0.1rem;">LMSYS/UC Berkeley (2023) &mdash; Chatbot Arena</p>
                 <p style="margin: 0 0 0.1rem;">Balloccu et al. (2024) &mdash; Data contamination &middot; <em>EACL</em></p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 7 &mdash; Agenti</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 7 &mdash; Agenti</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; MCP annuncio e donazione Linux Foundation</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Building Effective Agents</p>
                 <p style="margin: 0 0 0.1rem;">OWASP (2025) &mdash; Top 10 for LLM Applications &amp; Agentic AI</p>
@@ -779,32 +970,33 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 8.9 — BIBLIOGRAFIA (Blocco 8 + Paper scientifici)
+         SLIDE 9.9 — BIBLIOGRAFIA (Blocco 9 + Paper scientifici)
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content" style="gap: clamp(0.2rem, 0.4vw, 0.3rem);">
-            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocco 8 + Paper scientifici</h2>
+            <h2 style="font-size: var(--h3-size); margin-bottom: 0;">Bibliografia &mdash; Blocco 9 + Paper scientifici</h2>
             <p class="sub-heading" style="font-size: var(--small-size); opacity: 0.6; margin-bottom: clamp(0.2rem, 0.3vw, 0.3rem);">Bibliografia completa in <code>references/sources.md</code></p>
 
-            <div style="font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
-                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Blocco 8 &mdash; Checklist Operativa</p>
+            <div style="font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); line-height: 1.5; columns: 2; column-gap: 2rem;">
+                <p style="margin: 0 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Blocco 9 &mdash; Checklist Operativa</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Building Effective Agents</p>
                 <p style="margin: 0 0 0.1rem;">MIT Sloan (2025) &mdash; Prompt templates &gt; prompt engineering</p>
                 <p style="margin: 0 0 0.1rem;">AI Multiple (2025) &mdash; Hallucination rate comparison (0.7%&ndash;33%)</p>
                 <p style="margin: 0 0 0.1rem;">Lakera (2025) &mdash; Guida completa allucinazioni LLM</p>
                 <p style="margin: 0 0 0.1rem;">Parloa (2024) &mdash; Framework prompt engineering (+67%)</p>
-                <p style="margin: 0 0 0.1rem;">MemorAIz Handbook (2025) &mdash; Pattern DSPy a 4 livelli</p>
+                <p style="margin: 0 0 0.1rem;">Sheila Teo / GovTech Singapore (2023) &mdash; CO-STAR Framework</p>
+                <p style="margin: 0 0 0.1rem;">ClickUp / Prompt Warrior (2024) &mdash; RISEN Framework</p>
                 <p style="margin: 0 0 0.1rem;">IBM (2025) &mdash; LLM Temperature best practice</p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Paper scientifici &mdash; Bias e distribuzione</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Paper scientifici &mdash; Bias e distribuzione</p>
                 <p style="margin: 0 0 0.1rem;">Min et al. (2022) &mdash; Rethinking Role of Demonstrations &middot; <em>EMNLP</em></p>
                 <p style="margin: 0 0 0.1rem;">Wei et al. (2022) &mdash; Chain-of-Thought Prompting &middot; <em>NeurIPS</em></p>
                 <p style="margin: 0 0 0.1rem;">Li et al. (2024) &mdash; DETAIL Matters: specificità migliora accuracy &middot; <em>arXiv</em></p>
                 <p style="margin: 0 0 0.1rem;">Schulhoff et al. (2024) &mdash; The Prompt Report (1.565 paper, 58 tecniche) &middot; <em>arXiv</em></p>
 
-                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.6rem, 0.85vw, 0.75rem);">Safety e Alignment</p>
+                <p style="margin: 0.3rem 0 0.15rem; font-weight: 700; color: var(--text-primary); font-size: clamp(0.75rem, 1.05vw, 0.9rem);">Safety e Alignment</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2024) &mdash; Alignment Faking in LLMs (12% casi)</p>
                 <p style="margin: 0 0 0.1rem;">Anthropic (2025) &mdash; ASL-3 Protections</p>
                 <p style="margin: 0 0 0.1rem;">OpenAI (2025) &mdash; Preparedness Framework v2</p>
@@ -826,6 +1018,9 @@
         <button class="nav-dot" data-slide="7"></button>
         <button class="nav-dot" data-slide="8"></button>
         <button class="nav-dot" data-slide="9"></button>
+        <button class="nav-dot" data-slide="10"></button>
+        <button class="nav-dot" data-slide="11"></button>
+        <button class="nav-dot" data-slide="12"></button>
     </nav>
 
     <div class="keyboard-hint">
@@ -878,7 +1073,7 @@
             }
 
             /* ===========================================
-               SLIDE 8.3 — TEMPLATE ANIMATION
+               SLIDE 9.3 — TEMPLATE ANIMATION
                =========================================== */
             _animateTemplate(step) {
                 // Step 2: illuminate labels and text

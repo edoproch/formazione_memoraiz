@@ -23,9 +23,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -67,19 +67,19 @@
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
         .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -124,7 +124,7 @@
             position: absolute;
             transform: translate(-50%, 0);
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+            font-size: clamp(0.7rem, 1.1vw, 0.9rem);
             font-weight: 700;
             color: var(--text-primary);
             white-space: nowrap;
@@ -136,7 +136,7 @@
         .cluster-label {
             position: absolute;
             font-family: var(--font-body);
-            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.8rem, 1.15vw, 0.95rem);
             font-weight: 700;
             letter-spacing: 0.1em;
             text-transform: uppercase;
@@ -186,7 +186,7 @@
             font-weight: 700; color: var(--text-primary);
         }
         .llm-emb-desc {
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; color: var(--text-secondary); line-height: 1.35;
         }
         .llm-emb-arrow {
@@ -196,7 +196,7 @@
         .llm-emb-insight {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
             border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; color: var(--text-primary); line-height: 1.4;
             max-width: 600px; width: 100%; margin: 0 auto;
         }
@@ -259,7 +259,7 @@
         .caveat-box {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
             border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; color: var(--text-secondary); line-height: 1.4;
         }
 
@@ -279,24 +279,24 @@
         }
         .evo-block h3 { font-size: var(--h3-size); }
         .evo-block .evo-era {
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
             font-weight: 700; color: var(--accent-gold); letter-spacing: 0.05em;
         }
         .evo-block .evo-icon {
             font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem);
         }
         .evo-block p {
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 500; line-height: 1.4; color: var(--text-secondary);
         }
         .evo-block.highlight p { color: var(--text-primary); }
         .evo-block .evo-example {
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 500; font-style: italic; color: var(--text-secondary); line-height: 1.3;
         }
         .evo-arrow-row {
             display: flex; align-items: center; justify-content: center; gap: clamp(0.3rem, 0.5vw, 0.4rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 600; color: var(--text-secondary);
         }
         .evo-arrow-row .arrow { color: var(--accent-gold); font-size: 1.3em; }
@@ -326,21 +326,21 @@
         .viz-dot-3d.c4 { background: #e07b7b; }
         .viz-mockup-label {
             position: absolute; bottom: 6px; left: 0; right: 0; text-align: center;
-            font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             color: rgba(255,255,255,0.5); font-weight: 500;
         }
         .viz-bullets { display: flex; flex-direction: column; gap: clamp(0.4rem, 0.8vw, 0.6rem); }
         .note-box {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.15);
             border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 500; line-height: 1.4; color: var(--text-primary);
         }
         .note-box.warning { border-color: rgba(231, 76, 60, 0.2); background: rgba(231, 76, 60, 0.04); }
         .demo-link {
             display: inline-block; background: var(--highlight-bg); border-radius: 6px;
             padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.8vw, 0.6rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 600; color: var(--text-primary);
         }
 
@@ -367,7 +367,7 @@
             text-transform: none; letter-spacing: 0;
         }
         .limit-card-body p {
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 500; line-height: 1.4; color: var(--text-secondary);
         }
         .bridge-box {
@@ -448,16 +448,16 @@
             background: rgba(26, 26, 78, 0.03);
         }
         .pipe-num {
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 800; color: var(--accent-gold); margin-bottom: 2px;
         }
         .pipe-icon { font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: clamp(2px, 0.3vw, 4px); }
         .pipe-block h3 {
-            font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 800; color: var(--text-primary); margin-bottom: 2px;
         }
         .pipe-block p {
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
             font-weight: 500; color: var(--text-secondary); line-height: 1.35;
         }
         .pipe-arrow-row {
@@ -470,7 +470,7 @@
         .pipe-warning {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
             border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 600; color: var(--text-primary); line-height: 1.35;
             margin-top: clamp(0.2rem, 0.4vw, 0.3rem);
         }
@@ -491,7 +491,7 @@
         }
         .ctx-segment {
             flex: 1; display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700; color: var(--text-primary);
             transition: opacity 0.6s var(--ease-out-expo), background 0.6s var(--ease-out-expo);
             background: rgba(245, 166, 35, 0.15);
@@ -508,7 +508,7 @@
             margin-top: clamp(2px, 0.3vw, 4px);
         }
         .attn-label {
-            font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700;
         }
         .attn-label.high { color: var(--accent-gold); }
@@ -527,7 +527,7 @@
         .litm-rule {
             background: rgba(26, 26, 78, 0.04); border: 1px solid rgba(26, 26, 78, 0.1);
             border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 600; color: var(--text-primary); line-height: 1.35;
             max-width: 700px; width: 100%; text-align: center;
         }
@@ -551,7 +551,7 @@
             background: rgba(245, 166, 35, 0.03);
         }
         .innov-year {
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
             font-weight: 800; color: var(--accent-gold); white-space: nowrap;
             padding-top: 2px; min-width: clamp(35px, 4vw, 50px);
         }
@@ -560,7 +560,7 @@
             font-weight: 800; color: var(--text-primary); margin-bottom: 2px;
         }
         .innov-body p {
-            font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 500; color: var(--text-secondary); line-height: 1.4;
         }
         .innov-stat { font-weight: 800; color: var(--accent-gold); }
@@ -585,13 +585,13 @@
             font-weight: 800; color: var(--text-primary); margin-bottom: 1px;
         }
         .ux-pattern p {
-            font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.9rem);
             font-weight: 500; color: var(--text-secondary); line-height: 1.35;
         }
         .ux-rule {
             background: rgba(245, 166, 35, 0.06); border: 1px solid rgba(245, 166, 35, 0.2);
             border-radius: 8px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.5rem, 0.8vw, 0.7rem);
-            font-family: var(--font-body); font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 600; color: var(--text-primary); line-height: 1.35;
             margin-top: clamp(0.15rem, 0.3vw, 0.2rem);
         }
@@ -619,7 +619,7 @@
         }
         .takeaway-item h3 span {
             font-weight: 500; color: var(--text-secondary);
-            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
         }
 
         /* ===========================================
@@ -1007,7 +1007,7 @@
                 <div class="viz-bullets step" data-step="2">
                     <ul class="bullet-list">
                         <li>Gli embedding vivono in spazi con <strong>centinaia di dimensioni</strong> — impossibili da visualizzare direttamente</li>
-                        <li>Tecniche come <strong>t-SNE</strong> e <strong>UMAP</strong> li proiettano in 2D o 3D, preservando le relazioni di vicinanza²</li>
+                        <li>Tecniche di riduzione dimensionale li proiettano in 2D o 3D, preservando le relazioni di vicinanza²</li>
                     </ul>
                 </div>
             </div>
@@ -1030,7 +1030,7 @@
          ================================================ -->
     <section class="slide" style="background: var(--slide-bg-default);" data-steps="5">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
-        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); height: clamp(36px, 5vw, 52px); opacity: 0.8;">
+        <img src="../../images/stars/dubbioso-pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); height: clamp(36px, 5vw, 52px); opacity: 0.8;">
 
         <div class="slide-content">
             <div class="section-label step" data-step="0">★ IL PROBLEMA</div>
@@ -1234,10 +1234,10 @@
 
                 <!-- Data + connection -->
                 <div class="litm-data step" data-step="4">
-                    <div class="note-box warning" style="font-size: clamp(0.65rem, 0.9vw, 0.8rem);">
+                    <div class="note-box warning" style="font-size: clamp(0.8rem, 1.1vw, 0.95rem);">
                         L'effetto può ridurre le performance di <strong>oltre il 30%</strong> quando le informazioni chiave sono al centro del contesto¹
                     </div>
-                    <div class="bridge-box" style="font-size: clamp(0.65rem, 0.9vw, 0.8rem); padding: clamp(0.25rem, 0.4vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.6rem);">
+                    <div class="bridge-box" style="font-size: clamp(0.8rem, 1.1vw, 0.95rem); padding: clamp(0.25rem, 0.4vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.6rem);">
                         Ecco perché il <strong>reranking</strong> è importante: non solo <em>quali</em> documenti, ma anche in <em>che ordine</em> li presenti al modello.
                     </div>
                 </div>
@@ -1262,7 +1262,7 @@
                 <div class="innov-card step" data-step="2">
                     <div class="innov-year">2024</div>
                     <div class="innov-body">
-                        <h3>Contextual Retrieval <span style="font-weight: 500; font-size: clamp(0.6rem, 0.85vw, 0.75rem);">— Anthropic</span></h3>
+                        <h3>Contextual Retrieval <span style="font-weight: 500; font-size: clamp(0.75rem, 1.05vw, 0.9rem);">— Anthropic</span></h3>
                         <p>Aggiunge contesto a ogni chunk prima dell'embedding: <em>"questo paragrafo parla di..."</em><br>Risultato: <span class="innov-stat">-67% errori di retrieval</span>¹</p>
                     </div>
                 </div>
@@ -1270,7 +1270,7 @@
                 <div class="innov-card step" data-step="3">
                     <div class="innov-year">2024</div>
                     <div class="innov-body">
-                        <h3>GraphRAG <span style="font-weight: 500; font-size: clamp(0.6rem, 0.85vw, 0.75rem);">— Microsoft</span></h3>
+                        <h3>GraphRAG <span style="font-weight: 500; font-size: clamp(0.75rem, 1.05vw, 0.9rem);">— Microsoft</span></h3>
                         <p>Costruisce un <strong>grafo di relazioni</strong> (entità, connessioni) sopra i documenti. Risponde a domande globali impossibili con RAG standard²</p>
                     </div>
                 </div>
@@ -1489,7 +1489,7 @@
 
                 // --- Ranges ---
                 const showEx1 = step >= 1 && step <= 4;
-                const showEx2 = step >= 5 && step <= 7;
+                const showEx2 = step >= 5;
 
                 // --- EXAMPLE 1 visibility ---
                 if (axes) axes.setAttribute('opacity', showEx1 ? '1' : '0');
@@ -1600,11 +1600,11 @@
                 if (lbInter2) lbInter2.classList.toggle('show', step === 6);
 
                 // Step 7: Roma highlight, ghost arrow, parallelogram, formula
-                if (ptRoma) ptRoma.setAttribute('r', step === 7 ? '12' : (showEx2 ? '8' : '0'));
-                if (arrG2) arrG2.classList.toggle('show', step === 7);
-                if (p2t) p2t.classList.toggle('show', step === 7);
-                if (p2b) p2b.classList.toggle('show', step === 7);
-                if (f2) f2.classList.toggle('show', step === 7);
+                if (ptRoma) ptRoma.setAttribute('r', step >= 7 ? '12' : (showEx2 ? '8' : '0'));
+                if (arrG2) arrG2.classList.toggle('show', step >= 7);
+                if (p2t) p2t.classList.toggle('show', step >= 7);
+                if (p2b) p2b.classList.toggle('show', step >= 7);
+                if (f2) f2.classList.toggle('show', step >= 7);
             }
 
             /* ===========================================

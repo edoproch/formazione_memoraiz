@@ -23,9 +23,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -72,7 +72,7 @@
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
@@ -82,7 +82,7 @@
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
 
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -131,7 +131,7 @@
         /* ===========================================
            BACKPROP ANIMATION — Loop states
            =========================================== */
-        .bp-output-box { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: var(--font-body); font-weight: 700; font-size: clamp(0.75rem, 1.2vw, 1rem); }
+        .bp-output-box { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: var(--font-body); font-weight: 700; font-size: clamp(0.9rem, 1.45vw, 1.2rem); }
         .bp-output-box.prediction { background: rgba(245, 166, 35, 0.15); color: var(--accent-gold); }
         .bp-output-box.correct { background: rgba(231, 76, 60, 0.12); color: var(--error-red); }
         .bp-result-row { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 1rem); flex-wrap: wrap; }
@@ -141,7 +141,7 @@
         .error-bar { height: 100%; border-radius: 7px; transition: width 0.6s var(--ease-out-expo), background 0.6s; }
         .error-bar.high { width: 90%; background: var(--error-red); }
         .error-bar.low { width: 25%; background: var(--success-green); }
-        .error-label { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); font-weight: 700; }
+        .error-label { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); font-weight: 700; }
 
         /* Signal dot for animation */
         .signal-dot { r: 5; opacity: 0; }
@@ -162,7 +162,7 @@
             50% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
         }
         .prob-candidates { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.5vw, 8px); align-items: center; margin-top: clamp(0.2rem, 0.5vw, 0.4rem); }
-        .prob-bar { display: flex; align-items: center; gap: clamp(2px, 0.3vw, 4px); font-family: var(--font-body); font-size: clamp(0.7rem, 1.1vw, 0.95rem); font-weight: 600; }
+        .prob-bar { display: flex; align-items: center; gap: clamp(2px, 0.3vw, 4px); font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; }
         .prob-bar .bar-fill { height: clamp(14px, 2vw, 20px); border-radius: 6px; transition: width 0.6s var(--ease-out-expo); }
         .prob-bar .bar-label { white-space: nowrap; }
         .prob-bar:nth-child(1) .bar-fill { background: rgba(46, 204, 113, 0.6); }
@@ -176,12 +176,12 @@
             :root { --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3.5rem); --title-size: clamp(1.5rem, 4.5vw, 3rem); --h2-size: clamp(1.2rem, 3vw, 2.2rem); }
         }
         @media (max-height: 600px) {
-            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+            :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2.5rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.95rem, 1.55vw, 1.3rem); }
             .nav-dots, .keyboard-hint { display: none; }
             .mascot { display: none; }
         }
         @media (max-height: 500px) {
-            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --body-size: clamp(0.9rem, 1.35vw, 1.15rem); }
             .starburst, .sparkle { display: none; }
         }
         @media (max-width: 768px) {
@@ -264,7 +264,7 @@
             <ul class="bullet-list">
                 <li class="step" data-slide="2" data-step="1"><strong>Il meccanismo</strong> — Nessun insegnante, nessuna risposta giusta. Il modello osserva i dati e raggruppa da solo ciò che si somiglia.</li>
                 <li class="step" data-slide="2" data-step="2"><strong>L'analogia</strong> — Come organizzare un guardaroba: nessuno vi dice le regole, ma mettete insieme le magliette, i pantaloni e le giacche per istinto. Il modello fa lo stesso con i dati.</li>
-                <li class="step" data-slide="2" data-step="3"><strong>Esempi concreti</strong> — Spotify che raggruppa le canzoni per mood senza che nessuno le etichetti · il feed di Instagram che capisce quali foto sono simili · Gmail che individua email sospette senza sapere cos'è una "truffa".</li>
+                <li class="step" data-slide="2" data-step="3"><strong>Esempi concreti</strong> — Spotify che raggruppa le canzoni per mood senza che nessuno le etichetti · il feed di Instagram che capisce quali foto sono simili · segmentazione clienti per comportamento d'acquisto — raggruppare utenti simili senza categorie predefinite.</li>
             </ul>
             <div class="highlight-box step" data-slide="2" data-step="3">Non servono etichette → scala facilmente, ma meno controllabile</div>
         </div>
@@ -323,7 +323,7 @@
                 <img src="../../images/stars/lampadina.png" alt="" style="height: clamp(40px, 6vw, 60px); opacity: 0.8; flex-shrink: 0;">
             </div>
         </div>
-        <div class="footnote">¹ Stack Overflow, 2025 &nbsp; ² Georgetown CSET, 2025</div>
+        <div class="footnote">¹ Devlin et al., 2019 &nbsp; ² Georgetown CSET, 2025</div>
     </section>
 
     <!-- ===========================================
@@ -390,7 +390,8 @@
                     <!-- Neuron (step 3) -->
                     <g class="step" data-slide="5" data-step="3">
                         <circle cx="280" cy="120" r="28" fill="rgba(245,166,35,0.1)" stroke="#f5a623" stroke-width="3"/>
-                        <text x="280" y="125" text-anchor="middle" font-family="Darker Grotesque" font-size="11" fill="#1a1a4e" font-weight="700">Σ + f</text>
+                        <text x="280" y="122" text-anchor="middle" font-family="Darker Grotesque" font-size="11" fill="#1a1a4e" font-weight="700">Σ + f</text>
+                        <text x="280" y="136" text-anchor="middle" font-family="Darker Grotesque" font-size="9" fill="#555566">Calcolo</text>
                     </g>
                     <!-- Output (step 4) -->
                     <g class="step" data-slide="5" data-step="4">
@@ -615,8 +616,8 @@
                 </svg>
             </div>
 
-            <div class="highlight-box step" data-slide="7" data-step="3" style="font-size: clamp(0.75rem, 1.2vw, 1rem);">
-                GPT-3 (2020): 175 miliardi di parametri¹ · Llama 4 Maverick (2025): 400B totali, 17B attivi² · Behemoth: ~2 trilioni²
+            <div class="highlight-box step" data-slide="7" data-step="3" style="font-size: clamp(0.9rem, 1.45vw, 1.2rem);">
+                GPT-3 (2020): 175 miliardi di parametri¹ · Llama 4 Maverick (2025): 400B totali, 17B attivi² — solo 17 miliardi si attivano per ogni domanda, come un team dove lavora solo lo specialista giusto · Behemoth: ~2.000 miliardi di parametri²
             </div>
         </div>
         <div class="footnote">¹ OpenAI, 2020 &nbsp; ² Meta AI Blog, 2025</div>

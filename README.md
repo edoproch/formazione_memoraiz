@@ -81,7 +81,7 @@ formazione_memoraiz/
 │   ├── 00-setup/
 │   ├── 01-storia-mappa/
 │   ├── ...
-│   └── 08-checklist/
+│   └── 09-checklist/
 ├── openspec/               ← Specifiche di pianificazione per ogni blocco
 ├── references/             ← Fonti web consultate e verificate
 ├── images/                 ← Logo MemorAIz e stelline mascotte

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocco 7 — Agenti AI | Formazione AI MemorAIz</title>
+    <title>Blocco 8 — Agenti AI | Formazione AI MemorAIz</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
@@ -26,9 +26,9 @@
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
             --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(0.9rem, 1.6vw, 1.25rem);
+            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
             --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --label-size: clamp(0.85rem, 1.15vw, 1rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -71,18 +71,18 @@
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
         .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.5rem, 0.7vw, 0.65rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
         .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.65rem, 0.9vw, 0.8rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.55rem, 0.8vw, 0.7rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -92,12 +92,12 @@
         .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
 
         /* ===========================================
-           SLIDE 7.0 — TITLE
+           SLIDE 8.0 — TITLE
            =========================================== */
         /* Title slide uses centered layout, no step animation */
 
         /* ===========================================
-           SLIDE 7.1 — LLM vs AGENT COMPARISON
+           SLIDE 8.1 — LLM vs AGENT COMPARISON
            =========================================== */
         .compare-split {
             display: grid;
@@ -193,7 +193,7 @@
             padding-top: clamp(0.3rem, 0.6vw, 0.5rem);
             border-top: 1px solid rgba(26, 26, 78, 0.08);
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             color: var(--text-secondary);
             font-style: italic;
             font-weight: 500;
@@ -207,7 +207,7 @@
             border-radius: 10px;
             padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.9rem, 1.35vw, 1.15rem);
             font-weight: 600;
             text-align: center;
             line-height: 1.4;
@@ -215,7 +215,7 @@
         .key-diff-box .gold { color: var(--accent-gold); }
 
         /* ===========================================
-           SLIDE 7.2 — AGENT LOOP (SVG Animation)
+           SLIDE 8.2 — AGENT LOOP (Static Image)
            =========================================== */
         .loop-diagram-container {
             width: 100%;
@@ -232,63 +232,13 @@
             max-height: min(58vh, 500px);
         }
 
-        /* SVG node styles */
-        .loop-node {
-            opacity: 0;
-            transform: translateY(8px);
-            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
-        }
-        .loop-node.show { opacity: 1; transform: translateY(0); }
-
-        /* Arrow draw-in animation */
-        .loop-arrow {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            transition: stroke-dashoffset 0.8s var(--ease-out-expo);
-        }
-        .loop-arrow.draw { stroke-dashoffset: 0; }
-
-        /* Arrow tip triangles — hidden until .show */
-        .arrow-tip { opacity: 0; transition: opacity 0.4s ease; }
-        .arrow-tip.show { opacity: 1; }
-
-        /* Signal dot — hidden by default */
-        .signal-dot { opacity: 0; }
-        .signal-dot.animate {
-            opacity: 1;
-            animation: signalLoop 5s ease-in-out forwards;
-        }
-
-        @keyframes signalLoop {
-            /* Cycle 1: Obiettivo → Observe → Think → Act → Verifica(center) */
-            0%   { cx: 260; cy: 48; opacity: 1; }
-            6%   { cx: 380; cy: 100; }
-            12%  { cx: 472; cy: 200; }
-            18%  { cx: 380; cy: 300; }
-            24%  { cx: 260; cy: 352; }
-            30%  { cx: 140; cy: 300; }
-            36%  { cx: 48; cy: 200; }
-            40%  { cx: 260; cy: 200; }
-            /* Cycle 2: back to Observe → Think → Act → Verifica */
-            44%  { cx: 472; cy: 200; }
-            50%  { cx: 380; cy: 300; }
-            56%  { cx: 260; cy: 352; }
-            62%  { cx: 140; cy: 300; }
-            68%  { cx: 48; cy: 200; }
-            72%  { cx: 260; cy: 200; }
-            /* Exit to Risposta finale (right side) */
-            80%  { cx: 260; cy: 200; opacity: 1; }
-            90%  { cx: 380; cy: 340; opacity: 0.8; }
-            100% { cx: 430; cy: 395; opacity: 0; }
-        }
-
         .loop-example-box {
             background: var(--highlight-bg);
             border-left: 3px solid var(--accent-gold);
             border-radius: 0 8px 8px 0;
             padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 500;
             color: var(--text-primary);
             line-height: 1.4;
@@ -297,12 +247,12 @@
         .loop-example-box strong { font-weight: 700; }
         .loop-example-box .example-flow {
             color: var(--text-secondary);
-            font-size: clamp(0.6rem, 0.8vw, 0.72rem);
+            font-size: clamp(0.75rem, 1vw, 0.88rem);
             margin-top: 2px;
         }
 
         /* ===========================================
-           SLIDE 7.3 — TOOLS: LE MANI DELL'AGENTE (CSS Layout)
+           SLIDE 8.3 — TOOLS: LE MANI DELL'AGENTE (CSS Layout)
            =========================================== */
         .tools-hub {
             display: flex;
@@ -391,14 +341,14 @@
         .tool-card-info { flex: 1; min-width: 0; }
         .tool-card-name {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.2;
         }
         .tool-card-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.73rem, 1vw, 0.85rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
@@ -441,7 +391,7 @@
         .tool-card[data-tool="6"] { transition-delay: 0.3s; }
 
         /* ===========================================
-           SLIDE 7.4 — TOOL CALLING STEP-BY-STEP
+           SLIDE 8.4 — TOOL CALLING STEP-BY-STEP
            =========================================== */
         .flow-container {
             display: flex;
@@ -470,7 +420,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700;
             flex-shrink: 0;
             color: #ffffff;
@@ -485,7 +435,7 @@
         }
         .flow-step-label {
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -506,7 +456,7 @@
             border-radius: 6px;
             padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);
             font-family: 'Courier New', monospace;
-            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.73rem, 1vw, 0.85rem);
             line-height: 1.5;
             margin-top: 3px;
             overflow: hidden;
@@ -524,7 +474,7 @@
         }
 
         /* ===========================================
-           SLIDE 7.5 — FAILURE MODES (2×2 Grid)
+           SLIDE 8.5 — FAILURE MODES (2×2 Grid)
            =========================================== */
         .failure-grid {
             display: grid;
@@ -564,7 +514,7 @@
         }
         .failure-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.4;
@@ -576,7 +526,7 @@
             border-radius: 10px;
             padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 600;
             margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
             line-height: 1.4;
@@ -584,13 +534,13 @@
         .defense-box .gold { color: var(--accent-gold); }
 
         /* ===========================================
-           SLIDE 7.6 — MCP N×M DIAGRAM
+           SLIDE 8.6 — MCP N×M DIAGRAM
            =========================================== */
         .mcp-diagram {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(0.3rem, 1vw, 1rem);
+            gap: 0;
             margin-top: clamp(0.3rem, 0.8vw, 0.6rem);
             position: relative;
             min-height: clamp(200px, 36vh, 320px);
@@ -599,8 +549,9 @@
         .mcp-col {
             display: flex;
             flex-direction: column;
-            gap: clamp(0.3rem, 0.7vw, 0.5rem);
+            gap: clamp(1.2rem, 3vw, 2.2rem);
             z-index: 2;
+            padding: 0 clamp(0.3rem, 0.8vw, 0.6rem);
         }
 
         .mcp-node {
@@ -612,7 +563,7 @@
             background: rgba(255,255,255,0.6);
             border: 1.5px solid rgba(26, 26, 78, 0.1);
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 600;
             color: var(--text-primary);
             white-space: nowrap;
@@ -625,23 +576,24 @@
         /* Center area: lines SVG + MCP box overlay */
         .mcp-center {
             position: relative;
-            width: clamp(180px, 28vw, 320px);
+            flex: 1;
+            min-width: 0;
             height: clamp(200px, 34vh, 300px);
-            flex-shrink: 0;
         }
         .mcp-center svg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
+            overflow: visible;
         }
 
         /* Chaos lines (phase 1) */
         .mcp-chaos-line {
             stroke: rgba(220, 80, 60, 0.35);
             stroke-width: 1.5;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
             transition: stroke-dashoffset 0.6s var(--ease-out-expo), opacity 0.5s ease;
         }
         .mcp-chaos-line.draw { stroke-dashoffset: 0; }
@@ -651,12 +603,14 @@
         .mcp-order-line {
             stroke: var(--accent-gold);
             stroke-width: 2;
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            transition: stroke-dashoffset 0.7s var(--ease-out-expo);
+            fill: none;
+            stroke-dasharray: 500;
+            stroke-dashoffset: 500;
+            transition: stroke-dashoffset 0.7s var(--ease-out-expo), visibility 0s;
             opacity: 0;
+            visibility: hidden;
         }
-        .mcp-order-line.draw { stroke-dashoffset: 0; opacity: 1; }
+        .mcp-order-line.draw { stroke-dashoffset: 0; opacity: 1; visibility: visible; }
 
         /* MCP box (center overlay) */
         .mcp-box {
@@ -684,7 +638,7 @@
         }
         .mcp-box-sub {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             font-weight: 500;
             text-transform: none;
             letter-spacing: 0;
@@ -699,7 +653,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
             font-weight: 700;
             text-align: center;
             white-space: nowrap;
@@ -712,7 +666,7 @@
         .mcp-phase-label.order { color: var(--accent-gold); }
 
         /* ===========================================
-           SLIDE 7.7 — MCP IN PRATICA
+           SLIDE 8.7 — MCP IN PRATICA
            =========================================== */
         .mcp-arch-diagram {
             display: flex;
@@ -743,7 +697,7 @@
             color: var(--text-primary);
         }
         .mcp-arch-box-list {
-            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
             color: var(--text-secondary);
             font-weight: 500;
             margin-top: 2px;
@@ -755,7 +709,7 @@
             align-items: center;
             gap: 2px;
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             color: var(--accent-gold);
             font-weight: 700;
             text-transform: uppercase;
@@ -803,19 +757,19 @@
         .mcp-example-info { flex: 1; min-width: 0; }
         .mcp-example-name {
             font-family: var(--font-body);
-            font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+            font-size: clamp(0.83rem, 1.15vw, 1rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .mcp-example-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.73rem, 1vw, 0.85rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
         }
         .mcp-example-badge {
-            font-size: clamp(0.5rem, 0.65vw, 0.58rem);
+            font-size: clamp(0.8rem, 1.05vw, 0.88rem);
             font-weight: 700;
             color: var(--accent-gold);
             text-transform: uppercase;
@@ -823,7 +777,7 @@
         }
 
         /* ===========================================
-           SLIDE 7.8 — SICUREZZA AGENTI
+           SLIDE 8.8 — SICUREZZA AGENTI
            =========================================== */
         .security-risks {
             display: flex;
@@ -866,7 +820,7 @@
         }
         .security-risk-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.85vw, 0.73rem);
+            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.35;
@@ -882,7 +836,7 @@
         }
         .security-mitigation {
             font-family: var(--font-body);
-            font-size: clamp(0.62rem, 0.85vw, 0.75rem);
+            font-size: clamp(0.77rem, 1.05vw, 0.9rem);
             font-weight: 600;
             color: var(--text-primary);
             padding: clamp(0.25rem, 0.5vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.5rem);
@@ -893,7 +847,7 @@
         .security-mitigation .check { color: #7bbfa8; margin-right: 4px; }
 
         /* ===========================================
-           SLIDE 7.9 — PERCHÉ PIÙ AGENTI
+           SLIDE 8.9 — PERCHÉ PIÙ AGENTI
            =========================================== */
         .orchestra-visual {
             display: flex;
@@ -925,7 +879,7 @@
         }
         .orchestra-conductor-label {
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.75rem, 1vw, 0.85rem);
             font-weight: 700;
             color: var(--text-primary);
             text-align: center;
@@ -962,13 +916,13 @@
         .orchestra-musician-icon.blue { background: rgba(130,170,220,0.2); }
         .orchestra-musician-label {
             font-family: var(--font-body);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             font-weight: 600;
             color: var(--text-secondary);
         }
         .orchestra-caption {
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
             color: var(--text-secondary);
             font-style: italic;
             text-align: center;
@@ -976,7 +930,7 @@
         }
 
         /* ===========================================
-           SLIDE 7.10 — TRE PATTERN ORCHESTRAZIONE
+           SLIDE 8.10 — TRE PATTERN ORCHESTRAZIONE
            =========================================== */
         .patterns-stack {
             display: flex;
@@ -1015,7 +969,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+            font-size: clamp(0.7rem, 1vw, 0.83rem);
             font-family: var(--font-body);
             font-weight: 700;
             color: #fff;
@@ -1026,7 +980,7 @@
         .pattern-node.agent-b { background: #9b8dc4; }
         .pattern-node.agent-c { background: #d4956b; }
         .pattern-arrow {
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             color: rgba(26, 26, 78, 0.3);
             flex-shrink: 0;
         }
@@ -1043,27 +997,27 @@
             gap: clamp(2px, 0.3vw, 4px);
         }
         .pattern-inter-arrow {
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
             color: var(--accent-gold);
             opacity: 0.7;
         }
         .pattern-info { flex: 1; min-width: 0; }
         .pattern-title {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .pattern-when {
             font-family: var(--font-body);
-            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.73rem, 1vw, 0.85rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
         }
         .pattern-example {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             color: var(--accent-gold);
             font-weight: 600;
             font-style: italic;
@@ -1071,7 +1025,7 @@
         }
 
         /* ===========================================
-           SLIDE 7.11 — MEMORY
+           SLIDE 8.11 — MEMORY
            =========================================== */
         .memory-split {
             display: grid;
@@ -1111,10 +1065,33 @@
             text-transform: uppercase;
             color: var(--text-primary);
         }
-        .memory-panel .mini-list li { font-size: clamp(0.65rem, 0.9vw, 0.78rem); }
+        .memory-panel .mini-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.2rem, 0.4vw, 0.35rem);
+        }
+        .memory-panel .mini-list li {
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            padding-left: 1.2em;
+            position: relative;
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        .memory-panel .mini-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
 
         /* ===========================================
-           SLIDE 7.12 — SKILLS
+           SLIDE 8.12 — SKILLS
            =========================================== */
         .skills-compare {
             display: grid;
@@ -1140,13 +1117,13 @@
         }
         .skill-compare-label {
             font-family: var(--font-display);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             text-transform: uppercase;
             margin-bottom: 2px;
         }
         .skill-compare-code {
             font-family: 'Courier New', monospace;
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             background: rgba(26, 26, 78, 0.05);
             padding: 2px 6px;
             border-radius: 4px;
@@ -1155,7 +1132,7 @@
         }
         .skill-compare-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.75rem, 1vw, 0.85rem);
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -1178,19 +1155,19 @@
         .skill-example-info { flex: 1; min-width: 0; }
         .skill-example-name {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 0.9vw, 0.78rem);
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .skill-example-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.58rem, 0.78vw, 0.68rem);
+            font-size: clamp(0.73rem, 0.98vw, 0.83rem);
             color: var(--text-secondary);
             font-weight: 500;
         }
 
         /* ===========================================
-           SLIDE 7.13 — OBSERVABILITY
+           SLIDE 8.13 — OBSERVABILITY
            =========================================== */
         .obs-grid {
             display: grid;
@@ -1214,13 +1191,13 @@
         .obs-card-info { flex: 1; }
         .obs-card-title {
             font-family: var(--font-body);
-            font-size: clamp(0.68rem, 0.95vw, 0.82rem);
+            font-size: clamp(0.83rem, 1.15vw, 1rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .obs-card-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.58rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.73rem, 1vw, 0.85rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
@@ -1233,7 +1210,7 @@
         }
         .kpi-pill {
             font-family: var(--font-body);
-            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
             font-weight: 700;
             color: var(--text-primary);
             background: rgba(245, 166, 35, 0.1);
@@ -1243,7 +1220,7 @@
         }
 
         /* ===========================================
-           SLIDE 7.14 — RIEPILOGO
+           SLIDE 8.14 — RIEPILOGO
            =========================================== */
         .takeaway-list {
             display: flex;
@@ -1268,7 +1245,7 @@
         }
         .takeaway-text {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
             color: var(--text-primary);
             font-weight: 500;
             line-height: 1.4;
@@ -1283,14 +1260,14 @@
                 --slide-padding: clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
                 --title-size: clamp(1.8rem, 5vw, 3rem);
                 --h2-size: clamp(1.3rem, 3vw, 2.2rem);
-                --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+                --body-size: clamp(1.05rem, 1.7vw, 1.4rem);
             }
         }
         @media (max-height: 600px) {
             :root {
                 --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 2rem);
                 --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
-                --body-size: clamp(0.7rem, 1.1vw, 0.9rem);
+                --body-size: clamp(0.95rem, 1.45vw, 1.25rem);
             }
             .nav-dots, .keyboard-hint, .starburst, .sparkle { display: none; }
         }
@@ -1298,7 +1275,7 @@
             :root {
                 --slide-padding: clamp(0.4rem, 2vw, 1rem) clamp(0.8rem, 2.5vw, 1.5rem);
                 --title-size: clamp(1.2rem, 4vw, 2rem);
-                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+                --body-size: clamp(0.9rem, 1.35vw, 1.15rem);
             }
             .mascot { display: none; }
         }
@@ -1310,13 +1287,13 @@
 <body>
 
     <!-- ==========================================
-         SLIDE 7.0 — TITOLO DI SEZIONE
+         SLIDE 8.0 — TITOLO DI SEZIONE
          ========================================== -->
     <div class="slide" data-steps="0" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content centered">
-            <div class="section-label">&#9733; Blocco 7</div>
+            <div class="section-label">&#9733; Blocco 8</div>
             <h1 style="margin-bottom: clamp(0.3rem, 0.8vw, 0.5rem);">Agenti AI: il Deep Dive</h1>
             <p class="sub-heading">Quando l'AI smette di parlare e inizia ad agire</p>
             <p class="sub-note" style="margin-top: clamp(0.5rem, 1vw, 0.8rem);">~55 minuti &mdash; il blocco pi&ugrave; rilevante per il vostro lavoro</p>
@@ -1328,7 +1305,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.1 — SOLO LLM vs AGENTE AI
+         SLIDE 8.1 — SOLO LLM vs AGENTE AI
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1378,9 +1355,9 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.2 — IL LOOP AGENTE: Observe → Think → Act
+         SLIDE 8.2 — IL LOOP AGENTE: Observe → Think → Act
          ========================================== -->
-    <div class="slide" data-steps="6" style="background: var(--slide-bg-mint);">
+    <div class="slide" data-steps="2" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
 
         <div class="slide-content">
@@ -1388,144 +1365,12 @@
             <h2 class="step" data-step="1">Il ciclo dell'agente</h2>
             <p class="sub-heading step" data-step="1">Observe &rarr; Think &rarr; Act &rarr; Verifica &rarr; Ripeti</p>
 
-            <div class="loop-diagram-container step" data-step="1" id="loopDiagram">
-                <svg viewBox="0 0 520 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="4" result="blur"/>
-                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                        </filter>
-                    </defs>
-
-                    <!--
-                        Node centers & radii:
-                        Obiettivo (260, 48)  r=38    Observe (472, 200) r=38
-                        Think     (260, 352) r=38    Act     (48, 200)  r=38
-                        Verifica  (260, 200) r=28
-
-                        Arrow geometry: path ends at tip base-center.
-                        Tip triangle: point at target edge, base ⊥ to direction.
-                        h=12 (base→point), w=6 (half-base).
-
-                        Obiettivo→Observe  dir-unit (0.812, 0.582)  perp (-0.582, 0.812)
-                        Observe→Think      dir-unit (-0.812, 0.582) perp (-0.582,-0.812)
-                        Think→Act          dir-unit (-0.812,-0.582) perp (0.582,-0.812)
-                        Act→Verifica       dir-unit (1, 0)          perp (0,-1)
-                    -->
-
-                    <!-- Arrow 1: Obiettivo → Observe -->
-                    <g>
-                        <path id="arrow-1" class="loop-arrow"
-                              d="M291,70 Q420,70 431,171"
-                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                        <polygon id="tip-1" class="arrow-tip"
-                                 points="441,178 435,166 428,176" fill="#1a1a4e"/>
-                    </g>
-
-                    <!-- Arrow 2: Observe → Think -->
-                    <g>
-                        <path id="arrow-2" class="loop-arrow"
-                              d="M441,222 Q380,320 301,323"
-                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                        <polygon id="tip-2" class="arrow-tip"
-                                 points="291,330 305,328 298,318" fill="#1a1a4e"/>
-                    </g>
-
-                    <!-- Arrow 3: Think → Act -->
-                    <g>
-                        <path id="arrow-3" class="loop-arrow"
-                              d="M229,330 Q100,330 89,229"
-                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                        <polygon id="tip-3" class="arrow-tip"
-                                 points="79,222 86,234 93,224" fill="#1a1a4e"/>
-                    </g>
-
-                    <!-- Arrow 4a: Act → Verifica (straight right) -->
-                    <g>
-                        <path id="arrow-4a" class="loop-arrow"
-                              d="M86,200 L220,200"
-                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"
-                              stroke-dasharray="150" stroke-dashoffset="150"/>
-                        <polygon id="tip-4a" class="arrow-tip"
-                                 points="232,200 220,194 220,206" fill="#1a1a4e"/>
-                    </g>
-
-                    <!-- Arrow 4b: Verifica → Observe (loop back, gold, arcs upward) -->
-                    <g>
-                        <path id="arrow-4b" class="loop-arrow"
-                              d="M288,188 Q390,150 430,177"
-                              stroke="var(--accent-gold)" stroke-width="2" stroke-linecap="round" fill="none"
-                              stroke-dasharray="150" stroke-dashoffset="150" opacity="0.6"/>
-                        <polygon id="tip-4b" class="arrow-tip"
-                                 points="439,182 432,173 428,181" fill="#f5a623" opacity="0.6"/>
-                    </g>
-
-                    <!-- Arrow 4c: Verifica → Risposta finale (curves right, avoids Think) -->
-                    <g>
-                        <path id="arrow-4c" class="loop-arrow"
-                              d="M279,221 Q380,280 422,379"
-                              stroke="#1a1a4e" stroke-width="2.5" stroke-linecap="round" fill="none"
-                              stroke-dasharray="220" stroke-dashoffset="220"/>
-                        <polygon id="tip-4c" class="arrow-tip"
-                                 points="430,388 426,375 418,383" fill="#1a1a4e"/>
-                    </g>
-
-                    <!-- NODE: Obiettivo (top center) -->
-                    <g class="loop-node" id="node-obiettivo">
-                        <circle cx="260" cy="48" r="42" fill="#f5a623" opacity="0.15"/>
-                        <circle cx="260" cy="48" r="38" fill="none" stroke="#f5a623" stroke-width="2.5"/>
-                        <text x="260" y="42" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">OBIETTIVO</text>
-                        <text x="260" y="60" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="20" fill="#f5a623">&#127919;</text>
-                    </g>
-
-                    <!-- NODE: Observe (right) -->
-                    <g class="loop-node" id="node-observe">
-                        <circle cx="472" cy="200" r="42" fill="#d0ece4" opacity="0.4"/>
-                        <circle cx="472" cy="200" r="38" fill="none" stroke="#7bbfa8" stroke-width="2"/>
-                        <text x="472" y="192" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#7bbfa8">&#128269;</text>
-                        <text x="472" y="212" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">OBSERVE</text>
-                    </g>
-
-                    <!-- NODE: Think (bottom center) -->
-                    <g class="loop-node" id="node-think">
-                        <circle cx="260" cy="352" r="42" fill="#dcd8ec" opacity="0.4"/>
-                        <circle cx="260" cy="352" r="38" fill="none" stroke="#9b8dc4" stroke-width="2"/>
-                        <text x="260" y="344" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#9b8dc4">&#129504;</text>
-                        <text x="260" y="364" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">THINK</text>
-                    </g>
-
-                    <!-- NODE: Act (left) -->
-                    <g class="loop-node" id="node-act">
-                        <circle cx="48" cy="200" r="42" fill="#f0ddd0" opacity="0.4"/>
-                        <circle cx="48" cy="200" r="38" fill="none" stroke="#d4956b" stroke-width="2"/>
-                        <text x="48" y="192" text-anchor="middle" font-family="'Darker Grotesque', sans-serif" font-size="22" fill="#d4956b">&#9889;</text>
-                        <text x="48" y="212" text-anchor="middle" font-family="'Anton', sans-serif" font-size="12" fill="#1a1a4e" letter-spacing="0.5">ACT</text>
-                    </g>
-
-                    <!-- NODE: Verifica (center) -->
-                    <g class="loop-node" id="node-verifica">
-                        <circle cx="260" cy="200" r="30" fill="var(--highlight-bg)"/>
-                        <circle cx="260" cy="200" r="28" fill="none" stroke="#1a1a4e" stroke-width="1.5" stroke-dasharray="4 3"/>
-                        <text x="260" y="196" text-anchor="middle" font-family="'Anton', sans-serif" font-size="9" fill="#1a1a4e" letter-spacing="0.3">OBIETTIVO</text>
-                        <text x="260" y="209" text-anchor="middle" font-family="'Anton', sans-serif" font-size="9" fill="#1a1a4e" letter-spacing="0.3">RAGGIUNTO?</text>
-                        <!-- Labels Si/No -->
-                        <text x="306" y="185" font-family="'Darker Grotesque', sans-serif" font-size="13" fill="var(--accent-gold)" font-weight="700">No &#8635;</text>
-                        <text x="305" y="240" font-family="'Darker Grotesque', sans-serif" font-size="13" fill="#1a1a4e" font-weight="700">S&igrave; &#8600;</text>
-                    </g>
-
-                    <!-- Risposta finale (bottom-right, avoids Think) -->
-                    <g class="loop-node" id="node-risposta">
-                        <rect x="375" y="388" width="110" height="36" rx="10" fill="#1a1a4e"/>
-                        <text x="430" y="411" text-anchor="middle" font-family="'Anton', sans-serif" font-size="11" fill="#ffffff" letter-spacing="0.5">RISPOSTA FINALE</text>
-                    </g>
-
-                    <!-- Signal dot (animated on step 5) -->
-                    <circle class="signal-dot" id="signalDot" cx="260" cy="48" r="8" fill="var(--accent-gold)" filter="url(#glow)"/>
-                </svg>
+            <div class="loop-diagram-container step" data-step="1">
+                <img src="../../images/ciclo_agenti.png" alt="Il ciclo dell'agente: Obiettivo, Observe, Think, Act, Verifica, Risposta Finale" style="width: 100%; max-height: min(58vh, 500px); object-fit: contain;">
             </div>
 
             <!-- Box esempio -->
-            <div class="loop-example-box step" data-step="6">
+            <div class="loop-example-box step" data-step="2">
                 <strong>Esempio:</strong> &laquo;Trova i dati di mercato per il pitch deck&raquo;
                 <div class="example-flow">
                     Observe (legge il brief) &rarr; Think (serve cercare) &rarr; Act (web_search) &rarr; Observe (legge risultati) &rarr; Think (servono dati pi&ugrave; specifici) &rarr; Act (altra ricerca) &rarr; &hellip; &rarr; Risposta con dati e fonti
@@ -1533,13 +1378,13 @@
             </div>
         </div>
 
-        <img src="../../images/stars/conversione2.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
+        <img src="../../images/stars/conversione2.png" alt="" class="mascot small" style="position: absolute; bottom: clamp(2.5rem, 5vw, 4rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
         <div class="footnote">&sup1; Anthropic, 2025</div>
         <div class="sparkle" style="top: 12%; right: 10%;"></div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.3 — TOOLS: LE MANI DELL'AGENTE
+         SLIDE 8.3 — TOOLS: LE MANI DELL'AGENTE
          ========================================== -->
     <div class="slide" data-steps="4" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1635,7 +1480,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.4 — TOOL CALLING STEP-BY-STEP
+         SLIDE 8.4 — TOOL CALLING STEP-BY-STEP
          ========================================== -->
     <div class="slide" data-steps="5" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1716,7 +1561,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.5 — FAILURE MODES DEI TOOL
+         SLIDE 8.5 — FAILURE MODES DEI TOOL
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1762,13 +1607,13 @@
             </div>
         </div>
 
-        <img src="../../images/stars/dubbioso:pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
+        <img src="../../images/stars/dubbioso-pensieroso.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
         <div class="footnote">&sup1; OWASP, 2025</div>
         <div class="starburst" style="bottom: 12%; left: 5%; opacity: 0.05;"></div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.6 — MCP: IL PROBLEMA N×M
+         SLIDE 8.6 — MCP: IL PROBLEMA N×M
          ========================================== -->
     <div class="slide" data-steps="5" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1807,15 +1652,11 @@
                         <line class="mcp-chaos-line" id="cl-14" x1="0" y1="175" x2="200" y2="75"/>
                         <line class="mcp-chaos-line" id="cl-15" x1="0" y1="175" x2="200" y2="125"/>
                         <line class="mcp-chaos-line" id="cl-16" x1="0" y1="175" x2="200" y2="175"/>
-                        <!-- Order lines (4 left + 4 right, through center) -->
-                        <line class="mcp-order-line" id="ol-l1" x1="0" y1="25" x2="90" y2="85"/>
-                        <line class="mcp-order-line" id="ol-l2" x1="0" y1="75" x2="90" y2="92"/>
-                        <line class="mcp-order-line" id="ol-l3" x1="0" y1="125" x2="90" y2="108"/>
-                        <line class="mcp-order-line" id="ol-l4" x1="0" y1="175" x2="90" y2="115"/>
-                        <line class="mcp-order-line" id="ol-r1" x1="110" y1="85" x2="200" y2="25"/>
-                        <line class="mcp-order-line" id="ol-r2" x1="110" y1="92" x2="200" y2="75"/>
-                        <line class="mcp-order-line" id="ol-r3" x1="110" y1="108" x2="200" y2="125"/>
-                        <line class="mcp-order-line" id="ol-r4" x1="110" y1="115" x2="200" y2="175"/>
+                        <!-- Order lines (4 continuous paths left→center→right) -->
+                        <path class="mcp-order-line" id="ol-1" d="M0,25 Q50,55 100,90 Q150,55 200,25"/>
+                        <path class="mcp-order-line" id="ol-2" d="M0,75 Q50,83 100,95 Q150,83 200,75"/>
+                        <path class="mcp-order-line" id="ol-3" d="M0,125 Q50,117 100,105 Q150,117 200,125"/>
+                        <path class="mcp-order-line" id="ol-4" d="M0,175 Q50,145 100,110 Q150,145 200,175"/>
                     </svg>
 
                     <div class="mcp-box" id="mcpBox">
@@ -1846,7 +1687,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.7 — MCP IN PRATICA
+         SLIDE 8.7 — MCP IN PRATICA
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1914,7 +1755,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.8 — SICUREZZA NEGLI AGENTI
+         SLIDE 8.8 — SICUREZZA NEGLI AGENTI
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -1950,7 +1791,7 @@
                     <div class="security-risk-severity">&#128993;</div>
                     <div class="security-risk-info">
                         <div class="security-risk-title">Token DoS</div>
-                        <div class="security-risk-desc">Un agente in loop pu&ograve; consumare enormi quantit&agrave; di token = costi fuori controllo.&sup2;</div>
+                        <div class="security-risk-desc">Un agente in loop pu&ograve; consumare enormi quantit&agrave; di token = costi fuori controllo.</div>
                     </div>
                 </div>
             </div>
@@ -1959,16 +1800,16 @@
                 <div class="security-mitigation"><span class="check">&#10004;</span> Conferma umana per azioni ad alto impatto</div>
                 <div class="security-mitigation"><span class="check">&#10004;</span> Principio del minimo privilegio</div>
                 <div class="security-mitigation"><span class="check">&#10004;</span> Logging di tutte le azioni per audit</div>
-                <div class="security-mitigation"><span class="check">&#10004;</span> OWASP Top 10 per LLM Applications&sup3;</div>
+                <div class="security-mitigation"><span class="check">&#10004;</span> OWASP Top 10 per LLM Applications&sup2;</div>
             </div>
         </div>
 
         <img src="../../images/stars/chiave.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: clamp(1.5rem, 3vw, 3rem); opacity: 0.7;">
-        <div class="footnote">&sup1; OWASP, 2025 &nbsp; &sup2; Industria, 2025 &nbsp; &sup3; OWASP Top 10 LLM Apps v2.0</div>
+        <div class="footnote">&sup1; OWASP, 2025 &nbsp; &sup2; OWASP Top 10 LLM Apps v2.0</div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.9 — QUANDO UN AGENTE NON BASTA
+         SLIDE 8.9 — QUANDO UN AGENTE NON BASTA
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2012,15 +1853,15 @@
             <div class="orchestra-caption step" data-step="2">&laquo;Ogni musicista &egrave; specializzato. Il direttore coordina. L&rsquo;insieme &egrave; pi&ugrave; della somma delle parti.&raquo;</div>
 
             <div class="warning-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
-                &#9888;&#65039; Pi&ugrave; agenti = pi&ugrave; chiamate LLM = pi&ugrave; costi e latenza. <strong>Regola: partire semplice, crescere solo quando serve&sup2;.</strong>
+                &#9888;&#65039; Pi&ugrave; agenti = pi&ugrave; chiamate LLM = pi&ugrave; costi e latenza. <strong>Regola: partire semplice, crescere solo quando serve.</strong>
             </div>
         </div>
 
-        <div class="footnote">&sup1; Anthropic, 2025 &nbsp; &sup2; Industria, 2025</div>
+        <div class="footnote">&sup1; Anthropic, 2025</div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.10 — TRE PATTERN DI ORCHESTRAZIONE
+         SLIDE 8.10 — TRE PATTERN DI ORCHESTRAZIONE
          ========================================== -->
     <div class="slide" data-steps="4" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2102,7 +1943,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.11 — MEMORY NEGLI AGENTI
+         SLIDE 8.11 — MEMORY NEGLI AGENTI
          ========================================== -->
     <div class="slide" data-steps="4" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2121,7 +1962,7 @@
                     <ul class="mini-list">
                         <li>La conversazione corrente (il contesto)</li>
                         <li>Limitata dalla context window</li>
-                        <li>Si perde quando la sessione finisce</li>
+                        <li>Si perde quando la sessione finisce&sup1;</li>
                     </ul>
                 </div>
                 <div class="memory-panel long-term step" data-step="3">
@@ -2131,8 +1972,8 @@
                     </div>
                     <ul class="mini-list">
                         <li>Informazioni salvate tra sessioni diverse</li>
-                        <li>Database, vector store, file CLAUDE.md</li>
-                        <li>Persiste, ma va gestita e aggiornata</li>
+                        <li>Database, vector store (vedi Blocco 5), file CLAUDE.md</li>
+                        <li>Persiste, ma va gestita e aggiornata&sup2;</li>
                     </ul>
                 </div>
             </div>
@@ -2143,10 +1984,11 @@
         </div>
 
         <img src="../../images/stars/conoscenza.png" alt="" class="mascot small" style="position: absolute; top: 50%; right: clamp(0.5rem, 1.5vw, 1.5rem); transform: translateY(-50%); opacity: 0.4; max-height: 60px;">
+        <div class="footnote">&sup1; Zhang et al., ACM TOIS 2025 &nbsp; &sup2; Xu et al., arXiv 2026</div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.12 — SKILLS
+         SLIDE 8.12 — SKILLS
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2196,7 +2038,7 @@
             <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.5vw, 0.4rem);">
                 &#128260; Spec &#8594; Esempi &#8594; Test &#8594; Deploy &#8594; Monitor &#8594; Iterazione. <strong>Una skill senza eval &egrave; una demo, non un asset.</strong>
             </div>
-            <div class="box-memoraiz step" data-step="3" style="margin-top: clamp(0.15rem, 0.3vw, 0.25rem); padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem); background: rgba(245, 166, 35, 0.06); border: 1.5px solid rgba(245, 166, 35, 0.15); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.6rem, 0.85vw, 0.72rem); color: var(--text-secondary); font-weight: 500;">
+            <div class="box-memoraiz step" data-step="3" style="margin-top: clamp(0.15rem, 0.3vw, 0.25rem); padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem); background: rgba(245, 166, 35, 0.06); border: 1.5px solid rgba(245, 166, 35, 0.15); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.88rem); color: var(--text-secondary); font-weight: 500;">
                 &#11088; <strong>Per i clienti MemorAIz:</strong> skill personalizzate = output consistenti con il loro brand.
             </div>
         </div>
@@ -2206,7 +2048,7 @@
     </div>
 
     <!-- ==========================================
-         SLIDE 7.13 — OBSERVABILITY
+         SLIDE 8.13 — OBSERVABILITY
          ========================================== -->
     <div class="slide" data-steps="3" style="background: var(--slide-bg-default);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2228,7 +2070,7 @@
                     <div class="obs-card-icon">&#128279;</div>
                     <div class="obs-card-info">
                         <div class="obs-card-title">Tracing</div>
-                        <div class="obs-card-desc">Tracciare la catena decisionale: quale tool, perch&eacute;, cosa ha ottenuto&sup1;</div>
+                        <div class="obs-card-desc">Tracciare la catena decisionale: quale tool, perch&eacute;, cosa ha ottenuto</div>
                     </div>
                 </div>
                 <div class="obs-card">
@@ -2261,11 +2103,10 @@
         </div>
 
         <img src="../../images/stars/controllo.png" alt="" class="mascot small" style="position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: clamp(1.5rem, 3vw, 3rem); opacity: 0.5;">
-        <div class="footnote">&sup1; Industria, 2025</div>
     </div>
 
     <!-- ==========================================
-         SLIDE 7.14 — RIEPILOGO BLOCCO
+         SLIDE 8.14 — RIEPILOGO BLOCCO
          ========================================== -->
     <div class="slide" data-steps="2" style="background: var(--slide-bg-mint);">
         <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
@@ -2378,10 +2219,7 @@
             }
 
             _customStepLogic(slideIndex, step) {
-                // Slide 7.2 — Agent Loop SVG animation
-                if (slideIndex === 2) {
-                    this._animateAgentLoop(step);
-                }
+                // Slide 8.2 — Agent Loop (static image, no animation needed)
                 // Slide 7.3 — Tools hub animation
                 if (slideIndex === 3) {
                     this._animateToolsRadial(step);
@@ -2393,81 +2231,7 @@
             }
 
             /* ===========================================
-               SLIDE 7.2 — Agent Loop SVG Step Logic
-               =========================================== */
-            _animateAgentLoop(step) {
-                const nodes = {
-                    obiettivo: document.getElementById('node-obiettivo'),
-                    observe: document.getElementById('node-observe'),
-                    think: document.getElementById('node-think'),
-                    act: document.getElementById('node-act'),
-                    verifica: document.getElementById('node-verifica'),
-                    risposta: document.getElementById('node-risposta')
-                };
-                const arrows = {
-                    a1: document.getElementById('arrow-1'),
-                    a2: document.getElementById('arrow-2'),
-                    a3: document.getElementById('arrow-3'),
-                    a4a: document.getElementById('arrow-4a'),
-                    a4b: document.getElementById('arrow-4b'),
-                    a4c: document.getElementById('arrow-4c')
-                };
-                const tips = {
-                    t1: document.getElementById('tip-1'),
-                    t2: document.getElementById('tip-2'),
-                    t3: document.getElementById('tip-3'),
-                    t4a: document.getElementById('tip-4a'),
-                    t4b: document.getElementById('tip-4b'),
-                    t4c: document.getElementById('tip-4c')
-                };
-                const signal = document.getElementById('signalDot');
-
-                // Helpers
-                const showNode = (node, show) => { if (node) node.classList.toggle('show', show); };
-                const drawArrow = (arrow, draw) => { if (arrow) arrow.classList.toggle('draw', draw); };
-                const showTip = (tip, show) => { if (tip) tip.classList.toggle('show', show); };
-
-                // Step 1: heading + Obiettivo node
-                showNode(nodes.obiettivo, step >= 1);
-
-                // Step 2: Observe + arrow from Obiettivo
-                showNode(nodes.observe, step >= 2);
-                drawArrow(arrows.a1, step >= 2);
-                showTip(tips.t1, step >= 2);
-
-                // Step 3: Think + arrow from Observe
-                showNode(nodes.think, step >= 3);
-                drawArrow(arrows.a2, step >= 3);
-                showTip(tips.t2, step >= 3);
-
-                // Step 4: Act + arrow from Think + Verifica + connecting arrows + Risposta
-                showNode(nodes.act, step >= 4);
-                drawArrow(arrows.a3, step >= 4);
-                showTip(tips.t3, step >= 4);
-                showNode(nodes.verifica, step >= 4);
-                showNode(nodes.risposta, step >= 4);
-                drawArrow(arrows.a4a, step >= 4);
-                showTip(tips.t4a, step >= 4);
-                drawArrow(arrows.a4b, step >= 4);
-                showTip(tips.t4b, step >= 4);
-                drawArrow(arrows.a4c, step >= 4);
-                showTip(tips.t4c, step >= 4);
-
-                // Step 5: Signal dot animation
-                if (signal) {
-                    if (step >= 5) {
-                        signal.classList.add('animate');
-                    } else {
-                        signal.classList.remove('animate');
-                        signal.setAttribute('cx', '260');
-                        signal.setAttribute('cy', '48');
-                    }
-                }
-                // Step 6: example box (handled by .step reveal)
-            }
-
-            /* ===========================================
-               SLIDE 7.3 — Tools Hub Step Logic
+               SLIDE 8.3 — Tools Hub Step Logic
                =========================================== */
             _animateToolsRadial(step) {
                 // Step 3: show tool cards (staggered via CSS transition-delay)
@@ -2482,7 +2246,7 @@
             }
 
             /* ===========================================
-               SLIDE 7.6 — MCP N×M Diagram Step Logic
+               SLIDE 8.6 — MCP N×M Diagram Step Logic
                =========================================== */
             _animateMcpDiagram(step) {
                 // Step 3: draw chaos lines
