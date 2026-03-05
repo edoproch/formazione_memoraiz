@@ -21,7 +21,7 @@
 
 ## Cosa troverai
 
-Questo repository contiene un **deck di slide interattive** creato per la formazione interna del team UX/UI e Comunicazione di [MemorAIz](https://memoraiz.com). L'obiettivo non e' insegnare a programmare, ma costruire un **linguaggio comune** sull'AI: capire come funziona, cosa puo' (e non puo') fare, e come lavorarci ogni giorno in modo consapevole.
+Questo repository contiene un **deck di slide interattive** creato da [**Edoardo Procino**](https://www.linkedin.com/in/edoardo-procino-b7a236261/) per la formazione interna del team UX/UI e Comunicazione di [MemorAIz](https://memoraiz.com). L'obiettivo non e' insegnare a programmare, ma costruire un **linguaggio comune** sull'AI: capire come funziona, cosa puo' (e non puo') fare, e come lavorarci ogni giorno in modo consapevole.
 
 Le slide sono pensate per essere **presentate**, non lette come un documento. Ogni concetto tecnico e' spiegato attraverso **analogie concrete, animazioni interattive e visualizzazioni step-by-step** — zero formule matematiche, zero prerequisiti informatici.
 
@@ -42,22 +42,6 @@ Il deck e' organizzato in **9 blocchi** che costruiscono la comprensione in modo
 | **6** | **Reasoning Models** | Chain-of-thought, modelli o1/o3, thinking budget, quando usarli e quando no |
 | **7** | **Agenti AI** | Il loop agente, tool calling, MCP, orchestrazione multi-agente, sicurezza |
 | **8** | **Checklist & Chiusura** | Albero decisionale interattivo, regole d'oro, template operativi |
-
----
-
-## Animazioni e interattivita'
-
-Le slide non sono PDF statici. Molti concetti sono accompagnati da **animazioni didattiche controllabili step-by-step** (click per avanzare), tra cui:
-
-- **Cerchi concentrici AI** — zoom progressivo con definizioni che si illuminano
-- **Rete neurale interattiva** — segnali che si propagano tra nodi, pesi che cambiano
-- **Backpropagation animata** — forward pass, errore, backward pass visualizzati
-- **Predizione next-token** — la frase si costruisce token per token con distribuzione di probabilita'
-- **Slider temperatura** — da conservativo a creativo, in tempo reale
-- **Embeddings nello spazio** — parole come punti in uno spazio 2D/3D con operazioni vettoriali
-- **Pipeline RAG** — flusso animato dei 6 step dal documento alla risposta con citazione
-- **Loop agente** — ciclo Observe → Think → Act con verifica
-- **Albero decisionale** — navigabile con click, ogni scelta apre il ramo successivo
 
 ---
 
@@ -128,7 +112,7 @@ Questo materiale e' distribuito con licenza [**Creative Commons Attribuzione - N
 
 In pratica:
 - **Puoi** consultare, leggere e condividere questo materiale liberamente
-- **Devi** attribuire la paternita' a MemorAIz
+- **Devi** attribuire la paternita' a Edoardo Procino
 - **Non puoi** modificarlo, adattarlo o creare opere derivate
 - **Non puoi** usarlo per scopi commerciali
 
@@ -137,6 +121,6 @@ In pratica:
 <p align="center">
   <img src="images/stars/lampadina.png" width="64" alt="Stellina lampadina">
   <br><br>
-  <strong>Fatto con cura da <a href="https://memoraiz.com">MemorAIz</a></strong><br>
+  <strong>Fatto con cura da <a href="https://www.linkedin.com/in/edoardo-procino-b7a236261/">Edoardo Procino</a></strong><br>
   <em>Perche' capire l'AI non dovrebbe richiedere una laurea in informatica.</em>
 </p>
