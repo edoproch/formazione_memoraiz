@@ -238,9 +238,13 @@
             transition: width 0.8s var(--ease-out-expo);
             width: 0;
         }
-        .metric-bar-fill.std { background: var(--accent-gold); }
-        .metric-bar-fill.reas { background: #7B8EBF; }
-        .metric-bar-fill.reas.cost { background: #e74c3c; }
+        /* Colori semantici per barra: celeste=positivo, rosso=negativo, giallo=neutro */
+        #bar-speed-std { background: #4ECDC4; }   /* veloce = positivo */
+        #bar-speed-reas { background: #e74c3c; }  /* lento = negativo */
+        #bar-cost-std { background: #4ECDC4; }    /* economico = positivo */
+        #bar-cost-reas { background: #e74c3c; }   /* costoso = negativo */
+        #bar-rel-std { background: #f5a623; }     /* mediocre = neutro */
+        #bar-rel-reas { background: #4ECDC4; }    /* affidabile = positivo */
         .cost-label { font-size: var(--small-size); color: #e74c3c; font-weight: 700; margin-left: 0.4em; white-space: nowrap; }
 
         /* ===========================================
@@ -726,7 +730,7 @@
                         <div class="metric-label">💰 Costo</div>
                         <div class="metric-bars">
                             <div class="metric-bar-row"><span class="metric-bar-label std">S</span><div class="metric-bar-track"><div class="metric-bar-fill std" id="bar-cost-std"></div></div></div>
-                            <div class="metric-bar-row"><span class="metric-bar-label reas">R</span><div class="metric-bar-track"><div class="metric-bar-fill reas cost" id="bar-cost-reas"></div></div><span class="cost-label">(alto)</span></div>
+                            <div class="metric-bar-row"><span class="metric-bar-label reas">R</span><div class="metric-bar-track"><div class="metric-bar-fill reas" id="bar-cost-reas"></div></div></div>
                         </div>
                     </div>
                     <div class="metric-item">

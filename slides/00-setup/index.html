@@ -16,6 +16,7 @@
             /* Slide background gradients */
             --slide-bg-default: linear-gradient(160deg, #e2e0ec 0%, #eae8f2 50%, #e2e0ec 100%);
             --slide-bg-peach: linear-gradient(160deg, #f0ddd0 0%, #f5ebe2 40%, #eae8f2 100%);
+            --slide-bg-mint: linear-gradient(160deg, #d0ece4 0%, #e2f2ec 40%, #eae8f2 100%);
 
             /* Text */
             --text-primary: #1a1a4e;
@@ -504,6 +505,7 @@
         <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
         <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
         <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
     </nav>
 
     <!-- Keyboard hint -->
@@ -598,6 +600,48 @@
             <div class="highlight-box step" data-slide="2" data-step="3">
                 Se portate a casa solo una cosa oggi, sia questa.
             </div>
+        </div>
+    </section>
+
+
+    <!-- ===========================================
+         SLIDE 4 — REGOLE DEL GIOCO
+         =========================================== -->
+    <section class="slide" style="background: var(--slide-bg-mint);">
+        <!-- Logo -->
+        <img src="../../images/logo.svg" alt="MemorAIz" class="logo">
+
+        <!-- Mascot: ascolta.png — comunicazione, ascolto -->
+        <img src="../../images/stars/ascolta.png" alt="" class="mascot bottom-right">
+
+        <!-- Sparkle decoration -->
+        <div class="sparkle" style="top: 18%; right: 10%;"></div>
+
+        <div class="slide-content">
+            <div class="section-label step" data-slide="3" data-step="0">★ SETUP</div>
+
+            <div class="section-header step" data-slide="3" data-step="0">
+                <div class="section-number">②</div>
+                <h2>Regole del gioco</h2>
+            </div>
+
+            <ul class="bullet-list">
+                <li class="step" data-slide="3" data-step="1">
+                    <strong>Interrompetemi</strong> — Domande, dubbi, perplessità: parlate in qualsiasi momento.
+                </li>
+                <li class="step" data-slide="3" data-step="2">
+                    <strong>Correggetemi</strong> — Se qualcosa non torna, ditelo subito. Meglio correggere subito!
+                </li>
+                <li class="step" data-slide="3" data-step="3">
+                    <strong>"Ne parliamo tra poco"</strong> — A volte la risposta è nelle slide successive
+                </li>
+                <li class="step" data-slide="3" data-step="4">
+                    <strong>"Segnatevela"</strong> — Per le domande più articolate, annotatele: ci torniamo a fine blocco con più contesto, così la risposta sarà migliore
+                </li>
+                <li class="step" data-slide="3" data-step="5">
+                    <strong>Pause a fine blocco</strong> — Quando serve una pausa, aspettiamo di chiudere il blocco in corso. Così non perdiamo il filo
+                </li>
+            </ul>
         </div>
     </section>
 
