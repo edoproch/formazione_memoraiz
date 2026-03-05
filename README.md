@@ -57,11 +57,9 @@ Le slide sono pubblicate e navigabili direttamente nel browser:
 
 ```bash
 git clone https://github.com/edoproch/formazione_memoraiz.git
-cd formazione_memoraiz/slides
-# Apri index.html nel browser, oppure usa un server locale:
-python3 -m http.server 8000
-# Poi visita http://localhost:8000
 ```
+
+Apri `slides/index.html` direttamente nel browser — non serve nessun server o installazione.
 
 ### Navigazione
 
