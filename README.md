@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/logo.svg" alt="MemorAIz" width="220">
+  <img src="images/logo.png" alt="MemorAIz" width="220">
 </p>
 
 <h1 align="center">Formazione AI Interna</h1>
