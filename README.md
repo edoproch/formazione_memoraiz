@@ -61,6 +61,10 @@ git clone https://github.com/edoproch/formazione_memoraiz.git
 
 Apri `slides/index.html` direttamente nel browser — non serve nessun server o installazione.
 
+### Compatibilita'
+
+Le slide sono progettate per la **presentazione su desktop**. Funzionano anche su smartphone e tablet (meglio in orizzontale), ma l'esperienza ottimale e' su schermo grande.
+
 ### Navigazione
 
 | Comando | Azione |
