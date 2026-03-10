@@ -599,6 +599,148 @@
             margin: 0 2px;
             font-family: inherit;
         }
+
+        /* =========================================
+           MOBILE RESPONSIVE — max-width: 768px
+           ========================================= */
+        @media (max-width: 768px) {
+            html, body {
+                overflow: visible;
+                overflow-x: hidden;
+            }
+
+            body {
+                flex-direction: column;
+            }
+
+            /* Sidebar → full-screen overlay, hidden by default */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                min-width: 100%;
+                height: 100%;
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+                width: 100%;
+                min-width: 100%;
+            }
+
+            /* Sidebar close button (mobile only) */
+            .sidebar-close-mobile {
+                display: block !important;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+                border: none;
+                background: rgba(255,255,255,0.12);
+                color: #fff;
+                border-radius: 10px;
+                font-size: 1.4rem;
+                cursor: pointer;
+                z-index: 10;
+                line-height: 1;
+            }
+
+            /* Overlay backdrop */
+            .sidebar-backdrop {
+                display: block !important;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+
+            .sidebar-backdrop.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Hub view */
+            .hub-view {
+                padding: 1.5rem 1rem;
+            }
+
+            .hub-hero {
+                margin-bottom: 1.5rem;
+            }
+
+            .hub-logo {
+                width: 140px;
+                margin-bottom: 1rem;
+            }
+
+            .hub-title {
+                font-size: clamp(1.4rem, 6vw, 2rem);
+            }
+
+            .hub-subtitle {
+                font-size: 0.95rem;
+            }
+
+            /* Hub grid → single column */
+            .hub-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hub-card {
+                padding: 1.25rem;
+            }
+
+            /* Start button → full width */
+            .start-all-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.9rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hub-start-all {
+                margin-top: 1.5rem;
+            }
+
+            /* Topbar → compact */
+            .topbar {
+                height: 44px;
+                min-height: 44px;
+                padding: 0 0.75rem;
+                gap: 0.5rem;
+            }
+
+            .topbar-block-name {
+                font-size: 0.7rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 45vw;
+            }
+
+            /* Hide keyboard hint on touch devices */
+            .keyboard-hint {
+                display: none !important;
+            }
+
+            /* Fullscreen adjustments */
+            body.fullscreen .main {
+                width: 100vw;
+                height: 100vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -606,7 +748,11 @@
     <!-- ==========================================
          SIDEBAR
          ========================================== -->
+    <!-- Sidebar backdrop (mobile overlay) -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" style="display:none;"></div>
+
     <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close-mobile" id="sidebarCloseMobile" style="display:none;" aria-label="Chiudi menu">&times;</button>
         <div class="sidebar-header">
             <img src="../images/logo.svg" alt="MemorAIz" class="sidebar-logo">
             <div class="sidebar-title">Formazione AI Interna</div>
@@ -973,6 +1119,46 @@
 
         // Hide keyboard hint after a few seconds
         setTimeout(() => { keyboardHint.style.opacity = '0'; }, 6000);
+
+        /* =============================================
+           MOBILE SIDEBAR OVERLAY
+           ============================================= */
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+        const sidebarCloseMobile = document.getElementById('sidebarCloseMobile');
+        const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+        function openMobileSidebar() {
+            sidebar.classList.add('mobile-open');
+            sidebar.classList.remove('collapsed');
+            sidebarBackdrop.style.display = 'block';
+            requestAnimationFrame(() => sidebarBackdrop.classList.add('visible'));
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.remove('mobile-open');
+            sidebarBackdrop.classList.remove('visible');
+            setTimeout(() => { sidebarBackdrop.style.display = 'none'; }, 300);
+        }
+
+        // Override toggle for mobile
+        toggleSidebarBtn.removeEventListener('click', toggleSidebarFn);
+        toggleSidebarBtn.addEventListener('click', () => {
+            if (isMobile()) {
+                openMobileSidebar();
+            } else {
+                toggleSidebarFn();
+            }
+        });
+
+        sidebarCloseMobile.addEventListener('click', closeMobileSidebar);
+        sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+
+        // Close sidebar when navigating to a block on mobile
+        const origNavigateToBlock = navigateToBlock;
+        navigateToBlock = function(index, goToEnd) {
+            if (isMobile()) closeMobileSidebar();
+            origNavigateToBlock(index, goToEnd);
+        };
 
         /* =============================================
            INIT
