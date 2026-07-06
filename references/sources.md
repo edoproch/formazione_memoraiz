@@ -301,6 +301,7 @@ Questo file raccoglie le fonti web consultate per verificare i contenuti di ogni
 | MTEB Leaderboard — panoramica modelli 2025 | Ailog RAG | https://app.ailog.fr/en/blog/guides/choosing-embedding-models |
 | VentureBeat: Google al #1 MTEB (luglio 2025) | VentureBeat | https://venturebeat.com/ai/new-embedding-model-leaderboard-shakeup-google-takes-1-while-alibabas-open-source-alternative-closes-gap |
 | Top Embedding Models 2026 | ArtSmart | https://artsmart.ai/blog/top-embedding-models-in-2025/ |
+| Riconferma text-embedding-3-small (1536 dim, ancora attuale) per script demo live `embedding-demo/` | OpenAI Developer Docs | https://developers.openai.com/api/docs/models/text-embedding-3-small |
 
 ### Connessione LLM → Embedding (slide 5.2 — NUOVA)
 
