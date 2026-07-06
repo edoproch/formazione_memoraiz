@@ -23,10 +23,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -34,7 +34,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        html { scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */ scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--text-primary); }
         h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 
@@ -68,19 +69,19 @@
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
         .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
-        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(1.003rem, 1.584vw, 1.491rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -112,14 +113,14 @@
         }
         .case-title {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.716vw, 1.491rem);
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: clamp(0.15rem, 0.3vw, 0.25rem);
         }
         .case-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.35vw, 1.15rem);
+            font-size: clamp(1.062rem, 1.782vw, 1.633rem);
             color: var(--text-primary);
             line-height: 1.45;
             font-weight: 500;
@@ -130,7 +131,7 @@
         }
         .case-note {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             font-style: italic;
             margin-top: clamp(0.15rem, 0.3vw, 0.2rem);
@@ -163,18 +164,18 @@
             gap: clamp(0.3rem, 0.6vw, 0.5rem);
         }
         .risk-card-icon {
-            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+            font-size: clamp(1.298rem, 2.376vw, 2.13rem);
             line-height: 1;
         }
         .risk-card-title {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            font-size: clamp(0.944rem, 1.584vw, 1.42rem);
             font-weight: 800;
             color: var(--text-primary);
         }
         .risk-card-subtitle {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.944rem, 1.386vw, 1.278rem);
             font-weight: 600;
             color: var(--accent-gold);
             text-transform: uppercase;
@@ -182,7 +183,7 @@
         }
         .risk-card-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: var(--text-primary);
             line-height: 1.4;
             font-weight: 500;
@@ -217,7 +218,7 @@
         }
         .fw-col-header {
             font-family: var(--font-display);
-            font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            font-size: clamp(0.944rem, 1.716vw, 1.491rem);
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -225,7 +226,7 @@
         .fw-col.openai .fw-col-header { color: var(--accent-gold); }
         .fw-col-subtitle {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 700;
             color: var(--text-secondary);
             font-style: italic;
@@ -239,7 +240,7 @@
         }
         .fw-list li {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: var(--text-primary);
             line-height: 1.4;
             font-weight: 500;
@@ -264,7 +265,7 @@
             border-radius: 12px;
             padding: clamp(0.6rem, 1.2vw, 1rem) clamp(0.8rem, 1.5vw, 1.2rem);
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+            font-size: clamp(1.062rem, 1.848vw, 1.633rem);
             font-weight: 700;
             color: var(--text-primary);
             text-align: center;
@@ -272,7 +273,7 @@
         }
         .bridge-text {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             font-weight: 500;
             font-style: italic;
@@ -476,7 +477,7 @@
             <ul class="bullet-list">
                 <li class="step" data-step="2"><strong>Potente ≠ affidabile</strong> — I modelli sono straordinariamente capaci, ma possono mentire, barare e sviluppare strategie che nessuno ha previsto. L'eloquenza non è garanzia di correttezza.</li>
                 <li class="step" data-step="3"><strong>I guardrail sono un lavoro in corso</strong> — I framework di sicurezza esistono ma sono giovani, auto-imposti e incompleti. L'industria sta imparando in corsa.</li>
-                <li class="step" data-step="4"><strong>Verificare è il vostro superpotere</strong> — Come professionisti UX e comunicazione, il vostro compito è progettare sistemi che prevedano l'errore: citazioni verificabili, feedback umano, limiti espliciti nelle interfacce.</li>
+                <li class="step" data-step="4"><strong>Verificare è il vostro superpotere</strong> — Il vostro compito è progettare sistemi che prevedano l'errore: citazioni verificabili, feedback umano, limiti espliciti nelle interfacce.</li>
             </ul>
 
             <div class="takeaway-box step" data-step="4">L'AI è il collaboratore più veloce e instancabile che abbiate mai avuto — ma non dategli mai l'ultima parola.</div>

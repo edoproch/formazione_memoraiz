@@ -2,17 +2,16 @@
   <img src="images/logo.png" alt="MemorAIz" width="220">
 </p>
 
-<h1 align="center">Formazione AI Interna</h1>
+<h1 align="center">Formazione AI</h1>
 
 <p align="center">
   <strong>Un viaggio visivo e interattivo nell'Intelligenza Artificiale</strong><br>
-  <em>Pensato per chi progetta esperienze, non per chi scrive codice.</em>
+  <em>Pensato per chi lavora con l'AI, non per chi la programma.</em>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/slide-~86-f5a623?style=flat-square&labelColor=1a1a4e" alt="Slide">
   <img src="https://img.shields.io/badge/durata-~3--4_ore-f5a623?style=flat-square&labelColor=1a1a4e" alt="Durata">
-  <img src="https://img.shields.io/badge/pubblico-UX%2FUI_%26_Comunicazione-f5a623?style=flat-square&labelColor=1a1a4e" alt="Pubblico">
   <img src="https://img.shields.io/badge/lingua-italiano-f5a623?style=flat-square&labelColor=1a1a4e" alt="Lingua">
   <img src="https://img.shields.io/badge/licenza-CC_BY--NC--ND_4.0-f5a623?style=flat-square&labelColor=1a1a4e" alt="Licenza">
 </p>
@@ -21,7 +20,7 @@
 
 ## Cosa troverai
 
-Questo repository contiene un **deck di slide interattive** creato da [**Edoardo Procino**](https://www.linkedin.com/in/edoardo-procino-b7a236261/) per la formazione interna del team UX/UI e Comunicazione di [MemorAIz](https://memoraiz.com). L'obiettivo non e' insegnare a programmare, ma costruire un **linguaggio comune** sull'AI: capire come funziona, cosa puo' (e non puo') fare, e come lavorarci ogni giorno in modo consapevole.
+Questo repository contiene un **deck di slide interattive** creato da [**Edoardo Procino**](https://www.linkedin.com/in/edoardo-procino-b7a236261/) per [MemorAIz](https://memoraiz.com). L'obiettivo non e' insegnare a programmare, ma costruire un **linguaggio comune** sull'AI: capire come funziona, cosa puo' (e non puo') fare, e come lavorarci ogni giorno in modo consapevole.
 
 Le slide sono pensate per essere **presentate**, non lette come un documento. Ogni concetto tecnico e' spiegato attraverso **analogie concrete, animazioni interattive e visualizzazioni step-by-step** — zero formule matematiche, zero prerequisiti informatici.
 
@@ -96,7 +95,7 @@ formazione_memoraiz/
 
 ## Per chi e' pensato
 
-Questa formazione e' stata progettata per **designer UX/UI e professionisti della comunicazione** che lavorano in un contesto AI-first. Non richiede nessun background tecnico. L'obiettivo e' tripartito:
+Questa formazione e' stata progettata per **professionisti che lavorano in un contesto AI-first**. Non richiede nessun background tecnico. L'obiettivo e' tripartito:
 
 1. **Lavorare meglio** con gli strumenti AI-first
 2. **Capire cosa si puo' vendere** (e cosa no) ai clienti

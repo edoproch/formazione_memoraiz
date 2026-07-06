@@ -1,7 +1,7 @@
-# CLAUDE.md — Formazione AI Interna MemorAIz
+# CLAUDE.md — Formazione AI MemorAIz
 
 ## Progetto
-Creazione di un deck di slide interattive per una formazione AI interna (~3-4 ore) destinata al team UX/UI e Comunicazione di MemorAIz. Il contenuto completo e la struttura dei blocchi si trovano nel file `formazione-ai-outline.md` nella root del progetto.
+Creazione di un deck di slide interattive per una formazione AI (~3-4 ore) di MemorAIz. Il contenuto completo e la struttura dei blocchi si trovano nel file `formazione-ai-outline.md` nella root del progetto.
 
 ---
 
@@ -223,7 +223,7 @@ Scegliere la stellina il cui significato si collega al contenuto della slide (es
 
 ## Stile e tono dei contenuti
 
-- **Pubblico**: designer UX/UI e professionisti della comunicazione. Non hanno background in informatica o matematica.
+- **Pubblico**: professionisti senza background in informatica o matematica.
 - **Tono**: professionale ma accessibile, mai accademico. Usare analogie concrete e vicine alla loro esperienza.
 - **Lingua**: italiano per tutti i contenuti. Termini tecnici inglesi mantenuti dove sono standard (token, embedding, fine-tuning, ecc.) ma sempre con spiegazione alla prima occorrenza.
 - **Zero formule matematiche**. I concetti quantitativi vanno spiegati con analogie, visualizzazioni e animazioni.

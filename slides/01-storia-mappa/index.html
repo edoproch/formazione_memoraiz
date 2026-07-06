@@ -37,10 +37,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
 
             /* Spacing */
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
@@ -60,6 +60,7 @@
 
         html {
             scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */
             scroll-behavior: smooth;
         }
 
@@ -162,7 +163,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-size: clamp(1.003rem, 1.98vw, 1.562rem);
             font-weight: 600;
             color: var(--text-primary);
             flex-shrink: 0;
@@ -222,7 +223,7 @@
             bottom: clamp(0.8rem, 2vw, 1.5rem);
             right: clamp(1.5rem, 3vw, 3rem);
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             opacity: 0.55;
             font-weight: 400;
@@ -304,7 +305,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: var(--text-secondary);
             opacity: 0.4;
             z-index: 100;
@@ -349,7 +350,7 @@
             flex-direction: column;
             gap: clamp(0.3rem, 0.8vh, 0.6rem);
             padding: clamp(0.3rem, 0.5vw, 0.5rem) 0;
-            max-height: min(62vh, 500px);
+            max-height: min(80vh, 780px);
         }
 
         /* Vertical center line */
@@ -398,7 +399,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+            font-size: clamp(0.885rem, 1.584vw, 1.349rem);
             font-weight: 700;
             color: #fff;
             z-index: 2;
@@ -406,7 +407,7 @@
 
         .timeline-date {
             font-family: var(--font-display);
-            font-size: clamp(0.85rem, 1.45vw, 1.2rem);
+            font-size: clamp(0.95rem, 1.55vw, 1.4rem);
             text-transform: uppercase;
             color: var(--text-primary);
             letter-spacing: 0.02em;
@@ -414,7 +415,7 @@
 
         .timeline-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.35vw, 1.15rem);
+            font-size: clamp(0.9rem, 1.4vw, 1.25rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.35;
@@ -499,7 +500,7 @@
         /* Labels on circles */
         .circle-label {
             font-family: var(--font-display);
-            font-size: clamp(0.85rem, 1.45vw, 1.2rem);
+            font-size: clamp(1.003rem, 1.914vw, 1.704rem);
             text-transform: uppercase;
             color: rgba(26, 26, 78, 0.3);
             letter-spacing: 0.05em;
@@ -548,7 +549,7 @@
 
         .circle-def-full {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             font-weight: 500;
             margin-top: clamp(0.1rem, 0.3vw, 0.2rem);
@@ -591,19 +592,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.18rem, 2.64vw, 2.13rem);
         }
 
         .analogy-level {
             font-family: var(--font-display);
-            font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+            font-size: clamp(1.062rem, 1.98vw, 1.846rem);
             text-transform: uppercase;
             color: var(--text-primary);
         }
 
         .analogy-value {
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.45vw, 1.2rem);
+            font-size: clamp(1.062rem, 1.914vw, 1.704rem);
             color: var(--accent-gold);
             font-weight: 700;
         }
@@ -614,7 +615,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: rgba(26, 26, 78, 0.2);
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.18rem, 2.64vw, 2.13rem);
         }
 
         .analogy-col:last-child .analogy-arrow { display: none; }
@@ -740,7 +741,7 @@
 
         .slide .sub-heading {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            font-size: clamp(1.003rem, 1.848vw, 1.562rem);
             color: var(--text-secondary);
             font-weight: 500;
             font-style: italic;

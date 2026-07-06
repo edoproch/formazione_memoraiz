@@ -23,10 +23,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -34,7 +34,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        html { scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */ scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--text-primary); }
         h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 
@@ -62,26 +63,26 @@
         .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
         .mascot.small { height: clamp(40px, 6vw, 60px); }
         .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(1.003rem, 1.98vw, 1.562rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
         .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
         .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
         .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
-        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(1.003rem, 1.584vw, 1.491rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -109,7 +110,7 @@
             border-radius: 10px;
             padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.35vw, 1.15rem);
+            font-size: clamp(1.062rem, 1.782vw, 1.633rem);
             font-weight: 600;
             color: var(--text-primary);
             line-height: 1.4;
@@ -134,7 +135,7 @@
 
         .compare-col-header {
             font-family: var(--font-display);
-            font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            font-size: clamp(0.944rem, 1.848vw, 1.562rem);
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -143,7 +144,7 @@
 
         .compare-response {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: var(--text-primary);
             line-height: 1.4;
             font-weight: 500;
@@ -158,7 +159,7 @@
             border-radius: 8px;
             padding: clamp(0.4rem, 0.8vw, 0.6rem);
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             line-height: 1.45;
             font-weight: 500;
@@ -177,7 +178,7 @@
             align-items: center;
             gap: 4px;
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            font-size: clamp(0.885rem, 1.32vw, 1.207rem);
             font-weight: 700;
             padding: 3px 10px;
             border-radius: 999px;
@@ -203,7 +204,7 @@
         }
         .metric-label {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.278rem);
             font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -219,7 +220,7 @@
             align-items: center;
             gap: 6px;
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             font-weight: 600;
         }
         .metric-bar-label { width: 20px; text-align: right; flex-shrink: 0; }
@@ -283,7 +284,7 @@
             display: flex;
             justify-content: space-between;
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.278rem);
             font-weight: 700;
             color: var(--text-secondary);
             text-transform: uppercase;
@@ -320,13 +321,13 @@
         }
         .budget-example-title {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .budget-example-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.278rem);
             font-weight: 500;
             color: var(--text-secondary);
             line-height: 1.35;
@@ -352,7 +353,7 @@
             border: 1px solid rgba(26, 26, 78, 0.06);
         }
         .faith-icon {
-            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-size: clamp(1.32rem, 2.32vw, 1.856rem);
             width: clamp(36px, 5vw, 48px);
             height: clamp(36px, 5vw, 48px);
             display: flex;
@@ -370,13 +371,13 @@
         }
         .faith-title {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.584vw, 1.349rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .faith-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 500;
             color: var(--text-secondary);
             line-height: 1.4;
@@ -386,7 +387,7 @@
             padding: 2px 8px;
             border-radius: 6px;
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.278rem);
             font-weight: 700;
             background: rgba(200, 80, 80, 0.08);
             color: #c05050;
@@ -416,7 +417,7 @@
         .col-card.no { border: 2px solid rgba(26, 26, 78, 0.12); background: rgba(26, 26, 78, 0.03); }
         .col-card-header {
             font-family: var(--font-display);
-            font-size: clamp(0.9rem, 1.45vw, 1.2rem);
+            font-size: clamp(1.062rem, 1.914vw, 1.704rem);
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -429,7 +430,7 @@
         }
         .col-list li {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.452vw, 1.278rem);
             font-weight: 500;
             color: var(--text-primary);
             line-height: 1.4;
@@ -478,15 +479,15 @@
         }
         .routing-box-title {
             font-weight: 700;
-            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.452vw, 1.278rem);
         }
         .routing-box-desc {
-            font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.278rem);
             font-weight: 500;
             opacity: 0.7;
         }
         .routing-arrow {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.18rem, 2.64vw, 2.13rem);
             color: var(--accent-gold);
             font-weight: 700;
         }
@@ -497,7 +498,7 @@
         }
         .routing-branch-label {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -529,7 +530,7 @@
         }
         .bench-card-badge {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            font-size: clamp(0.885rem, 1.32vw, 1.207rem);
             font-weight: 700;
             color: var(--text-secondary);
             padding: 2px 8px;
@@ -539,7 +540,7 @@
         }
         .bench-card-title {
             font-family: var(--font-display);
-            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            font-size: clamp(1.003rem, 1.848vw, 1.562rem);
             text-transform: uppercase;
             color: var(--text-primary);
         }
@@ -550,7 +551,7 @@
         }
         .bench-card-list li {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.15vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.518vw, 1.349rem);
             font-weight: 500;
             color: var(--text-primary);
             line-height: 1.35;
@@ -581,7 +582,7 @@
         .vs-col.closed { border: 2px solid rgba(123, 142, 191, 0.3); background: rgba(123, 142, 191, 0.04); }
         .vs-col-header {
             font-family: var(--font-display);
-            font-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            font-size: clamp(0.944rem, 1.716vw, 1.491rem);
             text-transform: uppercase;
         }
         .vs-col.open .vs-col-header { color: #3daa5c; }
@@ -593,7 +594,7 @@
         }
         .vs-list li {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 500;
             color: var(--text-primary);
             line-height: 1.35;
@@ -603,7 +604,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-display);
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.18rem, 2.64vw, 2.13rem);
             color: var(--text-secondary);
             opacity: 0.3;
         }

@@ -25,10 +25,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -36,7 +36,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        html { scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */ scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--text-primary); }
         h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 
@@ -64,25 +65,25 @@
         .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
         .mascot.small { height: clamp(40px, 6vw, 60px); }
         .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(1.003rem, 1.98vw, 1.562rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
         .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
         .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
         .warning-box { background: rgba(245, 166, 35, 0.06); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
-        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
         .nav-dot { width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px); border-radius: 50%; border: 2px solid var(--text-primary); background: transparent; cursor: pointer; transition: background 0.3s, border-color 0.3s; padding: 0; }
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(1.003rem, 1.584vw, 1.491rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -139,7 +140,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-size: clamp(1.18rem, 2.64vw, 1.988rem);
             flex-shrink: 0;
         }
         .llm-only .compare-panel-icon {
@@ -151,13 +152,15 @@
 
         .compare-panel-title {
             font-family: var(--font-display);
-            font-size: clamp(0.9rem, 1.6vw, 1.3rem);
+            font-size: clamp(1.062rem, 2.112vw, 1.846rem);
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
         .llm-only .compare-panel-title { color: var(--text-secondary); }
         .agent .compare-panel-title { color: var(--accent-gold); }
 
+        .mini-list { list-style: none; padding: 0; }
+        .mini-list li { font-family: var(--font-body); font-size: clamp(1.05rem, 1.6vw, 1.45rem); line-height: 1.4; color: var(--text-primary); }
         .compare-panel .mini-list {
             list-style: none;
             padding: 0;
@@ -167,7 +170,7 @@
         }
         .compare-panel .mini-list li {
             font-family: var(--font-body);
-            font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.85rem, 1.452vw, 1.278rem);
             color: var(--text-primary);
             line-height: 1.4;
             font-weight: 500;
@@ -193,7 +196,7 @@
             padding-top: clamp(0.3rem, 0.6vw, 0.5rem);
             border-top: 1px solid rgba(26, 26, 78, 0.08);
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             font-style: italic;
             font-weight: 500;
@@ -207,7 +210,7 @@
             border-radius: 10px;
             padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.35vw, 1.15rem);
+            font-size: clamp(1.062rem, 1.782vw, 1.633rem);
             font-weight: 600;
             text-align: center;
             line-height: 1.4;
@@ -238,7 +241,7 @@
             border-radius: 0 8px 8px 0;
             padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             font-weight: 500;
             color: var(--text-primary);
             line-height: 1.4;
@@ -247,7 +250,7 @@
         .loop-example-box strong { font-weight: 700; }
         .loop-example-box .example-flow {
             color: var(--text-secondary);
-            font-size: clamp(0.75rem, 1vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.32vw, 1.25rem);
             margin-top: 2px;
         }
 
@@ -286,7 +289,7 @@
         }
         .llm-hub-label {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.18rem, 2.64vw, 2.13rem);
             color: var(--text-primary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -331,7 +334,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+            font-size: clamp(1.121rem, 2.112vw, 1.704rem);
             flex-shrink: 0;
         }
         .tool-card-icon.mint { background: rgba(123,191,168,0.18); }
@@ -341,14 +344,14 @@
         .tool-card-info { flex: 1; min-width: 0; }
         .tool-card-name {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 700;
             color: var(--text-primary);
             line-height: 1.2;
         }
         .tool-card-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.73rem, 1vw, 0.85rem);
+            font-size: clamp(0.861rem, 1.32vw, 1.207rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
@@ -420,7 +423,7 @@
             align-items: center;
             justify-content: center;
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 700;
             flex-shrink: 0;
             color: #ffffff;
@@ -435,7 +438,7 @@
         }
         .flow-step-label {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.25rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
@@ -444,7 +447,7 @@
         }
         .flow-step-text {
             font-family: var(--font-body);
-            font-size: clamp(0.72rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.85rem, 1.386vw, 1.25rem);
             color: var(--text-primary);
             font-weight: 500;
             line-height: 1.35;
@@ -456,7 +459,7 @@
             border-radius: 6px;
             padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem);
             font-family: 'Courier New', monospace;
-            font-size: clamp(0.73rem, 1vw, 0.85rem);
+            font-size: clamp(0.861rem, 1.32vw, 1.207rem);
             line-height: 1.5;
             margin-top: 3px;
             overflow: hidden;
@@ -470,7 +473,7 @@
             justify-content: center;
             padding: 0;
             color: rgba(26, 26, 78, 0.2);
-            font-size: clamp(0.7rem, 1vw, 0.9rem);
+            font-size: clamp(0.826rem, 1.32vw, 1.278rem);
         }
 
         /* ===========================================
@@ -499,7 +502,7 @@
         .failure-card.severity-blue { background: rgba(80, 130, 220, 0.06); border-left: 3px solid rgba(80, 130, 220, 0.5); }
 
         .failure-icon {
-            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            font-size: clamp(1.18rem, 2.376vw, 1.988rem);
             flex-shrink: 0;
             line-height: 1;
             margin-top: 2px;
@@ -507,14 +510,14 @@
         .failure-info { flex: 1; min-width: 0; }
         .failure-title {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.885rem, 1.452vw, 1.278rem);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 2px;
         }
         .failure-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.4;
@@ -526,7 +529,7 @@
             border-radius: 10px;
             padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1.2vw, 1rem);
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 600;
             margin-top: clamp(0.3rem, 0.6vw, 0.5rem);
             line-height: 1.4;
@@ -563,13 +566,13 @@
             background: rgba(255,255,255,0.6);
             border: 1.5px solid rgba(26, 26, 78, 0.1);
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             font-weight: 600;
             color: var(--text-primary);
             white-space: nowrap;
         }
         .mcp-node-icon {
-            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            font-size: clamp(1.003rem, 1.716vw, 1.562rem);
             line-height: 1;
         }
 
@@ -623,7 +626,7 @@
             padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.8rem, 1.5vw, 1.2rem);
             border-radius: 10px;
             font-family: var(--font-display);
-            font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+            font-size: clamp(0.944rem, 1.716vw, 1.562rem);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             text-align: center;
@@ -638,7 +641,7 @@
         }
         .mcp-box-sub {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             font-weight: 500;
             text-transform: none;
             letter-spacing: 0;
@@ -653,7 +656,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.25rem);
             font-weight: 700;
             text-align: center;
             white-space: nowrap;
@@ -692,12 +695,12 @@
         }
         .mcp-arch-box-title {
             font-family: var(--font-display);
-            font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.826rem, 1.452vw, 1.278rem);
             text-transform: uppercase;
             color: var(--text-primary);
         }
         .mcp-arch-box-list {
-            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.25rem);
             color: var(--text-secondary);
             font-weight: 500;
             margin-top: 2px;
@@ -709,7 +712,7 @@
             align-items: center;
             gap: 2px;
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             color: var(--accent-gold);
             font-weight: 700;
             text-transform: uppercase;
@@ -750,26 +753,26 @@
             border: 1px solid rgba(26, 26, 78, 0.06);
         }
         .mcp-example-icon {
-            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-size: clamp(1.18rem, 1.98vw, 1.846rem);
             line-height: 1;
             flex-shrink: 0;
         }
         .mcp-example-info { flex: 1; min-width: 0; }
         .mcp-example-name {
             font-family: var(--font-body);
-            font-size: clamp(0.83rem, 1.15vw, 1rem);
+            font-size: clamp(0.979rem, 1.518vw, 1.42rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .mcp-example-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.73rem, 1vw, 0.85rem);
+            font-size: clamp(0.861rem, 1.32vw, 1.207rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
         }
         .mcp-example-badge {
-            font-size: clamp(0.8rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.944rem, 1.386vw, 1.25rem);
             font-weight: 700;
             color: var(--accent-gold);
             text-transform: uppercase;
@@ -806,7 +809,7 @@
             border-left-color: rgba(220, 200, 40, 0.5);
         }
         .security-risk-severity {
-            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            font-size: clamp(1.062rem, 1.848vw, 1.562rem);
             line-height: 1;
             flex-shrink: 0;
             margin-top: 1px;
@@ -814,13 +817,13 @@
         .security-risk-info { flex: 1; min-width: 0; }
         .security-risk-title {
             font-family: var(--font-body);
-            font-size: clamp(0.72rem, 1vw, 0.85rem);
+            font-size: clamp(0.85rem, 1.32vw, 1.207rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .security-risk-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.25rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.35;
@@ -836,7 +839,7 @@
         }
         .security-mitigation {
             font-family: var(--font-body);
-            font-size: clamp(0.77rem, 1.05vw, 0.9rem);
+            font-size: clamp(0.909rem, 1.386vw, 1.278rem);
             font-weight: 600;
             color: var(--text-primary);
             padding: clamp(0.25rem, 0.5vw, 0.35rem) clamp(0.4rem, 0.7vw, 0.5rem);
@@ -875,17 +878,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-size: clamp(1.32rem, 2.32vw, 1.856rem);
         }
         .orchestra-conductor-label {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            font-size: clamp(0.885rem, 1.32vw, 1.207rem);
             font-weight: 700;
             color: var(--text-primary);
             text-align: center;
         }
         .orchestra-arrow {
-            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            font-size: clamp(1.18rem, 1.98vw, 1.846rem);
             color: var(--accent-gold);
             opacity: 0.5;
         }
@@ -908,7 +911,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            font-size: clamp(1.062rem, 1.848vw, 1.562rem);
         }
         .orchestra-musician-icon.mint { background: rgba(123,191,168,0.2); }
         .orchestra-musician-icon.lavender { background: rgba(156,141,196,0.2); }
@@ -916,13 +919,13 @@
         .orchestra-musician-icon.blue { background: rgba(130,170,220,0.2); }
         .orchestra-musician-label {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.278rem);
             font-weight: 600;
             color: var(--text-secondary);
         }
         .orchestra-caption {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.88rem);
+            font-size: clamp(0.885rem, 1.386vw, 1.25rem);
             color: var(--text-secondary);
             font-style: italic;
             text-align: center;
@@ -949,7 +952,7 @@
         }
         .pattern-num {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            font-size: clamp(1.18rem, 2.376vw, 1.988rem);
             color: var(--accent-gold);
             flex-shrink: 0;
             width: clamp(28px, 3vw, 36px);
@@ -969,7 +972,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(0.7rem, 1vw, 0.83rem);
+            font-size: clamp(0.826rem, 1.32vw, 1.179rem);
             font-family: var(--font-body);
             font-weight: 700;
             color: #fff;
@@ -980,7 +983,7 @@
         .pattern-node.agent-b { background: #9b8dc4; }
         .pattern-node.agent-c { background: #d4956b; }
         .pattern-arrow {
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: rgba(26, 26, 78, 0.3);
             flex-shrink: 0;
         }
@@ -997,27 +1000,27 @@
             gap: clamp(2px, 0.3vw, 4px);
         }
         .pattern-inter-arrow {
-            font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.278rem);
             color: var(--accent-gold);
             opacity: 0.7;
         }
         .pattern-info { flex: 1; min-width: 0; }
         .pattern-title {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .pattern-when {
             font-family: var(--font-body);
-            font-size: clamp(0.73rem, 1vw, 0.85rem);
+            font-size: clamp(0.861rem, 1.32vw, 1.207rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
         }
         .pattern-example {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             color: var(--accent-gold);
             font-weight: 600;
             font-style: italic;
@@ -1057,11 +1060,11 @@
             gap: clamp(0.3rem, 0.5vw, 0.4rem);
         }
         .memory-panel-icon {
-            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            font-size: clamp(1.298rem, 2.376vw, 1.988rem);
         }
         .memory-panel-title {
             font-family: var(--font-display);
-            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            font-size: clamp(0.944rem, 1.584vw, 1.42rem);
             text-transform: uppercase;
             color: var(--text-primary);
         }
@@ -1074,7 +1077,7 @@
             gap: clamp(0.2rem, 0.4vw, 0.35rem);
         }
         .memory-panel .mini-list li {
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             padding-left: 1.2em;
             position: relative;
             font-family: var(--font-body);
@@ -1117,13 +1120,13 @@
         }
         .skill-compare-label {
             font-family: var(--font-display);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             text-transform: uppercase;
             margin-bottom: 2px;
         }
         .skill-compare-code {
             font-family: 'Courier New', monospace;
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             background: rgba(26, 26, 78, 0.05);
             padding: 2px 6px;
             border-radius: 4px;
@@ -1132,7 +1135,7 @@
         }
         .skill-compare-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            font-size: clamp(0.885rem, 1.32vw, 1.207rem);
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -1151,17 +1154,17 @@
             border-radius: 8px;
             border: 1px solid rgba(26, 26, 78, 0.05);
         }
-        .skill-example-icon { font-size: clamp(1rem, 1.5vw, 1.2rem); flex-shrink: 0; }
+        .skill-example-icon { font-size: clamp(1.18rem, 1.98vw, 1.704rem); flex-shrink: 0; }
         .skill-example-info { flex: 1; min-width: 0; }
         .skill-example-name {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            font-size: clamp(0.944rem, 1.452vw, 1.349rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .skill-example-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.73rem, 0.98vw, 0.83rem);
+            font-size: clamp(0.861rem, 1.294vw, 1.179rem);
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -1187,17 +1190,17 @@
             background: rgba(255,255,255,0.5);
             border: 1px solid rgba(26, 26, 78, 0.06);
         }
-        .obs-card-icon { font-size: clamp(1rem, 1.5vw, 1.2rem); flex-shrink: 0; }
+        .obs-card-icon { font-size: clamp(1.18rem, 1.98vw, 1.704rem); flex-shrink: 0; }
         .obs-card-info { flex: 1; }
         .obs-card-title {
             font-family: var(--font-body);
-            font-size: clamp(0.83rem, 1.15vw, 1rem);
+            font-size: clamp(0.979rem, 1.518vw, 1.42rem);
             font-weight: 700;
             color: var(--text-primary);
         }
         .obs-card-desc {
             font-family: var(--font-body);
-            font-size: clamp(0.73rem, 1vw, 0.85rem);
+            font-size: clamp(0.861rem, 1.32vw, 1.207rem);
             color: var(--text-secondary);
             font-weight: 500;
             line-height: 1.3;
@@ -1210,7 +1213,7 @@
         }
         .kpi-pill {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 0.95vw, 0.8rem);
+            font-size: clamp(0.826rem, 1.254vw, 1.136rem);
             font-weight: 700;
             color: var(--text-primary);
             background: rgba(245, 166, 35, 0.1);
@@ -1235,7 +1238,7 @@
         }
         .takeaway-num {
             font-family: var(--font-body);
-            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            font-size: clamp(1.062rem, 1.848vw, 1.562rem);
             font-weight: 800;
             color: var(--accent-gold);
             flex-shrink: 0;
@@ -1245,7 +1248,7 @@
         }
         .takeaway-text {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+            font-size: clamp(1.003rem, 1.584vw, 1.491rem);
             color: var(--text-primary);
             font-weight: 500;
             line-height: 1.4;
@@ -2037,9 +2040,6 @@
 
             <div class="highlight-box step" data-step="3" style="margin-top: clamp(0.3rem, 0.5vw, 0.4rem);">
                 &#128260; Spec &#8594; Esempi &#8594; Test &#8594; Deploy &#8594; Monitor &#8594; Iterazione. <strong>Una skill senza eval &egrave; una demo, non un asset.</strong>
-            </div>
-            <div class="box-memoraiz step" data-step="3" style="margin-top: clamp(0.15rem, 0.3vw, 0.25rem); padding: clamp(0.25rem, 0.5vw, 0.4rem) clamp(0.5rem, 1vw, 0.8rem); background: rgba(245, 166, 35, 0.06); border: 1.5px solid rgba(245, 166, 35, 0.15); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.88rem); color: var(--text-secondary); font-weight: 500;">
-                &#11088; <strong>Per i clienti MemorAIz:</strong> skill personalizzate = output consistenti con il loro brand.
             </div>
         </div>
 

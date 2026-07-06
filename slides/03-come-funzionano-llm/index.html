@@ -24,10 +24,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -35,7 +35,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        html { scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */ scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--text-primary); }
         h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 
@@ -61,19 +62,19 @@
         .mascot.bottom-right { bottom: clamp(1rem, 3vw, 2.5rem); right: clamp(1.5rem, 4vw, 4rem); height: clamp(60px, 10vw, 110px); opacity: 0.85; }
         .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
         .section-header { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem); margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem); }
-        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(1.003rem, 1.98vw, 1.562rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
         .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
         .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
         /* Sub-heading */
-        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
-        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-note { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); font-weight: 400; font-style: italic; opacity: 0.7; }
 
         /* Nav dots */
         .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.7vh, 8px); z-index: 100; }
@@ -81,7 +82,7 @@
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
 
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(1.003rem, 1.584vw, 1.491rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
@@ -93,12 +94,12 @@
         /* ===========================================
            TOKENIZATION ANIMATION (Slide 3.1)
            =========================================== */
-        .token-sentence { font-family: var(--font-body); font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 600; color: var(--text-primary); padding: clamp(0.5rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; text-align: center; transition: all 0.5s var(--ease-out-expo); }
+        .token-sentence { font-family: var(--font-body); font-size: clamp(1.18rem, 2.64vw, 2.13rem); font-weight: 600; color: var(--text-primary); padding: clamp(0.5rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; text-align: center; transition: all 0.5s var(--ease-out-expo); }
 
         .token-pieces { display: flex; flex-wrap: wrap; gap: clamp(3px, 0.4vw, 6px); justify-content: center; padding: clamp(0.4rem, 0.8vw, 0.6rem); }
-        .tok { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: clamp(3px, 0.5vw, 6px) clamp(6px, 0.8vw, 12px); border-radius: 8px; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.2rem); font-weight: 700; color: var(--text-primary); transition: all 0.4s var(--ease-out-expo); transform: scale(0.8); opacity: 0; }
+        .tok { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; padding: clamp(3px, 0.5vw, 6px) clamp(6px, 0.8vw, 12px); border-radius: 8px; font-family: var(--font-body); font-size: clamp(1.003rem, 1.98vw, 1.704rem); font-weight: 700; color: var(--text-primary); transition: all 0.4s var(--ease-out-expo); transform: scale(0.8); opacity: 0; }
         .tok.show { transform: scale(1); opacity: 1; }
-        .tok .tok-id { font-size: clamp(0.8rem, 1.1vw, 0.95rem); font-weight: 500; color: var(--text-secondary); opacity: 0; transition: opacity 0.3s; }
+        .tok .tok-id { font-size: clamp(0.944rem, 1.452vw, 1.349rem); font-weight: 500; color: var(--text-secondary); opacity: 0; transition: opacity 0.3s; }
         .tok .tok-id.show { opacity: 0.7; }
 
         /* Token colors from MemorAIz palette */
@@ -112,16 +113,16 @@
 
         /* Data boxes for tokenization */
         .data-row { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.8vw, 0.6rem); }
-        .data-chip { flex: 1; min-width: min(200px, 100%); background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; text-align: center; }
+        .data-chip { flex: 1; min-width: min(200px, 100%); background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(1.003rem, 1.782vw, 1.633rem); font-weight: 600; text-align: center; }
 
         /* Strawberry box */
-        .curiosity-box { background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 500; line-height: 1.4; }
+        .curiosity-box { background: rgba(245, 166, 35, 0.08); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: 8px; padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.584vw, 1.42rem); font-weight: 500; line-height: 1.4; }
 
         /* ===========================================
            NEXT-TOKEN PREDICTION (Slide 3.2)
            =========================================== */
         .ntp-container { display: flex; flex-direction: column; gap: clamp(0.6rem, 1.2vw, 1rem); }
-        .ntp-sentence { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px; font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 600; padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; min-height: 2.5em; }
+        .ntp-sentence { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px; font-family: var(--font-body); font-size: clamp(1.18rem, 2.376vw, 1.988rem); font-weight: 600; padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.6rem, 1vw, 0.8rem); background: var(--highlight-bg); border-radius: 10px; min-height: 2.5em; }
         .ntp-word { transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo); }
         .ntp-word.pending { opacity: 0; transform: translateX(-8px); }
         .ntp-word.revealed { opacity: 1; transform: translateX(0); }
@@ -132,8 +133,8 @@
         .ntp-bar-wrapper { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; max-width: 90px; height: 100%; }
         .ntp-bar { width: 100%; border-radius: 4px 4px 0 0; background: rgba(26, 26, 78, 0.15); transition: height 0.5s var(--ease-out-expo), background 0.5s; min-height: 4px; }
         .ntp-bar.selected { background: var(--accent-gold); }
-        .ntp-bar-label { font-family: var(--font-body); font-size: clamp(0.7rem, 1.05vw, 0.9rem); font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
-        .ntp-bar-pct { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.9rem); font-weight: 500; color: var(--text-secondary); }
+        .ntp-bar-label { font-family: var(--font-body); font-size: clamp(0.826rem, 1.386vw, 1.278rem); font-weight: 600; color: var(--text-primary); text-align: center; white-space: nowrap; }
+        .ntp-bar-pct { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.278rem); font-weight: 500; color: var(--text-secondary); }
 
         /* ===========================================
            TEMPERATURE / SAMPLING (Slide 3.3)
@@ -142,11 +143,11 @@
         .temp-distribution { display: flex; align-items: flex-end; justify-content: center; gap: clamp(4px, 0.7vw, 10px); height: clamp(80px, 15vh, 150px); width: 100%; max-width: 600px; }
         .temp-bar-col { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; height: 100%; }
         .temp-bar { width: 100%; border-radius: 4px 4px 0 0; transition: height 0.35s var(--ease-out-expo), background 0.35s; min-height: 2px; }
-        .temp-bar-name { font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 0.95rem); font-weight: 600; color: var(--text-primary); text-align: center; }
-        .temp-bar-pct { font-family: var(--font-body); font-size: clamp(0.75rem, 1.05vw, 0.85rem); color: var(--text-secondary); }
+        .temp-bar-name { font-family: var(--font-body); font-size: clamp(0.944rem, 1.518vw, 1.349rem); font-weight: 600; color: var(--text-primary); text-align: center; }
+        .temp-bar-pct { font-family: var(--font-body); font-size: clamp(0.885rem, 1.386vw, 1.207rem); color: var(--text-secondary); }
 
         .temp-slider-row { display: flex; align-items: center; gap: clamp(0.4rem, 0.8vw, 0.6rem); width: 100%; max-width: 500px; }
-        .temp-slider-label { font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.95rem); font-weight: 700; white-space: nowrap; }
+        .temp-slider-label { font-family: var(--font-body); font-size: clamp(0.885rem, 1.452vw, 1.349rem); font-weight: 700; white-space: nowrap; }
         .temp-slider-label.cold { color: #3b82f6; }
         .temp-slider-label.hot { color: #f59e0b; }
         .temp-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #f59e0b 100%); outline: none; cursor: pointer; }
@@ -155,8 +156,8 @@
         .temp-slider:disabled { opacity: 0.5; cursor: not-allowed; }
         .temp-slider:disabled::-webkit-slider-thumb { cursor: not-allowed; }
 
-        .temp-value { font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 800; color: var(--text-primary); text-align: center; }
-        .temp-description { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 600; text-align: center; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.6rem, 1vw, 0.8rem); border-radius: 20px; transition: all 0.4s; }
+        .temp-value { font-family: var(--font-body); font-size: clamp(1.18rem, 2.376vw, 1.988rem); font-weight: 800; color: var(--text-primary); text-align: center; }
+        .temp-description { font-family: var(--font-body); font-size: clamp(1.062rem, 1.782vw, 1.633rem); font-weight: 600; text-align: center; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.6rem, 1vw, 0.8rem); border-radius: 20px; transition: all 0.4s; }
         .temp-boxes { display: flex; flex-wrap: wrap; gap: clamp(0.3rem, 0.6vw, 0.5rem); width: 100%; }
         .temp-boxes .highlight-box { flex: 1; min-width: min(250px, 100%); }
 
@@ -169,8 +170,8 @@
         .phase-col.model { max-width: 22%; display: flex; align-items: center; justify-content: center; }
         .phase-col.output { max-width: 28%; }
 
-        .phase-icon-row { display: flex; align-items: center; gap: clamp(0.2rem, 0.4vw, 0.3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 600; color: var(--text-primary); }
-        .phase-icon-row .emoji { font-size: clamp(0.9rem, 1.5vw, 1.3rem); }
+        .phase-icon-row { display: flex; align-items: center; gap: clamp(0.2rem, 0.4vw, 0.3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.584vw, 1.42rem); font-weight: 600; color: var(--text-primary); }
+        .phase-icon-row .emoji { font-size: clamp(1.062rem, 1.98vw, 1.846rem); }
 
         .phase-arrow { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: clamp(30px, 4vw, 50px); }
         .phase-arrow-line { width: 100%; height: 2px; background: var(--accent-gold); position: relative; opacity: 0; transition: opacity 0.5s var(--ease-out-expo); }
@@ -193,7 +194,7 @@
             border: 3px solid var(--accent-gold); box-shadow: 0 0 20px rgba(245, 166, 35, 0.3); opacity: 1;
         }
 
-        .phase-output-bubble { background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem); font-family: var(--font-body); font-size: clamp(0.75rem, 1.1vw, 0.9rem); font-weight: 500; color: var(--text-secondary); line-height: 1.4; }
+        .phase-output-bubble { background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.4rem, 0.8vw, 0.6rem); font-family: var(--font-body); font-size: clamp(0.885rem, 1.452vw, 1.278rem); font-weight: 500; color: var(--text-secondary); line-height: 1.4; }
         .phase-output-bubble.chaotic { font-style: italic; opacity: 0.7; }
         .phase-output-bubble.structured { border-left: 2px solid var(--accent-gold); }
         .phase-output-bubble.safe { border-left: 2px solid #4ade80; }
@@ -203,24 +204,24 @@
         /* Schema riassuntivo (3.7) */
         .schema-flow { display: flex; align-items: stretch; gap: 0; width: 100%; }
         .schema-block { flex: 1; background: var(--highlight-bg); border-radius: 10px; padding: clamp(0.4rem, 0.8vw, 0.6rem); display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(0.15rem, 0.3vw, 0.25rem); }
-        .schema-block .sb-icon { font-size: clamp(1.2rem, 2.2vw, 1.8rem); }
-        .schema-block .sb-title { font-family: var(--font-display); font-size: clamp(0.85rem, 1.45vw, 1.2rem); text-transform: uppercase; color: var(--text-primary); }
-        .schema-block .sb-desc { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 600; color: var(--text-primary); }
-        .schema-block .sb-meta { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); font-weight: 500; }
-        .schema-arrow { display: flex; align-items: center; justify-content: center; width: clamp(24px, 3vw, 40px); flex-shrink: 0; font-size: clamp(1rem, 1.8vw, 1.4rem); color: var(--accent-gold); font-weight: 700; }
+        .schema-block .sb-icon { font-size: clamp(1.32rem, 2.552vw, 2.088rem); }
+        .schema-block .sb-title { font-family: var(--font-display); font-size: clamp(1.003rem, 1.914vw, 1.704rem); text-transform: uppercase; color: var(--text-primary); }
+        .schema-block .sb-desc { font-family: var(--font-body); font-size: clamp(1.062rem, 1.782vw, 1.633rem); font-weight: 600; color: var(--text-primary); }
+        .schema-block .sb-meta { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); font-weight: 500; }
+        .schema-arrow { display: flex; align-items: center; justify-content: center; width: clamp(24px, 3vw, 40px); flex-shrink: 0; font-size: clamp(1.18rem, 2.376vw, 1.988rem); color: var(--accent-gold); font-weight: 700; }
 
-        .schema-formula { display: flex; flex-wrap: wrap; gap: clamp(0.2rem, 0.5vw, 0.4rem); align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; color: var(--text-primary); }
+        .schema-formula { display: flex; flex-wrap: wrap; gap: clamp(0.2rem, 0.5vw, 0.4rem); align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(1.003rem, 1.782vw, 1.633rem); font-weight: 600; color: var(--text-primary); }
         .schema-formula .sf-item { padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.8vw, 0.6rem); background: var(--highlight-bg); border-radius: 6px; }
         .schema-formula .sf-eq { color: var(--accent-gold); font-weight: 800; }
 
         /* Two-column layout (3.7b) */
         .two-col { display: flex; gap: clamp(0.8rem, 2vw, 1.5rem); }
         .two-col .col { flex: 1; display: flex; flex-direction: column; gap: clamp(0.3rem, 0.6vw, 0.5rem); }
-        .col-title { font-family: var(--font-display); font-size: clamp(0.85rem, 1.4vw, 1.15rem); text-transform: uppercase; color: var(--text-primary); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem); }
-        .col-subtitle { font-family: var(--font-body); font-size: clamp(0.8rem, 1.15vw, 0.95rem); color: var(--text-secondary); font-weight: 600; font-style: italic; margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .mini-bullet { font-family: var(--font-body); font-size: clamp(0.85rem, 1.25vw, 1.1rem); font-weight: 500; color: var(--text-primary); line-height: 1.45; padding-left: 1.2em; position: relative; }
+        .col-title { font-family: var(--font-display); font-size: clamp(1.003rem, 1.848vw, 1.633rem); text-transform: uppercase; color: var(--text-primary); margin-bottom: clamp(0.1rem, 0.2vw, 0.15rem); }
+        .col-subtitle { font-family: var(--font-body); font-size: clamp(0.944rem, 1.518vw, 1.349rem); color: var(--text-secondary); font-weight: 600; font-style: italic; margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
+        .mini-bullet { font-family: var(--font-body); font-size: clamp(1.003rem, 1.65vw, 1.562rem); font-weight: 500; color: var(--text-primary); line-height: 1.45; padding-left: 1.2em; position: relative; }
         .mini-bullet::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.6em; top: 0.4em; }
-        .analogy-small { font-family: var(--font-body); font-size: clamp(0.9rem, 1.35vw, 1.15rem); font-weight: 500; color: var(--text-secondary); font-style: italic; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.7vw, 0.5rem); background: rgba(245, 166, 35, 0.06); border-radius: 6px; margin-top: auto; }
+        .analogy-small { font-family: var(--font-body); font-size: clamp(1.062rem, 1.782vw, 1.633rem); font-weight: 500; color: var(--text-secondary); font-style: italic; padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.4rem, 0.7vw, 0.5rem); background: rgba(245, 166, 35, 0.06); border-radius: 6px; margin-top: auto; }
 
         @media (max-width: 768px) {
             .phase-layout { flex-direction: column; min-height: auto; }
@@ -235,7 +236,7 @@
            ATTENTION MECHANISM (Slide 3.8)
            =========================================== */
         .attn-container { position: relative; width: 100%; }
-        .attn-sentence { font-family: var(--font-body); font-size: clamp(0.8rem, 1.4vw, 1.15rem); font-weight: 600; color: var(--text-primary); line-height: 2.2; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); background: var(--highlight-bg); border-radius: 10px; position: relative; display: flex; flex-wrap: wrap; gap: 0; }
+        .attn-sentence { font-family: var(--font-body); font-size: clamp(0.944rem, 1.848vw, 1.633rem); font-weight: 600; color: var(--text-primary); line-height: 2.2; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); background: var(--highlight-bg); border-radius: 10px; position: relative; display: flex; flex-wrap: wrap; gap: 0; }
         .attn-word { display: inline-block; padding: 0 2px; transition: background 0.4s, color 0.4s; border-radius: 4px; position: relative; white-space: nowrap; }
         .attn-word.highlight-strong { background: rgba(245, 166, 35, 0.25); }
         .attn-word.highlight-medium { background: rgba(245, 166, 35, 0.15); }
@@ -610,7 +611,7 @@
 
             <div class="step" data-slide="6" data-step="4">
                 <div class="data-row">
-                    <div class="curiosity-box" style="flex:1; font-size: 0.85em; opacity: 0.7;">🔤 <strong>Per approfondire</strong>: RLHF (umani)¹ · RLAIF/Constitutional AI (AI come valutatore)² · DPO (ottimizzazione diretta)⁴ · GRPO (DeepSeek)⁵</div>
+                    <div class="curiosity-box" style="flex:1;">🔤 <strong>Per approfondire</strong>: RLHF (umani)¹ · RLAIF/Constitutional AI (AI come valutatore)² · DPO (ottimizzazione diretta)⁴ · GRPO (DeepSeek)⁵</div>
                     <div class="curiosity-box" style="flex:1;">📌 <strong>"Effetto Nigeria"</strong>: ChatGPT usa "Delve" 10-100x più del normale. Perché? Molti annotatori RLHF erano nigeriani, dove "Delve" è comune nell'inglese formale. Il bias degli annotatori diventa bias del modello⁶.</div>
                 </div>
             </div>

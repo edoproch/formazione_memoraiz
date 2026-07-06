@@ -22,10 +22,10 @@
             --font-body: 'Darker Grotesque', sans-serif;
             --title-size: clamp(2.2rem, 5.5vw, 4.5rem);
             --h2-size: clamp(1.5rem, 3.5vw, 3rem);
-            --h3-size: clamp(1.1rem, 2.2vw, 1.8rem);
-            --body-size: clamp(1.2rem, 2.2vw, 1.8rem);
-            --small-size: clamp(0.7rem, 1vw, 0.9rem);
-            --label-size: clamp(0.85rem, 1.15vw, 1rem);
+            --h3-size: clamp(1.25rem, 2.4vw, 2.05rem);
+            --body-size: clamp(1.35rem, 2.5vw, 2.1rem);
+            --small-size: clamp(0.85rem, 1.3vw, 1.2rem);
+            --label-size: clamp(0.95rem, 1.3vw, 1.2rem);
             --slide-padding: clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
             --duration-normal: 0.5s;
@@ -39,7 +39,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow-x: hidden; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        html { scroll-snap-type: y mandatory;
+            font-size: clamp(12px, 1.7vh, 16px); /* readability: shrink root on short viewports so dense slides never clip; no-op >=940px height */ scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--text-primary); }
         h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; }
 
@@ -66,13 +67,13 @@
         .mascot-inline { height: clamp(45px, 7vw, 70px); opacity: 0.75; align-self: flex-end; margin-top: auto; }
         .section-label { font-family: var(--font-body); font-size: var(--label-size); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem); }
         .section-header { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 0.8rem); margin-bottom: clamp(0.2rem, 0.5vw, 0.3rem); }
-        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(0.85rem, 1.5vw, 1.1rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
+        .section-number { width: clamp(36px, 4vw, 52px); height: clamp(36px, 4vw, 52px); border: 2px solid var(--text-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: clamp(1.003rem, 1.98vw, 1.562rem); font-weight: 600; color: var(--text-primary); flex-shrink: 0; }
         .bullet-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vw, 0.8rem); }
         .bullet-list li { padding-left: 1.5em; position: relative; font-size: var(--body-size); color: var(--text-primary); line-height: 1.5; font-weight: 500; }
         .bullet-list li::before { content: '●'; position: absolute; left: 0; color: var(--accent-gold); font-size: 0.7em; top: 0.35em; }
         .bullet-list li strong { font-weight: 700; }
         .highlight-box { background: var(--highlight-bg); border-left: 3px solid var(--accent-gold); padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1.2vw, 1rem); border-radius: 0 8px 8px 0; font-family: var(--font-body); font-size: var(--body-size); font-weight: 600; color: var(--text-primary); margin-top: clamp(0.1rem, 0.3vw, 0.2rem); }
-        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
+        .footnote { position: absolute; bottom: clamp(0.8rem, 2vw, 1.5rem); right: clamp(1.5rem, 3vw, 3rem); font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); color: var(--text-secondary); opacity: 0.55; font-weight: 400; max-width: 60%; text-align: right; line-height: 1.4; }
         .starburst { width: clamp(60px, 10vw, 120px); height: clamp(60px, 10vw, 120px); background: var(--accent-gold); clip-path: polygon(50% 0%, 63% 28%, 93% 18%, 75% 43%, 100% 58%, 72% 63%, 80% 93%, 55% 73%, 32% 98%, 38% 67%, 7% 75%, 30% 50%, 0% 30%, 33% 33%, 22% 5%, 45% 28%); position: absolute; opacity: 0.08; pointer-events: none; }
         .sparkle { width: clamp(20px, 3vw, 40px); height: clamp(20px, 3vw, 40px); background: var(--accent-gold-light); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); position: absolute; opacity: 0.12; pointer-events: none; }
 
@@ -82,14 +83,14 @@
         .nav-dot:hover { border-color: var(--accent-gold); }
         .nav-dot.active { background: var(--accent-gold); border-color: var(--accent-gold); }
 
-        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(0.85rem, 1.2vw, 1.05rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
+        .keyboard-hint { position: fixed; bottom: clamp(0.5rem, 1.5vw, 1rem); left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: clamp(1.003rem, 1.584vw, 1.491rem); color: var(--text-secondary); opacity: 0.4; z-index: 100; transition: opacity 0.5s; pointer-events: none; }
 
         /* Step reveal */
         .step { opacity: 0; transform: translateY(20px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
         .step.visible { opacity: 1; transform: translateY(0); }
 
         .slide h2 { font-size: var(--h2-size); color: var(--text-primary); }
-        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
+        .slide .sub-heading { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; font-style: italic; }
 
         /* ===========================================
            SPLIT LAYOUT (Overfitting, Training vs Inference style)
@@ -98,13 +99,13 @@
         .split-col { display: flex; flex-direction: column; gap: clamp(0.2rem, 0.5vw, 0.4rem); padding: clamp(0.6rem, 1.2vw, 1.2rem); border-radius: 12px; background: rgba(26, 26, 78, 0.03); border: 1px solid rgba(26, 26, 78, 0.08); }
         .split-col-icon { font-size: clamp(1.2rem, 2.5vw, 2rem); }
         .split-col h3 { font-size: var(--h3-size); color: var(--text-primary); }
-        .split-col p { font-family: var(--font-body); font-size: clamp(0.8rem, 1.3vw, 1.05rem); color: var(--text-secondary); font-weight: 500; line-height: 1.4; }
+        .split-col p { font-family: var(--font-body); font-size: clamp(0.944rem, 1.716vw, 1.491rem); color: var(--text-secondary); font-weight: 500; line-height: 1.4; }
         .split-col .analogy-text { font-style: italic; color: var(--accent-gold); font-weight: 600; }
         .split-col.bad { border-color: rgba(231, 76, 60, 0.2); }
         .split-col.good { border-color: rgba(46, 204, 113, 0.2); }
 
         /* Self-supervised rows */
-        .row-block { background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); }
+        .row-block { background: var(--highlight-bg); border-radius: 8px; padding: clamp(0.5rem, 1vw, 0.8rem) clamp(0.6rem, 1.2vw, 1rem); font-size: clamp(1.15rem, 1.8vw, 1.6rem); line-height: 1.4; }
         .row-block strong { font-weight: 700; }
 
         /* ===========================================
@@ -131,7 +132,7 @@
         /* ===========================================
            BACKPROP ANIMATION — Loop states
            =========================================== */
-        .bp-output-box { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: var(--font-body); font-weight: 700; font-size: clamp(0.9rem, 1.45vw, 1.2rem); }
+        .bp-output-box { display: inline-block; padding: 4px 12px; border-radius: 6px; font-family: var(--font-body); font-weight: 700; font-size: clamp(1.062rem, 1.914vw, 1.704rem); }
         .bp-output-box.prediction { background: rgba(245, 166, 35, 0.15); color: var(--accent-gold); }
         .bp-output-box.correct { background: rgba(231, 76, 60, 0.12); color: var(--error-red); }
         .bp-result-row { display: flex; align-items: center; gap: clamp(0.5rem, 1vw, 1rem); flex-wrap: wrap; }
@@ -141,7 +142,7 @@
         .error-bar { height: 100%; border-radius: 7px; transition: width 0.6s var(--ease-out-expo), background 0.6s; }
         .error-bar.high { width: 90%; background: var(--error-red); }
         .error-bar.low { width: 25%; background: var(--success-green); }
-        .error-label { font-family: var(--font-body); font-size: clamp(0.8rem, 1.1vw, 0.95rem); font-weight: 700; }
+        .error-label { font-family: var(--font-body); font-size: clamp(0.944rem, 1.452vw, 1.349rem); font-weight: 700; }
 
         /* Signal dot for animation */
         .signal-dot { r: 5; opacity: 0; }
@@ -162,7 +163,7 @@
             50% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
         }
         .prob-candidates { display: flex; flex-wrap: wrap; gap: clamp(4px, 0.5vw, 8px); align-items: center; margin-top: clamp(0.2rem, 0.5vw, 0.4rem); }
-        .prob-bar { display: flex; align-items: center; gap: clamp(2px, 0.3vw, 4px); font-family: var(--font-body); font-size: clamp(0.85rem, 1.35vw, 1.15rem); font-weight: 600; }
+        .prob-bar { display: flex; align-items: center; gap: clamp(2px, 0.3vw, 4px); font-family: var(--font-body); font-size: clamp(1.003rem, 1.782vw, 1.633rem); font-weight: 600; }
         .prob-bar .bar-fill { height: clamp(14px, 2vw, 20px); border-radius: 6px; transition: width 0.6s var(--ease-out-expo); }
         .prob-bar .bar-label { white-space: nowrap; }
         .prob-bar:nth-child(1) .bar-fill { background: rgba(46, 204, 113, 0.6); }
@@ -616,7 +617,7 @@
                 </svg>
             </div>
 
-            <div class="highlight-box step" data-slide="7" data-step="3" style="font-size: clamp(0.9rem, 1.45vw, 1.2rem);">
+            <div class="highlight-box step" data-slide="7" data-step="3" style="font-size: clamp(1.062rem, 1.914vw, 1.704rem);">
                 GPT-3 (2020): 175 miliardi di parametri¹ · Llama 4 Maverick (2025): 400B totali, 17B attivi² — solo 17 miliardi si attivano per ogni domanda, come un team dove lavora solo lo specialista giusto · Behemoth: ~2.000 miliardi di parametri²
             </div>
         </div>
