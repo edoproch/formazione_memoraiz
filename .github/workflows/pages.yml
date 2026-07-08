@@ -1,0 +1,63 @@
+name: Deploy slides to Pages
+
+# Publishes two decks from one repo:
+#   /            -> main branch      (MemorAIz)
+#   /almacube/   -> almacube branch  (Almacube)
+# This workflow lives on the `almacube` branch. Each run re-checks-out BOTH
+# branches, so an almacube push (or a manual run) also refreshes main's content.
+# NOTE: a push to `main` alone does NOT trigger a redeploy (the workflow file is
+# only on `almacube`); use "Run workflow" (workflow_dispatch) to refresh main.
+
+on:
+  push:
+    branches: [almacube]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main (root site)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+
+      - name: Checkout almacube (/almacube/ subpath)
+        uses: actions/checkout@v4
+        with:
+          ref: almacube
+          path: site/almacube
+
+      - name: Clean git metadata
+        run: rm -rf site/.git site/almacube/.git
+
+      - name: Add landing redirects (root -> slides hub)
+        run: |
+          printf '%s' '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=slides/"><title>Formazione AI</title>' > site/index.html
+          printf '%s' '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=slides/"><title>Formazione AI — Almacube</title>' > site/almacube/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
